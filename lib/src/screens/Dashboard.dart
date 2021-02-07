@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../shared/styles.dart';
 import '../shared/colors.dart';
 import '../shared/fryo_icons.dart';
-import './ProductPage.dart';
+import 'ProductPage.dart';
 import '../shared/Product.dart';
 import '../shared/partials.dart';
 
@@ -105,7 +105,6 @@ class _DashboardState extends State<Dashboard> {
 }
 
 Widget storeTab(BuildContext context) {
-
   // will pick it up from here
   // am to start another template
   List<Product> foods = [
@@ -187,11 +186,9 @@ Widget storeTab(BuildContext context) {
             },
           ),
         );
-      }, imgWidth: 250, onLike: () {
-        
-      }),
+      }, imgWidth: 250, onLike: () {}),
       foodItem(foods[2], onTapped: () {
-         Navigator.push(
+        Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) {
@@ -201,9 +198,7 @@ Widget storeTab(BuildContext context) {
             },
           ),
         );
-      }, imgWidth: 200, onLike: () {
-       
-      }),
+      }, imgWidth: 200, onLike: () {}),
       foodItem(foods[3], onTapped: () {
         Navigator.push(
           context,
@@ -215,9 +210,7 @@ Widget storeTab(BuildContext context) {
             },
           ),
         );
-      }, onLike: () {
-        
-      }),
+      }, onLike: () {}),
     ]),
     deals('Drinks Parol', onViewMore: () {}, items: <Widget>[
       foodItem(drinks[0], onTapped: () {
