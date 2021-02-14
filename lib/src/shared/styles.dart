@@ -116,7 +116,7 @@ buildTextTitleVariation1(String text) {
     padding: EdgeInsets.only(bottom: 8),
     child: Text(
       text,
-      style: GoogleFonts.breeSerif(
+      style: TextStyle(
         fontSize: 36,
         fontWeight: FontWeight.w900,
         color: Colors.black,

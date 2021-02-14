@@ -94,7 +94,8 @@ class _DashboardState extends State<Dashboard> {
           type: BottomNavigationBarType.fixed,
           fixedColor: Colors.green[600],
           onTap: _onItemTapped,
-        ));
+        )
+    );
   }
 
   void _onItemTapped(int index) {
