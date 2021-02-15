@@ -1,30 +1,44 @@
-import 'package:flutter/material.dart';
-import 'src/screens/SignInPage.dart';
-import 'src/screens/SignUpPage.dart';
-import 'src/screens/HomePage.dart';
-import 'src/screens/dashboard/DashboardExplore.dart';
-import 'src/screens/recipe/RecipeExplore.dart';
-import 'src/screens/ProductPage.dart';
+import 'dart:io';
 
-void main() => runApp(MyApp());
+
+import 'package:flutter/material.dart' hide Router;
+import 'package:hive/hive.dart';
+
+import 'package:Procery/src/provider_list.dart';
+import 'package:Procery/src/router.gr.dart';
+
+import 'package:Procery/src/models/Ingredient.dart';
+import 'package:Procery/src/models/Recipe.dart';
+import 'package:path_provider/path_provider.dart' as pathProvider;
+import 'package:provider/provider.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Directory directory = await pathProvider.getApplicationDocumentsDirectory();
+  Hive.init(directory.path);
+
+  // Register new adaptor for each database 'box'
+  Hive.registerAdapter(IngredientAdapter());
+  Hive.registerAdapter(RecipeAdapter());
+
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Fryo2',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
+    return MultiProvider(
+      providers: providers,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Procery App',
+        theme: ThemeData(
+          primarySwatch: Colors.green,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          fontFamily: 'Lato',
+        ),
+        onGenerateRoute: Router(),
       ),
-      home: HomePage(pageTitle: 'Welcome'),
-      routes: <String, WidgetBuilder>{
-        '/signup': (BuildContext context) => SignUpPage(),
-        '/signin': (BuildContext context) => SignInPage(),
-        '/dashboard': (BuildContext context) => DashboardExplore(),
-        '/productPage': (BuildContext context) => ProductPage(),
-        '/recipe': (BuildContext context) => RecipeExplore(),
-      },
     );
   }
 }

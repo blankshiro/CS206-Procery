@@ -1,11 +1,12 @@
 import 'package:Procery/src/screens/recipe/RecipeDetail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+
 import 'dart:developer';
 import '../../shared/styles.dart';
 import '../../shared/colors.dart';
 import '../../shared/fryo_icons.dart';
-import './../ProductPage.dart';
+import '../unused/ProductPage.dart';
 import '../../shared/Product.dart';
 import '../../shared/partials.dart';
 import './DashboardConstants.dart';
@@ -80,42 +81,15 @@ class _DashboardExploreState extends State<DashboardExplore> {
 
   @override
   Widget build(BuildContext context) {
-    final _tabs = [
-      storeTab(context),
-      Text('Tab2'),
-      Text('Tab3'),
-      Text('Tab4'),
+
+    // Add the first page of the functionalities here
+    final List<Widget> _children = [
+      DashboardExplore(),
+      RecipeExplore(),
     ];
 
 
     return Scaffold(
-      backgroundColor: Colors.grey[50],
-      appBar: AppBar(
-        centerTitle: true,
-        elevation: 0,
-        // leading: IconButton(
-        //   onPressed: () {},
-        //   iconSize: 21,
-        //   icon: Icon(Fryo.funnel),
-        // ),
-        backgroundColor: primaryColor,
-        title:
-        Text('Procery', style: logoWhiteStyle, textAlign: TextAlign.center),
-        actions: <Widget>[
-          IconButton(
-            padding: EdgeInsets.all(0),
-            onPressed: () {},
-            iconSize: 21,
-            icon: Icon(Fryo.magnifier),
-          ),
-          IconButton(
-            padding: EdgeInsets.all(0),
-            onPressed: () {},
-            iconSize: 21,
-            icon: Icon(Fryo.alarm),
-          )
-        ],
-      ),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
@@ -190,38 +164,6 @@ class _DashboardExploreState extends State<DashboardExplore> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              icon: Icon(Fryo.shop),
-              title: Text(
-                'Home',
-                style: tabLinkStyle,
-              )),
-          BottomNavigationBarItem(
-              icon: Icon(Fryo.note),
-              title: Text(
-                'Recipe',
-                style: tabLinkStyle,
-              )),
-          BottomNavigationBarItem(
-              icon: Icon(Fryo.list),
-              title: Text(
-                'Grocery List',
-                style: tabLinkStyle,
-              )),
-          BottomNavigationBarItem(
-              icon: Icon(Fryo.user_1),
-              title: Text(
-                'Meal Planner',
-                style: tabLinkStyle,
-              ))
-        ],
-        currentIndex: _selectedIndex,
-        type: BottomNavigationBarType.fixed,
-        fixedColor: Colors.green[600],
-        onTap: _onItemTapped,
-      )
     );
   }
 
