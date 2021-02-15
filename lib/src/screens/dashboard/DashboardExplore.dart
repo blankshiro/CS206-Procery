@@ -69,7 +69,10 @@ class _DashboardExploreState extends State<DashboardExplore> {
     for (int i = 0; i < 3; i++)
       childWidgets.add(
         Center(
-          child: getRecipes(),
+          // child: getRecipes(),
+          child: Text(
+            '''child $i'''
+          ),
         ),
       );
   }
