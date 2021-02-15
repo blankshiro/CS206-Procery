@@ -206,3 +206,20 @@ buildCalories(String text) {
     ),
   );
 }
+
+
+/////////////////////////////////////
+/// DASHBOARD STYLES
+////////////////////////////////////
+
+buildExpiryDays(String text) {
+  return Text(
+    text,
+    style: TextStyle(
+      fontFamily: 'Poppins',
+      fontSize: 16,
+      color: Colors.red,
+      fontWeight: FontWeight.w600,
+    ),
+  );
+}

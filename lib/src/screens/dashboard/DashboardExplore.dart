@@ -3,15 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'dart:developer';
+
 import '../../shared/styles.dart';
 import '../../shared/colors.dart';
 import '../../shared/fryo_icons.dart';
 import '../unused/ProductPage.dart';
 import '../../shared/Product.dart';
 import '../../shared/partials.dart';
+
 import './DashboardConstants.dart';
-import './DashboardDetail.dart';
-import './DashboardData.dart';
+import './InventoryDetail.dart';
+import './InventoryData.dart';
+
 import '../recipe/RecipeData.dart';
 import '../recipe/RecipeExplore.dart';
 import '../recipe/RecipeDetail.dart';
@@ -26,7 +29,6 @@ class DashboardExplore extends StatefulWidget {
 }
 
 class _DashboardExploreState extends State<DashboardExplore> {
-  List<bool> optionSelected = [true, false, false];
   int _selectedIndex = 0;
 
   // Cupertino Segmented Control takes children in form of Map.
@@ -125,7 +127,6 @@ class _DashboardExploreState extends State<DashboardExplore> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Container(
-                  // width: MediaQuery.of(context).size.width,
                   child: Column(
                     children: <Widget>[
                     CupertinoSegmentedControl(
@@ -136,10 +137,6 @@ class _DashboardExploreState extends State<DashboardExplore> {
                         });
                       },
                       groupValue: sharedValue, //The current selected Index or key
-                      // selectedColor: Colors.blue, //Color that applies to selected key or index
-                      // pressedColor: Colors.red, //The color that applies when the user clicks or taps on a tab
-                      // unselectedColor: Colors.grey, // The color that applies to the unselected tabs or inactive tabs
-                      // padding: EdgeInsets.all(50),
                       children: map, //The tabs which are assigned in the form of map
                     ),
                   ],
@@ -153,7 +150,6 @@ class _DashboardExploreState extends State<DashboardExplore> {
             Container(
               height: 190,
               child: PageView(
-                // physics: BouncingScrollPhysics(),
                 children: <Widget>[
                   Expanded(
                     child: getChildWidget(),
@@ -174,114 +170,6 @@ class _DashboardExploreState extends State<DashboardExplore> {
     });
   }
 
-  Widget option(String text, String image, int index) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          optionSelected[index] = !optionSelected[index];
-        });
-      },
-      child: Container(
-        height: 40,
-        decoration: BoxDecoration(
-          color: optionSelected[index] ? kPrimaryColor : Colors.white,
-          borderRadius: BorderRadius.all(
-            Radius.circular(20),
-          ),
-          boxShadow: [kBoxShadow],
-        ),
-        padding: EdgeInsets.symmetric(horizontal: 12),
-        child: Row(
-          children: [
-            SizedBox(
-              height: 32,
-              width: 32,
-              child: Image.asset(
-                image,
-                color: optionSelected[index] ? Colors.white : Colors.black,
-              ),
-            ),
-            SizedBox(
-              width: 8,
-            ),
-            Text(
-              text,
-              style: TextStyle(
-                color: optionSelected[index] ? Colors.white : Colors.black,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  List<Widget> buildRecipes() {
-    List<Widget> list = [];
-    for (var i = 0; i < getRecipes().length; i++) {
-      list.add(buildRecipe(getRecipes()[i], i));
-    }
-    return list;
-  }
-
-  Widget buildRecipe(Recipe dashboard, int index) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => RecipeDetail(recipe: dashboard)),
-        );
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(
-            Radius.circular(20),
-          ),
-          boxShadow: [kBoxShadow],
-        ),
-        margin: EdgeInsets.only(
-            right: 16, left: index == 0 ? 16 : 0, bottom: 16, top: 8),
-        padding: EdgeInsets.all(16),
-        width: 220,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Expanded(
-              child: Hero(
-                tag: dashboard.image,
-                child: Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(dashboard.image),
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            buildRecipeTitle(dashboard.title),
-            buildTextSubTitleVariation2(dashboard.description),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                buildCalories(dashboard.calories.toString() + " Kcal"),
-                Icon(
-                  Icons.favorite_border,
-                )
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   List<Widget> buildExpirings() {
     List<Widget> expiringList = [];
     for (var i = 0; i < getExpiring().length; i++) {
@@ -290,7 +178,7 @@ class _DashboardExploreState extends State<DashboardExplore> {
     return expiringList;
   }
 
-  Widget buildExpiring(Dashboard dashboard) {
+  Widget buildExpiring(Inventory inv) {
     return Container(
       margin: EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -307,7 +195,7 @@ class _DashboardExploreState extends State<DashboardExplore> {
             width: 160,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(dashboard.image),
+                image: AssetImage(inv.image),
                 fit: BoxFit.fitHeight,
               ),
             ),
@@ -319,8 +207,9 @@ class _DashboardExploreState extends State<DashboardExplore> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  buildRecipeTitle(dashboard.title),
-                  buildRecipeSubTitle(dashboard.description),
+                  buildRecipeTitle(inv.title),
+                  buildRecipeSubTitle(inv.description),
+                  buildExpiryDays("Expiring in: " + inv.expiry.toString() + " Days"),
                 ],
               ),
             ),
