@@ -1,8 +1,10 @@
+import 'package:Procery/src/screens/recipe/RecipeSearch.dart';
 import 'package:flutter/material.dart';
 import './RecipeConstants.dart';
 import './RecipeData.dart';
 import './RecipeDetail.dart';
 import '../../shared/styles.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class RecipeExplore extends StatefulWidget {
   @override
@@ -15,92 +17,185 @@ class RecipeExploreState extends State<RecipeExplore> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      // Top part of the app
+      backgroundColor: Colors.green[200],
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         brightness: Brightness.light,
         elevation: 0,
-        leading: Icon(
-          Icons.sort,
-          color: Colors.black,
+        title: Text(
+          "Recipes",
+          style: GoogleFonts.muli(
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
         ),
+        centerTitle: false,
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 16),
             child: Icon(
-              Icons.search,
+              Icons.menu,
               color: Colors.black,
+              size: 28,
             ),
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  buildTextTitleVariation1('Delicious Cakes'),
-                  buildTextSubTitleVariation1(
-                      'Healthy and nutritious food recipes'),
-                  SizedBox(
-                    height: 32,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // Search bar
+          Container(
+            padding: EdgeInsets.only(bottom: 10),
+            child: Padding(
+              padding: EdgeInsets.all(16),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: 'Search',
+                  hintStyle: TextStyle(fontSize: 16),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide(
+                      width: 0,
+                      style: BorderStyle.none,
+                    ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      option('Cakes', 'assets/icons/cake.png', 0),
-                      SizedBox(
-                        width: 8,
+                  filled: true,
+                  fillColor: Colors.grey[100],
+                  contentPadding: EdgeInsets.only(
+                    left: 30,
+                  ),
+                  suffixIcon: Padding(
+                    padding: EdgeInsets.only(right: 24.0, left: 16.0),
+                    child: Icon(
+                      Icons.search,
+                      color: Colors.black,
+                      size: 24,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[100],
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
+                ),
+                // Categories bar
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Categories",
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                "View All",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 8,
+                              ),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                size: 12,
+                                color: Colors.black,
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                      option('Muffins', 'assets/icons/muffin.png', 1),
-                      SizedBox(
-                        width: 8,
+                    ),
+                    // Different categories
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        option('Cakes', 'assets/icons/cake.png', 0),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        option('Muffins', 'assets/icons/muffin.png', 1),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        option('Bread', 'assets/icons/bread.png', 2),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 24,
+                    ),
+                    // Recipe Pictures
+                    Container(
+                      height: 350,
+                      child: ListView(
+                        physics: BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        children: buildRecipes(),
                       ),
-                      option('Bread', 'assets/icons/bread.png', 2),
-                    ],
-                  ),
-                ],
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    // What's Popular column
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          buildTextTitleVariation2("What's Popular", false),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          // buildTextTitleVariation2('Recent', true),
+                          IconButton(
+                            icon: Icon(Icons.search),
+                            iconSize: 25,
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                    return RecipeSearch();
+                                  },
+                                ),
+                              );
+                            },
+                          )
+                        ],
+                      ),
+                    ),
+                    Column(
+                      children: buildPopulars(),
+                    )
+                  ],
+                ),
               ),
             ),
-            SizedBox(
-              height: 24,
-            ),
-            Container(
-              height: 350,
-              child: ListView(
-                physics: BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                children: buildRecipes(),
-              ),
-            ),
-            SizedBox(
-              height: 16,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                children: [
-                  buildTextTitleVariation2('Popular', false),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  buildTextTitleVariation2('Recent', true),
-                ],
-              ),
-            ),
-            Container(
-              height: 190,
-              child: PageView(
-                physics: BouncingScrollPhysics(),
-                children: buildPopulars(),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -115,7 +210,7 @@ class RecipeExploreState extends State<RecipeExplore> {
       child: Container(
         height: 40,
         decoration: BoxDecoration(
-          color: optionSelected[index] ? kPrimaryColor : Colors.white,
+          color: optionSelected[index] ? Colors.green[200] : Colors.white,
           borderRadius: BorderRadius.all(
             Radius.circular(20),
           ),
@@ -223,7 +318,7 @@ class RecipeExploreState extends State<RecipeExplore> {
 
   Widget buildPopular(Recipe recipe) {
     return Container(
-      margin: EdgeInsets.all(16),
+      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(
@@ -234,6 +329,7 @@ class RecipeExploreState extends State<RecipeExplore> {
       child: Row(
         children: [
           Container(
+            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
             height: 160,
             width: 160,
             decoration: BoxDecoration(

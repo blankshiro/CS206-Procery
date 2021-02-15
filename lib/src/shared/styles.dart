@@ -5,18 +5,14 @@ import 'package:google_fonts/google_fonts.dart';
 /////////////////////////////////
 ///   TEXT STYLES
 ////////////////////////////////
-
 const logoStyle = TextStyle(
-    fontFamily: 'Pacifico',
+    fontFamily: 'Poppins',
     fontSize: 30,
     color: Colors.black54,
     letterSpacing: 2);
 
 const logoWhiteStyle = TextStyle(
-    fontFamily: 'Pacifico',
-    fontSize: 21,
-    letterSpacing: 2,
-    color: Colors.white);
+    fontFamily: 'Poppins', fontSize: 21, letterSpacing: 2, color: Colors.white);
 const whiteText = TextStyle(color: Colors.white, fontFamily: 'Poppins');
 const disabledText = TextStyle(color: Colors.grey, fontFamily: 'Poppins');
 const contrastText = TextStyle(color: primaryColor, fontFamily: 'Poppins');
@@ -116,7 +112,7 @@ buildTextTitleVariation1(String text) {
     padding: EdgeInsets.only(bottom: 8),
     child: Text(
       text,
-      style: GoogleFonts.breeSerif(
+      style: GoogleFonts.poppins(
         fontSize: 36,
         fontWeight: FontWeight.w900,
         color: Colors.black,
@@ -127,13 +123,14 @@ buildTextTitleVariation1(String text) {
 
 buildTextTitleVariation2(String text, bool opacity) {
   return Padding(
-    padding: EdgeInsets.only(bottom: 16),
+    padding: EdgeInsets.only(bottom: 0),
     child: Text(
       text,
       style: TextStyle(
+        fontFamily: 'Poppins',
         fontSize: 24,
         fontWeight: FontWeight.bold,
-        color: opacity ? Colors.grey[400] : Colors.black,
+        color: opacity ? Colors.grey : Colors.black,
       ),
     ),
   );
@@ -145,9 +142,10 @@ buildTextSubTitleVariation1(String text) {
     child: Text(
       text,
       style: TextStyle(
+        fontFamily: 'Poppins',
         fontSize: 16,
-        fontWeight: FontWeight.bold,
-        color: Colors.grey[400],
+        fontWeight: FontWeight.w500,
+        color: Colors.black,
       ),
     ),
   );
@@ -160,8 +158,9 @@ buildTextSubTitleVariation2(String text) {
       text,
       overflow: TextOverflow.ellipsis,
       style: TextStyle(
+        fontFamily: 'Poppins',
         fontSize: 16,
-        color: Colors.grey[400],
+        color: Colors.black,
       ),
     ),
   );
@@ -174,6 +173,7 @@ buildRecipeTitle(String text) {
       text,
       overflow: TextOverflow.ellipsis,
       style: TextStyle(
+        fontFamily: 'Poppins',
         fontSize: 22,
         fontWeight: FontWeight.bold,
       ),
@@ -187,8 +187,9 @@ buildRecipeSubTitle(String text) {
     child: Text(
       text,
       style: TextStyle(
+        fontFamily: 'Poppins',
         fontSize: 16,
-        color: Colors.grey[400],
+        color: Colors.black,
       ),
     ),
   );
@@ -198,6 +199,7 @@ buildCalories(String text) {
   return Text(
     text,
     style: TextStyle(
+      fontFamily: 'Poppins',
       fontSize: 16,
       color: Colors.black,
       fontWeight: FontWeight.bold,
