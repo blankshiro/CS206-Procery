@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: Home(),
+    home: GLHome(),
   ));
 }
 
 //making a custom stateless widget
-class Home extends StatelessWidget {
+class GLHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

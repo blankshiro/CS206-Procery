@@ -7,18 +7,18 @@ import 'package:page_transition/page_transition.dart';
 // import './unused/Dashboard.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class mealplanner extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: mealplanner(),
-      theme: ThemeData(
-          fontFamily: 'Poppins'
-      ),
-    );
-  }
-}
+// class mealplanner extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       home: mealplanner(),
+//       theme: ThemeData(
+//           fontFamily: 'Poppins'
+//       ),
+//     );
+//   }
+// }
 class MealPlanner extends StatefulWidget {
   @override
   _MealPlannerState createState() => _MealPlannerState();

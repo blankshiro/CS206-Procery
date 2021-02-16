@@ -1,9 +1,14 @@
+import 'package:Procery/src/screens/mealplanner/MealPlanner.dart';
 import 'package:flutter/material.dart';
 import 'package:Procery/src/shared/styles.dart';
 import 'package:Procery/src/shared/colors.dart';
 import 'package:Procery/src/shared/fryo_icons.dart';
+
+// Import 'First' Pages of functions
 import 'package:Procery/src/screens/dashboard/DashboardExplore.dart';
 import 'package:Procery/src/screens/recipe/RecipeExplore.dart';
+import 'package:Procery/src/screens/grocerylist/GLCurrentPage.dart';
+import 'package:Procery/src/screens/mealplanner/MealPlanner.dart';
 
 class BaseScreen extends StatefulWidget {
   @override
@@ -17,6 +22,8 @@ class _BaseState extends State<BaseScreen> {
   final List<Widget>_children = [
     DashboardExplore(),
     RecipeExplore(),
+    GLHome(),
+    MealPlanner(),
   ];
 
   @override
