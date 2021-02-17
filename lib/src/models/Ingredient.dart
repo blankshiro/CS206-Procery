@@ -5,19 +5,22 @@ part 'Ingredient.g.dart';
 @HiveType(typeId: 1)
 class Ingredient {
   @HiveField(0)
-  final String name;
+  String name;
 
   @HiveField(1)
-  final String description;
+  String description;
 
   @HiveField(3)
-  final int expiryDays;
+  int expiryDays;
 
   @HiveField(4)
-  final double price;
+  double price;
 
-  @HiveField(5)
-  final int standardQ;
+  @HiveField(5) // 6 eggs/250g flour etc
+  int standardQ;
 
-  Ingredient({this.name, this.description, this.expiryDays, this.price, this.standardQ});
+  @HiveField(6) // cups/grams/no. etc
+  String measurementType;
+
+  Ingredient({this.name, this.description, this.expiryDays, this.price, this.standardQ, this.measurementType});
 }

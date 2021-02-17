@@ -6,22 +6,22 @@ part 'Recipe.g.dart';
 @HiveType(typeId: 2)
 class Recipe {
   @HiveField(0)
-  final String name;
+  String name;
 
   @HiveField(1)
-  final String description;
+  String description;
 
   @HiveField(3)
-  final String instructions;
+  String instructions;
 
   @HiveField(4)
-  final int prepMins;
+  int prepMins;
 
   @HiveField(5)
-  final List<Ingredient> ingredients;
+  List<Ingredient> ingredients;
 
-  @HiveField(6)
-  final List<int> ingredientsQ;
+  @HiveField(6) // Order should match the ingredients ie. ingredients[0] quantity is at ingredientsQ[0]
+  List<int> ingredientsQ;
 
   Recipe({this.name, this.description, this.instructions, this.prepMins, this.ingredients, this. ingredientsQ});
 }
