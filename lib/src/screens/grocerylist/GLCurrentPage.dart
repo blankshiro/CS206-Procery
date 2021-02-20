@@ -1,3 +1,5 @@
+import 'package:Procery/src/screens/grocerylist/GLAddPage.dart';
+import 'package:Procery/src/screens/grocerylist/GLItemsPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLPastPage.dart';
 import 'package:flutter/material.dart';
 
@@ -155,7 +157,12 @@ class GLHome extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 FlatButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => GLItemPage()),
+                    );
+                  },
                   icon: Icon(Icons.brightness_1_outlined),
                   label: Text(
                     'All in One List',
@@ -186,7 +193,12 @@ class GLHome extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => GLAddPage()),
+          );
+        },
         child: Text('edit'),
         backgroundColor: Colors.greenAccent[700],
       ),

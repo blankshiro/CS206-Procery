@@ -1,3 +1,4 @@
+import 'package:Procery/src/screens/grocerylist/GLAddPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLCurrentPage.dart';
 import 'package:flutter/material.dart';
 
@@ -196,7 +197,12 @@ class GLPastPage extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => GLAddPage()),
+          );
+        },
         child: Text('edit'),
         backgroundColor: Colors.greenAccent[700],
       ),

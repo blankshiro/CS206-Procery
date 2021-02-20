@@ -1,3 +1,4 @@
+import 'package:Procery/src/screens/grocerylist/GLCurrentPage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -118,10 +119,6 @@ class GLAddPage extends StatelessWidget {
                   padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 2,
-                    ),
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(16.0),
                       topRight: Radius.circular(16.0),
@@ -143,10 +140,6 @@ class GLAddPage extends StatelessWidget {
                   padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 2,
-                    ),
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(16.0),
                       topRight: Radius.circular(16.0),
@@ -264,7 +257,12 @@ class GLAddPage extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => GLHome()),
+          );
+        },
         child: Text('save'),
         backgroundColor: Colors.greenAccent[700],
       ),

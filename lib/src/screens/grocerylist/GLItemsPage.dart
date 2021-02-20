@@ -40,10 +40,6 @@ class GLItemPage extends StatelessWidget {
                   padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 2,
-                    ),
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(16.0),
                       topRight: Radius.circular(16.0),
@@ -66,10 +62,6 @@ class GLItemPage extends StatelessWidget {
                   padding: EdgeInsets.fromLTRB(30, 5, 30, 5),
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 2,
-                    ),
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(16.0),
                       topRight: Radius.circular(16.0),
