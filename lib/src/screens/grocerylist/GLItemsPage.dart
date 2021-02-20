@@ -11,18 +11,6 @@ class GLItemPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'PROCERY',
-          style: TextStyle(
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.bold,
-            fontSize: 22,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.greenAccent[700],
-      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -30,11 +18,11 @@ class GLItemPage extends StatelessWidget {
           //num1
           Container(
             padding: EdgeInsets.all(10),
-            color: Colors.white,
+            color: Colors.grey[50],
             child: Text(
               'Family Foods List',
               style: TextStyle(
-                fontFamily: 'PoppinsB',
+                fontFamily: 'Poppins',
                 fontWeight: FontWeight.bold,
                 fontSize: 30,
               ),
@@ -44,7 +32,7 @@ class GLItemPage extends StatelessWidget {
           //num2
           Container(
             padding: EdgeInsets.all(5),
-            color: Colors.white,
+            color: Colors.grey[50],
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -105,7 +93,7 @@ class GLItemPage extends StatelessWidget {
           //num3
           Container(
             padding: EdgeInsets.all(5),
-            color: Colors.white,
+            color: Colors.grey[50],
             child: Text(
               'TBC: 22/02/2021',
               style: TextStyle(
@@ -119,12 +107,12 @@ class GLItemPage extends StatelessWidget {
           //num1
           Container(
             padding: EdgeInsets.all(5),
-            color: Colors.white,
+            color: Colors.grey[50],
             child: Row(
               children: [
                 Container(
                   padding: EdgeInsets.fromLTRB(65, 5, 20, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                   child: Text(
                     'Name:',
                     style: TextStyle(
@@ -136,7 +124,7 @@ class GLItemPage extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(80, 5, 20, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                   child: Text(
                     'Quantity:',
                     style: TextStyle(
@@ -153,12 +141,12 @@ class GLItemPage extends StatelessWidget {
           //item 1
           Container(
             padding: EdgeInsets.all(10),
-            color: Colors.white,
+            color: Colors.grey[50],
             child: Row(
               children: [
                 Container(
                   padding: EdgeInsets.fromLTRB(10, 5, 20, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                   child: Icon(
                     Icons.crop_square,
                     size: 30,
@@ -166,7 +154,7 @@ class GLItemPage extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(10, 5, 60, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                   child: Text(
                     'Eggs',
                     style: TextStyle(
@@ -178,11 +166,11 @@ class GLItemPage extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(10, 5, 37, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                   child: Text(
                     '10',
                     style: TextStyle(
@@ -195,7 +183,7 @@ class GLItemPage extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(20, 5, 10, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                   child: Icon(
                     Icons.remove,
                     size: 30,
@@ -203,7 +191,7 @@ class GLItemPage extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(5, 5, 10, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                   child: Icon(
                     Icons.add_rounded,
                     size: 30,
@@ -215,12 +203,12 @@ class GLItemPage extends StatelessWidget {
           //item 2
           Container(
             padding: EdgeInsets.all(10),
-            color: Colors.white,
+            color: Colors.grey[50],
             child: Row(
               children: [
                 Container(
                   padding: EdgeInsets.fromLTRB(10, 5, 20, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                   child: Icon(
                     Icons.crop_square,
                     size: 30,
@@ -228,7 +216,7 @@ class GLItemPage extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(10, 5, 60, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                   child: Text(
                     'Flour',
                     style: TextStyle(
@@ -240,11 +228,11 @@ class GLItemPage extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(20, 5, 10, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(10, 5, 20, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                   child: Text(
                     '100g',
                     style: TextStyle(
@@ -256,7 +244,7 @@ class GLItemPage extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(20, 5, 10, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                   child: Icon(
                     Icons.remove,
                     size: 30,
@@ -264,7 +252,7 @@ class GLItemPage extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(5, 5, 10, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                   child: Icon(
                     Icons.add_rounded,
                     size: 30,
@@ -276,12 +264,12 @@ class GLItemPage extends StatelessWidget {
           //item 3
           Container(
             padding: EdgeInsets.all(10),
-            color: Colors.white,
+            color: Colors.grey[50],
             child: Row(
               children: [
                 Container(
                   padding: EdgeInsets.fromLTRB(10, 5, 20, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                   child: Icon(
                     Icons.check_box_outlined,
                     size: 30,
@@ -289,7 +277,7 @@ class GLItemPage extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(10, 5, 37, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                   child: Text(
                     'Sugar',
                     style: TextStyle(
@@ -301,11 +289,11 @@ class GLItemPage extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(10, 5, 17, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                   child: Text(
                     '250g',
                     style: TextStyle(
@@ -317,7 +305,7 @@ class GLItemPage extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(20, 5, 10, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                   child: Icon(
                     Icons.remove,
                     size: 30,
@@ -325,7 +313,7 @@ class GLItemPage extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(5, 5, 10, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                   child: Icon(
                     Icons.add_rounded,
                     size: 30,

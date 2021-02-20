@@ -11,18 +11,6 @@ class GLAddPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'PROCERY',
-          style: TextStyle(
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.bold,
-            fontSize: 22,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.greenAccent[700],
-      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -30,11 +18,11 @@ class GLAddPage extends StatelessWidget {
           //num1
           Container(
             padding: EdgeInsets.all(10),
-            color: Colors.white,
+            color: Colors.grey[50],
             child: Text(
               'EDIT LIST',
               style: TextStyle(
-                fontFamily: 'PoppinsB',
+                fontFamily: 'Poppins',
                 fontWeight: FontWeight.bold,
                 fontSize: 30,
               ),
@@ -44,23 +32,23 @@ class GLAddPage extends StatelessWidget {
           //num2 Name:
           Container(
             padding: EdgeInsets.all(5),
-            color: Colors.white,
+            color: Colors.grey[50],
             child: Row(
               children: [
                 Container(
                   padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                   child: Text(
                     'Name:',
                     style: TextStyle(
-                      fontFamily: 'PoppinsB',
+                      fontFamily: 'Poppins',
                       fontSize: 20,
                     ),
                   ),
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(15, 5, 110, 5),
@@ -79,23 +67,23 @@ class GLAddPage extends StatelessWidget {
           //num3 Date:
           Container(
             padding: EdgeInsets.all(5),
-            color: Colors.white,
+            color: Colors.grey[50],
             child: Row(
               children: [
                 Container(
                   padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                   child: Text(
                     'Date:',
                     style: TextStyle(
-                      fontFamily: 'PoppinsB',
+                      fontFamily: 'Poppins',
                       fontSize: 20,
                     ),
                   ),
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(10, 5, 25, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(15, 5, 140, 5),
@@ -122,7 +110,7 @@ class GLAddPage extends StatelessWidget {
           //num4
           Container(
             padding: EdgeInsets.all(10),
-            color: Colors.white,
+            color: Colors.grey[50],
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -182,12 +170,12 @@ class GLAddPage extends StatelessWidget {
           //num5 name and quantity
           Container(
             padding: EdgeInsets.all(5),
-            color: Colors.white,
+            color: Colors.grey[50],
             child: Row(
               children: [
                 Container(
                   padding: EdgeInsets.fromLTRB(65, 5, 20, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                   child: Text(
                     'Name:',
                     style: TextStyle(
@@ -199,7 +187,7 @@ class GLAddPage extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(80, 5, 20, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                   child: Text(
                     'Quantity:',
                     style: TextStyle(
@@ -215,12 +203,12 @@ class GLAddPage extends StatelessWidget {
           //num6 check box
           Container(
             padding: EdgeInsets.all(10),
-            color: Colors.white,
+            color: Colors.grey[50],
             child: Row(
               children: [
                 Container(
                   padding: EdgeInsets.fromLTRB(10, 5, 20, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                   child: Icon(
                     Icons.crop_square,
                     size: 30,
@@ -240,7 +228,7 @@ class GLAddPage extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(10, 5, 20, 5),
@@ -256,7 +244,7 @@ class GLAddPage extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(20, 5, 10, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                   child: Icon(
                     Icons.remove,
                     size: 30,
@@ -264,7 +252,7 @@ class GLAddPage extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(5, 5, 10, 5),
-                  color: Colors.white,
+                  color: Colors.grey[50],
                   child: Icon(
                     Icons.add_rounded,
                     size: 30,
