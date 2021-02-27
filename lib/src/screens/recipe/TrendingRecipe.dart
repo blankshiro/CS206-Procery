@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 class TrendingRecipe extends StatefulWidget {
-  String title;
+  String name;
   String description;
   String image;
-  int calories;
+  int prepMins;
 
   TrendingRecipe({
     Key key,
-    @required this.title,
+    @required this.name,
     @required this.description,
     @required this.image,
-    @required this.calories,
+    @required this.prepMins,
   }) : super(key: key);
 
   @override
@@ -64,7 +64,7 @@ class _TrendingRecipeState extends State<TrendingRecipe> {
                               size: 10.0,
                             ),
                             Text(
-                              " ${widget.calories} ",
+                              " ${widget.prepMins} ",
                               style: TextStyle(
                                 fontSize: 10.0,
                               ),
@@ -90,7 +90,7 @@ class _TrendingRecipeState extends State<TrendingRecipe> {
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   child: Text(
-                    "${widget.title}",
+                    "${widget.name}",
                     style: TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.w800,

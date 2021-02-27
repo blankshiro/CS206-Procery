@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:Procery/src/models/Ingredient.dart';
+import '../screens/recipe/Ingredient.dart';
 
 class IngredientModel with ChangeNotifier {
   String _ingredientBox = 'ingredient';
