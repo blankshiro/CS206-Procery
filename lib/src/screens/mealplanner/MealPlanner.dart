@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 // import '../shared/styles.dart';
 // import '../shared/colors.dart';
 // import '../shared/inputFields.dart';
@@ -45,9 +46,9 @@ class _MealPlannerState extends State<MealPlanner> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
-        title: Text("Meal Planner", style: TextStyle(
-            color: Colors.black
-        ),),
+        title: Text("Meal Planner", style: GoogleFonts.poppins(
+            fontSize: 22, fontWeight: FontWeight.bold, color:Colors.black),
+        ),
       ),
       body: Column(
         children: [
@@ -59,10 +60,8 @@ class _MealPlannerState extends State<MealPlanner> {
             headerStyle: HeaderStyle(
               centerHeaderTitle: true,
               formatButtonVisible: false,
-              titleTextStyle: TextStyle(
-                  color: Colors.green,
-                  fontSize: 16
-              ),
+              titleTextStyle: GoogleFonts.poppins(
+                  fontSize: 16, fontWeight: FontWeight.normal, color:Colors.green),
               leftChevronIcon: Icon(Icons.arrow_back_ios, color: Colors.green, size: 15,),
               rightChevronIcon: Icon(Icons.arrow_forward_ios, color: Colors.green, size: 15,),
               leftChevronMargin: EdgeInsets.only(left: 70),
