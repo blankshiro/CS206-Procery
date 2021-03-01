@@ -280,11 +280,15 @@ class RecipeDetail extends StatelessWidget {
 
   String getIngredients() {
     List<Ingredient> ingredients = recipe.ingredients;
+    List<int> ingredientsQ = recipe.ingredientsQ;
     String found = "";
     for (int i = 0; i < ingredients.length - 1; i++) {
-      found += ingredients[i].getName() + ", ";
+      found +=
+          ingredientsQ[i].toString() + " " + ingredients[i].getName() + ", ";
     }
-    found += ingredients[ingredients.length - 1].getName();
+    found += ingredients[ingredients.length - 1].toString() +
+        " " +
+        ingredients[ingredients.length - 1].getName();
     return found;
   }
 }
