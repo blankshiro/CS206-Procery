@@ -1,4 +1,6 @@
 import 'package:Procery/src/screens/mealplanner/MealPlanner.dart';
+import 'package:Procery/src/screens/mealplanner/MealPlannerSelectRecipe.dart';
+import 'package:Procery/src/shared/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 // import '../shared/styles.dart';
@@ -30,13 +32,11 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
   CalendarController _calendarController;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _calendarController = CalendarController();
   }
   @override
   void dispose() {
-    // TODO: implement dispose
     _calendarController.dispose();
     super.dispose();
   }
@@ -44,15 +44,14 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        title: Text("Meal Planner", style: GoogleFonts.poppins(
-            fontSize: 22, fontWeight: FontWeight.bold, color:Colors.black),
-        ),
-      ),
+      // appBar: AppBar(
+      //   elevation: 0,
+      //   backgroundColor: Colors.transparent,
+      //   title: buildTextTitleVariation('Meal Plannerzzzxc'),
+      // ),
       body: Column(
         children: [
+          buildTextTitleVariation('Meal Planner'),
           TableCalendar(
             calendarController: _calendarController,
             initialCalendarFormat: CalendarFormat.week,
@@ -93,30 +92,16 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
                     onPressed: () {
                       Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => MealPlanner()),
+                      MaterialPageRoute(builder: (context) => MealPlannerSelectRecipe()),
                     );},
-                    icon: Icon(Icons.add),
+                    icon: Icon(Icons.add_circle),
                     color: Colors.green
                   )
-
-                  // Text('Breakfast', style: GoogleFonts.poppins(
-                  //     fontSize: 22, fontWeight: FontWeight.bold, color:Colors.black))
                 ),
                 Text('Add a meal plan now!', style: GoogleFonts.poppins(
                     fontSize: 14, fontWeight: FontWeight.normal, color:Colors.grey)),
               ],
             )
-            // child: Row(Container(
-            //     padding: EdgeInsets.all(20.0),
-            //     child: Text('Breakfast', style: TextStyle(
-            //         fontFamily: 'Poppins',
-            //         fontSize: 18,
-            //         fontWeight: FontWeight.bold,
-            //         color: Colors.black),
-            //         textAlign: TextAlign.left)),
-            // ))
-            //
-
           ),
           Text('Lunch', style: GoogleFonts.poppins(
               fontSize: 18, fontWeight: FontWeight.bold, color:Colors.black)),
@@ -130,9 +115,9 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => MealPlanner()),
+                              MaterialPageRoute(builder: (context) => MealPlannerSelectRecipe()),
                             );},
-                          icon: Icon(Icons.add),
+                          icon: Icon(Icons.add_circle),
                           color: Colors.green
                       )
 
@@ -167,9 +152,9 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => MealPlanner()),
+                              MaterialPageRoute(builder: (context) => MealPlannerSelectRecipe()),
                             );},
-                          icon: Icon(Icons.add),
+                          icon: Icon(Icons.add_circle),
                           color: Colors.green
                       )
 

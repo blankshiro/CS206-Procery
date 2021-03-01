@@ -8,18 +8,6 @@ import 'package:page_transition/page_transition.dart';
 // import './unused/Dashboard.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-// class mealplanner extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       home: mealplanner(),
-//       theme: ThemeData(
-//           fontFamily: 'Poppins'
-//       ),
-//     );
-//   }
-// }
 class MealPlanner extends StatefulWidget {
   @override
   _MealPlannerState createState() => _MealPlannerState();
@@ -68,135 +56,98 @@ class _MealPlannerState extends State<MealPlanner> {
               rightChevronMargin: EdgeInsets.only(right: 70),
             ),
             calendarStyle: CalendarStyle(
-                weekendStyle: TextStyle(
-                    color: Colors.grey
-                ),
-                weekdayStyle: TextStyle(
-                    color: Colors.grey
-                )
+                weekendStyle: GoogleFonts.poppins(
+                    fontSize: 14, fontWeight: FontWeight.normal, color:Colors.grey),
+                weekdayStyle:  GoogleFonts.poppins(
+                    fontSize: 14, fontWeight: FontWeight.normal, color:Colors.grey)
             ),
             daysOfWeekStyle: DaysOfWeekStyle(
-                weekendStyle: TextStyle(
-                    color: Colors.grey
-                ),
-                weekdayStyle: TextStyle(
-                    color: Colors.grey
-                )
+                weekendStyle:  GoogleFonts.poppins(
+                    fontSize: 14, fontWeight: FontWeight.normal, color:Colors.grey),
+                weekdayStyle:  GoogleFonts.poppins(
+                    fontSize: 14, fontWeight: FontWeight.normal, color:Colors.grey)
             ),
           ),
-          SizedBox(height: 5,),
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
-                  color: Colors.green
-              ),
-              child: Container(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Text("Today's Meal Plans", style: TextStyle(
-                              color: Colors.black,
-                          ),)
-                        ],
-                      ),
-                      SizedBox(height: 15,),
-                      Column(
-                        children: [
-                          dayTask("Breakfast", "Croissant"),
-                          dayTask("Lunch", "Chocolate Cake"),
-                          dayTask("Dinner", "Waffles"),
-                        ],
-                      )
-                    ],
+          Text('Breakfast', style: GoogleFonts.poppins(
+              fontSize: 18, fontWeight: FontWeight.bold, color:Colors.black)),
+          Align(
+              alignment: Alignment.centerLeft,
+              child: Row(
+                children: [
+                  Container(
+                    height: 190,
+                    child: Image(image: AssetImage('assets/images/cake_1.png'), width: 120,)
                   ),
-                ),
-              ),
-            ),
-          )
+                  Container(
+                      padding: EdgeInsets.all(10.0),
+                      child: IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.add_circle),
+                          color: Colors.green
+                      )
+                  ),
+                  Text('Feel free to add more dishes!', style: GoogleFonts.poppins(
+                      fontSize: 14, fontWeight: FontWeight.normal, color:Colors.grey)),
+                ],
+              )
+          ),
+          Text('Lunch', style: GoogleFonts.poppins(
+              fontSize: 18, fontWeight: FontWeight.bold, color:Colors.black)),
+          Align(
+              alignment: Alignment.centerLeft,
+              child: Row(
+                children: [
+                  Container(
+                      padding: EdgeInsets.all(10.0),
+                      child: IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.add_circle),
+                          color: Colors.green
+                      )
+
+                    // Text('Breakfast', style: GoogleFonts.poppins(
+                    //     fontSize: 22, fontWeight: FontWeight.bold, color:Colors.black))
+                  ),
+                  Text('Add a meal plan now!', style: GoogleFonts.poppins(
+                      fontSize: 14, fontWeight: FontWeight.normal, color:Colors.grey)),
+                ],
+              )
+          ),
+          Text('Dinner', style: GoogleFonts.poppins(
+              fontSize: 18, fontWeight: FontWeight.bold, color:Colors.black)),
+          Align(
+              alignment: Alignment.centerLeft,
+              child: Row(
+                children: [
+                  Container(
+                      padding: EdgeInsets.all(10.0),
+                      child: IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.add_circle),
+                          color: Colors.green
+                      )
+
+                    // Text('Breakfast', style: GoogleFonts.poppins(
+                    //     fontSize: 22, fontWeight: FontWeight.bold, color:Colors.black))
+                  ),
+                  Text('Add a meal plan now!', style: GoogleFonts.poppins(
+                      fontSize: 14, fontWeight: FontWeight.normal, color:Colors.grey)),
+                ],
+              )
+            // child: Row(Container(
+            //     padding: EdgeInsets.all(20.0),
+            //     child: Text('Breakfast', style: TextStyle(
+            //         fontFamily: 'Poppins',
+            //         fontSize: 18,
+            //         fontWeight: FontWeight.bold,
+            //         color: Colors.black),
+            //         textAlign: TextAlign.left)),
+            // ))
+            //
+
+          ),
         ],
       ),
-    );
-  }
-
-  Row dayTask(String time, String name)
-  {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: EdgeInsets.all(20),
-          width: MediaQuery.of(context).size.width*0.3,
-          child: Text(time, style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.w700,
-          ), textAlign: TextAlign.right,),
-        ),
-        Expanded(
-          child: Container(
-            margin: EdgeInsets.only(bottom: 20),
-            padding: EdgeInsets.all(10),
-            color: Colors.white,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(name, style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w700
-                ),),
-                SizedBox(height: 5,),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(Icons.access_time_outlined, color: Colors.black,),
-                    SizedBox(width: 5,),
-                    Text("10 min", style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600
-                    ),)
-                  ],
-                ),
-                SizedBox(height: 5,),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(Icons.whatshot, color: Colors.black,),
-                    SizedBox(width: 5,),
-                    Text('200 calories', style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600
-                    ),)
-                  ],
-                ),
-                // SizedBox(
-                //   height: 15,
-                // ),
-                // Row(
-                //   children: [
-                //     Icon(Icons.whatshot, color: Colors.black,),
-                //     SizedBox(width: 5,),
-                //     Icon(Icons.access_time, color: Colors.black,),
-                //     Expanded(
-                //       child: Container(),
-                //     ),
-                //     Text("\$50", style: TextStyle(
-                //         color: Colors.black,
-                //         fontSize: 16,
-                //         fontWeight: FontWeight.w600
-                //     ),)
-                //   ],
-                // )
-
-              ],
-            ),
-          ),
-        )
-      ],
     );
   }
 }
