@@ -22,13 +22,14 @@ class IngredientAdapter extends TypeAdapter<Ingredient> {
       expiryDays: fields[3] as int,
       price: fields[4] as double,
       standardQ: fields[5] as int,
+      measurementType: fields[6] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, Ingredient obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class IngredientAdapter extends TypeAdapter<Ingredient> {
       ..writeByte(4)
       ..write(obj.price)
       ..writeByte(5)
-      ..write(obj.standardQ);
+      ..write(obj.standardQ)
+      ..writeByte(6)
+      ..write(obj.measurementType);
   }
 
   @override

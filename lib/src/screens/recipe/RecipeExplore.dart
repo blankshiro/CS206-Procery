@@ -2,6 +2,8 @@ import 'package:Procery/src/screens/recipe/RecipeSearch.dart';
 import 'package:flutter/material.dart';
 import './RecipeConstants.dart';
 import './RecipeData.dart';
+import './Recipe.dart';
+import './Ingredient.dart';
 import './RecipeDetail.dart';
 import '../../shared/styles.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -291,12 +293,12 @@ class RecipeExploreState extends State<RecipeExplore> {
             SizedBox(
               height: 8,
             ),
-            buildRecipeTitle(recipe.title),
+            buildRecipeTitle(recipe.name),
             buildTextSubTitleVariation2(recipe.description),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                buildCalories(recipe.calories.toString() + " Kcal"),
+                buildCalories(recipe.prepMins.toString() + " mins"),
                 Icon(
                   Icons.favorite_border,
                 )
@@ -346,12 +348,12 @@ class RecipeExploreState extends State<RecipeExplore> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  buildRecipeTitle(recipe.title),
+                  buildRecipeTitle(recipe.name),
                   buildRecipeSubTitle(recipe.description),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      buildCalories(recipe.calories.toString() + " Kcal"),
+                      buildCalories(recipe.prepMins.toString() + " min"),
                       Icon(
                         Icons.favorite_border,
                       )
