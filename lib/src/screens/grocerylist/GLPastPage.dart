@@ -1,5 +1,9 @@
 import 'package:Procery/src/screens/grocerylist/GLAddPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLCurrentPage.dart';
+import 'package:Procery/src/shared/styles.dart';
+import 'package:Procery/src/shared/colors.dart';
+import 'package:Procery/src/shared/fryo_icons.dart';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,6 +17,27 @@ class GLPastPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: primaryColor,
+        title:
+            Text('Procery', style: logoWhiteStyle, textAlign: TextAlign.center),
+        actions: <Widget>[
+          IconButton(
+            padding: EdgeInsets.all(0),
+            onPressed: () {},
+            iconSize: 21,
+            icon: Icon(Fryo.magnifier),
+          ),
+          IconButton(
+            padding: EdgeInsets.all(0),
+            onPressed: () {},
+            iconSize: 21,
+            icon: Icon(Fryo.alarm),
+          )
+        ],
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
