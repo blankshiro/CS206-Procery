@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:Procery/src/shared/styles.dart';
+import 'package:Procery/src/shared/colors.dart';
+import 'package:Procery/src/shared/fryo_icons.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -11,6 +14,27 @@ class GLItemPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: primaryColor,
+        title:
+            Text('Procery', style: logoWhiteStyle, textAlign: TextAlign.center),
+        actions: <Widget>[
+          IconButton(
+            padding: EdgeInsets.all(0),
+            onPressed: () {},
+            iconSize: 21,
+            icon: Icon(Fryo.magnifier),
+          ),
+          IconButton(
+            padding: EdgeInsets.all(0),
+            onPressed: () {},
+            iconSize: 21,
+            icon: Icon(Fryo.alarm),
+          )
+        ],
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -174,7 +198,7 @@ class GLItemPage extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.fromLTRB(20, 5, 10, 5),
+                  padding: EdgeInsets.fromLTRB(10, 5, 5, 5),
                   color: Colors.grey[50],
                   child: Icon(
                     Icons.remove,
@@ -182,7 +206,6 @@ class GLItemPage extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.fromLTRB(5, 5, 10, 5),
                   color: Colors.grey[50],
                   child: Icon(
                     Icons.add_rounded,
@@ -235,7 +258,7 @@ class GLItemPage extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.fromLTRB(20, 5, 10, 5),
+                  padding: EdgeInsets.fromLTRB(10, 5, 5, 5),
                   color: Colors.grey[50],
                   child: Icon(
                     Icons.remove,
@@ -243,7 +266,6 @@ class GLItemPage extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.fromLTRB(5, 5, 10, 5),
                   color: Colors.grey[50],
                   child: Icon(
                     Icons.add_rounded,
@@ -296,7 +318,7 @@ class GLItemPage extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.fromLTRB(20, 5, 10, 5),
+                  padding: EdgeInsets.fromLTRB(10, 5, 5, 5),
                   color: Colors.grey[50],
                   child: Icon(
                     Icons.remove,
@@ -304,7 +326,6 @@ class GLItemPage extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.fromLTRB(5, 5, 10, 5),
                   color: Colors.grey[50],
                   child: Icon(
                     Icons.add_rounded,
