@@ -8,7 +8,7 @@ import 'package:Procery/src/shared/fryo_icons.dart';
 import 'package:Procery/src/screens/dashboard/DashboardExplore.dart';
 import 'package:Procery/src/screens/recipe/RecipeExplore.dart';
 import 'package:Procery/src/screens/grocerylist/GLCurrentPage.dart';
-import 'package:Procery/src/screens/mealplanner/MealPlanner.dart';
+import 'package:Procery/src/screens/mealplanner/MealPlannerInitial.dart';
 
 class BaseScreen extends StatefulWidget {
   @override
@@ -23,7 +23,7 @@ class _BaseState extends State<BaseScreen> {
     DashboardExplore(),
     RecipeExplore(),
     GLHome(),
-    MealPlanner(),
+    MealPlannerInitial(),
   ];
 
   @override
@@ -61,12 +61,14 @@ class _BaseState extends State<BaseScreen> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: Icon(Fryo.shop),
+              // ignore: deprecated_member_use
               title: Text(
                 'Home',
                 style: tabLinkStyle,
               )),
           BottomNavigationBarItem(
               icon: Icon(Fryo.note),
+              // ignore: deprecated_member_use
               title: Text(
                 'Recipe',
                 style: tabLinkStyle,
