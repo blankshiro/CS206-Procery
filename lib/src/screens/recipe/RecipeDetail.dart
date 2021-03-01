@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import './RecipeConstants.dart';
 import './RecipeData.dart';
+import './Recipe.dart';
+import './Ingredient.dart';
 import '../../shared/styles.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -78,7 +80,7 @@ class RecipeDetail extends StatelessWidget {
                         Row(
                           children: <Widget>[
                             Text(
-                              recipe.title,
+                              recipe.name,
                               style: GoogleFonts.poppins(
                                   fontSize: 22, fontWeight: FontWeight.bold),
                             ),
@@ -144,12 +146,12 @@ class RecipeDetail extends StatelessWidget {
                                   child: Column(
                                     children: <Widget>[
                                       Text(
-                                        "Calories",
+                                        "Preperation",
                                         style: GoogleFonts.roboto(
                                             color: Colors.grey),
                                       ),
                                       Text(
-                                        recipe.calories.toString(),
+                                        recipe.prepMins.toString() + " mins",
                                         style: GoogleFonts.roboto(
                                             color: Colors.grey[900],
                                             fontWeight: FontWeight.bold),
@@ -227,38 +229,40 @@ class RecipeDetail extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               buildTextTitleVariation2('Ingredients', false),
-                              buildTextSubTitleVariation1("2 cups white sugar"),
-                              buildTextSubTitleVariation1(
-                                  "1 ¾ cups all-purpose flour"),
-                              buildTextSubTitleVariation1(
-                                  "¾ cup unsweetened cocoa powder"),
-                              buildTextSubTitleVariation1(
-                                  "1 ½ teaspoons baking powder"),
-                              buildTextSubTitleVariation1(
-                                  "1 ½ teaspoons baking soda"),
-                              buildTextSubTitleVariation1("1 teaspoon salt"),
-                              buildTextSubTitleVariation1("2 eggs"),
-                              buildTextSubTitleVariation1("1 cup milk"),
-                              buildTextSubTitleVariation1(
-                                  "½ cup vegetable oil"),
-                              buildTextSubTitleVariation1(
-                                  "2 teaspoons vanilla extract"),
-                              buildTextSubTitleVariation1(
-                                  "1 cup boiling water"),
+                              // buildTextSubTitleVariation1("2 cups white sugar"),
+                              // buildTextSubTitleVariation1(
+                              //     "1 ¾ cups all-purpose flour"),
+                              // buildTextSubTitleVariation1(
+                              //     "¾ cup unsweetened cocoa powder"),
+                              // buildTextSubTitleVariation1(
+                              //     "1 ½ teaspoons baking powder"),
+                              // buildTextSubTitleVariation1(
+                              //     "1 ½ teaspoons baking soda"),
+                              // buildTextSubTitleVariation1("1 teaspoon salt"),
+                              // buildTextSubTitleVariation1("2 eggs"),
+                              // buildTextSubTitleVariation1("1 cup milk"),
+                              // buildTextSubTitleVariation1(
+                              //     "½ cup vegetable oil"),
+                              // buildTextSubTitleVariation1(
+                              //     "2 teaspoons vanilla extract"),
+                              // buildTextSubTitleVariation1(
+                              //     "1 cup boiling water"),
+                              buildTextSubTitleVariation1(getIngredients()),
                               SizedBox(
                                 height: 16,
                               ),
                               buildTextTitleVariation2(
                                   'Recipe Directions', false),
-                              buildTextSubTitleVariation1("STEP 1"),
-                              buildTextSubTitleVariation1(
-                                  "Preheat oven to 350 degrees F (175 degrees C). Grease and flour two nine inch round pans."),
-                              buildTextSubTitleVariation1("STEP 2"),
-                              buildTextSubTitleVariation1(
-                                  "In a large bowl, stir together the sugar, flour, cocoa, baking powder, baking soda and salt. Add the eggs, milk, oil and vanilla, mix for 2 minutes on medium speed of mixer. Stir in the boiling water last. Batter will be thin. Pour evenly into the prepared pans."),
-                              buildTextSubTitleVariation1("STEP 3"),
-                              buildTextSubTitleVariation1(
-                                  "Bake 30 to 35 minutes in the preheated oven, until the cake tests done with a toothpick. Cool in the pans for 10 minutes, then remove to a wire rack to cool completely."),
+                              // buildTextSubTitleVariation1("STEP 1"),
+                              // buildTextSubTitleVariation1(
+                              //     "Preheat oven to 350 degrees F (175 degrees C). Grease and flour two nine inch round pans."),
+                              // buildTextSubTitleVariation1("STEP 2"),
+                              // buildTextSubTitleVariation1(
+                              //     "In a large bowl, stir together the sugar, flour, cocoa, baking powder, baking soda and salt. Add the eggs, milk, oil and vanilla, mix for 2 minutes on medium speed of mixer. Stir in the boiling water last. Batter will be thin. Pour evenly into the prepared pans."),
+                              // buildTextSubTitleVariation1("STEP 3"),
+                              // buildTextSubTitleVariation1(
+                              //     "Bake 30 to 35 minutes in the preheated oven, until the cake tests done with a toothpick. Cool in the pans for 10 minutes, then remove to a wire rack to cool completely."),
+                              buildTextSubTitleVariation1(recipe.instructions)
                             ],
                           ),
                         ),
@@ -272,6 +276,16 @@ class RecipeDetail extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String getIngredients() {
+    List<Ingredient> ingredients = recipe.ingredients;
+    String found = "";
+    for (int i = 0; i < ingredients.length - 1; i++) {
+      found += ingredients[i].getName() + ", ";
+    }
+    found += ingredients[ingredients.length - 1].getName();
+    return found;
   }
 }
 //     floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import './RecipeConstants.dart';
 import './RecipeData.dart';
+import './Recipe.dart';
+import './Ingredient.dart';
 import './RecipeDetail.dart';
 import '../../shared/styles.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -100,12 +102,12 @@ class RecipeSearch extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  buildRecipeTitle(recipe.title),
+                  buildRecipeTitle(recipe.name),
                   buildRecipeSubTitle(recipe.description),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      buildCalories(recipe.calories.toString() + " Kcal"),
+                      buildCalories(recipe.prepMins.toString() + " mins"),
                       Icon(
                         Icons.favorite_border,
                       )

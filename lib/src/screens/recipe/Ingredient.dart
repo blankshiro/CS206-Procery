@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import './Recipe.dart';
 
 part 'Ingredient.g.dart';
 
@@ -22,5 +23,15 @@ class Ingredient {
   @HiveField(6) // cups/grams/no. etc
   String measurementType;
 
-  Ingredient({this.name, this.description, this.expiryDays, this.price, this.standardQ, this.measurementType});
+  Ingredient(
+      {this.name,
+      this.description,
+      this.expiryDays,
+      this.price,
+      this.standardQ,
+      this.measurementType});
+
+  String getName() {
+    return name;
+  }
 }
