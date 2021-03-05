@@ -7,9 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 ////////////////////////////////
 const logoStyle = TextStyle(
     fontFamily: 'Poppins',
-    fontSize: 30,
-    color: Colors.black54,
-    letterSpacing: 2);
+    fontWeight: FontWeight.bold,
+    fontSize: 24,
+    color: Colors.black,);
 
 const logoWhiteStyle = TextStyle(
     fontFamily: 'Poppins', fontSize: 21, letterSpacing: 2, color: Colors.white);
@@ -21,38 +21,20 @@ const contrastTextBold = TextStyle(
 
 const h3 = TextStyle(
     color: Colors.black,
-    fontSize: 24,
-    fontWeight: FontWeight.w800,
-    fontFamily: 'Poppins');
-
-const h4 = TextStyle(
-    color: Colors.black,
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: FontWeight.w700,
-    fontFamily: 'Poppins');
-
-const h5 = TextStyle(
-    color: Colors.black,
-    fontSize: 18,
-    fontWeight: FontWeight.w500,
-    fontFamily: 'Poppins');
-
-const h6 = TextStyle(
-    color: Colors.black,
-    fontSize: 16,
-    fontWeight: FontWeight.w500,
     fontFamily: 'Poppins');
 
 const priceText = TextStyle(
     color: Colors.black,
-    fontSize: 19,
-    fontWeight: FontWeight.w800,
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
     fontFamily: 'Poppins');
 
 const foodNameText = TextStyle(
     color: Colors.black,
-    fontSize: 17,
-    fontWeight: FontWeight.w600,
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
     fontFamily: 'Poppins');
 
 const tabLinkStyle = TextStyle(fontWeight: FontWeight.w500);
@@ -109,18 +91,34 @@ const inputFieldDefaultBorderStyle = OutlineInputBorder(
 ////////////////////////////////////
 buildTextTitleVariation1(String text) {
   return Padding(
-    padding: EdgeInsets.only(bottom: 8),
+    padding: EdgeInsets.only(bottom: 24),
     child: Text(
       text,
-      style: GoogleFonts.poppins(
-        fontSize: 36,
-        fontWeight: FontWeight.w900,
-        color: Colors.black,
-      ),
+      style: logoStyle,
     ),
   );
 }
-
+buildTextTitleVariation(String text) {
+  return Column(
+      children: [
+        SizedBox(
+          height: 16,
+        ),
+        // Words
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            children: [
+              buildTextTitleVariation1(text),
+              SizedBox(
+                width: 8,
+              ),
+            ],
+          ),
+        ),
+      ]
+  );
+}
 buildTextTitleVariation2(String text, bool opacity) {
   return Padding(
     padding: EdgeInsets.only(bottom: 0),
