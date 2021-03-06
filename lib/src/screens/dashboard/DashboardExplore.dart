@@ -12,8 +12,10 @@ import '../../shared/Product.dart';
 import '../../shared/partials.dart';
 
 import './DashboardConstants.dart';
-import './InventoryDetail.dart';
+
 import './InventoryData.dart';
+import './GroceryData.dart';
+import './MealData.dart';
 
 import '../recipe/RecipeData.dart';
 import '../recipe/RecipeExplore.dart';
@@ -123,6 +125,40 @@ class _DashboardExploreState extends State<DashboardExplore> {
             SizedBox(
               height: 16,
             ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: [
+                  buildTextTitleVariation1("Things to buy by: (date)"),
+                  SizedBox(
+                    width: 8,
+                  ),
+                ],
+              ),
+            ),
+
+            Column(
+              // height: 190,
+              // child: PageView(
+                // physics: BouncingScrollPhysics(),
+                children: buildGroceries(),
+              // ),
+            ),
+            SizedBox(
+              height: 16,
+            ),
+
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: [
+                  buildTextTitleVariation1("Today's Meal"),
+                  SizedBox(
+                    width: 8,
+                  ),
+                ],
+              ),
+            ),
             // Words
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
@@ -163,12 +199,16 @@ class _DashboardExploreState extends State<DashboardExplore> {
     );
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      log('index: $_selectedIndex');
-    });
-  }
+  // void _onItemTapped(int index) {
+  //   setState(() {
+  //     _selectedIndex = index;
+  //     log('index: $_selectedIndex');
+  //   });
+  // }
+
+  /////////////////////////////////////
+  /// EXPIRING PART
+  ////////////////////////////////////
 
   List<Widget> buildExpirings() {
     List<Widget> expiringList = [];
@@ -218,59 +258,157 @@ class _DashboardExploreState extends State<DashboardExplore> {
       ),
     );
   }
-}
 
-Widget storeTab(BuildContext context) {
-  List<Product> foods = [
-    Product(
-        name: "Hamburger",
-        image: "images/3.png",
-        price: "\$25.00",
-        userLiked: true,
-        discount: 10),
-    Product(
-        name: "Pasta",
-        image: "images/5.png",
-        price: "\$150.00",
-        userLiked: false,
-        discount: 7.8),
-    Product(
-      name: "Akara",
-      image: 'images/2.png',
-      price: '\$10.99',
-      userLiked: false,
-    ),
-    Product(
-        name: "Strawberry",
-        image: "images/1.png",
-        price: '\$50.00',
-        userLiked: true,
-        discount: 14)
-  ];
+  /////////////////////////////////////
+  /// GROCERY PART
+  ////////////////////////////////////
 
-  List<Product> drinks = [
-    Product(
-        name: "Coca-Cola",
-        image: "images/6.png",
-        price: "\$45.12",
-        userLiked: true,
-        discount: 2),
-    Product(
-        name: "Lemonade",
-        image: "images/7.png",
-        price: "\$28.00",
-        userLiked: false,
-        discount: 5.2),
-    Product(
-        name: "Vodka",
-        image: "images/8.png",
-        price: "\$78.99",
-        userLiked: false),
-    Product(
-        name: "Tequila",
-        image: "images/9.png",
-        price: "\$168.99",
-        userLiked: true,
-        discount: 3.4)
-  ];
+  List<Widget> buildGroceries() {
+    List<Widget> groceryList = [];
+    for (var i = 0; i < getGrocery().length; i++) {
+      groceryList.add(buildGrocery(getGrocery()[i]));
+    }
+    return groceryList;
+  }
+
+  Widget buildGrocery(Grocery grocery) {
+    return GestureDetector(
+        onTap: () {
+          color: Colors.red;
+        },
+      child: Container (
+        // padding: EdgeInsets.all(10),
+        child: Row(
+          children: [
+            Container(
+              padding: EdgeInsets.fromLTRB(30, 5, 20, 5),
+              // color: Colors.red[50],
+              child: Icon(
+                Icons.crop_square,
+                size: 30,
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.fromLTRB(10, 5, 100, 5),
+              color: Colors.grey[50],
+              child: buildRecipeTitle(grocery.title),
+              ),
+            Container(
+              padding: EdgeInsets.fromLTRB(10, 5, 37, 5),
+              color: Colors.grey[50],
+              child: buildRecipeSubTitle(grocery.description)
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /////////////////////////////////////
+  /// MEAL PART
+  ////////////////////////////////////
+
+  List<Widget> buildMeals() {
+    List<Widget> mealList = [];
+    for (var i = 0; i < getMeal().length; i++) {
+      mealList.add(buildMeal(getMeal()[i]));
+    }
+    return mealList;
+  }
+
+  Widget buildMeal(Meal meal) {
+    return Container(
+      margin: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(
+          Radius.circular(20),
+        ),
+        boxShadow: [kBoxShadow],
+      ),
+      child: Row(
+        children: [
+          Container(
+            height: 160,
+            width: 160,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(meal.image),
+                fit: BoxFit.fitHeight,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  buildRecipeTitle(meal.title),
+                  // buildRecipeSubTitle(inv.description),
+                  // buildExpiryDays("Expiring in: " + inv.expiry.toString() + " Days"),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
+//
+// Widget storeTab(BuildContext context) {
+//   List<Product> foods = [
+//     Product(
+//         name: "Hamburger",
+//         image: "images/3.png",
+//         price: "\$25.00",
+//         userLiked: true,
+//         discount: 10),
+//     Product(
+//         name: "Pasta",
+//         image: "images/5.png",
+//         price: "\$150.00",
+//         userLiked: false,
+//         discount: 7.8),
+//     Product(
+//       name: "Akara",
+//       image: 'images/2.png',
+//       price: '\$10.99',
+//       userLiked: false,
+//     ),
+//     Product(
+//         name: "Strawberry",
+//         image: "images/1.png",
+//         price: '\$50.00',
+//         userLiked: true,
+//         discount: 14)
+//   ];
+//
+//   List<Product> drinks = [
+//     Product(
+//         name: "Coca-Cola",
+//         image: "images/6.png",
+//         price: "\$45.12",
+//         userLiked: true,
+//         discount: 2),
+//     Product(
+//         name: "Lemonade",
+//         image: "images/7.png",
+//         price: "\$28.00",
+//         userLiked: false,
+//         discount: 5.2),
+//     Product(
+//         name: "Vodka",
+//         image: "images/8.png",
+//         price: "\$78.99",
+//         userLiked: false),
+//     Product(
+//         name: "Tequila",
+//         image: "images/9.png",
+//         price: "\$168.99",
+//         userLiked: true,
+//         discount: 3.4)
+//   ];
+// }
