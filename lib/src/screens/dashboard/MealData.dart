@@ -8,7 +8,8 @@ class Meal {
 
 List<Meal> getMeal() {
   return <Meal>[
-    Meal("cake1", "assets/images/cake1.png"),
-    Meal("cake2", "assets/images/cake2.png")
+    Meal("cake1", "assets/images/cake_1.png"),
+    Meal("cake2", "assets/images/cake_2.png"),
+    Meal("cake3", "assets/images/cake_3.jpg"),
   ];
 }

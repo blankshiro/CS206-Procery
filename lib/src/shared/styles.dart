@@ -221,3 +221,33 @@ buildExpiryDays(String text) {
     ),
   );
 }
+
+buildGroceryTitle(String text) {
+  return Padding(
+    padding: EdgeInsets.only(bottom: 0),
+    child: Text(
+      text,
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        fontFamily: 'Poppins',
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+  );
+}
+
+buildGrocerySubtitle(String text) {
+  return Padding(
+    padding: EdgeInsets.only(bottom: 0),
+    child: Text(
+      text,
+      overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        fontFamily: 'Poppins',
+        fontSize: 16,
+        // fontWeight: FontWeight.bold,
+      ),
+    ),
+  );
+}
