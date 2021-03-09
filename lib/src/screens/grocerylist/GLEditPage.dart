@@ -1,4 +1,3 @@
-import 'package:Procery/src/screens/grocerylist/GLAddPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLCurrentPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLCurrentList.dart';
 // import 'package:Procery/src/screens/grocerylist/GLItemsPage.dart';
@@ -211,16 +210,35 @@ class _GLEditPageState extends State<GLEditPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                  child: Text(
-                    'Name:',
-                    style: priceText,
+                Expanded(
+                  flex: 1,
+                  child: SizedBox(
+                    width: 1,
                   ),
                 ),
-                Container(
-                  child: Text(
-                    'Quantity:',
-                    style: priceText,
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    child: Text(
+                      'Name:',
+                      style: h5,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: SizedBox(
+                    width: 1,
+                  ),
+                ),
+                Expanded(
+                  flex: 4,
+                  child: Container(
+                    child: Text(
+                      'Quantity:',
+                      style: h5,
+                      textAlign: TextAlign.left,
+                    ),
                   ),
                 ),
               ],
@@ -243,7 +261,7 @@ class _GLEditPageState extends State<GLEditPage> {
                     height: 35,
                     child: TextField(
                       decoration: InputDecoration(
-                        hintText: 'ingredient',
+                        hintText: 'Ingredient',
                         hintStyle: TextStyle(fontSize: 12),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),

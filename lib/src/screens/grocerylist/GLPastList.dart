@@ -1,13 +1,14 @@
 class PastList {
   String title;
+  String date;
 
-  PastList(this.title);
+  PastList(this.title, this.date);
 }
 
 List<PastList> getPastList() {
   return <PastList>[
-    PastList("Dessert List"),
-    PastList("CAKE ONLYS List"),
-    PastList("Sweet goodies List"),
+    PastList("Dessert List", "24/3/21"),
+    PastList("CAKE ONLYS List", "24/3/21"),
+    PastList("Sweet goodies List", "24/3/21"),
   ];
 }

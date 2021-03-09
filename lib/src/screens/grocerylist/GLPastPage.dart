@@ -1,4 +1,4 @@
-import 'package:Procery/src/screens/grocerylist/GLAddPage.dart';
+import 'package:Procery/src/screens/grocerylist/GLEditPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLCurrentPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLCurrentList.dart';
 import 'package:Procery/src/screens/grocerylist/GLItemPage.dart';
@@ -151,21 +151,44 @@ class _GLPastPageState extends State<GLPastPage> {
             ),
           ),
           //NUMBER 4
-          Container(
-            color: Colors.grey[50],
-            child: Container(
-              padding: EdgeInsets.fromLTRB(50, 0, 10, 5),
-              color: Colors.grey[50],
-              child: Text(
-                'Name',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Poppins',
+          Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: SizedBox(
+                  width: 1,
                 ),
               ),
-            ),
+              Expanded(
+                flex: 4,
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  color: Colors.grey[50],
+                  child: Text(
+                    'Name',
+                    style: h5,
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: SizedBox(
+                  width: 1,
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Archived',
+                    style: h5,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ],
           ),
           //NUMBER 5
           Container(
@@ -182,7 +205,7 @@ class _GLPastPageState extends State<GLPastPage> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => GLAddPage()),
+            MaterialPageRoute(builder: (context) => GLEditPage()),
           );
         },
         child: Text('edit'),
@@ -211,13 +234,13 @@ class _GLPastPageState extends State<GLPastPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              child: buildGLPastList(pastList.title),
+              child: buildGLPastList(pastList),
             ),
           ]),
     );
   }
 
-  buildGLPastList(String text) {
+  buildGLPastList(PastList pastList) {
     return Padding(
       padding: EdgeInsets.only(bottom: 0),
       child: Row(
@@ -248,7 +271,7 @@ class _GLPastPageState extends State<GLPastPage> {
                   );
                 },
                 child: Text(
-                  text,
+                  pastList.title,
                   style: priceText,
                   textAlign: TextAlign.left,
                 ),
@@ -259,7 +282,7 @@ class _GLPastPageState extends State<GLPastPage> {
             flex: 2,
             child: Container(
               child: Text(
-                "hello",
+                pastList.date,
                 textAlign: TextAlign.center,
               ),
             ),

@@ -1,4 +1,3 @@
-import 'package:Procery/src/screens/grocerylist/GLAddPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLItemPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLPastPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLCurrentList.dart';
@@ -133,21 +132,44 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
             ),
           ),
           //NUMBER 4
-          Container(
-            color: Colors.grey[50],
-            child: Container(
-              padding: EdgeInsets.fromLTRB(50, 0, 10, 5),
-              color: Colors.grey[50],
-              child: Text(
-                'Name',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Poppins',
+          Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: SizedBox(
+                  width: 1,
                 ),
               ),
-            ),
+              Expanded(
+                flex: 4,
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  color: Colors.grey[50],
+                  child: Text(
+                    'Name',
+                    style: h5,
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: SizedBox(
+                  width: 1,
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Dateline',
+                    style: h5,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ],
           ),
           //NUMBER 5
           Container(
@@ -193,13 +215,49 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              child: buildGLCurrentList(currentList.title),
+              child: buildGLCurrentList(currentList),
+            ),
+            Row(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: SizedBox(
+                    width: 1,
+                  ),
+                ),
+                Expanded(
+                  flex: 16,
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                    child: LinearProgressIndicator(
+                      minHeight: 10,
+                      backgroundColor: Colors.grey[300],
+                      valueColor:
+                          new AlwaysStoppedAnimation(Colors.greenAccent[700]),
+                      value: currentList.progressValue,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 4,
+                  child: SizedBox(
+                    width: 2,
+                  ),
+                ),
+              ],
+            ),
+            Divider(
+              height: 10,
+              thickness: 1,
+              color: Colors.grey[300],
+              indent: 5,
+              endIndent: 5,
             ),
           ]),
     );
   }
 
-  buildGLCurrentList(String text) {
+  buildGLCurrentList(CurrentList currentList) {
     return Padding(
       padding: EdgeInsets.only(bottom: 0),
       child: Row(
@@ -230,7 +288,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
                   );
                 },
                 child: Text(
-                  text,
+                  currentList.title,
                   style: priceText,
                   textAlign: TextAlign.left,
                 ),
@@ -241,7 +299,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
             flex: 2,
             child: Container(
               child: Text(
-                "hello",
+                currentList.date,
                 textAlign: TextAlign.center,
               ),
             ),

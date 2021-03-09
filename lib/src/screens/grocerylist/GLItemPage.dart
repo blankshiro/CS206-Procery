@@ -1,10 +1,10 @@
-import 'package:Procery/src/screens/grocerylist/GLAddPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLCurrentPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLCurrentList.dart';
 // import 'package:Procery/src/screens/grocerylist/GLItemsPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLItemList.dart';
 import 'package:Procery/src/screens/grocerylist/GLPastList.dart';
 import 'package:Procery/src/screens/grocerylist/GLPastPage.dart';
+import 'package:Procery/src/screens/grocerylist/GLCollabList.dart';
 
 import 'package:flutter/material.dart';
 import '../../shared/styles.dart';
@@ -57,33 +57,84 @@ class _GLItemPageState extends State<GLItemPage> {
             ),
           ),
           Container(
+            padding: EdgeInsets.fromLTRB(10, 5, 0, 5),
+            child: Row(
+              children: [
+                Container(
+                  child: Text(
+                    'Collabing with ',
+                    style: h5,
+                  ),
+                ),
+                Container(
+                  child: Row(
+                    children: buildCollabLists(),
+                  ),
+                ),
+                SizedBox(
+                  width: 8,
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(16.0),
+                      topRight: Radius.circular(16.0),
+                      bottomLeft: Radius.circular(16.0),
+                      bottomRight: Radius.circular(16.0),
+                    ),
+                  ),
+                  child: Icon(
+                    Icons.add,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
             padding: EdgeInsets.all(10),
             color: Colors.grey[50],
             alignment: Alignment.centerLeft,
             child: Text(
               'TBC: 22/2/21',
-              style: priceText,
+              style: h5,
             ),
           ),
           Container(
-            padding: EdgeInsets.all(5),
-            color: Colors.grey[50],
+            padding: EdgeInsets.all(10),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                  padding: EdgeInsets.fromLTRB(65, 5, 20, 5),
-                  color: Colors.grey[50],
-                  child: Text(
-                    'Name:',
-                    style: priceText,
+                Expanded(
+                  flex: 1,
+                  child: SizedBox(
+                    width: 1,
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(80, 5, 20, 5),
-                  color: Colors.grey[50],
-                  child: Text(
-                    'Quantity:',
-                    style: priceText,
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    child: Text(
+                      'Name:',
+                      style: h5,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: SizedBox(
+                    width: 1,
+                  ),
+                ),
+                Expanded(
+                  flex: 4,
+                  child: Container(
+                    child: Text(
+                      'Quantity:',
+                      style: h5,
+                      textAlign: TextAlign.left,
+                    ),
                   ),
                 ),
               ],
@@ -102,6 +153,47 @@ class _GLItemPageState extends State<GLItemPage> {
         onPressed: () {},
         child: Text('edit'),
         backgroundColor: Colors.greenAccent[700],
+      ),
+    );
+  }
+
+  ////////////////////////////////
+  //COLLABORATORS LIST PART
+  ////////////////////////////////
+  List<Widget> buildCollabLists() {
+    List<Widget> collabList = [];
+    for (var i = 0; i < getCollabList().length; i++) {
+      // show if the grocery not bought yet
+      collabList.add(buildCollabList(getCollabList()[i]));
+    }
+    return collabList;
+  }
+
+  Widget buildCollabList(CollabList collabList) {
+    return GestureDetector(
+      onTap: () {},
+      child: Row(
+        children: [
+          SizedBox(
+            width: 8,
+          ),
+          Container(
+            padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(16.0),
+                topRight: Radius.circular(16.0),
+                bottomLeft: Radius.circular(16.0),
+                bottomRight: Radius.circular(16.0),
+              ),
+            ),
+            child: Text(
+              collabList.name,
+              style: priceText,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -126,19 +218,19 @@ class _GLItemPageState extends State<GLItemPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              child: buildGLItemList(itemList.title),
+              child: buildGLItemList(itemList),
             ),
           ]),
     );
   }
 
-  buildGLItemList(String text) {
+  buildGLItemList(ItemList itemList) {
     return Padding(
       padding: EdgeInsets.only(bottom: 0),
       child: Row(
         children: [
           Expanded(
-            flex: 1,
+            flex: 2,
             child: Container(
               alignment: Alignment.center,
               child: Checkbox(
@@ -152,21 +244,28 @@ class _GLItemPageState extends State<GLItemPage> {
             ),
           ),
           Expanded(
-            flex: 4,
-            child: Text(
-              text,
-              style: priceText,
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Text(
-              text,
-              style: priceText,
-            ),
-          ),
-          Expanded(
             flex: 1,
+            child: SizedBox(
+              width: 1,
+            ),
+          ),
+          Expanded(
+            flex: 6,
+            child: Text(
+              itemList.title,
+              style: priceText,
+            ),
+          ),
+          Expanded(
+            flex: 6,
+            child: Text(
+              itemList.quantity.toString(),
+              style: priceText,
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Expanded(
+            flex: 2,
             child: Container(
               color: Colors.grey[50],
               child: Icon(
@@ -176,7 +275,7 @@ class _GLItemPageState extends State<GLItemPage> {
             ),
           ),
           Expanded(
-            flex: 1,
+            flex: 2,
             child: Container(
               color: Colors.grey[50],
               child: Icon(
