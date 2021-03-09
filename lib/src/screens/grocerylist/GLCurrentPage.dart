@@ -7,6 +7,7 @@ import '../../shared/styles.dart';
 import 'package:Procery/src/shared/styles.dart';
 import 'package:Procery/src/shared/colors.dart';
 import 'package:Procery/src/shared/fryo_icons.dart';
+import 'package:flutter/cupertino.dart';
 
 class GLCurrentPage extends StatefulWidget {
   @override
@@ -31,8 +32,6 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
               padding: EdgeInsets.all(10),
               child: buildTextTitleVariation1('My Grocery Lists'),
             ),
-            //2. Current and Past buttons
-            buildCurrentAndPastButton(),
             //3. Search Bar
             buildSearchBar(),
             //SCROLLING HERE
@@ -42,6 +41,8 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
                 child: Container(
                   child: Column(
                     children: [
+                      //2. Current and Past buttons
+                      buildCurrentAndPastButton(),
                       //4. Sort by filter
                       buildFilter(),
                       //5. Name and quantity headers
@@ -124,15 +125,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
   Container buildFilter() {
     return Container(
       padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
-      decoration: BoxDecoration(
-        color: Colors.grey[50],
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16.0),
-          topRight: Radius.circular(16.0),
-          bottomLeft: Radius.circular(0),
-          bottomRight: Radius.circular(0),
-        ),
-      ),
+      color: Colors.grey[50],
       child: Row(children: [
         Container(
           child: Text(
@@ -171,7 +164,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
 
   Container buildSearchBar() {
     return Container(
-      padding: EdgeInsets.fromLTRB(10, 15, 10, 10),
+      padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
       child: TextField(
         decoration: InputDecoration(
           hintText: 'Search',
@@ -203,6 +196,16 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
 
   Container buildCurrentAndPastButton() {
     return Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.grey[50],
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16.0),
+          topRight: Radius.circular(16.0),
+          bottomLeft: Radius.circular(0),
+          bottomRight: Radius.circular(0),
+        ),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [

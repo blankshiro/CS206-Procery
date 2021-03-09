@@ -46,12 +46,7 @@ class _GLEditPageState extends State<GLEditPage> {
         children: [
           Container(
             padding: EdgeInsets.all(10),
-            color: Colors.grey[50],
-            child: Text(
-              'EDIT LIST',
-              style: h3,
-              textAlign: TextAlign.left,
-            ),
+            child: buildTextTitleVariation1('Edit Lists'),
           ),
           Container(
             padding: EdgeInsets.all(10),

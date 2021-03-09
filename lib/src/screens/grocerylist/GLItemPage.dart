@@ -49,11 +49,15 @@ class _GLItemPageState extends State<GLItemPage> {
           //HEADER
           Container(
             padding: EdgeInsets.all(10),
+            child: buildTextTitleVariation1('Family Foods List'),
+          ),
+          Container(
+            padding: EdgeInsets.all(10),
             color: Colors.grey[50],
-            alignment: Alignment.centerLeft,
+            alignment: Alignment.center,
             child: Text(
-              'Family Foods List',
-              style: h3,
+              'TBC: 22/2/21',
+              style: h5,
             ),
           ),
           Container(
@@ -90,15 +94,6 @@ class _GLItemPageState extends State<GLItemPage> {
                   ),
                 ),
               ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(10),
-            color: Colors.grey[50],
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'TBC: 22/2/21',
-              style: h5,
             ),
           ),
           Container(
@@ -219,6 +214,13 @@ class _GLItemPageState extends State<GLItemPage> {
           children: [
             Container(
               child: buildGLItemList(itemList),
+            ),
+            Divider(
+              height: 10,
+              thickness: 1,
+              color: Colors.grey[300],
+              indent: 5,
+              endIndent: 5,
             ),
           ]),
     );
