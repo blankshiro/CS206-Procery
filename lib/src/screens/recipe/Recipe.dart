@@ -15,16 +15,19 @@ class Recipe {
   String image;
 
   @HiveField(3)
-  String instructions;
+  List<String> instructions;
 
   @HiveField(4)
   int prepMins;
 
   @HiveField(5)
+  int calories;
+
+  @HiveField(6)
   List<Ingredient> ingredients;
 
   @HiveField(
-      6) // Order should match the ingredients ie. ingredients[0] quantity is at ingredientsQ[0]
+      7) // Order should match the ingredients ie. ingredients[0] quantity is at ingredientsQ[0]
   List<int> ingredientsQ;
 
   Recipe(
@@ -33,6 +36,7 @@ class Recipe {
       this.image,
       this.instructions,
       this.prepMins,
+      this.calories,
       this.ingredients,
       this.ingredientsQ});
 }

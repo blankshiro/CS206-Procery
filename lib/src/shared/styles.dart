@@ -6,10 +6,11 @@ import 'package:google_fonts/google_fonts.dart';
 ///   TEXT STYLES
 ////////////////////////////////
 const logoStyle = TextStyle(
-    fontFamily: 'Poppins',
-    fontWeight: FontWeight.bold,
-    fontSize: 24,
-    color: Colors.black,);
+  fontFamily: 'Poppins',
+  fontWeight: FontWeight.bold,
+  fontSize: 24,
+  color: Colors.black,
+);
 
 const logoWhiteStyle = TextStyle(
     fontFamily: 'Poppins', fontSize: 21, letterSpacing: 2, color: Colors.white);
@@ -25,6 +26,12 @@ const h3 = TextStyle(
     fontWeight: FontWeight.w700,
     fontFamily: 'Poppins');
 
+const h5 = TextStyle(
+    color: Colors.black,
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'Poppins');
+
 const priceText = TextStyle(
     color: Colors.black,
     fontSize: 14,
@@ -35,6 +42,12 @@ const foodNameText = TextStyle(
     color: Colors.black,
     fontSize: 14,
     fontWeight: FontWeight.normal,
+    fontFamily: 'Poppins');
+
+const foodNameSubText = TextStyle(
+    color: Colors.black,
+    fontSize: 12,
+    fontWeight: FontWeight.bold,
     fontFamily: 'Poppins');
 
 const tabLinkStyle = TextStyle(fontWeight: FontWeight.w500);
@@ -98,27 +111,27 @@ buildTextTitleVariation1(String text) {
     ),
   );
 }
+
 buildTextTitleVariation(String text) {
-  return Column(
-      children: [
-        SizedBox(
-          height: 16,
-        ),
-        // Words
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Row(
-            children: [
-              buildTextTitleVariation1(text),
-              SizedBox(
-                width: 8,
-              ),
-            ],
+  return Column(children: [
+    SizedBox(
+      height: 16,
+    ),
+    // Words
+    Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        children: [
+          buildTextTitleVariation1(text),
+          SizedBox(
+            width: 8,
           ),
-        ),
-      ]
-  );
+        ],
+      ),
+    ),
+  ]);
 }
+
 buildTextTitleVariation2(String text, bool opacity) {
   return Padding(
     padding: EdgeInsets.only(bottom: 0),
@@ -204,7 +217,6 @@ buildCalories(String text) {
     ),
   );
 }
-
 
 /////////////////////////////////////
 /// DASHBOARD STYLES
