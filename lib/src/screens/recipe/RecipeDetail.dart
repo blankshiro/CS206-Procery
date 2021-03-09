@@ -5,6 +5,8 @@ import './Recipe.dart';
 import './Ingredient.dart';
 import '../../shared/styles.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:like_button/like_button.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class RecipeDetail extends StatelessWidget {
   final Recipe recipe;
@@ -79,18 +81,15 @@ class RecipeDetail extends StatelessWidget {
                       children: <Widget>[
                         Row(
                           children: <Widget>[
-                            Text(
-                              recipe.name,
-                              style: GoogleFonts.poppins(
-                                  fontSize: 22, fontWeight: FontWeight.bold),
+                            Flexible(
+                              child: Text(
+                                recipe.name,
+                                style: GoogleFonts.poppins(
+                                    fontSize: 22, fontWeight: FontWeight.bold),
+                              ),
                             ),
-                            Spacer(),
-                            IconButton(
-                              icon: Icon(Icons.favorite),
-                              color: Colors.redAccent,
-                              iconSize: 30,
-                              onPressed: () {},
-                            )
+                            //Spacer(),
+                            LikeButton(),
                           ],
                         ),
                         SizedBox(
@@ -99,31 +98,13 @@ class RecipeDetail extends StatelessWidget {
                         // Ratings
                         Row(
                           children: <Widget>[
-                            Icon(
-                              Icons.star,
+                            // Star rating
+                            SmoothStarRating(
+                              starCount: 5,
+                              rating: 5,
                               color: Colors.orange,
-                              size: 15,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.orange,
-                              size: 15,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.orange,
-                              size: 15,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.orange,
-                              size: 15,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.grey[400],
-                              size: 15,
-                            ),
+                              borderColor: Colors.orange,
+                            )
                           ],
                         ),
 
@@ -145,17 +126,9 @@ class RecipeDetail extends StatelessWidget {
                                       const EdgeInsets.symmetric(vertical: 16),
                                   child: Column(
                                     children: <Widget>[
-                                      Text(
-                                        "Preperation",
-                                        style: GoogleFonts.roboto(
-                                            color: Colors.grey),
-                                      ),
-                                      Text(
-                                        recipe.prepMins.toString() + " mins",
-                                        style: GoogleFonts.roboto(
-                                            color: Colors.grey[900],
-                                            fontWeight: FontWeight.bold),
-                                      ),
+                                      Text("Preperation", style: foodNameText),
+                                      Text(recipe.prepMins.toString() + " mins",
+                                          style: foodNameSubText),
                                     ],
                                   ),
                                 ),
@@ -173,17 +146,9 @@ class RecipeDetail extends StatelessWidget {
                                       const EdgeInsets.symmetric(vertical: 16),
                                   child: Column(
                                     children: <Widget>[
-                                      Text(
-                                        "Ingredients",
-                                        style: GoogleFonts.roboto(
-                                            color: Colors.grey),
-                                      ),
-                                      Text(
-                                        "06",
-                                        style: GoogleFonts.roboto(
-                                            color: Colors.grey[900],
-                                            fontWeight: FontWeight.bold),
-                                      ),
+                                      Text("Ingredients", style: foodNameText),
+                                      Text(recipe.ingredients.length.toString(),
+                                          style: foodNameSubText),
                                     ],
                                   ),
                                 ),
@@ -201,17 +166,9 @@ class RecipeDetail extends StatelessWidget {
                                       const EdgeInsets.symmetric(vertical: 16),
                                   child: Column(
                                     children: <Widget>[
-                                      Text(
-                                        "Time",
-                                        style: GoogleFonts.roboto(
-                                            color: Colors.grey),
-                                      ),
-                                      Text(
-                                        "3 Hours",
-                                        style: GoogleFonts.roboto(
-                                            color: Colors.grey[900],
-                                            fontWeight: FontWeight.bold),
-                                      ),
+                                      Text("Calories", style: foodNameText),
+                                      Text(recipe.calories.toString(),
+                                          style: foodNameSubText),
                                     ],
                                   ),
                                 ),
@@ -229,40 +186,13 @@ class RecipeDetail extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               buildTextTitleVariation2('Ingredients', false),
-                              // buildTextSubTitleVariation1("2 cups white sugar"),
-                              // buildTextSubTitleVariation1(
-                              //     "1 ¾ cups all-purpose flour"),
-                              // buildTextSubTitleVariation1(
-                              //     "¾ cup unsweetened cocoa powder"),
-                              // buildTextSubTitleVariation1(
-                              //     "1 ½ teaspoons baking powder"),
-                              // buildTextSubTitleVariation1(
-                              //     "1 ½ teaspoons baking soda"),
-                              // buildTextSubTitleVariation1("1 teaspoon salt"),
-                              // buildTextSubTitleVariation1("2 eggs"),
-                              // buildTextSubTitleVariation1("1 cup milk"),
-                              // buildTextSubTitleVariation1(
-                              //     "½ cup vegetable oil"),
-                              // buildTextSubTitleVariation1(
-                              //     "2 teaspoons vanilla extract"),
-                              // buildTextSubTitleVariation1(
-                              //     "1 cup boiling water"),
                               buildTextSubTitleVariation1(getIngredients()),
                               SizedBox(
                                 height: 16,
                               ),
                               buildTextTitleVariation2(
                                   'Recipe Directions', false),
-                              // buildTextSubTitleVariation1("STEP 1"),
-                              // buildTextSubTitleVariation1(
-                              //     "Preheat oven to 350 degrees F (175 degrees C). Grease and flour two nine inch round pans."),
-                              // buildTextSubTitleVariation1("STEP 2"),
-                              // buildTextSubTitleVariation1(
-                              //     "In a large bowl, stir together the sugar, flour, cocoa, baking powder, baking soda and salt. Add the eggs, milk, oil and vanilla, mix for 2 minutes on medium speed of mixer. Stir in the boiling water last. Batter will be thin. Pour evenly into the prepared pans."),
-                              // buildTextSubTitleVariation1("STEP 3"),
-                              // buildTextSubTitleVariation1(
-                              //     "Bake 30 to 35 minutes in the preheated oven, until the cake tests done with a toothpick. Cool in the pans for 10 minutes, then remove to a wire rack to cool completely."),
-                              buildTextSubTitleVariation1(recipe.instructions)
+                              buildTextSubTitleVariation1(getInstructions())
                             ],
                           ),
                         ),
@@ -275,35 +205,51 @@ class RecipeDetail extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          // Add your onPressed code here!
+        },
+        label: Text('Watch Video'),
+        icon: Icon(Icons.video_label_rounded),
+        backgroundColor: Colors.pink,
+      ),
     );
   }
 
   String getIngredients() {
     List<Ingredient> ingredients = recipe.ingredients;
+    List<int> ingredientsQ = recipe.ingredientsQ;
     String found = "";
+
     for (int i = 0; i < ingredients.length - 1; i++) {
-      found += ingredients[i].getName() + ", ";
+      found +=
+          ingredientsQ[i].toString() + " " + ingredients[i].getName() + ", ";
     }
-    found += ingredients[ingredients.length - 1].getName();
+
+    found += ingredientsQ[ingredients.length - 1].toString() +
+        " " +
+        ingredients[ingredients.length - 1].getName();
+    return found;
+  }
+
+  String getInstructions() {
+    List<String> instructions = recipe.instructions;
+    String found = "";
+
+    for (int i = 0; i < instructions.length - 1; i++) {
+      int currentStep = i + 1;
+      found += "Step " +
+          currentStep.toString() +
+          "\n" +
+          instructions[i].toString() +
+          "\n\n";
+
+      if (i == instructions.length - 1 - 1) {
+        currentStep += 1;
+        found += "Step " + currentStep.toString() + "\n";
+      }
+    }
+    found += instructions[instructions.length - 1].toString();
     return found;
   }
 }
-//     floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-//     floatingActionButton: FloatingActionButton.extended(
-//         onPressed: () {},
-//         backgroundColor: kPrimaryColor,
-//         icon: Icon(
-//           Icons.play_circle_fill,
-//           color: Colors.white,
-//           size: 32,
-//         ),
-//         label: Text(
-//           "Watch Video",
-//           style: TextStyle(
-//             color: Colors.white,
-//             fontSize: 16,
-//             fontWeight: FontWeight.bold,
-//           ),
-//         )),
-//   );
-// }
