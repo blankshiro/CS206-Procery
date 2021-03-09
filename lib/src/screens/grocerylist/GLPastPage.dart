@@ -236,6 +236,13 @@ class _GLPastPageState extends State<GLPastPage> {
             Container(
               child: buildGLPastList(pastList),
             ),
+            Divider(
+              height: 10,
+              thickness: 1,
+              color: Colors.grey[300],
+              indent: 5,
+              endIndent: 5,
+            ),
           ]),
     );
   }

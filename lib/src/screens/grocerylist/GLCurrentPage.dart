@@ -15,173 +15,52 @@ class GLCurrentPage extends StatefulWidget {
 
 class _GLCurrentPageState extends State<GLCurrentPage> {
   bool _checked = false;
+  int _value = 1;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.green[200],
+      resizeToAvoidBottomInset: false,
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          //NUMBER 1
-          Container(
-            padding: EdgeInsets.all(10),
-            color: Colors.grey[50],
-            child: Text(
-              'MY GROCERY LIST',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'Poppins',
-              ),
-              textAlign: TextAlign.left,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            //1. Header
+            Container(
+              padding: EdgeInsets.all(10),
+              child: buildTextTitleVariation1('My Grocery Lists'),
             ),
-          ),
-          //NUMBER 2
-          Container(
-            color: Colors.grey[50],
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  width: 100.0,
-                  height: 30.0,
-                  decoration: BoxDecoration(
-                    color: Colors.greenAccent[700],
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(16.0),
-                      topRight: Radius.circular(16.0),
-                      bottomLeft: Radius.circular(16.0),
-                      bottomRight: Radius.circular(16.0),
-                    ),
-                  ),
-                  child: FlatButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Current',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontWeight: FontWeight.normal,
-                        fontFamily: 'Poppins',
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-                Container(
-                    width: 100.0,
-                    height: 30.0,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(16.0),
-                        topRight: Radius.circular(16.0),
-                        bottomLeft: Radius.circular(16.0),
-                        bottomRight: Radius.circular(16.0),
-                      ),
-                    ),
-                    child: FlatButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => GLPastPage()),
-                        );
-                      },
-                      child: Text(
-                        'Past',
-                        style: priceText,
-                        textAlign: TextAlign.center,
-                      ),
-                    )),
-              ],
-            ),
-          ),
-          //NUMBER 3
-          Container(
-            padding: EdgeInsets.only(bottom: 10),
-            child: Padding(
-              padding: EdgeInsets.all(16),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search',
-                  hintStyle: TextStyle(fontSize: 16),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: BorderSide(
-                      width: 0,
-                      style: BorderStyle.none,
-                    ),
-                  ),
-                  filled: true,
-                  fillColor: Colors.grey[200],
-                  contentPadding: EdgeInsets.only(
-                    left: 30,
-                  ),
-                  suffixIcon: Padding(
-                    padding: EdgeInsets.only(right: 24.0, left: 16.0),
-                    child: Icon(
-                      Icons.search,
-                      color: Colors.black,
-                      size: 24,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          //NUMBER 4
-          Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: SizedBox(
-                  width: 1,
-                ),
-              ),
-              Expanded(
-                flex: 4,
+            //2. Current and Past buttons
+            buildCurrentAndPastButton(),
+            //3. Search Bar
+            buildSearchBar(),
+            //SCROLLING HERE
+            Expanded(
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
                 child: Container(
-                  alignment: Alignment.centerLeft,
-                  color: Colors.grey[50],
-                  child: Text(
-                    'Name',
-                    style: h5,
-                    textAlign: TextAlign.left,
+                  child: Column(
+                    children: [
+                      //4. Sort by filter
+                      buildFilter(),
+                      //5. Name and quantity headers
+                      buildNameAndQuantityHeader(),
+                      //NUMBER 5
+                      Container(
+                        color: Colors.grey[50],
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: buildCurrentLists(),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-              Expanded(
-                flex: 2,
-                child: SizedBox(
-                  width: 1,
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Container(
-                  alignment: Alignment.center,
-                  child: Text(
-                    'Dateline',
-                    style: h5,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          //NUMBER 5
-          Container(
-            color: Colors.grey[50],
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: buildCurrentLists(),
             ),
-          ),
-        ],
-      ),
+          ]),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
@@ -191,6 +70,194 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
         },
         child: Text('edit'),
         backgroundColor: Colors.greenAccent[700],
+      ),
+    );
+  }
+
+  ////////////////////////////////
+  //SEPARATE WIDGETS
+  ////////////////////////////////
+  Container buildNameAndQuantityHeader() {
+    return Container(
+      color: Colors.grey[50],
+      child: Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: SizedBox(
+              width: 1,
+            ),
+          ),
+          Expanded(
+            flex: 4,
+            child: Container(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Name',
+                style: h5,
+                textAlign: TextAlign.left,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: SizedBox(
+              width: 1,
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Container(
+              alignment: Alignment.center,
+              child: Text(
+                'Dateline',
+                style: h5,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container buildFilter() {
+    return Container(
+      padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
+      decoration: BoxDecoration(
+        color: Colors.grey[50],
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16.0),
+          topRight: Radius.circular(16.0),
+          bottomLeft: Radius.circular(0),
+          bottomRight: Radius.circular(0),
+        ),
+      ),
+      child: Row(children: [
+        Container(
+          child: Text(
+            'Sort by: ',
+            style: h5,
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.only(left: 10),
+          child: DropdownButton(
+            value: _value,
+            items: [
+              DropdownMenuItem(
+                child: Text("Most Groceries", style: priceText),
+                value: 1,
+              ),
+              DropdownMenuItem(
+                child: Text("Incoming Datelines", style: priceText),
+                value: 2,
+              ),
+              DropdownMenuItem(
+                child: Text("Highest Progress", style: priceText),
+                value: 3,
+              ),
+            ],
+            onChanged: (value) {
+              setState(() {
+                _value = value;
+              });
+            },
+          ),
+        ),
+      ]),
+    );
+  }
+
+  Container buildSearchBar() {
+    return Container(
+      padding: EdgeInsets.fromLTRB(10, 15, 10, 10),
+      child: TextField(
+        decoration: InputDecoration(
+          hintText: 'Search',
+          hintStyle: TextStyle(fontSize: 12),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: BorderSide(
+              width: 0,
+              style: BorderStyle.none,
+            ),
+          ),
+          filled: true,
+          fillColor: Colors.grey[200],
+          contentPadding: EdgeInsets.only(
+            left: 30,
+          ),
+          suffixIcon: Padding(
+            padding: EdgeInsets.only(right: 24.0, left: 16.0),
+            child: Icon(
+              Icons.search,
+              color: Colors.black,
+              size: 24,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Container buildCurrentAndPastButton() {
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+            width: 100.0,
+            height: 30.0,
+            decoration: BoxDecoration(
+              color: Colors.greenAccent[700],
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(16.0),
+                topRight: Radius.circular(16.0),
+                bottomLeft: Radius.circular(16.0),
+                bottomRight: Radius.circular(16.0),
+              ),
+            ),
+            child: FlatButton(
+              onPressed: () {},
+              child: Text(
+                'Current',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                  fontFamily: 'Poppins',
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+          Container(
+              width: 100.0,
+              height: 30.0,
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(16.0),
+                  topRight: Radius.circular(16.0),
+                  bottomLeft: Radius.circular(16.0),
+                  bottomRight: Radius.circular(16.0),
+                ),
+              ),
+              child: FlatButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => GLPastPage()),
+                  );
+                },
+                child: Text(
+                  'Past',
+                  style: priceText,
+                  textAlign: TextAlign.center,
+                ),
+              )),
+        ],
       ),
     );
   }
