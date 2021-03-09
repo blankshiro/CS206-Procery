@@ -6,6 +6,7 @@ import './Ingredient.dart';
 import './RecipeDetail.dart';
 import '../../shared/styles.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:like_button/like_button.dart';
 
 class RecipeSearch extends StatelessWidget {
   @override
@@ -107,10 +108,11 @@ class RecipeSearch extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      buildCalories(recipe.prepMins.toString() + " mins"),
-                      Icon(
-                        Icons.favorite_border,
-                      )
+                      Text(
+                        recipe.prepMins.toString() + " mins",
+                        style: foodNameText,
+                      ),
+                      LikeButton(size: 20)
                     ],
                   ),
                 ],

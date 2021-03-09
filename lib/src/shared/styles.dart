@@ -26,6 +26,12 @@ const h3 = TextStyle(
     fontWeight: FontWeight.w700,
     fontFamily: 'Poppins');
 
+const h5 = TextStyle(
+    color: Colors.black,
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'Poppins');
+
 const priceText = TextStyle(
     color: Colors.black,
     fontSize: 14,
@@ -36,6 +42,12 @@ const foodNameText = TextStyle(
     color: Colors.black,
     fontSize: 14,
     fontWeight: FontWeight.normal,
+    fontFamily: 'Poppins');
+
+const foodNameSubText = TextStyle(
+    color: Colors.black,
+    fontSize: 12,
+    fontWeight: FontWeight.bold,
     fontFamily: 'Poppins');
 
 const tabLinkStyle = TextStyle(fontWeight: FontWeight.w500);
@@ -251,59 +263,3 @@ buildGrocerySubtitle(String text) {
     ),
   );
 }
-
-/////////////////////////////////////
-/// GROCERY STYLES
-////////////////////////////////////
-// buildGLDataTitles(String text) {
-//   bool _checked = false;
-
-//   return Padding(
-//     padding: EdgeInsets.only(bottom: 0),
-//     child: Row(
-//       children: [
-//         Expanded(
-//           flex: 8,
-//           child: Container(
-//             alignment: Alignment.centerLeft,
-//             child: Checkbox(
-//               value: _checked,
-//               onChanged: (bool value) {
-//                 setState(() {
-//                   _checked = value;
-//                 });
-//               },
-//             ),
-//           ),
-//           // child: Container(
-//           //   alignment: Alignment.centerLeft,
-//           //   child: FlatButton.icon(
-//           //     onPressed: () {
-//           //       // Navigator.push(
-//           //       //   context,
-//           //       //   MaterialPageRoute(builder: (context) => GLItemPage()),
-//           //       // );
-//           //     },
-//           //     icon: Icon(Icons.brightness_1_outlined),
-//           //     label: Text(
-//           //       text,
-//           //       style: priceText,
-//           //       textAlign: TextAlign.left,
-//           //     ),
-//           //     color: Colors.grey[50],
-//           //   ),
-//           // ),
-//         ),
-//         Expanded(
-//           flex: 2,
-//           child: Container(
-//             child: Text(
-//               "hello",
-//               textAlign: TextAlign.center,
-//             ),
-//           ),
-//         ),
-//       ],
-//     ),
-//   );
-// }

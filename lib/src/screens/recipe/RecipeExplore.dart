@@ -7,6 +7,7 @@ import './Ingredient.dart';
 import './RecipeDetail.dart';
 import '../../shared/styles.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:like_button/like_button.dart';
 
 class RecipeExplore extends StatefulWidget {
   @override
@@ -14,7 +15,7 @@ class RecipeExplore extends StatefulWidget {
 }
 
 class RecipeExploreState extends State<RecipeExplore> {
-  List<bool> optionSelected = [true, false, false];
+  List<bool> optionSelected = [false, false, false];
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +26,7 @@ class RecipeExploreState extends State<RecipeExplore> {
         backgroundColor: Colors.transparent,
         brightness: Brightness.light,
         elevation: 0,
-        title: Text(
-          "Recipes",
-          style: GoogleFonts.muli(
-            fontSize: 28,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
+        title: Text("Recipes", style: logoStyle),
         centerTitle: false,
         actions: [
           Padding(
@@ -100,24 +94,10 @@ class RecipeExploreState extends State<RecipeExplore> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "Categories",
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                          ),
+                          Text("Categories", style: h3),
                           Row(
                             children: [
-                              Text(
-                                "View All",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
+                              Text("View All", style: h5),
                               SizedBox(
                                 width: 8,
                               ),
@@ -272,7 +252,7 @@ class RecipeExploreState extends State<RecipeExplore> {
         ),
         margin: EdgeInsets.only(
             right: 16, left: index == 0 ? 16 : 0, bottom: 16, top: 8),
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.all(20),
         width: 220,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -284,7 +264,7 @@ class RecipeExploreState extends State<RecipeExplore> {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(recipe.image),
-                      fit: BoxFit.contain,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
@@ -299,9 +279,9 @@ class RecipeExploreState extends State<RecipeExplore> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 buildCalories(recipe.prepMins.toString() + " mins"),
-                Icon(
-                  Icons.favorite_border,
-                )
+                LikeButton(
+                  size: 20,
+                ),
               ],
             ),
           ],
@@ -337,11 +317,11 @@ class RecipeExploreState extends State<RecipeExplore> {
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(recipe.image),
-                fit: BoxFit.fitHeight,
+                fit: BoxFit.cover,
               ),
             ),
           ),
-          Expanded(
+          Flexible(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Column(
@@ -349,14 +329,12 @@ class RecipeExploreState extends State<RecipeExplore> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   buildRecipeTitle(recipe.name),
-                  buildRecipeSubTitle(recipe.description),
+                  buildTextSubTitleVariation2(recipe.description),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       buildCalories(recipe.prepMins.toString() + " min"),
-                      Icon(
-                        Icons.favorite_border,
-                      )
+                      LikeButton(size: 20)
                     ],
                   ),
                 ],
