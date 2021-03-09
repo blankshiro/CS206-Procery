@@ -10,6 +10,11 @@ class Grocery {
 List<Grocery> getGrocery() {
   return <Grocery>[
     Grocery("Eggs", "x10", "assets/images/eggs.png", false),
+    Grocery("Eggs", "x10", "assets/images/eggs.png", false),
+    Grocery("Eggs", "x10", "assets/images/eggs.png", false),
+    Grocery("Eggs", "x10", "assets/images/eggs.png", false),
+    Grocery("Eggs", "x10", "assets/images/eggs.png", false),
+    Grocery("Eggs", "x10", "assets/images/eggs.png", false),
     Grocery("Flour", "100g", "assets/images/flour.png", false)
   ];
 }

@@ -1,4 +1,4 @@
-import 'package:Procery/src/screens/recipe/RecipeDetail.dart';
+// import 'package:Procery/src/screens/recipe/RecipeDetail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -13,6 +13,7 @@ import '../../shared/partials.dart';
 
 import './DashboardConstants.dart';
 
+import './ExpiringPage.dart';
 import './InventoryData.dart';
 import './GroceryData.dart';
 import './MealData.dart';
@@ -31,8 +32,6 @@ class DashboardExplore extends StatefulWidget {
 }
 
 class _DashboardExploreState extends State<DashboardExplore> {
-  int _selectedIndex = 0;
-
   // Cupertino Segmented Control takes children in form of Map.
   Map<int, Widget> map = new Map();
   List<Widget> childWidgets;
@@ -61,14 +60,16 @@ class _DashboardExploreState extends State<DashboardExplore> {
         text = "Dinner";
       }
 
-      map.putIfAbsent(
-          i,
-          () => Container(
-              width: 100,
-              child: Text(
-                text,
-                textAlign: TextAlign.center,
-              )));
+      map.putIfAbsent(i,
+        () =>
+        Container(
+            width: 100,
+            child: Text(
+              text,
+              textAlign: TextAlign.center,
+            )
+        )
+      );
     }
   }
 
@@ -76,68 +77,54 @@ class _DashboardExploreState extends State<DashboardExplore> {
     childWidgets = [];
     // for (int i = 0; i < 3; i++)
     for (var i = 0; i < getMeal().length; i++) {
-      childWidgets.add(Column(
-        children: [
-          // buildMeal(getMeal()[i])
-          Container(
-            margin: EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(
-                Radius.circular(20),
-              ),
-              boxShadow: [kBoxShadow],
-            ),
-            child: Row(
-              children: [
-                Container(
-                  height: 160,
-                  width: 160,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(getMeal()[i].image),
-                      fit: BoxFit.fitWidth,
-                    ),
+      childWidgets.add(
+        Column(
+            children: [
+              Container(
+                margin: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20),
                   ),
+                  boxShadow: [kBoxShadow],
                 ),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        buildRecipeTitle(getMeal()[i].title),
-                        // buildRecipeSubTitle(inv.description),
-                        // buildExpiryDays("Expiring in: " + inv.expiry.toString() + " Days"),
-                      ],
+                child: Row(
+                  children: [
+                    Container(
+                      height: 160,
+                      width: 160,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(getMeal()[i].image),
+                          fit: BoxFit.fitHeight,
+                        ),
+                      ),
                     ),
-                  ),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            buildRecipeTitle(getMeal()[i].title),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              )
+            ],
           )
-        ],
-      )
-          // Center(
-          //   // child: getRecipes(),
-          //   child: Text(
-          //     '''child $i'''
-          //   ),
-          // ),
-          );
+      );
     }
   }
-
   Widget getChildWidget() => childWidgets[sharedValue];
 
   @override
   Widget build(BuildContext context) {
-    // Add the first page of the functionalities here
-    final List<Widget> _children = [
-      DashboardExplore(),
-      RecipeExplore(),
-    ];
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -163,8 +150,66 @@ class _DashboardExploreState extends State<DashboardExplore> {
             Container(
               height: 190,
               child: PageView(
-                physics: BouncingScrollPhysics(),
-                children: buildExpirings(),
+                // physics: BouncingScrollPhysics(),
+                children: [
+                  buildExpiring(getExpiring()[0]),
+                  // FlatButton(
+                  //   onPressed: () {
+                  //     Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(builder: (context) => ExpiringPage()),
+                  //     );
+                  //   },
+                  // ),
+                ]
+              ),
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: [
+                  buildTextTitleVariation1("Today's Meal"),
+                  SizedBox(
+                    width: 8,
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      CupertinoSegmentedControl(
+                        onValueChanged: (value) {
+                          // Callback function executed when user changes the Tabs
+                          setState(() {
+                            sharedValue = value;
+                          });
+                        },
+                        groupValue: sharedValue,
+                        //The current selected Index or key
+                        children: map, //The tabs which are assigned in the form of map
+                      ),
+                    ],
+                  ),
+                )
+            ),
+            SizedBox(
+              width: 8,
+            ),
+            // Container
+            Container(
+              height: 192,
+              child: PageView(
+                children: <Widget>[
+                  Expanded(
+                    child: getChildWidget(),
+                  ),
+                ],
               ),
             ),
             SizedBox(
@@ -184,55 +229,7 @@ class _DashboardExploreState extends State<DashboardExplore> {
             Column(
               children: buildGroceries(),
             ),
-            SizedBox(
-              height: 16,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                children: [
-                  buildTextTitleVariation1("Today's Meal"),
-                  SizedBox(
-                    width: 8,
-                  ),
-                ],
-              ),
-            ),
-            // Words
-            Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Container(
-                  child: Column(
-                    children: <Widget>[
-                      CupertinoSegmentedControl(
-                        onValueChanged: (value) {
-                          // Callback function executed when user changes the Tabs
-                          setState(() {
-                            sharedValue = value;
-                          });
-                        },
-                        groupValue: sharedValue,
-                        //The current selected Index or key
-                        children:
-                            map, //The tabs which are assigned in the form of map
-                      ),
-                    ],
-                  ),
-                )),
-            SizedBox(
-              width: 8,
-            ),
-            // Container
-            Container(
-              height: 190,
-              child: PageView(
-                children: <Widget>[
-                  Expanded(
-                    child: getChildWidget(),
-                  ),
-                ],
-              ),
-            ),
+
           ],
         ),
       ),
@@ -243,13 +240,14 @@ class _DashboardExploreState extends State<DashboardExplore> {
   /// EXPIRING PART
   ////////////////////////////////////
 
-  List<Widget> buildExpirings() {
-    List<Widget> expiringList = [];
-    for (var i = 0; i < getExpiring().length; i++) {
-      expiringList.add(buildExpiring(getExpiring()[i]));
-    }
-    return expiringList;
-  }
+  // List<Widget> buildExpirings() {
+  //   List<Widget> expiringList = [];
+  //   // for (var i = 0; i < getExpiring().length; i++) {
+  //   // just return the closest to expiry date item
+  //     expiringList.add(buildExpiring(getExpiring()[0]));
+  //   // }
+  //   return expiringList;
+  // }
 
   Widget buildExpiring(Inventory inv) {
     return Container(
@@ -261,35 +259,44 @@ class _DashboardExploreState extends State<DashboardExplore> {
         ),
         boxShadow: [kBoxShadow],
       ),
-      child: Row(
-        children: [
-          Container(
-            height: 160,
-            width: 160,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(inv.image),
-                fit: BoxFit.fitHeight,
+      child: FlatButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ExpiringPage()),
+          );
+        },
+        child: Row(
+          children: [
+            Container(
+              height: 160,
+              width: 160,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(inv.image),
+                  fit: BoxFit.fitHeight,
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  buildRecipeTitle(inv.title),
-                  buildRecipeSubTitle(inv.description),
-                  buildExpiryDays(
-                      "Expiring in: " + inv.expiry.toString() + " Days"),
-                ],
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    buildRecipeTitle(inv.title),
+                    buildRecipeSubTitle(inv.description),
+                    buildExpiryDays(
+                        "Expiring in: " + inv.expiry.toString() + " Days"),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
+
     );
   }
 
@@ -309,10 +316,6 @@ class _DashboardExploreState extends State<DashboardExplore> {
 
   Widget buildGrocery(Grocery grocery) {
     return GestureDetector(
-      onTap: () {
-        color:
-        Colors.red;
-      },
       child: Container(
         // padding: EdgeInsets.all(10),
         child: Row(
@@ -335,10 +338,12 @@ class _DashboardExploreState extends State<DashboardExplore> {
             Container(
                 padding: EdgeInsets.fromLTRB(10, 2, 37, 2),
                 color: Colors.grey[50],
-                child: buildGrocerySubtitle(grocery.description)),
+                child: buildGrocerySubtitle(grocery.description)
+            ),
           ],
         ),
       ),
     );
   }
+
 }
