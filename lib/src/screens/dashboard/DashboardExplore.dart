@@ -61,16 +61,14 @@ class _DashboardExploreState extends State<DashboardExplore> {
         text = "Dinner";
       }
 
-      map.putIfAbsent(i,
-        () =>
-        Container(
-            width: 100,
-            child: Text(
-              text,
-              textAlign: TextAlign.center,
-            )
-        )
-      );
+      map.putIfAbsent(
+          i,
+          () => Container(
+              width: 100,
+              child: Text(
+                text,
+                textAlign: TextAlign.center,
+              )));
     }
   }
 
@@ -78,59 +76,59 @@ class _DashboardExploreState extends State<DashboardExplore> {
     childWidgets = [];
     // for (int i = 0; i < 3; i++)
     for (var i = 0; i < getMeal().length; i++) {
-      childWidgets.add(
-          Column(
-            children: [
-              // buildMeal(getMeal()[i])
-              Container(
-                margin: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
+      childWidgets.add(Column(
+        children: [
+          // buildMeal(getMeal()[i])
+          Container(
+            margin: EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(
+                Radius.circular(20),
+              ),
+              boxShadow: [kBoxShadow],
+            ),
+            child: Row(
+              children: [
+                Container(
+                  height: 160,
+                  width: 160,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(getMeal()[i].image),
+                      fit: BoxFit.fitWidth,
+                    ),
                   ),
-                  boxShadow: [kBoxShadow],
                 ),
-                child: Row(
-                  children: [
-                    Container(
-                      height: 160,
-                      width: 160,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(getMeal()[i].image),
-                          fit: BoxFit.fitWidth,
-                        ),
-                      ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        buildRecipeTitle(getMeal()[i].title),
+                        // buildRecipeSubTitle(inv.description),
+                        // buildExpiryDays("Expiring in: " + inv.expiry.toString() + " Days"),
+                      ],
                     ),
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            buildRecipeTitle(getMeal()[i].title),
-                            // buildRecipeSubTitle(inv.description),
-                            // buildExpiryDays("Expiring in: " + inv.expiry.toString() + " Days"),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              )
-            ],
+              ],
+            ),
           )
-        // Center(
-        //   // child: getRecipes(),
-        //   child: Text(
-        //     '''child $i'''
-        //   ),
-        // ),
-      );
+        ],
+      )
+          // Center(
+          //   // child: getRecipes(),
+          //   child: Text(
+          //     '''child $i'''
+          //   ),
+          // ),
+          );
     }
   }
+
   Widget getChildWidget() => childWidgets[sharedValue];
 
   @override
@@ -215,12 +213,12 @@ class _DashboardExploreState extends State<DashboardExplore> {
                         },
                         groupValue: sharedValue,
                         //The current selected Index or key
-                        children: map, //The tabs which are assigned in the form of map
+                        children:
+                            map, //The tabs which are assigned in the form of map
                       ),
                     ],
                   ),
-                )
-            ),
+                )),
             SizedBox(
               width: 8,
             ),
@@ -337,12 +335,10 @@ class _DashboardExploreState extends State<DashboardExplore> {
             Container(
                 padding: EdgeInsets.fromLTRB(10, 2, 37, 2),
                 color: Colors.grey[50],
-                child: buildGrocerySubtitle(grocery.description)
-            ),
+                child: buildGrocerySubtitle(grocery.description)),
           ],
         ),
       ),
     );
   }
-
 }

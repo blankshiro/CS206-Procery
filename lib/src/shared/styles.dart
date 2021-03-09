@@ -6,10 +6,11 @@ import 'package:google_fonts/google_fonts.dart';
 ///   TEXT STYLES
 ////////////////////////////////
 const logoStyle = TextStyle(
-    fontFamily: 'Poppins',
-    fontWeight: FontWeight.bold,
-    fontSize: 24,
-    color: Colors.black,);
+  fontFamily: 'Poppins',
+  fontWeight: FontWeight.bold,
+  fontSize: 24,
+  color: Colors.black,
+);
 
 const logoWhiteStyle = TextStyle(
     fontFamily: 'Poppins', fontSize: 21, letterSpacing: 2, color: Colors.white);
@@ -98,27 +99,27 @@ buildTextTitleVariation1(String text) {
     ),
   );
 }
+
 buildTextTitleVariation(String text) {
-  return Column(
-      children: [
-        SizedBox(
-          height: 16,
-        ),
-        // Words
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Row(
-            children: [
-              buildTextTitleVariation1(text),
-              SizedBox(
-                width: 8,
-              ),
-            ],
+  return Column(children: [
+    SizedBox(
+      height: 16,
+    ),
+    // Words
+    Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        children: [
+          buildTextTitleVariation1(text),
+          SizedBox(
+            width: 8,
           ),
-        ),
-      ]
-  );
+        ],
+      ),
+    ),
+  ]);
 }
+
 buildTextTitleVariation2(String text, bool opacity) {
   return Padding(
     padding: EdgeInsets.only(bottom: 0),
@@ -205,7 +206,6 @@ buildCalories(String text) {
   );
 }
 
-
 /////////////////////////////////////
 /// DASHBOARD STYLES
 ////////////////////////////////////
@@ -251,3 +251,59 @@ buildGrocerySubtitle(String text) {
     ),
   );
 }
+
+/////////////////////////////////////
+/// GROCERY STYLES
+////////////////////////////////////
+// buildGLDataTitles(String text) {
+//   bool _checked = false;
+
+//   return Padding(
+//     padding: EdgeInsets.only(bottom: 0),
+//     child: Row(
+//       children: [
+//         Expanded(
+//           flex: 8,
+//           child: Container(
+//             alignment: Alignment.centerLeft,
+//             child: Checkbox(
+//               value: _checked,
+//               onChanged: (bool value) {
+//                 setState(() {
+//                   _checked = value;
+//                 });
+//               },
+//             ),
+//           ),
+//           // child: Container(
+//           //   alignment: Alignment.centerLeft,
+//           //   child: FlatButton.icon(
+//           //     onPressed: () {
+//           //       // Navigator.push(
+//           //       //   context,
+//           //       //   MaterialPageRoute(builder: (context) => GLItemPage()),
+//           //       // );
+//           //     },
+//           //     icon: Icon(Icons.brightness_1_outlined),
+//           //     label: Text(
+//           //       text,
+//           //       style: priceText,
+//           //       textAlign: TextAlign.left,
+//           //     ),
+//           //     color: Colors.grey[50],
+//           //   ),
+//           // ),
+//         ),
+//         Expanded(
+//           flex: 2,
+//           child: Container(
+//             child: Text(
+//               "hello",
+//               textAlign: TextAlign.center,
+//             ),
+//           ),
+//         ),
+//       ],
+//     ),
+//   );
+// }

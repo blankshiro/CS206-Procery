@@ -19,10 +19,10 @@ class BaseScreen extends StatefulWidget {
 
 class _BaseState extends State<BaseScreen> {
   int _selectedIndex = 0;
-  final List<Widget>_children = [
+  final List<Widget> _children = [
     DashboardExplore(),
     RecipeExplore(),
-    GLHome(),
+    GLCurrentPage(),
     MealPlannerInitial(),
   ];
 
@@ -40,7 +40,7 @@ class _BaseState extends State<BaseScreen> {
         // ),
         backgroundColor: primaryColor,
         title:
-        Text('Procery', style: logoWhiteStyle, textAlign: TextAlign.center),
+            Text('Procery', style: logoWhiteStyle, textAlign: TextAlign.center),
         actions: <Widget>[
           IconButton(
             padding: EdgeInsets.all(0),

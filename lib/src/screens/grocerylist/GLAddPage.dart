@@ -283,7 +283,7 @@ class GLAddPage extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => GLHome()),
+            MaterialPageRoute(builder: (context) => GLCurrentPage()),
           );
         },
         child: Text('save'),

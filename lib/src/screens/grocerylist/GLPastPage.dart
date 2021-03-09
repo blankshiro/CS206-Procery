@@ -1,19 +1,24 @@
 import 'package:Procery/src/screens/grocerylist/GLAddPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLCurrentPage.dart';
+import 'package:Procery/src/screens/grocerylist/GLCurrentList.dart';
+import 'package:Procery/src/screens/grocerylist/GLItemPage.dart';
+import 'package:Procery/src/screens/grocerylist/GLPastList.dart';
+// import 'package:Procery/src/screens/grocerylist/GLPastPage.dart';
+
+import 'package:flutter/material.dart';
+import '../../shared/styles.dart';
 import 'package:Procery/src/shared/styles.dart';
 import 'package:Procery/src/shared/colors.dart';
 import 'package:Procery/src/shared/fryo_icons.dart';
 
-import 'package:flutter/material.dart';
-
-void main() {
-  runApp(MaterialApp(
-    home: GLPastPage(),
-  ));
+class GLPastPage extends StatefulWidget {
+  @override
+  _GLPastPageState createState() => _GLPastPageState();
 }
 
-//making a custom stateless widget
-class GLPastPage extends StatelessWidget {
+class _GLPastPageState extends State<GLPastPage> {
+  bool _checked = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,49 +54,23 @@ class GLPastPage extends StatelessWidget {
             child: Text(
               'MY GROCERY LIST',
               style: TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
                 fontFamily: 'Poppins',
-                fontWeight: FontWeight.bold,
-                fontSize: 30,
               ),
-              textAlign: TextAlign.center,
+              textAlign: TextAlign.left,
             ),
           ),
           //NUMBER 2
           Container(
-            padding: EdgeInsets.all(5),
             color: Colors.grey[50],
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(16.0),
-                      topRight: Radius.circular(16.0),
-                      bottomLeft: Radius.circular(16.0),
-                      bottomRight: Radius.circular(16.0),
-                    ),
-                  ),
-                  child: FlatButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => GLHome()),
-                      );
-                    },
-                    child: Text(
-                      'Current',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-                Container(
+                  width: 100.0,
+                  height: 30.0,
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
                     borderRadius: BorderRadius.only(
@@ -104,17 +83,37 @@ class GLPastPage extends StatelessWidget {
                   child: FlatButton(
                     onPressed: () {},
                     child: Text(
-                      'Past',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: Colors.greenAccent[700],
-                      ),
+                      'Current',
+                      style: priceText,
                       textAlign: TextAlign.center,
                     ),
                   ),
                 ),
+                Container(
+                    width: 100.0,
+                    height: 30.0,
+                    decoration: BoxDecoration(
+                      color: Colors.greenAccent[700],
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(16.0),
+                        topRight: Radius.circular(16.0),
+                        bottomLeft: Radius.circular(16.0),
+                        bottomRight: Radius.circular(16.0),
+                      ),
+                    ),
+                    child: FlatButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => GLPastPage()),
+                        );
+                      },
+                      child: Text(
+                        'Past',
+                        style: priceText,
+                        textAlign: TextAlign.center,
+                      ),
+                    )),
               ],
             ),
           ),
@@ -135,7 +134,7 @@ class GLPastPage extends StatelessWidget {
                     ),
                   ),
                   filled: true,
-                  fillColor: Colors.grey[100],
+                  fillColor: Colors.grey[200],
                   contentPadding: EdgeInsets.only(
                     left: 30,
                   ),
@@ -153,70 +152,28 @@ class GLPastPage extends StatelessWidget {
           ),
           //NUMBER 4
           Container(
-            padding: EdgeInsets.all(5),
             color: Colors.grey[50],
             child: Container(
-              padding: EdgeInsets.fromLTRB(50, 5, 10, 5),
+              padding: EdgeInsets.fromLTRB(50, 0, 10, 5),
               color: Colors.grey[50],
               child: Text(
                 'Name',
                 style: TextStyle(
-                  fontFamily: 'Poppins',
+                  color: Colors.black,
+                  fontSize: 14,
                   fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                  fontFamily: 'Poppins',
                 ),
-                textAlign: TextAlign.left,
               ),
             ),
           ),
           //NUMBER 5
           Container(
-            padding: EdgeInsets.all(5),
             color: Colors.grey[50],
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                FlatButton.icon(
-                  onPressed: () {},
-                  icon: Icon(Icons.cancel_outlined),
-                  label: Text(
-                    'Weekly List',
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                    ),
-                  ),
-                  color: Colors.grey[50],
-                ),
-                FlatButton.icon(
-                  onPressed: () {},
-                  icon: Icon(Icons.cancel_outlined),
-                  label: Text(
-                    'Afternoon Tea List',
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                    ),
-                  ),
-                  color: Colors.grey[50],
-                ),
-                FlatButton.icon(
-                  onPressed: () {},
-                  icon: Icon(Icons.cancel_outlined),
-                  label: Text(
-                    'Pink BirthDay List',
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                    ),
-                  ),
-                  color: Colors.grey[50],
-                ),
-              ],
+              children: buildPastLists(),
             ),
           ),
         ],
@@ -230,6 +187,84 @@ class GLPastPage extends StatelessWidget {
         },
         child: Text('edit'),
         backgroundColor: Colors.greenAccent[700],
+      ),
+    );
+  }
+
+  ////////////////////////////////
+  //GROCERY LISTING PART
+  ////////////////////////////////
+  List<Widget> buildPastLists() {
+    List<Widget> pastList = [];
+    for (var i = 0; i < getPastList().length; i++) {
+      // show if the grocery not bought yet
+      pastList.add(buildPastList(getPastList()[i]));
+    }
+    return pastList;
+  }
+
+  Widget buildPastList(PastList pastList) {
+    return GestureDetector(
+      onTap: () {},
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              child: buildGLPastList(pastList.title),
+            ),
+          ]),
+    );
+  }
+
+  buildGLPastList(String text) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 0),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: Container(
+              alignment: Alignment.center,
+              child: Checkbox(
+                value: _checked,
+                onChanged: (bool value) {
+                  setState(() {
+                    _checked = value;
+                  });
+                },
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 7,
+            child: Container(
+              alignment: Alignment.centerLeft,
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => GLItemPage()),
+                  );
+                },
+                child: Text(
+                  text,
+                  style: priceText,
+                  textAlign: TextAlign.left,
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Container(
+              child: Text(
+                "hello",
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
