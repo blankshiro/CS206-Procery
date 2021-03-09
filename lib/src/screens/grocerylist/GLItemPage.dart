@@ -1,6 +1,6 @@
 import 'package:Procery/src/screens/grocerylist/GLAddPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLCurrentPage.dart';
-import 'package:Procery/src/screens/grocerylist/GLData.dart';
+import 'package:Procery/src/screens/grocerylist/GLCurrentList.dart';
 // import 'package:Procery/src/screens/grocerylist/GLItemsPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLItemList.dart';
 import 'package:Procery/src/screens/grocerylist/GLPastList.dart';

@@ -2,6 +2,7 @@ import 'package:Procery/src/screens/grocerylist/GLAddPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLItemPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLPastPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLCurrentList.dart';
+import 'package:Procery/src/screens/grocerylist/GLEditPage.dart';
 import 'package:flutter/material.dart';
 import '../../shared/styles.dart';
 import 'package:Procery/src/shared/styles.dart';
@@ -91,12 +92,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
                       },
                       child: Text(
                         'Past',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                          fontFamily: 'Poppins',
-                        ),
+                        style: priceText,
                         textAlign: TextAlign.center,
                       ),
                     )),
@@ -168,7 +164,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => GLAddPage()),
+            MaterialPageRoute(builder: (context) => GLEditPage()),
           );
         },
         child: Text('edit'),
