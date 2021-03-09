@@ -12,8 +12,10 @@ import '../../shared/Product.dart';
 import '../../shared/partials.dart';
 
 import './DashboardConstants.dart';
-import './InventoryDetail.dart';
+
 import './InventoryData.dart';
+import './GroceryData.dart';
+import './MealData.dart';
 
 import '../recipe/RecipeData.dart';
 import '../recipe/RecipeExplore.dart';
@@ -43,6 +45,10 @@ class _DashboardExploreState extends State<DashboardExplore> {
     loadChildWidgets(); //Method to add the Children as user selected.
   }
 
+  /////////////////////////////////////
+  /// MEAL PART
+  ////////////////////////////////////
+
   void loadCupertinoTabs() {
     map = new Map();
     String text = "";
@@ -56,12 +62,13 @@ class _DashboardExploreState extends State<DashboardExplore> {
       }
 
       map.putIfAbsent(i,
-        () => Container (
-          width: 100,
-          child: Text(
-            text,
-            textAlign: TextAlign.center,
-          )
+        () =>
+        Container(
+            width: 100,
+            child: Text(
+              text,
+              textAlign: TextAlign.center,
+            )
         )
       );
     }
@@ -69,27 +76,70 @@ class _DashboardExploreState extends State<DashboardExplore> {
 
   void loadChildWidgets() {
     childWidgets = [];
-    for (int i = 0; i < 3; i++)
+    // for (int i = 0; i < 3; i++)
+    for (var i = 0; i < getMeal().length; i++) {
       childWidgets.add(
-        Center(
-          // child: getRecipes(),
-          child: Text(
-            '''child $i'''
-          ),
-        ),
+          Column(
+            children: [
+              // buildMeal(getMeal()[i])
+              Container(
+                margin: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20),
+                  ),
+                  boxShadow: [kBoxShadow],
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      height: 160,
+                      width: 160,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(getMeal()[i].image),
+                          fit: BoxFit.fitWidth,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            buildRecipeTitle(getMeal()[i].title),
+                            // buildRecipeSubTitle(inv.description),
+                            // buildExpiryDays("Expiring in: " + inv.expiry.toString() + " Days"),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          )
+        // Center(
+        //   // child: getRecipes(),
+        //   child: Text(
+        //     '''child $i'''
+        //   ),
+        // ),
       );
+    }
   }
   Widget getChildWidget() => childWidgets[sharedValue];
 
   @override
   Widget build(BuildContext context) {
-
     // Add the first page of the functionalities here
     final List<Widget> _children = [
       DashboardExplore(),
       RecipeExplore(),
     ];
-
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -112,7 +162,6 @@ class _DashboardExploreState extends State<DashboardExplore> {
                 ],
               ),
             ),
-            // Container
             Container(
               height: 190,
               child: PageView(
@@ -123,25 +172,54 @@ class _DashboardExploreState extends State<DashboardExplore> {
             SizedBox(
               height: 16,
             ),
-            // Words
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: [
+                  buildTextTitleVariation1("Grocery List"),
+                  SizedBox(
+                    width: 8,
+                  ),
+                ],
+              ),
+            ),
+            Column(
+              children: buildGroceries(),
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: [
+                  buildTextTitleVariation1("Today's Meal"),
+                  SizedBox(
+                    width: 8,
+                  ),
+                ],
+              ),
+            ),
+            // Words
+            Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Container(
                   child: Column(
                     children: <Widget>[
-                    CupertinoSegmentedControl(
-                      onValueChanged: (value) {
-                        // Callback function executed when user changes the Tabs
-                        setState(() {
-                          sharedValue = value;
-                        });
-                      },
-                      groupValue: sharedValue, //The current selected Index or key
-                      children: map, //The tabs which are assigned in the form of map
-                    ),
-                  ],
-                ),
-              )
+                      CupertinoSegmentedControl(
+                        onValueChanged: (value) {
+                          // Callback function executed when user changes the Tabs
+                          setState(() {
+                            sharedValue = value;
+                          });
+                        },
+                        groupValue: sharedValue,
+                        //The current selected Index or key
+                        children: map, //The tabs which are assigned in the form of map
+                      ),
+                    ],
+                  ),
+                )
             ),
             SizedBox(
               width: 8,
@@ -163,12 +241,9 @@ class _DashboardExploreState extends State<DashboardExplore> {
     );
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      log('index: $_selectedIndex');
-    });
-  }
+  /////////////////////////////////////
+  /// EXPIRING PART
+  ////////////////////////////////////
 
   List<Widget> buildExpirings() {
     List<Widget> expiringList = [];
@@ -209,7 +284,8 @@ class _DashboardExploreState extends State<DashboardExplore> {
                 children: [
                   buildRecipeTitle(inv.title),
                   buildRecipeSubTitle(inv.description),
-                  buildExpiryDays("Expiring in: " + inv.expiry.toString() + " Days"),
+                  buildExpiryDays(
+                      "Expiring in: " + inv.expiry.toString() + " Days"),
                 ],
               ),
             ),
@@ -218,59 +294,55 @@ class _DashboardExploreState extends State<DashboardExplore> {
       ),
     );
   }
-}
 
-Widget storeTab(BuildContext context) {
-  List<Product> foods = [
-    Product(
-        name: "Hamburger",
-        image: "images/3.png",
-        price: "\$25.00",
-        userLiked: true,
-        discount: 10),
-    Product(
-        name: "Pasta",
-        image: "images/5.png",
-        price: "\$150.00",
-        userLiked: false,
-        discount: 7.8),
-    Product(
-      name: "Akara",
-      image: 'images/2.png',
-      price: '\$10.99',
-      userLiked: false,
-    ),
-    Product(
-        name: "Strawberry",
-        image: "images/1.png",
-        price: '\$50.00',
-        userLiked: true,
-        discount: 14)
-  ];
+  /////////////////////////////////////
+  /// GROCERY PART
+  ////////////////////////////////////
 
-  List<Product> drinks = [
-    Product(
-        name: "Coca-Cola",
-        image: "images/6.png",
-        price: "\$45.12",
-        userLiked: true,
-        discount: 2),
-    Product(
-        name: "Lemonade",
-        image: "images/7.png",
-        price: "\$28.00",
-        userLiked: false,
-        discount: 5.2),
-    Product(
-        name: "Vodka",
-        image: "images/8.png",
-        price: "\$78.99",
-        userLiked: false),
-    Product(
-        name: "Tequila",
-        image: "images/9.png",
-        price: "\$168.99",
-        userLiked: true,
-        discount: 3.4)
-  ];
+  List<Widget> buildGroceries() {
+    List<Widget> groceryList = [];
+    for (var i = 0; i < getGrocery().length; i++) {
+      // show if the grocery not bought yet
+      if (!getGrocery()[i].bought)
+        groceryList.add(buildGrocery(getGrocery()[i]));
+    }
+    return groceryList;
+  }
+
+  Widget buildGrocery(Grocery grocery) {
+    return GestureDetector(
+      onTap: () {
+        color:
+        Colors.red;
+      },
+      child: Container(
+        // padding: EdgeInsets.all(10),
+        child: Row(
+          children: [
+            // on press, remove the line of grocery (change bought to true)
+            // have a button to undo at the bottom of the page
+            Container(
+              padding: EdgeInsets.fromLTRB(30, 2, 20, 2),
+              // color: Colors.red[50],
+              child: Icon(
+                Icons.crop_square,
+                size: 30,
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.fromLTRB(10, 2, 100, 2),
+              color: Colors.grey[50],
+              child: buildGroceryTitle(grocery.title),
+            ),
+            Container(
+                padding: EdgeInsets.fromLTRB(10, 2, 37, 2),
+                color: Colors.grey[50],
+                child: buildGrocerySubtitle(grocery.description)
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
 }
