@@ -1,3 +1,7 @@
+import 'package:Procery/src/screens/dashboard/DashboardConstants.dart';
+import 'package:Procery/src/shared/colors.dart';
+import 'package:Procery/src/shared/fryo_icons.dart';
+import 'package:Procery/src/shared/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 // import '../shared/styles.dart';
@@ -31,15 +35,30 @@ class _MealPlannerState extends State<MealPlanner> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        title: Text("Meal Planner", style: GoogleFonts.poppins(
-            fontSize: 22, fontWeight: FontWeight.bold, color:Colors.black),
+        appBar: AppBar(
+          centerTitle: true,
+          elevation: 0,
+          backgroundColor: primaryColor,
+          title:
+          Text('Procery', style: logoWhiteStyle, textAlign: TextAlign.center),
+          actions: <Widget>[
+            IconButton(
+              padding: EdgeInsets.all(0),
+              onPressed: () {},
+              iconSize: 21,
+              icon: Icon(Fryo.magnifier),
+            ),
+            IconButton(
+              padding: EdgeInsets.all(0),
+              onPressed: () {},
+              iconSize: 21,
+              icon: Icon(Fryo.alarm),
+            )
+          ],
         ),
-      ),
       body: Column(
         children: [
+          buildTextTitleVariation('Meal Planner'),
           TableCalendar(
             calendarController: _calendarController,
             initialCalendarFormat: CalendarFormat.week,
@@ -70,27 +89,64 @@ class _MealPlannerState extends State<MealPlanner> {
           ),
           Text('Breakfast', style: GoogleFonts.poppins(
               fontSize: 18, fontWeight: FontWeight.bold, color:Colors.black)),
-          Align(
-              alignment: Alignment.centerLeft,
-              child: Row(
-                children: [
-                  Container(
-                    height: 190,
-                    child: Image(image: AssetImage('assets/images/cake_1.png'), width: 120,)
+              Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                    boxShadow: [kBoxShadow],
                   ),
-                  Container(
-                      padding: EdgeInsets.all(10.0),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 160,
+                        width: 160,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage("assets/images/banana_cake.jpg"),
+                            fit: BoxFit.fitHeight,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              buildTextTitleVariation2('Banana Cake', false),
+                              buildTextSubTitleVariation1("200 cals"),
+                              Text("6 min", style: GoogleFonts.poppins(
+                                  fontSize: 16, fontWeight: FontWeight.bold, color:Colors.black))
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Align(
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.all(10.0),
                       child: IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.add_circle),
-                          color: Colors.green
+                      onPressed: () {},
+                      icon: Icon(Icons.add_circle),
+                      color: Colors.green
                       )
+                      ),
+                      Text('Feel free to add more dishes!', style: GoogleFonts.poppins(
+                      fontSize: 14, fontWeight: FontWeight.normal, color:Colors.grey)),]
                   ),
-                  Text('Feel free to add more dishes!', style: GoogleFonts.poppins(
-                      fontSize: 14, fontWeight: FontWeight.normal, color:Colors.grey)),
-                ],
-              )
-          ),
+                ),
+          ]),
           Text('Lunch', style: GoogleFonts.poppins(
               fontSize: 18, fontWeight: FontWeight.bold, color:Colors.black)),
           Align(
