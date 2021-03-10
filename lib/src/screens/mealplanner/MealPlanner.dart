@@ -7,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 // import '../shared/styles.dart';
 // import '../shared/colors.dart';
 // import '../shared/inputFields.dart';
-import 'package:page_transition/page_transition.dart';
 // import './unused/SignUpPage.dart';
 // import './unused/Dashboard.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -107,7 +106,7 @@ class _MealPlannerState extends State<MealPlanner> {
                         width: 160,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage("assets/images/banana_cake.jpg"),
+                            image: AssetImage("assets/images/coconut_cake.jpg"),
                             fit: BoxFit.fitHeight,
                           ),
                         ),
@@ -119,10 +118,9 @@ class _MealPlannerState extends State<MealPlanner> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              buildTextTitleVariation2('Banana Cake', false),
-                              buildTextSubTitleVariation1("200 cals"),
-                              Text("6 min", style: GoogleFonts.poppins(
-                                  fontSize: 16, fontWeight: FontWeight.bold, color:Colors.black))
+                              buildRecipeTitle('Coconut Cake'),
+                              buildTextSubTitleVariation2("200 cals"),
+                              buildCalories('15 mins'),
                             ],
                           ),
                         ),
