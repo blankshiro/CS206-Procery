@@ -1,6 +1,7 @@
 // import 'package:Procery/src/screens/recipe/RecipeDetail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 
 import 'dart:developer';
 
@@ -32,6 +33,7 @@ class DashboardExplore extends StatefulWidget {
 }
 
 class _DashboardExploreState extends State<DashboardExplore> {
+
   // Cupertino Segmented Control takes children in form of Map.
   Map<int, Widget> map = new Map();
   List<Widget> childWidgets;
@@ -42,6 +44,7 @@ class _DashboardExploreState extends State<DashboardExplore> {
     super.initState();
     loadCupertinoTabs(); //Method to add Tabs to the Segmented Control.
     loadChildWidgets(); //Method to add the Children as user selected.
+    getChildWidget();
   }
 
   /////////////////////////////////////
@@ -73,55 +76,104 @@ class _DashboardExploreState extends State<DashboardExplore> {
     }
   }
 
+
   void loadChildWidgets() {
     childWidgets = [];
-    // for (int i = 0; i < 3; i++)
-    for (var i = 0; i < getMeal().length; i++) {
+
+    DateTime now = DateTime.now();
+    // to get the correct timezone, add 8 hours
+    now = now.add(new Duration(hours: 8));
+
+    List<Meal> breakfastList = [];
+    List<Meal> lunchList = [];
+    List<Meal> dinnerList = [];
+    List<List<Meal>> fullMealList = [];
+
+    for (int i = 0; i < getMeal().length; i++) {
+
+      var mealDate = getMeal()[i].date;
+      int mealTime = getMeal()[i].time;
+
+      // if meal date is today's date, print today's meal
+      if (mealDate.isSameDate(now)) {
+        if (mealTime == 0) {
+          breakfastList.add(getMeal()[i]);
+          // breakfast
+        } else if (mealTime == 1) {
+          lunchList.add(getMeal()[i]);
+          // lunch
+        } else {
+          dinnerList.add(getMeal()[i]);
+          // dinner
+        }
+      }
+
+      fullMealList.add(breakfastList);
+      fullMealList.add(lunchList);
+      fullMealList.add(dinnerList);
+
+    }
+
+    // if (breakfastList.length == 0)
+
+
+    for (int j = 0; j < 3; j++) {
       childWidgets.add(
-        Column(
-            children: [
-              Container(
-                margin: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                  boxShadow: [kBoxShadow],
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      height: 160,
-                      width: 160,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(getMeal()[i].image),
-                          fit: BoxFit.fitHeight,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            buildRecipeTitle(getMeal()[i].title),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          )
+        addChildWidgetContainer(fullMealList[j])
       );
     }
   }
   Widget getChildWidget() => childWidgets[sharedValue];
+
+  List<Widget> addChildWidgetContainer(mealList) {
+    List<Widget> containers = [];
+    for (int k = 0; k < mealList.length; k++) {
+      containers.add(
+        Column(
+          children: [
+            Container(
+              margin: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20),
+                ),
+                boxShadow: [kBoxShadow],
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    height: 160,
+                    width: 160,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(mealList[k].image),
+                        fit: BoxFit.fitHeight,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          buildRecipeTitle(mealList[k].title + "ASDASDaaaaa"),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        )
+      );
+
+    }
+    return containers;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -345,5 +397,12 @@ class _DashboardExploreState extends State<DashboardExplore> {
       ),
     );
   }
-
 }
+
+extension DateOnlyCompare on DateTime {
+  bool isSameDate(DateTime other) {
+    return this.year == other.year && this.month == other.month
+        && this.day == other.day;
+  }
+}
+
