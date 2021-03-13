@@ -40,8 +40,30 @@ class _ExpiringPageState extends State<ExpiringPage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: primaryColor,
+        title:
+        Text('Procery', style: logoWhiteStyle, textAlign: TextAlign.center),
+        actions: <Widget>[
+          IconButton(
+            padding: EdgeInsets.all(0),
+            onPressed: () {},
+            iconSize: 21,
+            icon: Icon(Fryo.magnifier),
+          ),
+          IconButton(
+            padding: EdgeInsets.all(0),
+            onPressed: () {},
+            iconSize: 21,
+            icon: Icon(Fryo.alarm),
+          )
+        ],
+      ),
+
       body: SingleChildScrollView(
-        // physics: BouncingScrollPhysics(),
         child: Column(
           children: [
             SizedBox(

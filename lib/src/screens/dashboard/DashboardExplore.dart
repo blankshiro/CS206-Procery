@@ -1,6 +1,7 @@
 // import 'package:Procery/src/screens/recipe/RecipeDetail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'dart:async';
 
 import 'dart:developer';
 
@@ -18,6 +19,7 @@ import './InventoryData.dart';
 import './GroceryData.dart';
 import './MealData.dart';
 
+import '../recipe/Recipe.dart';
 import '../recipe/RecipeData.dart';
 import '../recipe/RecipeExplore.dart';
 import '../recipe/RecipeDetail.dart';
@@ -32,16 +34,39 @@ class DashboardExplore extends StatefulWidget {
 }
 
 class _DashboardExploreState extends State<DashboardExplore> {
-  // Cupertino Segmented Control takes children in form of Map.
+  // Meal Planner Tabs
   Map<int, Widget> map = new Map();
   List<Widget> childWidgets;
   int sharedValue = 0;
 
+  // Expiring Container Timer
+  int _currentPage = 0;
+  PageController _pageController = PageController(
+    initialPage: 0,
+  );
+
   @override
   void initState() {
+    // Meal Planner Tabs
     super.initState();
     loadCupertinoTabs(); //Method to add Tabs to the Segmented Control.
     loadChildWidgets(); //Method to add the Children as user selected.
+
+    // Expiring Container Timer
+    int totalPage = getExpiringSize();
+    // Timer.periodic(Duration(seconds: 5), (Timer timer) {
+    //   if (_currentPage < (totalPage - 1)) {
+    //     _currentPage++;
+    //   } else {
+    //     _currentPage = 0;
+    //   }
+    //
+    //   _pageController.animateToPage(
+    //     _currentPage,
+    //     duration: Duration(milliseconds: 500),
+    //     curve: Curves.easeIn,
+    //   );
+    // });
   }
 
   /////////////////////////////////////
@@ -77,48 +102,75 @@ class _DashboardExploreState extends State<DashboardExplore> {
     childWidgets = [];
     // for (int i = 0; i < 3; i++)
     for (var i = 0; i < getMeal().length; i++) {
-      childWidgets.add(
-        Column(
-            children: [
-              Container(
-                margin: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                  boxShadow: [kBoxShadow],
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      height: 160,
-                      width: 160,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(getMeal()[i].image),
-                          fit: BoxFit.fitHeight,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            buildRecipeTitle(getMeal()[i].title),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          )
-      );
+      Meal meal = getMeal()[i];
+      for (var j = 0; j < getRecipes().length; j++) {
+        if (meal.name == getRecipes()[j].name) {
+          Recipe recipe = getRecipes()[j];
+
+          DateTime now = DateTime.now();
+          // to get the correct timezone, add 8 hours
+          now = now.add(new Duration(hours: 8));
+
+          var mealDate = getMeal()[i].date;
+
+          // prints the meal for today only
+          // if (mealDate.isSameDate(now)) {
+            childWidgets.add(
+                GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => RecipeDetail(recipe: recipe)),
+                      );
+                    },
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20),
+                            ),
+                            boxShadow: [kBoxShadow],
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                height: 160,
+                                width: 160,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage(getMeal()[i].image),
+                                    fit: BoxFit.fitHeight,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 16),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      buildRecipeTitle(getMeal()[i].name),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    )
+                )
+            );
+
+          // }
+
+          break;
+        }
+      }
     }
   }
   Widget getChildWidget() => childWidgets[sharedValue];
@@ -150,20 +202,13 @@ class _DashboardExploreState extends State<DashboardExplore> {
             Container(
               height: 190,
               child: PageView(
+                  controller: _pageController,
+                  physics: BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
                 // physics: BouncingScrollPhysics(),
-                children: [
-                  buildExpiring(getExpiring()[0]),
-                  // FlatButton(
-                  //   onPressed: () {
-                  //     Navigator.push(
-                  //       context,
-                  //       MaterialPageRoute(builder: (context) => ExpiringPage()),
-                  //     );
-                  //   },
-                  // ),
-                ]
+                  children: buildExpirings(),
+                ),
               ),
-            ),
             SizedBox(
               height: 16,
             ),
@@ -240,14 +285,18 @@ class _DashboardExploreState extends State<DashboardExplore> {
   /// EXPIRING PART
   ////////////////////////////////////
 
-  // List<Widget> buildExpirings() {
-  //   List<Widget> expiringList = [];
-  //   // for (var i = 0; i < getExpiring().length; i++) {
-  //   // just return the closest to expiry date item
-  //     expiringList.add(buildExpiring(getExpiring()[0]));
-  //   // }
-  //   return expiringList;
-  // }
+  int getExpiringSize() {
+    return getExpiring().length;
+  }
+
+  List<Widget> buildExpirings() {
+    List<Widget> expiringList = [];
+    for (var i = 0; i < getExpiring().length; i++) {
+    // just return the closest to expiry date item
+      expiringList.add(buildExpiring(getExpiring()[i]));
+    }
+    return expiringList;
+  }
 
   Widget buildExpiring(Inventory inv) {
     return Container(
@@ -346,4 +395,11 @@ class _DashboardExploreState extends State<DashboardExplore> {
     );
   }
 
+}
+
+extension DateOnlyCompare on DateTime {
+  bool isSameDate(DateTime other) {
+    return this.year == other.year && this.month == other.month
+        && this.day == other.day;
+  }
 }
