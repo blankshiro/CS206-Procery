@@ -1,5 +1,5 @@
 import 'package:Procery/src/screens/mealplanner/MealPlanner.dart';
-import 'package:Procery/src/screens/recipe/Recipe.dart';
+import '../../models/Recipe.dart';
 import 'package:Procery/src/screens/recipe/RecipeConstants.dart';
 import 'package:Procery/src/screens/recipe/RecipeDetail.dart';
 import 'package:Procery/src/screens/recipe/RecipeSearch.dart';

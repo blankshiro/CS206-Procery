@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import './Recipe.dart';
+import 'Recipe.dart';
 
 part 'Ingredient.g.dart';
 

@@ -18,7 +18,7 @@ import './InventoryData.dart';
 import './GroceryData.dart';
 import './MealData.dart';
 
-import '../recipe/Recipe.dart';
+import '../../models/Recipe.dart';
 import '../recipe/RecipeData.dart';
 import '../recipe/RecipeDetail.dart';
 

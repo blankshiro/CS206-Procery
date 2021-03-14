@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../screens/recipe/Recipe.dart';
+import '../models/Recipe.dart';
 import 'package:hive/hive.dart';
 
 class RecipeModel with ChangeNotifier {

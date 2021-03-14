@@ -8,8 +8,8 @@ import 'package:Procery/src/router.gr.dart';
 
 // import 'package:Procery/src/models/Ingredient.dart';
 // import 'package:Procery/src/models/Recipe.dart';
-import './src/screens/recipe/Recipe.dart';
-import './src/screens/recipe/Ingredient.dart';
+import 'src/models/Recipe.dart';
+import 'src/models/Ingredient.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:provider/provider.dart';
 
