@@ -9,6 +9,7 @@ import 'package:Procery/src/screens/dashboard/DashboardExplore.dart';
 import 'package:Procery/src/screens/recipe/RecipeExplore.dart';
 import 'package:Procery/src/screens/grocerylist/GLCurrentPage.dart';
 import 'package:Procery/src/screens/mealplanner/MealPlannerInitial.dart';
+import 'package:Procery/src/algo/sample.dart';
 
 class BaseScreen extends StatefulWidget {
   @override

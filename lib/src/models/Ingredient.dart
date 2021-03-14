@@ -15,7 +15,7 @@ class Ingredient {
   int expiryDays;
 
   @HiveField(4)
-  double price;
+  double price; // cost per standardQ
 
   @HiveField(5) // 6 eggs/250g flour etc
   int standardQ;
