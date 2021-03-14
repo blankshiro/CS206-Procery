@@ -45,6 +45,10 @@ class _DashboardExploreState extends State<DashboardExplore> {
     initialPage: 0,
   );
 
+  // Grocery Checkbox
+  var _checkedGroceryList = [];
+
+
   @override
   void initState() {
     // Meal Planner Tabs
@@ -271,6 +275,34 @@ class _DashboardExploreState extends State<DashboardExplore> {
                 ],
               ),
             ),
+            Table(
+              columnWidths: {
+                0: FixedColumnWidth(20),
+                1: FixedColumnWidth(180),
+                2: FixedColumnWidth(60),
+              },
+              defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
+              children: [
+                TableRow (
+                  children: [
+                    Container (
+                    ),
+                    Container(
+                      // padding: EdgeInsets.only(left: 0),
+                      child: Text (
+                          "Name: "
+                      ),
+                      width: 128,
+                    ),
+                    Container(
+                        child: Text (
+                            "Quantity: "
+                        )
+                    ),
+                  ],
+                ),
+              ],
+            ),
             Column(
               children: buildGroceries(),
             ),
@@ -334,7 +366,7 @@ class _DashboardExploreState extends State<DashboardExplore> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    buildRecipeTitle(inv.title),
+                    buildRecipeTitle(inv.name),
                     buildRecipeSubTitle(inv.description),
                     buildExpiryDays(
                         "Expiring in: " + inv.expiry.toString() + " Days"),
@@ -357,42 +389,94 @@ class _DashboardExploreState extends State<DashboardExplore> {
     List<Widget> groceryList = [];
     for (var i = 0; i < getGrocery().length; i++) {
       // show if the grocery not bought yet
-      if (!getGrocery()[i].bought)
-        groceryList.add(buildGrocery(getGrocery()[i]));
+      if (!getGrocery()[i].checked)
+        _checkedGroceryList.add(false);
+        groceryList.add(buildGrocery(getGrocery()[i], i));
     }
     return groceryList;
   }
 
-  Widget buildGrocery(Grocery grocery) {
-    return GestureDetector(
-      child: Container(
-        // padding: EdgeInsets.all(10),
-        child: Row(
+  Widget buildGrocery(Grocery grocery, int i) {
+    return Table(
+      // border: TableBorder.all(),
+      columnWidths: {
+        0: IntrinsicColumnWidth(),
+        1: FixedColumnWidth(200),
+        2: FlexColumnWidth(),
+        // 3: FlexColumnWidth(),
+      },
+      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+      children: [
+        TableRow(
           children: [
-            // on press, remove the line of grocery (change bought to true)
-            // have a button to undo at the bottom of the page
-            Container(
-              padding: EdgeInsets.fromLTRB(30, 2, 20, 2),
-              // color: Colors.red[50],
-              child: Icon(
-                Icons.crop_square,
-                size: 30,
+            TableCell(
+              child: Container(
+                padding: EdgeInsets.only(left: 20),
+                alignment: Alignment.center,
+                child: Checkbox(
+                  value: _checkedGroceryList[i],
+                  activeColor: primaryColor,
+                  onChanged: (bool value) {
+                    setState(() {
+                      _checkedGroceryList[i] = value;
+                      grocery.checked = true;
+                    });
+                  },
+                ),
               ),
             ),
-            Container(
-              padding: EdgeInsets.fromLTRB(10, 2, 100, 2),
-              color: Colors.grey[50],
-              child: buildGroceryTitle(grocery.title),
+            TableCell(
+                child: Container(
+                  padding: EdgeInsets.only(left: 15),
+                  child: buildGroceryTitle(grocery.name),
+                  width: 128,
+                )
             ),
-            Container(
-                padding: EdgeInsets.fromLTRB(10, 2, 37, 2),
-                color: Colors.grey[50],
-                child: buildGrocerySubtitle(grocery.description)
+            TableCell(
+                child: Container(
+                    child: buildGrocerySubtitle(grocery.quantity)
+                )
             ),
+            // TableCell(
+            //   child: Container(
+            //     padding: EdgeInsets.only(left: 30),
+            //     child: buildExpiryDays(inv.expiry.toString()),
+            //   ),
+            // ),
           ],
         ),
-      ),
+      ],
     );
+
+    //   GestureDetector(
+    //   child: Container(
+    //     // padding: EdgeInsets.all(10),
+    //     child: Row(
+    //       children: [
+    //         // on press, remove the line of grocery (change bought to true)
+    //         // have a button to undo at the bottom of the page
+    //         Container(
+    //           padding: EdgeInsets.fromLTRB(30, 2, 20, 2),
+    //           // color: Colors.red[50],
+    //           child: Icon(
+    //             Icons.crop_square,
+    //             size: 30,
+    //           ),
+    //         ),
+    //         Container(
+    //           padding: EdgeInsets.fromLTRB(10, 2, 100, 2),
+    //           color: Colors.grey[50],
+    //           child: buildGroceryTitle(grocery.title),
+    //         ),
+    //         Container(
+    //             padding: EdgeInsets.fromLTRB(10, 2, 37, 2),
+    //             color: Colors.grey[50],
+    //             child: buildGrocerySubtitle(grocery.description)
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
   }
 
 }

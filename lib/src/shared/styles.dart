@@ -244,6 +244,9 @@ buildGroceryTitle(String text) {
         fontFamily: 'Poppins',
         fontSize: 18,
         fontWeight: FontWeight.bold,
+        // decoration: TextDecoration.lineThrough,
+        // decorationThickness: 2,
+        // decorationColor: primaryColor,
       ),
     ),
   );

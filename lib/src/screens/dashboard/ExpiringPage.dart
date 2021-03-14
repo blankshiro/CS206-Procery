@@ -31,6 +31,9 @@ class ExpiringPage extends StatefulWidget {
 
 class _ExpiringPageState extends State<ExpiringPage> {
 
+  // Expiring Checkbox
+  var _checkedExpiringList = [];
+
   @override
   void initState() {
     super.initState();
@@ -38,15 +41,20 @@ class _ExpiringPageState extends State<ExpiringPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,
         backgroundColor: primaryColor,
-        title:
-        Text('Procery', style: logoWhiteStyle, textAlign: TextAlign.center),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => {
+            Navigator.of(context).pop(),
+
+          },
+        ),
+        title: Text('Procery', style: logoWhiteStyle, textAlign: TextAlign.center),
         actions: <Widget>[
           IconButton(
             padding: EdgeInsets.all(0),
@@ -117,18 +125,22 @@ class _ExpiringPageState extends State<ExpiringPage> {
       ),
     );
 
-
   }
+  //
+  // void removeChecked(int i) {
+  //   List<Inventory> groceryList = getExpiring();
+  // }
 
   List<Widget> buildExpirings() {
     List<Widget> expiringList = [];
     for (var i = 0; i < getExpiring().length; i++) {
-      expiringList.add(buildExpiring(getExpiring()[i]));
+      _checkedExpiringList.add(false);
+      expiringList.add(buildExpiring(getExpiring()[i], i));
     }
     return expiringList;
   }
 
-  Widget buildExpiring(Inventory inv) {
+  Widget buildExpiring(Inventory inv, int i) {
     return Table(
       // padding: EdgeInsets.all(10),
       // border: TableBorder.all(),
@@ -143,20 +155,24 @@ class _ExpiringPageState extends State<ExpiringPage> {
         TableRow(
           children: [
             TableCell(
-              child: Container (
-                padding: EdgeInsets.only(left: 15),
-                child: Icon(
-                  Icons.crop_square,
-                  size: 30,
+              child: Container(
+                alignment: Alignment.center,
+                child: Checkbox(
+                  value: _checkedExpiringList[i],
+                  activeColor: primaryColor,
+                  onChanged: (bool value) {
+                    setState(() {
+                      _checkedExpiringList[i] = value;
+                      inv.checked = true;
+                    });
+                  },
                 ),
-                width: 50,
-                height: 60,
               ),
             ),
             TableCell(
               child: Container(
                 padding: EdgeInsets.only(left: 15),
-                child: buildGroceryTitle(inv.title),
+                child: buildGroceryTitle(inv.name),
                 width: 128,
               )
             ),
@@ -174,38 +190,6 @@ class _ExpiringPageState extends State<ExpiringPage> {
           ],
         ),
       ],
-
-
-
-      // child: Row(
-      //   children: [
-      //     // on press, remove the line of grocery (change bought to true)
-      //     // have a button to undo at the bottom of the page
-      //     Container(
-      //       padding: EdgeInsets.fromLTRB(30, 2, 20, 2),
-      //       // color: Colors.red[50],
-      //       child: Icon(
-      //         Icons.crop_square,
-      //         size: 30,
-      //       ),
-      //     ),
-      //     Container(
-      //       padding: EdgeInsets.fromLTRB(10, 2, 100, 2),
-      //       color: Colors.grey[50],
-      //       child: buildGroceryTitle(inv.title),
-      //     ),
-      //     Container(
-      //         padding: EdgeInsets.fromLTRB(10, 2, 37, 2),
-      //         color: Colors.grey[50],
-      //         child: buildGrocerySubtitle(inv.description)
-      //     ),
-      //     Container(
-      //         padding: EdgeInsets.fromLTRB(10, 2, 37, 2),
-      //         color: Colors.grey[50],
-      //         child: buildExpiryDays(inv.expiry.toString()),
-      //     ),
-      //   ],
-      // ),
     );
   }
 }
