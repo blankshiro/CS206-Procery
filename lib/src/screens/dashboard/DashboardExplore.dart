@@ -1,4 +1,3 @@
-// import 'package:Procery/src/screens/recipe/RecipeDetail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:async';
@@ -21,7 +20,6 @@ import './MealData.dart';
 
 import '../recipe/Recipe.dart';
 import '../recipe/RecipeData.dart';
-import '../recipe/RecipeExplore.dart';
 import '../recipe/RecipeDetail.dart';
 
 class DashboardExplore extends StatefulWidget {
@@ -58,19 +56,19 @@ class _DashboardExploreState extends State<DashboardExplore> {
 
     // Expiring Container Timer
     int totalPage = getExpiringSize();
-    // Timer.periodic(Duration(seconds: 5), (Timer timer) {
-    //   if (_currentPage < (totalPage - 1)) {
-    //     _currentPage++;
-    //   } else {
-    //     _currentPage = 0;
-    //   }
-    //
-    //   _pageController.animateToPage(
-    //     _currentPage,
-    //     duration: Duration(milliseconds: 500),
-    //     curve: Curves.easeIn,
-    //   );
-    // });
+    Timer.periodic(Duration(seconds: 5), (Timer timer) {
+      if (_currentPage < (totalPage - 1)) {
+        _currentPage++;
+      } else {
+        _currentPage = 0;
+      }
+
+      _pageController.animateToPage(
+        _currentPage,
+        duration: Duration(milliseconds: 500),
+        curve: Curves.easeIn,
+      );
+    });
   }
 
   /////////////////////////////////////
@@ -398,12 +396,10 @@ class _DashboardExploreState extends State<DashboardExplore> {
 
   Widget buildGrocery(Grocery grocery, int i) {
     return Table(
-      // border: TableBorder.all(),
       columnWidths: {
         0: IntrinsicColumnWidth(),
         1: FixedColumnWidth(200),
         2: FlexColumnWidth(),
-        // 3: FlexColumnWidth(),
       },
       defaultVerticalAlignment: TableCellVerticalAlignment.middle,
       children: [
@@ -437,46 +433,12 @@ class _DashboardExploreState extends State<DashboardExplore> {
                     child: buildGrocerySubtitle(grocery.quantity)
                 )
             ),
-            // TableCell(
-            //   child: Container(
-            //     padding: EdgeInsets.only(left: 30),
-            //     child: buildExpiryDays(inv.expiry.toString()),
-            //   ),
-            // ),
+
           ],
         ),
       ],
     );
 
-    //   GestureDetector(
-    //   child: Container(
-    //     // padding: EdgeInsets.all(10),
-    //     child: Row(
-    //       children: [
-    //         // on press, remove the line of grocery (change bought to true)
-    //         // have a button to undo at the bottom of the page
-    //         Container(
-    //           padding: EdgeInsets.fromLTRB(30, 2, 20, 2),
-    //           // color: Colors.red[50],
-    //           child: Icon(
-    //             Icons.crop_square,
-    //             size: 30,
-    //           ),
-    //         ),
-    //         Container(
-    //           padding: EdgeInsets.fromLTRB(10, 2, 100, 2),
-    //           color: Colors.grey[50],
-    //           child: buildGroceryTitle(grocery.title),
-    //         ),
-    //         Container(
-    //             padding: EdgeInsets.fromLTRB(10, 2, 37, 2),
-    //             color: Colors.grey[50],
-    //             child: buildGrocerySubtitle(grocery.description)
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 
 }
