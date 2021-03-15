@@ -1,4 +1,5 @@
 import 'package:Procery/src/screens/recipe/RecipeSearch.dart';
+import 'package:Procery/src/shared/fryo_icons.dart';
 import 'package:flutter/material.dart';
 import './RecipeConstants.dart';
 import './RecipeData.dart';
@@ -8,6 +9,8 @@ import './RecipeDetail.dart';
 import '../../shared/styles.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:like_button/like_button.dart';
+import '../../services/RecipeModel.dart';
+import 'package:provider/provider.dart';
 
 class RecipeExplore extends StatefulWidget {
   @override
@@ -19,169 +22,180 @@ class RecipeExploreState extends State<RecipeExplore> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // Top part of the app
-      backgroundColor: Colors.green[200],
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        brightness: Brightness.light,
-        elevation: 0,
-        title: Text("Recipes", style: logoStyle),
-        centerTitle: false,
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 16),
-            child: Icon(
-              Icons.menu,
-              color: Colors.black,
-              size: 28,
+    return Consumer<RecipeModel>(builder: (context, recipeModel, child) {
+      deleteAllRecipe(recipeModel);
+      loadAllRecipe(recipeModel);
+
+      return Scaffold(
+        // Top part of the app
+        backgroundColor: Colors.green[200],
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          brightness: Brightness.light,
+          elevation: 0,
+          title: Text("Recipes", style: logoStyle),
+          centerTitle: false,
+          actions: [
+            Padding(
+              padding: EdgeInsets.only(right: 16),
+              child: Icon(
+                Icons.menu,
+                color: Colors.black,
+                size: 28,
+              ),
             ),
-          ),
-        ],
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // Search bar
-          Container(
-            padding: EdgeInsets.only(bottom: 10),
-            child: Padding(
-              padding: EdgeInsets.all(16),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search',
-                  hintStyle: TextStyle(fontSize: 16),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: BorderSide(
-                      width: 0,
-                      style: BorderStyle.none,
+          ],
+        ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Search bar
+            Container(
+              padding: EdgeInsets.only(bottom: 10),
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Search',
+                    hintStyle: TextStyle(fontSize: 16),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      borderSide: BorderSide(
+                        width: 0,
+                        style: BorderStyle.none,
+                      ),
                     ),
-                  ),
-                  filled: true,
-                  fillColor: Colors.grey[100],
-                  contentPadding: EdgeInsets.only(
-                    left: 30,
-                  ),
-                  suffixIcon: Padding(
-                    padding: EdgeInsets.only(right: 24.0, left: 16.0),
-                    child: Icon(
-                      Icons.search,
-                      color: Colors.black,
-                      size: 24,
+                    filled: true,
+                    fillColor: Colors.grey[100],
+                    contentPadding: EdgeInsets.only(
+                      left: 30,
+                    ),
+                    suffixIcon: Padding(
+                      padding: EdgeInsets.only(right: 24.0, left: 16.0),
+                      child: IconButton(
+                        icon: Icon(Fryo.magnifier),
+                        color: Colors.black,
+                        iconSize: 24,
+                        onPressed: () {
+                          
+                        },
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey[100],
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
+            Expanded(
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey[100],
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                    ),
                   ),
-                ),
-                // Categories bar
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Categories", style: h3),
-                          Row(
-                            children: [
-                              Text("View All", style: h5),
-                              SizedBox(
-                                width: 8,
-                              ),
-                              Icon(
-                                Icons.arrow_forward_ios,
-                                size: 12,
-                                color: Colors.black,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    // Different categories
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        option('Cakes', 'assets/icons/cake.png', 0),
-                        SizedBox(
-                          width: 8,
+                  // Categories bar
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Categories", style: h3),
+                            Row(
+                              children: [
+                                Text("View All", style: h5),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 12,
+                                  color: Colors.black,
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                        option('Muffins', 'assets/icons/muffin.png', 1),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        option('Bread', 'assets/icons/bread.png', 2),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 24,
-                    ),
-                    // Recipe Pictures
-                    Container(
-                      height: 350,
-                      child: ListView(
-                        physics: BouncingScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        children: buildRecipes(),
                       ),
-                    ),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    // What's Popular column
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // Different categories
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          buildTextTitleVariation2("What's Popular", false),
+                          option('Cakes', 'assets/icons/cake.png', 0),
                           SizedBox(
                             width: 8,
                           ),
-                          // buildTextTitleVariation2('Recent', true),
-                          IconButton(
-                            icon: Icon(Icons.search),
-                            iconSize: 25,
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) {
-                                    return RecipeSearch();
-                                  },
-                                ),
-                              );
-                            },
-                          )
+                          option('Muffins', 'assets/icons/muffin.png', 1),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          option('Bread', 'assets/icons/bread.png', 2),
                         ],
                       ),
-                    ),
-                    Column(
-                      children: buildPopulars(),
-                    )
-                  ],
+                      SizedBox(
+                        height: 24,
+                      ),
+                      // Recipe Pictures
+                      Container(
+                        height: 350,
+                        child: ListView.builder(
+                          itemCount: recipeModel.recipeList.length,
+                          itemBuilder: (context, index){
+                            Recipe rec = recipeModel.recipeList[index];
+                            return buildRecipe(rec, index);
+                          },
+                          physics: BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      // What's Popular column
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            buildTextTitleVariation2("What's Popular", false),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            // buildTextTitleVariation2('Recent', true),
+                            IconButton(
+                              icon: Icon(Icons.search),
+                              iconSize: 25,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (BuildContext context) {
+                                      return RecipeSearch();
+                                    },
+                                  ),
+                                );
+                              },
+                            )
+                          ],
+                        ),
+                      ),
+                      Column(
+                        children: buildPopulars(),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    });
   }
-
   Widget option(String text, String image, int index) {
     return GestureDetector(
       onTap: () {
@@ -226,14 +240,31 @@ class RecipeExploreState extends State<RecipeExplore> {
     );
   }
 
-  List<Widget> buildRecipes() {
-    List<Widget> list = [];
-    for (var i = 0; i < getRecipes().length; i++) {
-      list.add(buildRecipe(getRecipes()[i], i));
+  // Helper function to load recipe data into hive database
+  void loadAllRecipe(RecipeModel recipeModel){
+    List toAdd = getRecipes();
+    for(var i = 0; i < toAdd.length; i++){
+      recipeModel.addItem(toAdd[i]);
     }
-    return list;
   }
 
+  void deleteAllRecipe(RecipeModel recipeModel){
+    while(recipeModel.recipeList.isNotEmpty){
+      recipeModel.deleteItem(0);
+    }
+  }
+
+  // Can be removed, recipes can now be pulled directly from Hive Database
+  // List<Widget> buildRecipes(var recipeList) {
+  //   List<Widget> list = [];
+  //   for (var i = 0; i < recipeList.length; i++) {
+  //     list.add(buildRecipe(recipeList[i], i));
+  //   }
+  //
+  //   return list;
+  // }
+
+  //
   Widget buildRecipe(Recipe recipe, int index) {
     return GestureDetector(
       onTap: () {

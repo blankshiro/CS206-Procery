@@ -7,16 +7,16 @@ part 'Purchase.g.dart';
 @HiveType(typeId: 3)
 class Purchase {
   @HiveField(0)
-  List<Ingredient> ingredients;
+  Ingredient ingredient;
 
   @HiveField(1)
-  List<int> quantity;
+  int quantity;
 
   @HiveField(2)
-  List<String> datePurchased;
+  DateTime datePurchased;
 
   Purchase(
-      {this.ingredients,
+      {this.ingredient,
         this.quantity,
         this.datePurchased,
         });

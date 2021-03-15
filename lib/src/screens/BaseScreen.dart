@@ -11,6 +11,8 @@ import 'package:Procery/src/screens/grocerylist/GLCurrentPage.dart';
 import 'package:Procery/src/screens/mealplanner/MealPlannerInitial.dart';
 import 'package:Procery/src/algo/sample.dart';
 
+
+
 class BaseScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -101,4 +103,5 @@ class _BaseState extends State<BaseScreen> {
       print('index: $_selectedIndex');
     });
   }
+
 }

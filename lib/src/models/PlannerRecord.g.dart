@@ -17,7 +17,7 @@ class PlannerRecordAdapter extends TypeAdapter<PlannerRecord> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return PlannerRecord(
-      recipeName: fields[0] as Recipe,
+      recipe: fields[0] as Recipe,
       date: fields[1] as String,
       meal: fields[2] as String,
     );
@@ -28,7 +28,7 @@ class PlannerRecordAdapter extends TypeAdapter<PlannerRecord> {
     writer
       ..writeByte(3)
       ..writeByte(0)
-      ..write(obj.recipeName)
+      ..write(obj.recipe)
       ..writeByte(1)
       ..write(obj.date)
       ..writeByte(2)

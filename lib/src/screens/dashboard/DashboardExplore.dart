@@ -56,19 +56,19 @@ class _DashboardExploreState extends State<DashboardExplore> {
 
     // Expiring Container Timer
     int totalPage = getExpiringSize();
-    Timer.periodic(Duration(seconds: 5), (Timer timer) {
-      if (_currentPage < (totalPage - 1)) {
-        _currentPage++;
-      } else {
-        _currentPage = 0;
-      }
-
-      _pageController.animateToPage(
-        _currentPage,
-        duration: Duration(milliseconds: 500),
-        curve: Curves.easeIn,
-      );
-    });
+    // Timer.periodic(Duration(seconds: 5), (Timer timer) {
+    //   if (_currentPage < (totalPage - 1)) {
+    //     _currentPage++;
+    //   } else {
+    //     _currentPage = 0;
+    //   }
+    //
+    //   _pageController.animateToPage(
+    //     _currentPage,
+    //     duration: Duration(milliseconds: 500),
+    //     curve: Curves.easeIn,
+    //   );
+    // });
   }
 
   /////////////////////////////////////

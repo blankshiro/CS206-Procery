@@ -7,7 +7,7 @@ part 'PlannerRecord.g.dart';
 @HiveType(typeId: 4)
 class PlannerRecord {
   @HiveField(0)
-  Recipe recipeName;
+  Recipe recipe;
 
   @HiveField(1)
   String date;
@@ -16,7 +16,7 @@ class PlannerRecord {
   String meal;
 
   PlannerRecord(
-      {this.recipeName,
+      {this.recipe,
         this.date,
         this.meal,
       });

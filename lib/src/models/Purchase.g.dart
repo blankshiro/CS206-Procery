@@ -17,9 +17,9 @@ class PurchaseAdapter extends TypeAdapter<Purchase> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Purchase(
-      ingredients: (fields[0] as List)?.cast<Ingredient>(),
-      quantity: (fields[1] as List)?.cast<int>(),
-      datePurchased: (fields[2] as List)?.cast<String>(),
+      ingredient: fields[0] as Ingredient,
+      quantity: fields[1] as int,
+      datePurchased: fields[2] as DateTime,
     );
   }
 
@@ -28,7 +28,7 @@ class PurchaseAdapter extends TypeAdapter<Purchase> {
     writer
       ..writeByte(3)
       ..writeByte(0)
-      ..write(obj.ingredients)
+      ..write(obj.ingredient)
       ..writeByte(1)
       ..write(obj.quantity)
       ..writeByte(2)

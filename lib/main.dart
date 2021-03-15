@@ -10,6 +10,9 @@ import 'package:Procery/src/router.gr.dart';
 // import 'package:Procery/src/models/Recipe.dart';
 import 'src/models/Recipe.dart';
 import 'src/models/Ingredient.dart';
+import 'src/models/Purchase.dart';
+import 'src/models/PlannerRecord.dart';
+
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:provider/provider.dart';
 
@@ -17,10 +20,14 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Directory directory = await pathProvider.getApplicationDocumentsDirectory();
   Hive.init(directory.path);
+  print("path");
+  print(directory.path);
 
   // Register new adaptor for each database 'box'
   Hive.registerAdapter(IngredientAdapter());
   Hive.registerAdapter(RecipeAdapter());
+  Hive.registerAdapter(PurchaseAdapter());
+  Hive.registerAdapter(PlannerRecordAdapter());
 
   runApp(MyApp());
 }
