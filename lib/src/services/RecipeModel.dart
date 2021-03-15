@@ -3,7 +3,7 @@ import '../models/Recipe.dart';
 import 'package:hive/hive.dart';
 
 class RecipeModel with ChangeNotifier {
-  String _recipeBox = 'ingredient';
+  String _recipeBox = 'recipe';
 
   List _recipeList = <Recipe>[];
 
@@ -15,6 +15,7 @@ class RecipeModel with ChangeNotifier {
     box.add(recipe);
 
     print('added ' + recipe.name);
+    print(box.length);
 
     notifyListeners();
   }
@@ -23,6 +24,8 @@ class RecipeModel with ChangeNotifier {
     final box = await Hive.openBox<Recipe>(_recipeBox);
 
     _recipeList = box.values.toList();
+    print(box.length);
+    print(recipeList.length);
 
     notifyListeners();
   }
@@ -46,6 +49,19 @@ class RecipeModel with ChangeNotifier {
 
     getItem();
 
+    print('deleting --');
+    print(box.length);
+
     notifyListeners();
+  }
+
+  deleteAll() async{
+    var box = await Hive.openBox<Recipe>(_recipeBox);
+    while(box.isNotEmpty){
+      box.delete(box.keyAt(0));
+    }
+    print('delete all -');
+    print(box.length);
+
   }
 }

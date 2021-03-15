@@ -15,6 +15,8 @@ import 'package:provider/provider.dart';
 class RecipeExplore extends StatefulWidget {
   @override
   RecipeExploreState createState() => RecipeExploreState();
+
+  static bool initialise = true;
 }
 
 class RecipeExploreState extends State<RecipeExplore> {
@@ -22,9 +24,15 @@ class RecipeExploreState extends State<RecipeExplore> {
 
   @override
   Widget build(BuildContext context) {
+
+    context.watch<RecipeModel>().getItem();
     return Consumer<RecipeModel>(builder: (context, recipeModel, child) {
-      deleteAllRecipe(recipeModel);
-      loadAllRecipe(recipeModel);
+      if(RecipeExplore.initialise == true){
+        loadAllRecipe(recipeModel);
+        RecipeExplore.initialise = false;
+      }
+      print("state refresh");
+
 
       return Scaffold(
         // Top part of the app
@@ -77,7 +85,8 @@ class RecipeExploreState extends State<RecipeExplore> {
                         color: Colors.black,
                         iconSize: 24,
                         onPressed: () {
-                          
+                          deleteAllRecipe(recipeModel);
+                          // loadAllRecipe(recipeModel);
                         },
                       ),
                     ),
@@ -145,6 +154,7 @@ class RecipeExploreState extends State<RecipeExplore> {
                         child: ListView.builder(
                           itemCount: recipeModel.recipeList.length,
                           itemBuilder: (context, index){
+
                             Recipe rec = recipeModel.recipeList[index];
                             return buildRecipe(rec, index);
                           },
@@ -242,16 +252,16 @@ class RecipeExploreState extends State<RecipeExplore> {
 
   // Helper function to load recipe data into hive database
   void loadAllRecipe(RecipeModel recipeModel){
+    deleteAllRecipe(recipeModel);
     List toAdd = getRecipes();
     for(var i = 0; i < toAdd.length; i++){
       recipeModel.addItem(toAdd[i]);
     }
+
   }
 
   void deleteAllRecipe(RecipeModel recipeModel){
-    while(recipeModel.recipeList.isNotEmpty){
-      recipeModel.deleteItem(0);
-    }
+    recipeModel.deleteAll();
   }
 
   // Can be removed, recipes can now be pulled directly from Hive Database
