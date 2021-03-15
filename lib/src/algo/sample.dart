@@ -46,7 +46,7 @@ var recipe2 = Recipe()
 void sampleAlgo(){
   List<Recipe> recipeList = [recipe1, recipe2];
   int flourC = 150;
-  int eggC = 6;
+  int eggC = 5;
   int butterC = 20;
 
   List constraints = [flourC, eggC, butterC];
