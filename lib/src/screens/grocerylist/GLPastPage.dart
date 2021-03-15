@@ -191,14 +191,7 @@ class _GLPastPageState extends State<GLPastPage> {
             ],
           ),
           //NUMBER 5
-          Container(
-            color: Colors.grey[50],
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: buildPastLists(),
-            ),
-          ),
+          buildPastListTab(),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -215,8 +208,19 @@ class _GLPastPageState extends State<GLPastPage> {
   }
 
   ////////////////////////////////
-  //GROCERY LISTING PART
+  //GROCERY PAST LISTING PART
   ////////////////////////////////
+  Container buildPastListTab() {
+    return Container(
+      color: Colors.grey[50],
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: buildPastLists(),
+      ),
+    );
+  }
+
   List<Widget> buildPastLists() {
     List<Widget> pastList = [];
     for (var i = 0; i < getPastList().length; i++) {

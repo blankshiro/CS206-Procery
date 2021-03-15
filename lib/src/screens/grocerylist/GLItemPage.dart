@@ -48,6 +48,7 @@ class _GLItemPageState extends State<GLItemPage> {
         children: [
           //HEADER
           Container(
+            alignment: Alignment.centerLeft,
             padding: EdgeInsets.all(10),
             child: buildTextTitleVariation1('Family Foods List'),
           ),
@@ -66,7 +67,7 @@ class _GLItemPageState extends State<GLItemPage> {
               children: [
                 Container(
                   child: Text(
-                    'Collabing with ',
+                    'Collaborating with ',
                     style: h5,
                   ),
                 ),
