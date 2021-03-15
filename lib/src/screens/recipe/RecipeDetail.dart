@@ -32,16 +32,6 @@ class RecipeDetail extends StatelessWidget {
             color: Colors.black,
           ),
         ),
-
-        // actions: [
-        //   Padding(
-        //     padding: EdgeInsets.only(right: 16),
-        //     child: Icon(
-        //       Icons.favorite_border,
-        //       color: Colors.black,
-        //     ),
-        //   ),
-        // ],
       ),
       body: Container(
         width: double.infinity,
@@ -81,7 +71,7 @@ class RecipeDetail extends StatelessWidget {
                       children: <Widget>[
                         Row(
                           children: <Widget>[
-                            Flexible(
+                            Expanded(
                               child: Text(
                                 recipe.name,
                                 style: GoogleFonts.poppins(
@@ -104,7 +94,28 @@ class RecipeDetail extends StatelessWidget {
                               rating: 5,
                               color: Colors.orange,
                               borderColor: Colors.orange,
-                            )
+                            ),
+                            Spacer(),
+
+                            RaisedButton.icon(
+                              onPressed: () {
+                                print('Added to List.');
+                              },
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0))),
+                              label: Text(
+                                'Add to List',
+                                style: TextStyle(),
+                              ),
+                              icon: Icon(
+                                Icons.add_circle,
+                                color: Colors.white,
+                              ),
+                              textColor: Colors.white,
+                              splashColor: Colors.white,
+                              color: Colors.green,
+                            ),
                           ],
                         ),
 
@@ -126,7 +137,7 @@ class RecipeDetail extends StatelessWidget {
                                       const EdgeInsets.symmetric(vertical: 16),
                                   child: Column(
                                     children: <Widget>[
-                                      Text("Preperation", style: foodNameText),
+                                      Text("Preparation", style: foodNameText),
                                       Text(recipe.prepMins.toString() + " mins",
                                           style: foodNameSubText),
                                     ],
