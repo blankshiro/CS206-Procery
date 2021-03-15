@@ -1,20 +1,17 @@
 class Grocery {
-  String title;
-  String description;
-  String image;
-  bool bought;
+  String name;
+  String quantity;
+  // String image;
+  bool checked;
 
-  Grocery(this.title, this.description, this.image, this.bought);
+  Grocery(this.name, this.quantity, this.checked);
 }
 
 List<Grocery> getGrocery() {
   return <Grocery>[
-    Grocery("Eggs", "x10", "assets/images/eggs.png", false),
-    Grocery("Eggs", "x10", "assets/images/eggs.png", false),
-    Grocery("Eggs", "x10", "assets/images/eggs.png", false),
-    Grocery("Eggs", "x10", "assets/images/eggs.png", false),
-    Grocery("Eggs", "x10", "assets/images/eggs.png", false),
-    Grocery("Eggs", "x10", "assets/images/eggs.png", false),
-    Grocery("Flour", "100g", "assets/images/flour.png", false)
+    Grocery("Cocoa Powder", "200g", false),
+    Grocery("Banana", "5", false),
+    Grocery("Eggs", "10", false),
+    Grocery("Flour", "100g", false)
   ];
 }

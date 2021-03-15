@@ -1,4 +1,4 @@
-import './Ingredient.dart';
+import 'Ingredient.dart';
 import 'package:hive/hive.dart';
 
 part 'Recipe.g.dart';

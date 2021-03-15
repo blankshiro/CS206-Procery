@@ -1,5 +1,5 @@
-import './Recipe.dart';
-import './Ingredient.dart';
+import '../../models/Recipe.dart';
+import '../../models/Ingredient.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 

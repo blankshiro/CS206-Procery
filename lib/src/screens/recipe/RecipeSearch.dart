@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import './RecipeConstants.dart';
 import './RecipeData.dart';
-import './Recipe.dart';
-import './Ingredient.dart';
+import '../../models/Recipe.dart';
+import '../../models/Ingredient.dart';
 import './RecipeDetail.dart';
 import '../../shared/styles.dart';
 import 'package:google_fonts/google_fonts.dart';

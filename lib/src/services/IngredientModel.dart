@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import '../screens/recipe/Ingredient.dart';
+import '../models/Ingredient.dart';
 
 class IngredientModel with ChangeNotifier {
   String _ingredientBox = 'ingredient';
