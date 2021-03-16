@@ -36,7 +36,9 @@ var recipe1 = Recipe(
     prepMins: 15,
     calories: 200,
     ingredients: [flour, egg],
-    ingredientsQ: [20, 1]);
+    ingredientsQ: [20, 1],
+    likes: 0
+);
 
 var recipe2 = Recipe(
     // https://iambaker.net/chocolate-craving-cake/
@@ -54,7 +56,8 @@ var recipe2 = Recipe(
     prepMins: 15,
     calories: 200,
     ingredients: [flour, egg],
-    ingredientsQ: [20, 1]);
+    ingredientsQ: [20, 1],
+    likes: 0);
 
 var recipe3 = Recipe(
     // https://iambaker.net/homemade-coconut-cake/
@@ -77,7 +80,8 @@ var recipe3 = Recipe(
     ],
     prepMins: 15,
     ingredients: [flour, egg],
-    ingredientsQ: [20, 1]);
+    ingredientsQ: [20, 1],
+    likes: 0);
 
 var recipe4 = Recipe(
     //https://www.countryliving.com/food-drinks/recipes/a37729/speckled-malted-coconut-cake-recipe/
@@ -94,7 +98,8 @@ var recipe4 = Recipe(
     prepMins: 15,
     calories: 200,
     ingredients: [flour, egg],
-    ingredientsQ: [20, 1]);
+    ingredientsQ: [20, 1],
+    likes: 0);
 
 var recipe5 = Recipe(
     // https://www.countryliving.com/food-drinks/recipes/a41986/raspberry-pink-velvet-cake-recipe/?visibilityoverride
@@ -112,7 +117,8 @@ var recipe5 = Recipe(
     prepMins: 15,
     calories: 200,
     ingredients: [flour, egg],
-    ingredientsQ: [20, 1]);
+    ingredientsQ: [20, 1],
+    likes: 0);
 
 var recipe6 = Recipe(
     //https://www.epicurious.com/recipes/food/views/olive-oil-apple-cake-with-spiced-sugar
@@ -132,7 +138,8 @@ var recipe6 = Recipe(
     prepMins: 15,
     calories: 200,
     ingredients: [flour, egg],
-    ingredientsQ: [20, 1]);
+    ingredientsQ: [20, 1],
+    likes: 1);
 
 var recipe7 = Recipe(
     //https://www.epicurious.com/recipes/food/views/buckwheat-banana-cake-with-yogurt-espresso-frosting
@@ -148,7 +155,8 @@ var recipe7 = Recipe(
     prepMins: 15,
     calories: 200,
     ingredients: [flour, egg],
-    ingredientsQ: [20, 1]);
+    ingredientsQ: [20, 1],
+    likes: 0);
 
 var recipe8 = Recipe(
     //https://www.epicurious.com/recipes/food/views/east-62nd-street-lemon-cake
@@ -165,7 +173,8 @@ var recipe8 = Recipe(
     prepMins: 15,
     calories: 200,
     ingredients: [flour, egg],
-    ingredientsQ: [20, 1]);
+    ingredientsQ: [20, 1],
+    likes: 0);
 
 var recipe9 = Recipe(
     //https://www.epicurious.com/recipes/food/views/red-velvet-mug-cake-51206050
@@ -179,7 +188,8 @@ var recipe9 = Recipe(
     prepMins: 15,
     calories: 200,
     ingredients: [flour, egg],
-    ingredientsQ: [20, 1]);
+    ingredientsQ: [20, 1],
+    likes: 0);
 
 var recipe10 = Recipe(
     //https://sallysbakingaddiction.com/super-moist-chocolate-cupcakes/
@@ -197,7 +207,8 @@ var recipe10 = Recipe(
     prepMins: 15,
     calories: 200,
     ingredients: [flour, egg],
-    ingredientsQ: [20, 1]);
+    ingredientsQ: [20, 1],
+    likes: 0);
 
 var recipe11 = Recipe(
     //https://prettysimplesweet.com/vanilla-cupcakes/
@@ -215,7 +226,8 @@ var recipe11 = Recipe(
     prepMins: 15,
     calories: 200,
     ingredients: [flour, egg],
-    ingredientsQ: [20, 1]);
+    ingredientsQ: [20, 1],
+    likes: 0);
 
 var recipe12 = Recipe(
     //https://www.olivemagazine.com/recipes/baking-and-desserts/classic-chocolate-brownies/
@@ -235,7 +247,8 @@ var recipe12 = Recipe(
     prepMins: 15,
     calories: 200,
     ingredients: [flour, egg],
-    ingredientsQ: [20, 1]);
+    ingredientsQ: [20, 1],
+    likes: 0);
 
 var recipe13 = Recipe(
     //https://www.olivemagazine.com/recipes/baking-and-desserts/classic-millionaires-shortbread/
@@ -251,7 +264,8 @@ var recipe13 = Recipe(
     prepMins: 15,
     calories: 200,
     ingredients: [flour, egg],
-    ingredientsQ: [20, 1]);
+    ingredientsQ: [20, 1],
+    likes: 0);
 
 var recipe14 = Recipe(
     //https://www.olivemagazine.com/recipes/baking-and-desserts/apricot-and-white-chocolate-cookies/
@@ -267,7 +281,8 @@ var recipe14 = Recipe(
     prepMins: 15,
     calories: 200,
     ingredients: [flour, egg],
-    ingredientsQ: [20, 1]);
+    ingredientsQ: [20, 1],
+    likes: 0);
 
 var recipe15 = Recipe(
     //https://www.olivemagazine.com/recipes/family/croissant-cinnamon-buns/
@@ -283,7 +298,8 @@ var recipe15 = Recipe(
     prepMins: 15,
     calories: 200,
     ingredients: [flour, egg],
-    ingredientsQ: [20, 1]);
+    ingredientsQ: [20, 1],
+    likes: 0);
 
 var recipe16 = Recipe(
     //https://www.olivemagazine.com/recipes/sticky-honey-cakes/
@@ -301,7 +317,8 @@ var recipe16 = Recipe(
     prepMins: 15,
     calories: 200,
     ingredients: [flour, egg],
-    ingredientsQ: [20, 1]);
+    ingredientsQ: [20, 1],
+    likes: 0);
 
 var recipe17 = Recipe(
     //https://www.olivemagazine.com/recipes/baking-and-desserts/salted-maple-brownies/
@@ -317,7 +334,8 @@ var recipe17 = Recipe(
     prepMins: 15,
     calories: 200,
     ingredients: [flour, egg],
-    ingredientsQ: [20, 1]);
+    ingredientsQ: [20, 1],
+    likes: 0);
 
 var recipe18 = Recipe(
     //https://www.olivemagazine.com/recipes/coffee-and-walnut-cupcakes/
@@ -334,7 +352,8 @@ var recipe18 = Recipe(
     prepMins: 15,
     calories: 200,
     ingredients: [flour, egg],
-    ingredientsQ: [20, 1]);
+    ingredientsQ: [20, 1],
+    likes: 0);
 
 var recipe19 = Recipe(
     //https://www.thespruceeats.com/vanilla-muffins-3058482
@@ -354,7 +373,8 @@ var recipe19 = Recipe(
     prepMins: 15,
     calories: 200,
     ingredients: [flour, egg],
-    ingredientsQ: [20, 1]);
+    ingredientsQ: [20, 1],
+    likes: 0);
 
 var recipe20 = Recipe(
     //https://www.delish.com/cooking/recipe-ideas/a32936759/banana-nut-muffins-recipe/
@@ -370,7 +390,8 @@ var recipe20 = Recipe(
     prepMins: 15,
     calories: 200,
     ingredients: [flour, egg],
-    ingredientsQ: [20, 1]);
+    ingredientsQ: [20, 1],
+    likes: 0);
 
 List<Recipe> getRecipes() {
   return <Recipe>[

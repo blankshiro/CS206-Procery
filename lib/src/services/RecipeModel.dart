@@ -17,6 +17,8 @@ class RecipeModel with ChangeNotifier {
     print('added ' + recipe.name);
     print(box.length);
 
+    getItem();
+
     notifyListeners();
   }
 
@@ -36,6 +38,8 @@ class RecipeModel with ChangeNotifier {
     box.putAt(index, recipe);
 
     print('updated ' + recipe.name);
+
+    getItem();
 
     notifyListeners();
   }

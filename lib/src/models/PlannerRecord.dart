@@ -10,7 +10,7 @@ class PlannerRecord {
   Recipe recipe;
 
   @HiveField(1)
-  String date;
+  DateTime date;
 
   @HiveField(2) // B/L/D
   String meal;

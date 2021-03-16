@@ -18,7 +18,7 @@ class PlannerRecordAdapter extends TypeAdapter<PlannerRecord> {
     };
     return PlannerRecord(
       recipe: fields[0] as Recipe,
-      date: fields[1] as String,
+      date: fields[1] as DateTime,
       meal: fields[2] as String,
     );
   }

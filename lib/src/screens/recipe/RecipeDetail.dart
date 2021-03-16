@@ -1,4 +1,6 @@
+import 'package:Procery/src/services/RecipeModel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import './RecipeConstants.dart';
 import './RecipeData.dart';
 import '../../models/Recipe.dart';
@@ -16,6 +18,7 @@ class RecipeDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final recipeModel = Provider.of<RecipeModel>(context, listen: false);
 
     return Scaffold(
       backgroundColor: Colors.grey[50],
@@ -79,7 +82,9 @@ class RecipeDetail extends StatelessWidget {
                               ),
                             ),
                             //Spacer(),
-                            LikeButton(),
+                            LikeButton(
+                              onTap: (isLiked) { return likeRecipe(isLiked, recipe, recipeModel);},
+                            ),
                           ],
                         ),
                         SizedBox(
@@ -262,5 +267,21 @@ class RecipeDetail extends StatelessWidget {
     }
     found += instructions[instructions.length - 1].toString();
     return found;
+  }
+
+  Future<bool> likeRecipe(status, Recipe recipe, RecipeModel recipeModel) async{
+    var allrecipes = recipeModel.recipeList;
+    int index = 0;
+    for(int i = 0; i < allrecipes.length; i++){
+      if(allrecipes[i].name == recipe.name){
+        index = i;
+        break;
+      }
+    }
+
+    recipe.likes += 1;
+
+    recipeModel.updateItem(index, recipe);
+    return Future.value(!status);
   }
 }

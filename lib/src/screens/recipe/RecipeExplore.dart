@@ -25,7 +25,7 @@ class RecipeExploreState extends State<RecipeExplore> {
   @override
   Widget build(BuildContext context) {
 
-    context.watch<RecipeModel>().getItem();
+    context.watch<RecipeModel>().recipeList;
     return Consumer<RecipeModel>(builder: (context, recipeModel, child) {
       if(RecipeExplore.initialise == true){
         loadAllRecipe(recipeModel);
@@ -156,7 +156,7 @@ class RecipeExploreState extends State<RecipeExplore> {
                           itemBuilder: (context, index){
 
                             Recipe rec = recipeModel.recipeList[index];
-                            return buildRecipe(rec, index);
+                            return buildRecipe(rec, index, recipeModel);
                           },
                           physics: BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
@@ -194,7 +194,7 @@ class RecipeExploreState extends State<RecipeExplore> {
                         ),
                       ),
                       Column(
-                        children: buildPopulars(),
+                        children: buildPopulars(recipeModel),
                       )
                     ],
                   ),
@@ -275,7 +275,7 @@ class RecipeExploreState extends State<RecipeExplore> {
   // }
 
   //
-  Widget buildRecipe(Recipe recipe, int index) {
+  Widget buildRecipe(Recipe recipe, int index, RecipeModel recipeModel) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -322,6 +322,8 @@ class RecipeExploreState extends State<RecipeExplore> {
                 buildCalories(recipe.prepMins.toString() + " mins"),
                 LikeButton(
                   size: 20,
+                  isLiked: recipe.likes > 0,
+                    onTap: (isLiked) { return likeRecipe(isLiked, recipe, recipeModel);}
                 ),
               ],
             ),
@@ -331,15 +333,21 @@ class RecipeExploreState extends State<RecipeExplore> {
     );
   }
 
-  List<Widget> buildPopulars() {
+  // Helper function to build popular recipes widget
+  List<Widget> buildPopulars(RecipeModel recipeModel) {
     List<Widget> list = [];
-    for (var i = 0; i < getRecipes().length; i++) {
-      list.add(buildPopular(getRecipes()[i]));
+
+    List recipes = List.from(recipeModel.recipeList);
+    recipes.sort((b,a) => a.likes.compareTo(b.likes));
+
+    for (var i = 0; i < recipes.length; i++) {
+      list.add(buildPopular(recipes[i], recipeModel));
     }
     return list;
   }
 
-  Widget buildPopular(Recipe recipe) {
+  // Helper function to build individual recipes in popular recipes widget
+  Widget buildPopular(Recipe recipe, RecipeModel recipeModel) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       decoration: BoxDecoration(
@@ -375,7 +383,11 @@ class RecipeExploreState extends State<RecipeExplore> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       buildCalories(recipe.prepMins.toString() + " min"),
-                      LikeButton(size: 20)
+                      LikeButton(
+                          size: 20,
+                          isLiked: recipe.likes > 0,
+                          onTap: (isLiked) { return likeRecipe(isLiked, recipe, recipeModel);},
+                      )
                     ],
                   ),
                 ],
@@ -385,5 +397,21 @@ class RecipeExploreState extends State<RecipeExplore> {
         ],
       ),
     );
+  }
+
+  Future<bool> likeRecipe(status, Recipe recipe, RecipeModel recipeModel) async{
+    var allrecipes = recipeModel.recipeList;
+    int index = 0;
+    for(int i = 0; i < allrecipes.length; i++){
+      if(allrecipes[i].name == recipe.name){
+        index = i;
+        break;
+      }
+    }
+
+    recipe.likes += 1;
+
+    recipeModel.updateItem(index, recipe);
+    return Future.value(!status);
   }
 }

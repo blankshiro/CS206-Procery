@@ -16,6 +16,8 @@ class PlannerRecordModel with ChangeNotifier {
 
     print('added ' + plannerRecord.recipe.name);
 
+    getItem();
+
     notifyListeners();
   }
 
@@ -23,6 +25,8 @@ class PlannerRecordModel with ChangeNotifier {
     final box = await Hive.openBox<PlannerRecord>(_plannerRecordBox);
 
     _plannerRecordList = box.values.toList();
+    print('PlannerRecordLength' + plannerRecordList.length.toString() + ":"
+      + box.length.toString());
 
     notifyListeners();
   }
@@ -47,5 +51,15 @@ class PlannerRecordModel with ChangeNotifier {
     getItem();
 
     notifyListeners();
+  }
+
+  deleteAll() async{
+    var box = await Hive.openBox<PlannerRecord>(_plannerRecordBox);
+    while(box.isNotEmpty){
+      box.delete(box.keyAt(0));
+    }
+    print('delete all -');
+    print(box.length);
+
   }
 }
