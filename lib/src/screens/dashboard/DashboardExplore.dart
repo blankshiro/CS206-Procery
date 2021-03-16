@@ -193,10 +193,21 @@ class _DashboardExploreState extends State<DashboardExplore> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  buildTextTitleVariation1('Expiring Soon'),
-                  SizedBox(
-                    width: 8,
+                  buildTextTitleVariation1('Inventory'),
+                  Row(
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => ExpiringPage()),
+                          );
+                        },
+                        child: Text("View All > ", style: h5),
+                      )
+                    ],
                   ),
                 ],
               ),

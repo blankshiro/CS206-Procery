@@ -31,9 +31,6 @@ class ExpiringPage extends StatefulWidget {
 
 class _ExpiringPageState extends State<ExpiringPage> {
 
-  // Expiring Checkbox
-  var _checkedExpiringList = [];
-
   @override
   void initState() {
     super.initState();
@@ -79,31 +76,31 @@ class _ExpiringPageState extends State<ExpiringPage> {
             ),
             Table(
               columnWidths: {
-                0: FixedColumnWidth(50),
-                1: FixedColumnWidth(180),
-                2: FixedColumnWidth(60),
-                3: FlexColumnWidth(),
+                0: FixedColumnWidth(25),
+                1: FixedColumnWidth(165),
+                2: FixedColumnWidth(87),
               },
-              defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
+              // defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
               children: [
                 TableRow (
                   children: [
                     Container (
                     ),
                     Container(
-                      padding: EdgeInsets.only(left: 15),
+                      padding: EdgeInsets.only(left: 0),
                       child: Text (
                           "Name: "
                       ),
                       width: 128,
                     ),
                     Container(
-                        child: Text (
-                            "Quantity: "
-                        )
+                      padding: EdgeInsets.only(right: 0),
+                      child: Text (
+                          "Quantity: "
+                      )
                     ),
                     Container(
-                      padding: EdgeInsets.only(left: 25),
+                      padding: EdgeInsets.only(right: 0),
                       child: Text (
                           "Expiring In: "
                       ),
@@ -134,62 +131,65 @@ class _ExpiringPageState extends State<ExpiringPage> {
   List<Widget> buildExpirings() {
     List<Widget> expiringList = [];
     for (var i = 0; i < getExpiring().length; i++) {
-      _checkedExpiringList.add(false);
       expiringList.add(buildExpiring(getExpiring()[i], i));
     }
     return expiringList;
   }
 
   Widget buildExpiring(Inventory inv, int i) {
-    return Table(
-      // padding: EdgeInsets.all(10),
-      // border: TableBorder.all(),
-      columnWidths: {
-        0: IntrinsicColumnWidth(),
-        1: FixedColumnWidth(180),
-        2: FlexColumnWidth(),
-        3: FlexColumnWidth(),
-      },
-      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-      children: [
-        TableRow(
-          children: [
-            TableCell(
-              child: Container(
-                alignment: Alignment.center,
-                child: Checkbox(
-                  value: _checkedExpiringList[i],
-                  activeColor: primaryColor,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _checkedExpiringList[i] = value;
-                      inv.checked = true;
-                    });
-                  },
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: Table (
+        // border: TableBorder.all(),
+        columnWidths: {
+          0: FixedColumnWidth(180),
+          1: FlexColumnWidth(),
+          2: FlexColumnWidth(),
+          3: FixedColumnWidth(40),
+          4: FixedColumnWidth(40),
+        },
+        defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+        children: [
+          TableRow(
+            children: [
+              TableCell(
+                  child: Container(
+                    padding: EdgeInsets.only(left: 15),
+                    child: buildGroceryTitle(inv.name),
+                    width: 128,
+                  )
+              ),
+              TableCell(
+                  child: Container(
+                      child: buildGrocerySubtitle(inv.description)
+                  )
+              ),
+              TableCell(
+                child: Container(
+                  padding: EdgeInsets.only(left: 30),
+                  child: buildExpiryDays(inv.expiry.toString()),
                 ),
               ),
-            ),
-            TableCell(
-              child: Container(
-                padding: EdgeInsets.only(left: 15),
-                child: buildGroceryTitle(inv.name),
-                width: 128,
-              )
-            ),
-            TableCell(
-              child: Container(
-                child: buildGrocerySubtitle(inv.description)
-              )
-            ),
-            TableCell(
-              child: Container(
-                padding: EdgeInsets.only(left: 30),
-                child: buildExpiryDays(inv.expiry.toString()),
+              TableCell(
+                child: Container(
+                  child: Icon(
+                    Icons.remove,
+                    size: 30,
+                  ),
+                ),
               ),
-            ),
-          ],
-        ),
-      ],
+              TableCell(
+                child: Container(
+                  child: Icon(
+                    Icons.add_rounded,
+                    size: 30,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      )
     );
   }
 }
