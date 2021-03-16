@@ -12,13 +12,13 @@ import '../../shared/partials.dart';
 
 import './DashboardConstants.dart';
 
-import './InventoryData.dart';
+import '../../data/InventoryData.dart';
 import './GroceryData.dart';
 import './MealData.dart';
 
 import '../../models/Inventory.dart';
 import '../../services/InventoryModel.dart';
-import '../recipe/RecipeData.dart';
+import '../../data/RecipeData.dart';
 import '../recipe/RecipeExplore.dart';
 import '../recipe/RecipeDetail.dart';
 

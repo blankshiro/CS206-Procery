@@ -1,9 +1,9 @@
 // Data definitions
-import '../../models/Ingredient.dart';
-import '../../models/Inventory.dart';
+import '../models/Ingredient.dart';
+import '../models/Inventory.dart';
 
 // Sample Data Dependencies
-import '../../screens/dashboard/IngredientData.dart';
+import 'IngredientData.dart';
 
 List<Ingredient> ingredients = getIngredients();
 Ingredient flour = ingredients[0];

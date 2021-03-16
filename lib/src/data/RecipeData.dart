@@ -1,7 +1,7 @@
-import '../../models/Recipe.dart';
-import '../../models/Ingredient.dart';
+import '../models/Recipe.dart';
+import '../models/Ingredient.dart';
 
-import '../../screens/dashboard/IngredientData.dart';
+import 'IngredientData.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';

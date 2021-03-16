@@ -1,4 +1,5 @@
 import 'package:Procery/src/screens/mealplanner/MealPlanner.dart';
+import 'package:Procery/src/services/RecipeModel.dart';
 import '../../models/Recipe.dart';
 import 'package:Procery/src/screens/recipe/RecipeConstants.dart';
 import 'package:Procery/src/screens/recipe/RecipeDetail.dart';
@@ -11,7 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 // import '../shared/styles.dart';
 // import '../shared/colors.dart';
 // import '../shared/inputFields.dart';
-import 'package:Procery/src/screens/recipe/RecipeData.dart';
+import 'package:provider/provider.dart';
 
 class MealPlannerSelectRecipe extends StatefulWidget {
   @override
@@ -23,6 +24,7 @@ class MealPlannerSelectRecipeState extends State<MealPlannerSelectRecipe> {
 
   @override
   Widget build(BuildContext context) {
+    List<Recipe> recipeList = context.watch<RecipeModel>().recipeList;
     return Scaffold(
       // Top part of the app
       backgroundColor: Colors.green[200],
@@ -139,7 +141,7 @@ class MealPlannerSelectRecipeState extends State<MealPlannerSelectRecipe> {
                       child: ListView(
                         physics: BouncingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
-                        children: buildRecipes(),
+                        children: buildRecipes(recipeList),
                       ),
                     ),
                     SizedBox(
@@ -174,7 +176,7 @@ class MealPlannerSelectRecipeState extends State<MealPlannerSelectRecipe> {
                       ),
                     ),
                     Column(
-                      children: buildPopulars(),
+                      children: buildPopulars(recipeList),
                     )
                   ],
                 ),
@@ -230,10 +232,10 @@ class MealPlannerSelectRecipeState extends State<MealPlannerSelectRecipe> {
     );
   }
 
-  List<Widget> buildRecipes() {
+  List<Widget> buildRecipes(recipeList) {
     List<Widget> list = [];
-    for (var i = 0; i < getRecipes().length; i++) {
-      list.add(buildRecipe(getRecipes()[i], i));
+    for (var i = 0; i < recipeList.length; i++) {
+      list.add(buildRecipe(recipeList[i], i));
     }
     return list;
   }
@@ -300,10 +302,10 @@ class MealPlannerSelectRecipeState extends State<MealPlannerSelectRecipe> {
     );
   }
 
-  List<Widget> buildPopulars() {
+  List<Widget> buildPopulars(recipeList) {
     List<Widget> list = [];
-    for (var i = 0; i < getRecipes().length; i++) {
-      list.add(buildPopular(getRecipes()[i]));
+    for (var i = 0; i < recipeList.length; i++) {
+      list.add(buildPopular(recipeList[i]));
     }
     return list;
   }

@@ -1,9 +1,9 @@
 // Data definitions
-import '../../models/Recipe.dart';
-import '../../models/PlannerRecord.dart';
+import '../models/Recipe.dart';
+import '../models/PlannerRecord.dart';
 
 // App dependencies
-import '../recipe/RecipeData.dart';
+import 'RecipeData.dart';
 
 
 List recipes = getRecipes();

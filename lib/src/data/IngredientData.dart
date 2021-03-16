@@ -1,4 +1,4 @@
-import '../../models/Ingredient.dart';
+import '../models/Ingredient.dart';
 
 Ingredient flour = Ingredient()
   ..name = "Flour"

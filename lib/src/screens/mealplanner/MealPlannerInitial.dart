@@ -1,11 +1,12 @@
 // App Dependencies
 import 'package:Procery/src/screens/mealplanner/MealPlanner.dart';
-import 'package:Procery/src/screens/mealplanner/MealPlannerData.dart';
+import 'file:///C:/Users/wjtay/Documents/GitHub/CS206-Procery/lib/src/data/MealPlannerData.dart';
 import 'package:Procery/src/screens/mealplanner/MealPlannerSelect.dart';
 import 'package:Procery/src/screens/mealplanner/MealPlannerSelectRecipe.dart';
 import 'package:Procery/src/services/PlannerRecordModel.dart';
 import 'package:Procery/src/models/PlannerRecord.dart';
 import 'package:Procery/src/models/Recipe.dart';
+import 'package:Procery/src/data/MealPlannerData.dart';
 
 // Styles
 import 'package:Procery/src/shared/styles.dart';
@@ -34,7 +35,7 @@ import 'package:table_calendar/table_calendar.dart';
 class MealPlannerInitial extends StatefulWidget {
   @override
   _MealPlannerInitialState createState() => _MealPlannerInitialState();
-  static bool initialise = true;
+  // static bool initialise = true;
 }
 
 class _MealPlannerInitialState extends State<MealPlannerInitial> {
@@ -57,11 +58,11 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
     context.watch<PlannerRecordModel>().getItem();
     return Consumer<PlannerRecordModel>(builder: (context, plannerRecordModel, child) {
       DateTime today = _calendarController.selectedDay;
-      if(MealPlannerInitial.initialise == true){
-        loadSampleMealPlan(plannerRecordModel);
-        MealPlannerInitial.initialise = false;
-        print("Initialised Meal Planner Sample Data");
-      }
+      // if(MealPlannerInitial.initialise == true){
+      //   loadSampleMealPlan(plannerRecordModel);
+      //   MealPlannerInitial.initialise = false;
+      //   print("Initialised Meal Planner Sample Data");
+      // }
       List<PlannerRecord> planForDay = retrievePlan(plannerRecordModel, today);
 
       return Scaffold(
@@ -258,18 +259,18 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
     );
   }
 
-  void loadSampleMealPlan(PlannerRecordModel plannerRecordModel){
-    deleteAllMealPlan(plannerRecordModel);
-    List<PlannerRecord> toAdd = getPlannerRecords();
-    for(int i = 0; i < toAdd.length; i++){
-      plannerRecordModel.addItem(toAdd[i]);
-
-    }
-  }
-
-  void deleteAllMealPlan(PlannerRecordModel plannerRecordModel){
-    plannerRecordModel.deleteAll();
-  }
+  // void loadSampleMealPlan(PlannerRecordModel plannerRecordModel){
+  //   deleteAllMealPlan(plannerRecordModel);
+  //   List<PlannerRecord> toAdd = getPlannerRecords();
+  //   for(int i = 0; i < toAdd.length; i++){
+  //     plannerRecordModel.addItem(toAdd[i]);
+  //
+  //   }
+  // }
+  //
+  // void deleteAllMealPlan(PlannerRecordModel plannerRecordModel){
+  //   plannerRecordModel.deleteAll();
+  // }
 
 
 }

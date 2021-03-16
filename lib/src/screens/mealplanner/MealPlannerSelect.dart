@@ -10,7 +10,7 @@ import '../../models/Ingredient.dart';
 
 import '../../screens/recipe/RecipeDetail.dart';
 import '../../services/RecipeModel.dart';
-import '../../screens/recipe/RecipeData.dart';
+import '../../data/RecipeData.dart';
 
 import '../../shared/styles.dart';
 import './MealPlannerConstants.dart';
@@ -31,8 +31,6 @@ class MealPlannerSelect extends StatefulWidget {
   @override
   MealPlannerSelectState createState() => MealPlannerSelectState();
 
-  static bool initialise = true;
-
 
 }
 
@@ -46,11 +44,7 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
     context.watch<RecipeModel>().recipeList;
     final plannerRecordModel = context.read<PlannerRecordModel>();
     return Consumer<RecipeModel>(builder: (context, recipeModel, child) {
-      if(RecipeExplore.initialise == true){
-        loadAllRecipe(recipeModel);
-        RecipeExplore.initialise = false;
-      }
-      print("state refresh");
+      print("Meal Planner state refresh");
 
 
       return Scaffold(

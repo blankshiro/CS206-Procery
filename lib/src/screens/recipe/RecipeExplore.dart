@@ -2,7 +2,7 @@ import 'package:Procery/src/screens/recipe/RecipeSearch.dart';
 import 'package:Procery/src/shared/fryo_icons.dart';
 import 'package:flutter/material.dart';
 import './RecipeConstants.dart';
-import './RecipeData.dart';
+import '../../data/RecipeData.dart';
 import '../../models/Recipe.dart';
 import '../../models/Ingredient.dart';
 import './RecipeDetail.dart';
@@ -16,7 +16,6 @@ class RecipeExplore extends StatefulWidget {
   @override
   RecipeExploreState createState() => RecipeExploreState();
 
-  static bool initialise = true;
 }
 
 class RecipeExploreState extends State<RecipeExplore> {
@@ -27,11 +26,7 @@ class RecipeExploreState extends State<RecipeExplore> {
 
     context.watch<RecipeModel>().recipeList;
     return Consumer<RecipeModel>(builder: (context, recipeModel, child) {
-      if(RecipeExplore.initialise == true){
-        loadAllRecipe(recipeModel);
-        RecipeExplore.initialise = false;
-      }
-      print("state refresh");
+      print("RecipeExplore state refresh");
 
 
       return Scaffold(

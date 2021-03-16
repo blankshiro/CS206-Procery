@@ -2,7 +2,7 @@ import 'package:Procery/src/services/RecipeModel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import './RecipeConstants.dart';
-import './RecipeData.dart';
+import '../../data/RecipeData.dart';
 import '../../models/Recipe.dart';
 import '../../models/Ingredient.dart';
 import '../../shared/styles.dart';
