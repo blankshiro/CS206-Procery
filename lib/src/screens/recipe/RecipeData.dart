@@ -1,25 +1,20 @@
 import '../../models/Recipe.dart';
 import '../../models/Ingredient.dart';
+
+import '../../screens/dashboard/IngredientData.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 //https://iambaker.net/cake-recipes/
 
-Ingredient flour = Ingredient()
-  ..name = "Flour"
-  ..description = "Flour"
-  ..measurementType = "gram"
-  ..standardQ = 250
-  ..expiryDays = 100
-  ..price = 10.0;
+List<Ingredient> ingredients = getIngredients();
 
-Ingredient egg = Ingredient()
-  ..name = "Egg"
-  ..description = "Egg"
-  ..measurementType = "num"
-  ..standardQ = 6
-  ..expiryDays = 12
-  ..price = 5.0;
+Ingredient flour = ingredients[0];
+Ingredient egg = ingredients[1];
+Ingredient butter = ingredients[2];
+Ingredient chocolate = ingredients[3];
+Ingredient milk = ingredients[4];
 
 var recipe1 = Recipe(
     //https://iambaker.net/the-perfect-chocolate-cake/

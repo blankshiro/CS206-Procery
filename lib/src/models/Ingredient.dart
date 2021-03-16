@@ -23,13 +23,17 @@ class Ingredient {
   @HiveField(6) // cups/grams/no. etc
   String measurementType;
 
+  @HiveField(7)
+  String image;
+
   Ingredient(
       {this.name,
       this.description,
       this.expiryDays,
       this.price,
       this.standardQ,
-      this.measurementType});
+      this.measurementType,
+      this.image});
 
   String getName() {
     return name;

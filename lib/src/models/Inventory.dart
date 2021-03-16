@@ -2,10 +2,10 @@ import 'package:hive/hive.dart';
 import 'Recipe.dart';
 import 'Ingredient.dart';
 
-part 'Purchase.g.dart';
+part 'Inventory.g.dart';
 
-@HiveType(typeId: 3)
-class Purchase {
+@HiveType(typeId: 5)
+class Inventory {
   @HiveField(0)
   Ingredient ingredient;
 
@@ -13,16 +13,19 @@ class Purchase {
   int quantity;
 
   @HiveField(2)
-  DateTime dateAdded;
+  DateTime datePurchased;
 
   @HiveField(3)
-  String listName;
+  int daysToExpiry;
 
-  Purchase(
+  @HiveField(4)
+  int id;
+
+  Inventory(
       {this.ingredient,
         this.quantity,
-        this.dateAdded,
-        this.listName
-        });
+        this.datePurchased,
+        this.id,
+      });
 
 }

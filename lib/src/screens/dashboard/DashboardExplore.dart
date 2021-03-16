@@ -1,8 +1,8 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'dart:async';
+import 'package:provider/provider.dart';
 
-import 'dart:developer';
 
 import '../../shared/styles.dart';
 import '../../shared/colors.dart';
@@ -18,6 +18,8 @@ import './InventoryData.dart';
 import './GroceryData.dart';
 import './MealData.dart';
 
+import 'package:Procery/src/services/InventoryModel.dart';
+import '../../models/Inventory.dart';
 import '../../models/Recipe.dart';
 import '../recipe/RecipeData.dart';
 import '../recipe/RecipeDetail.dart';
@@ -29,6 +31,8 @@ class DashboardExplore extends StatefulWidget {
 
   @override
   _DashboardExploreState createState() => _DashboardExploreState();
+
+  static bool initialise = true;
 }
 
 class _DashboardExploreState extends State<DashboardExplore> {
@@ -55,7 +59,7 @@ class _DashboardExploreState extends State<DashboardExplore> {
     loadChildWidgets(); //Method to add the Children as user selected.
 
     // Expiring Container Timer
-    int totalPage = getExpiringSize();
+    // int totalPage = getExpiringSize();
     // Timer.periodic(Duration(seconds: 5), (Timer timer) {
     //   if (_currentPage < (totalPage - 1)) {
     //     _currentPage++;
@@ -180,6 +184,14 @@ class _DashboardExploreState extends State<DashboardExplore> {
   @override
   Widget build(BuildContext context) {
 
+    InventoryModel inventoryModel = context.watch<InventoryModel>();
+    var inventoryList = context.watch<InventoryModel>().inventoryList;
+
+    if(DashboardExplore.initialise == true){
+      loadAllInventory(inventoryModel);
+      DashboardExplore.initialise = false;
+    }
+
     return Scaffold(
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
@@ -218,8 +230,7 @@ class _DashboardExploreState extends State<DashboardExplore> {
                   controller: _pageController,
                   physics: BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
-                // physics: BouncingScrollPhysics(),
-                  children: buildExpirings(),
+                  children: buildExpirings(inventoryList),
                 ),
               ),
             SizedBox(
@@ -326,15 +337,24 @@ class _DashboardExploreState extends State<DashboardExplore> {
   /// EXPIRING PART
   ////////////////////////////////////
 
-  int getExpiringSize() {
-    return getExpiring().length;
-  }
-
-  List<Widget> buildExpirings() {
+  List<Widget> buildExpirings(List<Inventory> inventoryList) {
     List<Widget> expiringList = [];
-    for (var i = 0; i < getExpiring().length; i++) {
+    int displayLength = inventoryList.length;
+    if(displayLength > 3){
+      displayLength = 3;
+    }
+
+    DateTime today = DateTime.now();
+    List<Inventory> expirySorted = List.from(inventoryList);
+    for(var i = 0; i < expirySorted.length; i++){
+      expirySorted[i].daysToExpiry = expirySorted[i].ingredient.expiryDays - today.difference(expirySorted[i].datePurchased).inDays;
+    }
+
+    expirySorted.sort((a,b) => a.daysToExpiry.compareTo(b.daysToExpiry));
+
+    for (var i = 0; i < displayLength; i++) {
     // just return the closest to expiry date item
-      expiringList.add(buildExpiring(getExpiring()[i]));
+      expiringList.add(buildExpiring(expirySorted[i]));
     }
     return expiringList;
   }
@@ -363,7 +383,7 @@ class _DashboardExploreState extends State<DashboardExplore> {
               width: 160,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(inv.image),
+                  image: AssetImage(inv.ingredient.image),
                   fit: BoxFit.fitHeight,
                 ),
               ),
@@ -375,10 +395,10 @@ class _DashboardExploreState extends State<DashboardExplore> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    buildRecipeTitle(inv.name),
-                    buildRecipeSubTitle(inv.description),
+                    buildRecipeTitle(inv.ingredient.name),
+                    buildRecipeSubTitle("Amount left: " + inv.quantity.toString()),
                     buildExpiryDays(
-                        "Expiring in: " + inv.expiry.toString() + " Days"),
+                        "Expiring in: " + inv.daysToExpiry.toString() + " Days"),
                   ],
                 ),
               ),
@@ -450,6 +470,15 @@ class _DashboardExploreState extends State<DashboardExplore> {
       ],
     );
 
+  }
+
+  void loadAllInventory(InventoryModel inventoryModel) {
+    inventoryModel.deleteAll();
+
+    List<Inventory> toAdd = getInventory();
+    for(int i = 0; i < toAdd.length; i++){
+      inventoryModel.addItem(toAdd[i]);
+    }
   }
 
 }

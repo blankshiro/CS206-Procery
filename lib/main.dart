@@ -1,17 +1,16 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart' hide Router;
 import 'package:hive/hive.dart';
 
 import 'package:Procery/src/provider_list.dart';
 import 'package:Procery/src/router.gr.dart';
 
-// import 'package:Procery/src/models/Ingredient.dart';
-// import 'package:Procery/src/models/Recipe.dart';
+
 import 'src/models/Recipe.dart';
 import 'src/models/Ingredient.dart';
 import 'src/models/Purchase.dart';
 import 'src/models/PlannerRecord.dart';
+import 'src/models/Inventory.dart';
 
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:provider/provider.dart';
@@ -28,6 +27,7 @@ Future<void> main() async {
   Hive.registerAdapter(RecipeAdapter());
   Hive.registerAdapter(PurchaseAdapter());
   Hive.registerAdapter(PlannerRecordAdapter());
+  Hive.registerAdapter(InventoryAdapter());
 
   runApp(MyApp());
 }
