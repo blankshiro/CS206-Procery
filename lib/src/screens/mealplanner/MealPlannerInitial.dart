@@ -1,6 +1,7 @@
 // App Dependencies
 import 'package:Procery/src/screens/mealplanner/MealPlanner.dart';
 import 'package:Procery/src/screens/mealplanner/MealPlannerData.dart';
+import 'package:Procery/src/screens/mealplanner/MealPlannerSelect.dart';
 import 'package:Procery/src/screens/mealplanner/MealPlannerSelectRecipe.dart';
 import 'package:Procery/src/services/PlannerRecordModel.dart';
 import 'package:Procery/src/models/PlannerRecord.dart';
@@ -107,9 +108,9 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
                       itemBuilder: (context, index){
                         PlannerRecord pRecord = planForDay[index];
                         if(pRecord != null){
-                          return buildPlanner(pRecord.recipe);
+                          return buildPlanner(index, pRecord.recipe);
                         }else{
-                          return buildAddNewPlanView(index);
+                          return buildAddNewPlanView(index, today);
                         }
 
                       },
@@ -151,7 +152,18 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
   }
 
   // Helper function to build the widget for each individual meal of the day
-  Widget buildPlanner(Recipe recipe) {
+  Widget buildPlanner(int index, Recipe recipe) {
+    String meal;
+    if(index == 0){
+      meal = "Breakfast";
+    }
+    if(index == 1){
+      meal = "Lunch";
+    }
+    if(index == 2){
+      meal = "Dinner";
+    }
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       decoration: BoxDecoration(
@@ -161,45 +173,51 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
         ),
         boxShadow: [kBoxShadow],
       ),
-      child: Row(
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-            height: 160,
-            width: 160,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(recipe.image),
-                fit: BoxFit.cover,
+      child: Column(
+        children:[
+          Text(meal, style: GoogleFonts.poppins(
+              fontSize: 18, fontWeight: FontWeight.bold, color:Colors.black)),
+          Row(
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+                height: 160,
+                width: 160,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(recipe.image),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
-            ),
-          ),
-          Flexible(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  buildRecipeTitle(recipe.name),
-                  buildTextSubTitleVariation2(recipe.description),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Flexible(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      buildCalories(recipe.prepMins.toString() + " min"),
+                      buildRecipeTitle(recipe.name),
+                      buildTextSubTitleVariation2(recipe.description),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          buildCalories(recipe.prepMins.toString() + " min"),
+                        ],
+                      ),
                     ],
                   ),
-                ],
+                ),
               ),
-            ),
-          ),
+            ]
+          )
         ],
       ),
     );
   }
 
   // Helper function to build the overall day's meal plan
-  Widget buildAddNewPlanView(int index){
+  Widget buildAddNewPlanView(int index, DateTime today){
     String meal;
     if(index == 0){
       meal = "Breakfast";
@@ -225,7 +243,7 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => MealPlannerSelectRecipe()),
+                            MaterialPageRoute(builder: (context) => MealPlannerSelect(day: today, meal: meal[0])),
                           );},
                         icon: Icon(Icons.add_circle),
                         color: Colors.green
