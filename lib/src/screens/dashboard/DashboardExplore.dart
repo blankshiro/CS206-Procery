@@ -1,4 +1,6 @@
 
+import 'package:Procery/src/router.gr.dart';
+import 'package:Procery/src/screens/mealplanner/MealPlannerInitial.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
@@ -67,7 +69,6 @@ class _DashboardExploreState extends State<DashboardExplore> {
     // Meal Planner Tabs
     super.initState();
     loadCupertinoTabs(); //Method to add Tabs to the Segmented Control.
-    loadChildWidgets(); //Method to add the Children as user selected.
 
     // Expiring Container Timer
     // int totalPage = getExpiringSize();
@@ -115,81 +116,6 @@ class _DashboardExploreState extends State<DashboardExplore> {
     }
   }
 
-  void loadChildWidgets() {
-    childWidgets = [];
-    // for (int i = 0; i < 3; i++)
-    for (var i = 0; i < getMeal().length; i++) {
-      Meal meal = getMeal()[i];
-      for (var j = 0; j < getRecipes().length; j++) {
-        if (meal.name == getRecipes()[j].name) {
-          Recipe recipe = getRecipes()[j];
-
-          DateTime now = DateTime.now();
-          // to get the correct timezone, add 8 hours
-          now = now.add(new Duration(hours: 8));
-
-          var mealDate = getMeal()[i].date;
-
-          // prints the meal for today only
-          // if (mealDate.isSameDate(now)) {
-            childWidgets.add(
-                GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => RecipeDetail(recipe: recipe)),
-                      );
-                    },
-                    child: Column(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            boxShadow: [kBoxShadow],
-                          ),
-                          child: Row(
-                            children: [
-                              Container(
-                                height: 160,
-                                width: 160,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(getMeal()[i].image),
-                                    fit: BoxFit.fitHeight,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 16),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      buildRecipeTitle(getMeal()[i].name),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    )
-                )
-            );
-
-          // }
-
-          break;
-        }
-      }
-    }
-  }
   Widget getChildWidget() => childWidgets[sharedValue];
 
   @override
@@ -211,6 +137,107 @@ class _DashboardExploreState extends State<DashboardExplore> {
       loadAllMealPlan(plannerRecordModel);
       DashboardExplore.initialise = false;
     }
+
+    void loadChildWidgets() {
+      childWidgets = [];
+      List<PlannerRecord> mealPlan = [null, null, null];
+      List<PlannerRecord> allMealPlan = plannerRecordModel.plannerRecordList;
+      DateTime today = DateTime.now();
+
+      for(int i = 0; i < allMealPlan.length; i++){
+        if(allMealPlan[i].date.isSameDate(today)){
+          if(allMealPlan[i].meal == "B"){
+            mealPlan[0] = allMealPlan[i];
+          }else if(allMealPlan[i].meal == "L"){
+            mealPlan[1] = allMealPlan[i];
+          }else if(allMealPlan[i].meal == "D"){
+            mealPlan[2] = allMealPlan[i];
+          }
+        }
+      }
+
+      for (var i = 0; i < mealPlan.length; i++) {
+        PlannerRecord meal = mealPlan[i];
+        if(meal != null){
+          childWidgets.add(
+              GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => RecipeDetail(recipe: meal.recipe)),
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                          boxShadow: [kBoxShadow],
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              height: 160,
+                              width: 160,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(meal.recipe.image),
+                                  fit: BoxFit.fitHeight,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    buildRecipeTitle(meal.recipe.name),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  )
+              )
+          );}
+          else {
+            childWidgets.add(
+              GestureDetector(
+                onTap:() {
+                  Navigator.push( // TODO there is some problem doing navigation this way
+                    context,
+                    MaterialPageRoute(builder: (context) =>
+                        MealPlannerInitial()),
+                  );
+                },
+
+                child: Container(
+                  padding: const EdgeInsets.all(24),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                        topRight: Radius.circular(40))),
+                  child: Text("Please Add a Meal Plan"),
+                )
+
+              )
+            );
+        }
+      }
+    }
+
+    loadChildWidgets();
+
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -491,6 +518,10 @@ class _DashboardExploreState extends State<DashboardExplore> {
     );
 
   }
+
+  /////////////////////////////////////
+  /// Loading of Models for initialisation
+  ////////////////////////////////////
 
   void loadAllInventory(InventoryModel inventoryModel) {
     inventoryModel.deleteAll();
