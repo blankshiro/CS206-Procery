@@ -1,6 +1,5 @@
 // App Dependencies
 import 'package:Procery/src/screens/mealplanner/MealPlanner.dart';
-import 'file:///C:/Users/wjtay/Documents/GitHub/CS206-Procery/lib/src/data/MealPlannerData.dart';
 import 'package:Procery/src/screens/mealplanner/MealPlannerSelect.dart';
 import 'package:Procery/src/screens/mealplanner/MealPlannerSelectRecipe.dart';
 import 'package:Procery/src/services/PlannerRecordModel.dart';

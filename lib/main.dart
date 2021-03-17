@@ -11,6 +11,7 @@ import 'src/models/Ingredient.dart';
 import 'src/models/Purchase.dart';
 import 'src/models/PlannerRecord.dart';
 import 'src/models/Inventory.dart';
+import 'src/models/GroceryList.dart';
 
 import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:provider/provider.dart';
@@ -28,6 +29,7 @@ Future<void> main() async {
   Hive.registerAdapter(PurchaseAdapter());
   Hive.registerAdapter(PlannerRecordAdapter());
   Hive.registerAdapter(InventoryAdapter());
+  Hive.registerAdapter(GroceryListAdapter());
 
   runApp(MyApp());
 }

@@ -1,5 +1,4 @@
 
-import 'package:Procery/src/data/MealPlannerData.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +9,12 @@ import '../../shared/colors.dart';
 
 import './DashboardConstants.dart';
 import './ExpiringPage.dart';
-import '../../data/InventoryData.dart';
+
+import 'package:Procery/src/data/MealPlannerData.dart';
+import 'package:Procery/src/data/InventoryData.dart';
+import 'package:Procery/src/data/RecipeData.dart';
+import 'package:Procery/src/data/PurchaseData.dart';
+import 'package:Procery/src/data/GroceryListData.dart';
 
 import './GroceryData.dart';
 import './MealData.dart';
@@ -19,14 +23,16 @@ import 'package:Procery/src/services/InventoryModel.dart';
 import 'package:Procery/src/services/PlannerRecordModel.dart';
 import 'package:Procery/src/services/PurchaseModel.dart';
 import 'package:Procery/src/services/RecipeModel.dart';
+import 'package:Procery/src/services/GroceryListModel.dart';
 
 import 'package:Procery/src/models/Inventory.dart';
 import 'package:Procery/src/models/Recipe.dart';
 import 'package:Procery/src/models/Ingredient.dart';
 import 'package:Procery/src/models/PlannerRecord.dart';
 import 'package:Procery/src/models/Purchase.dart';
+import 'package:Procery/src/models/GroceryList.dart';
 
-import '../../data/RecipeData.dart';
+
 import '../recipe/RecipeDetail.dart';
 
 class DashboardExplore extends StatefulWidget {
@@ -193,12 +199,14 @@ class _DashboardExploreState extends State<DashboardExplore> {
     PurchaseModel purchaseModel = Provider.of<PurchaseModel>(context, listen: false);
     RecipeModel recipeModel = Provider.of<RecipeModel>(context, listen: false);
     PlannerRecordModel plannerRecordModel = Provider.of<PlannerRecordModel>(context, listen: false);
+    GroceryListModel groceryListModel = Provider.of<GroceryListModel>(context, listen: false);
 
     var inventoryList = context.watch<InventoryModel>().inventoryList;
 
     if(DashboardExplore.initialise == true){
       loadAllInventory(inventoryModel);
       loadAllPurchase(purchaseModel);
+      loadAllGroceryList(groceryListModel);
       loadAllRecipe(recipeModel);
       loadAllMealPlan(plannerRecordModel);
       DashboardExplore.initialise = false;
@@ -494,12 +502,21 @@ class _DashboardExploreState extends State<DashboardExplore> {
   }
 
   void loadAllPurchase(PurchaseModel purchaseModel) {
-    // purchaseModel.deleteAll();
-    //
-    // List<Purchase> toAdd = getPurchase();
-    // for(int i = 0; i < toAdd.length; i++){
-    //   purchaseModel.addItem(toAdd[i]);
-    // }
+    purchaseModel.deleteAll();
+
+    List<Purchase> toAdd = getSampleListPurchase();
+    for(int i = 0; i < toAdd.length; i++){
+      purchaseModel.addItem(toAdd[i]);
+    }
+  }
+
+  void loadAllGroceryList(GroceryListModel groceryListModel) {
+    groceryListModel.deleteAll();
+
+    List<GroceryList> toAdd = getGroceryList();
+    for(int i = 0; i < toAdd.length; i++){
+      groceryListModel.addItem(toAdd[i]);
+    }
   }
 
   void loadAllRecipe(RecipeModel recipeModel) {

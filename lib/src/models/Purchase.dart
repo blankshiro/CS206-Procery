@@ -18,11 +18,19 @@ class Purchase {
   @HiveField(3)
   String listName;
 
+  @HiveField(4) // Should be false by default
+  int purchased = 0;  // 0-false, 1-true
+
+  @HiveField(5)
+  int id;
+
   Purchase(
       {this.ingredient,
         this.quantity,
         this.dateAdded,
-        this.listName
+        this.listName,
+        this.purchased,
+        this.id
         });
 
 }

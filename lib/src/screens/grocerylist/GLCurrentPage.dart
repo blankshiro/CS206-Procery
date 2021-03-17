@@ -5,11 +5,23 @@ import 'package:Procery/src/screens/grocerylist/GLEditPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLPastList.dart';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
+
+import '../../models/GroceryList.dart';
+import '../../services/GroceryListModel.dart';
+import '../../models/Purchase.dart';
+import '../../services/PurchaseModel.dart';
+
+
 import '../../shared/styles.dart';
 import 'package:Procery/src/shared/styles.dart';
 import 'package:Procery/src/shared/colors.dart';
 import 'package:Procery/src/shared/fryo_icons.dart';
 import 'package:flutter/cupertino.dart';
+
+
+
 
 class GLCurrentPage extends StatefulWidget {
   @override
@@ -31,7 +43,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
   void initState() {
     super.initState();
     loadCupertinoTabs(); //Method to add Tabs to the Segmented Control.
-    loadChildWidgets(); //Method to add the Children as user selected.
+    // loadChildWidgets(); //Method to add the Children as user selected.
   }
 
   void loadCupertinoTabs() {
@@ -57,22 +69,19 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
     }
   }
 
-  void loadChildWidgets() {
-    childWidgets = [];
-    for (int i = 0; i < 2; i++)
-      if (i == 0) {
-        childWidgets.add(
-          buildCurrentListTab(),
-        );
-      } else if (i == 1) {
-        childWidgets.add(
-          buildPastListTab(),
-        );
-      }
-  }
+
 
   @override
   Widget build(BuildContext context) {
+    print("Refreshing Grocery List Main - State");
+    List<GroceryList> groceryListList = context.watch<GroceryListModel>().grocerylistList;
+    List<Purchase> purchaseList = context.watch<PurchaseModel>().purchaseList;
+    print("GroceryListList length: " + groceryListList.length.toString());
+    GroceryListModel groceryListModel = Provider.of<GroceryListModel>(context, listen: false);
+    PurchaseModel purchaseModel = Provider.of<PurchaseModel>(context, listen: false);
+
+    loadChildWidgets(groceryListList);
+
     return Scaffold(
       backgroundColor: Colors.green[200],
       resizeToAvoidBottomInset: false,
@@ -354,27 +363,59 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
   ////////////////////////////////
   ///GROCERY CURRENT LISTING PART
   ////////////////////////////////
-  Container buildCurrentListTab() {
+  void loadChildWidgets(List<GroceryList> groceryListList) {
+    childWidgets = [];
+
+    List<GroceryList> _toDisplay = List.from(groceryListList);
+    List<GroceryList> activeLists = _toDisplay.where((i) => i.active == 1).toList();
+    List<GroceryList> inactiveLists = _toDisplay.where((i) => i.active == 0).toList();
+    computeCompletionPercentage(activeLists);
+    computeCompletionPercentage(inactiveLists);
+
+    childWidgets.add(buildCurrentListTab(activeLists));
+    childWidgets.add(buildCurrentListTab(inactiveLists));
+  }
+
+  void computeCompletionPercentage(List<GroceryList> groceryListList){
+    for(int i = 0; i < groceryListList.length; i++){
+      GroceryList currentList = groceryListList[i];
+      if(currentList.purchases.length == 0){
+        currentList.completionPercent = 0;
+        continue;
+      }
+      double purchasedCount = 0.0;
+      for(int j = 0; j < currentList.purchases.length; j++){
+        if(currentList.purchases[j].purchased == 1){
+          purchasedCount += 1;
+        }
+      }
+      currentList.completionPercent = purchasedCount / currentList.purchases.length ;
+    }
+  }
+
+  Container buildCurrentListTab(List<GroceryList> groceryListList) {
     return Container(
       color: Colors.grey[50],
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: buildCurrentLists(),
+        children: buildCurrentLists(groceryListList),
       ),
     );
   }
 
-  List<Widget> buildCurrentLists() {
+  List<Widget> buildCurrentLists(List<GroceryList> groceryListList) {
     List<Widget> currentList = [];
-    for (var i = 0; i < getCurrentList().length; i++) {
+    List<GroceryList> toDisplay = List.from(groceryListList);
+
+    for (var i = 0; i < toDisplay.length; i++) {
       // show if the grocery not bought yet
-      currentList.add(buildCurrentList(getCurrentList()[i]));
+      currentList.add(buildCurrentList(toDisplay[i]));
     }
     return currentList;
   }
 
-  Widget buildCurrentList(CurrentList currentList) {
+  Widget buildCurrentList(GroceryList currentList) {
     return GestureDetector(
       onTap: () {},
       child: Column(
@@ -401,7 +442,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
                       backgroundColor: Colors.grey[300],
                       valueColor:
                           new AlwaysStoppedAnimation(Colors.greenAccent[700]),
-                      value: currentList.progressValue,
+                      value: currentList.completionPercent,
                     ),
                   ),
                 ),
@@ -424,7 +465,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
     );
   }
 
-  buildGLCurrentList(CurrentList currentList) {
+  buildGLCurrentList(GroceryList currentList) {
     return Padding(
       padding: EdgeInsets.only(bottom: 0),
       child: Row(
@@ -451,11 +492,11 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => GLItemPage()),
+                    MaterialPageRoute(builder: (context) => GLItemPage(groceryList: currentList,)),
                   );
                 },
                 child: Text(
-                  currentList.title,
+                  currentList.name,
                   style: priceText,
                   textAlign: TextAlign.left,
                 ),
@@ -466,7 +507,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
             flex: 2,
             child: Container(
               child: Text(
-                currentList.date,
+                DateFormat('MM - dd').format(currentList.deadLine), //intl package
                 textAlign: TextAlign.center,
               ),
             ),
@@ -479,19 +520,24 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
 ////////////////////////////////
   ///GROCERY CURRENT LISTING PART
 ////////////////////////////////
-  Container buildPastListTab() {
+
+  /**
+  Container buildPastListTab(List<GroceryList> groceryListList) {
     return Container(
       color: Colors.grey[50],
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: buildPastLists(),
+        children: buildPastLists(groceryListList),
       ),
     );
   }
 
   List<Widget> buildPastLists() {
     List<Widget> pastList = [];
+    List<GroceryList> _toDisplay = List.from(groceryListList);
+    List<GroceryList> toDisplay = _toDisplay.where((i) => i.active).toList();
+
     for (var i = 0; i < getPastList().length; i++) {
       // show if the grocery not bought yet
       pastList.add(buildPastList(getPastList()[i]));
@@ -600,4 +646,6 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
       ),
     );
   }
+
+      **/
 }

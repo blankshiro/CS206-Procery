@@ -20,19 +20,24 @@ class InventoryAdapter extends TypeAdapter<Inventory> {
       ingredient: fields[0] as Ingredient,
       quantity: fields[1] as int,
       datePurchased: fields[2] as DateTime,
-    );
+      id: fields[4] as int,
+    )..daysToExpiry = fields[3] as int;
   }
 
   @override
   void write(BinaryWriter writer, Inventory obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.ingredient)
       ..writeByte(1)
       ..write(obj.quantity)
       ..writeByte(2)
-      ..write(obj.datePurchased);
+      ..write(obj.datePurchased)
+      ..writeByte(3)
+      ..write(obj.daysToExpiry)
+      ..writeByte(4)
+      ..write(obj.id);
   }
 
   @override

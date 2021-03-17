@@ -1,50 +1,50 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'Ingredient.dart';
+part of 'GroceryList.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class IngredientAdapter extends TypeAdapter<Ingredient> {
+class GroceryListAdapter extends TypeAdapter<GroceryList> {
   @override
-  final int typeId = 1;
+  final int typeId = 6;
 
   @override
-  Ingredient read(BinaryReader reader) {
+  GroceryList read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Ingredient(
+    return GroceryList(
       name: fields[0] as String,
-      description: fields[1] as String,
-      expiryDays: fields[3] as int,
-      price: fields[4] as double,
-      standardQ: fields[5] as int,
-      measurementType: fields[6] as String,
-      image: fields[7] as String,
-    );
+      deadLine: fields[1] as DateTime,
+      purchases: (fields[2] as List)?.cast<Purchase>(),
+      type: fields[5] as int,
+      id: fields[6] as int,
+    )
+      ..completionPercent = fields[3] as double
+      ..active = fields[4] as int;
   }
 
   @override
-  void write(BinaryWriter writer, Ingredient obj) {
+  void write(BinaryWriter writer, GroceryList obj) {
     writer
       ..writeByte(7)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.description)
+      ..write(obj.deadLine)
+      ..writeByte(2)
+      ..write(obj.purchases)
       ..writeByte(3)
-      ..write(obj.expiryDays)
+      ..write(obj.completionPercent)
       ..writeByte(4)
-      ..write(obj.price)
+      ..write(obj.active)
       ..writeByte(5)
-      ..write(obj.standardQ)
+      ..write(obj.type)
       ..writeByte(6)
-      ..write(obj.measurementType)
-      ..writeByte(7)
-      ..write(obj.image);
+      ..write(obj.id);
   }
 
   @override
@@ -53,7 +53,7 @@ class IngredientAdapter extends TypeAdapter<Ingredient> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is IngredientAdapter &&
+      other is GroceryListAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

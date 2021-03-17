@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 import '../models/Purchase.dart';
 
 class PurchaseModel with ChangeNotifier {
-  String _purchaseBox = 'purchase';
+  String _purchaseBox = 'purchases';
 
   List _purchaseList = <Purchase>[];
 
@@ -16,6 +16,7 @@ class PurchaseModel with ChangeNotifier {
 
     print('added ' + purchase.ingredient.name);
 
+    getItem();
     notifyListeners();
   }
 
@@ -34,6 +35,7 @@ class PurchaseModel with ChangeNotifier {
 
     print('updated ' + purchase.ingredient.name);
 
+    getItem();
     notifyListeners();
   }
 
@@ -47,5 +49,15 @@ class PurchaseModel with ChangeNotifier {
     getItem();
 
     notifyListeners();
+  }
+
+  deleteAll() async{
+    var box = await Hive.openBox<Purchase>(_purchaseBox);
+    while(box.isNotEmpty){
+      box.delete(box.keyAt(0));
+    }
+    print('delete all -');
+    print(box.length);
+
   }
 }

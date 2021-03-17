@@ -21,13 +21,15 @@ class PurchaseAdapter extends TypeAdapter<Purchase> {
       quantity: fields[1] as int,
       dateAdded: fields[2] as DateTime,
       listName: fields[3] as String,
+      purchased: fields[4] as int,
+      id: fields[5] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, Purchase obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.ingredient)
       ..writeByte(1)
@@ -35,7 +37,11 @@ class PurchaseAdapter extends TypeAdapter<Purchase> {
       ..writeByte(2)
       ..write(obj.dateAdded)
       ..writeByte(3)
-      ..write(obj.listName);
+      ..write(obj.listName)
+      ..writeByte(4)
+      ..write(obj.purchased)
+      ..writeByte(5)
+      ..write(obj.id);
   }
 
   @override
