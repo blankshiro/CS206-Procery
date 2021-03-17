@@ -17,7 +17,7 @@ DateTime today = DateTime.now();
 Inventory flourInventory = new Inventory()
   ..ingredient = flour
   ..quantity = 250
-  ..datePurchased = today.subtract(Duration(days: 1))
+  ..datePurchased = today.subtract(Duration(days: 0))
   ..id = 0;
 
 Inventory eggInventory = new Inventory()

@@ -29,7 +29,6 @@ class GLCurrentPage extends StatefulWidget {
 }
 
 class _GLCurrentPageState extends State<GLCurrentPage> {
-  bool _checked = false;
   int _value = 1;
 
   Widget getChildWidget() => childWidgets[selectedIndex];
@@ -39,6 +38,8 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
   List<Widget>
       childWidgets; //The Widgets that has to be loaded when a tab is selected.
   int selectedIndex = 0;
+
+  GroceryListModel groceryListModel;
   @override
   void initState() {
     super.initState();
@@ -70,14 +71,13 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
   }
 
 
-
   @override
   Widget build(BuildContext context) {
     print("Refreshing Grocery List Main - State");
     List<GroceryList> groceryListList = context.watch<GroceryListModel>().grocerylistList;
     List<Purchase> purchaseList = context.watch<PurchaseModel>().purchaseList;
     print("GroceryListList length: " + groceryListList.length.toString());
-    GroceryListModel groceryListModel = Provider.of<GroceryListModel>(context, listen: false);
+    groceryListModel = Provider.of<GroceryListModel>(context, listen: false);
     PurchaseModel purchaseModel = Provider.of<PurchaseModel>(context, listen: false);
 
     loadChildWidgets(groceryListList);
@@ -171,6 +171,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
   ////////////////////////////////
   //SEPARATE WIDGETS
   ////////////////////////////////
+
   Container buildNameAndQuantityHeader() {
     return Container(
       color: Colors.grey[50],
@@ -204,7 +205,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
             child: Container(
               alignment: Alignment.center,
               child: Text(
-                'Dateline',
+                'Deadline',
                 style: h5,
                 textAlign: TextAlign.center,
               ),
@@ -289,6 +290,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
     );
   }
 
+  // Seems like this functiom is not used, can delete? - WJ
   Container buildCurrentAndPastButton() {
     return Container(
       padding: EdgeInsets.all(10),
@@ -369,6 +371,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
     List<GroceryList> _toDisplay = List.from(groceryListList);
     List<GroceryList> activeLists = _toDisplay.where((i) => i.active == 1).toList();
     List<GroceryList> inactiveLists = _toDisplay.where((i) => i.active == 0).toList();
+
     computeCompletionPercentage(activeLists);
     computeCompletionPercentage(inactiveLists);
 
@@ -390,6 +393,8 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
         }
       }
       currentList.completionPercent = purchasedCount / currentList.purchases.length ;
+      if(currentList.completionPercent < 1.0){
+      }
     }
   }
 
@@ -466,6 +471,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
   }
 
   buildGLCurrentList(GroceryList currentList) {
+    bool _checked = currentList.active == 0;
     return Padding(
       padding: EdgeInsets.only(bottom: 0),
       child: Row(
@@ -478,7 +484,8 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
                 value: _checked,
                 onChanged: (bool check) {
                   setState(() {
-                    _checked = true;
+                    _checked = !_checked;
+                    flipListActiveState(currentList);
                   });
                 },
               ),
@@ -517,6 +524,21 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
     );
   }
 
+  void flipListActiveState(GroceryList currentList){
+    List<GroceryList> groceryListList = groceryListModel.grocerylistList;
+    int glIndex = -1;
+    for(int i = 0; i < groceryListList.length; i++){
+      if(groceryListList[i].id == currentList.id){
+        glIndex = i;
+        break;
+      }
+    }
+
+    GroceryList toUpdate = groceryListList[glIndex];
+    toUpdate.active = (toUpdate.active + 1) % 2; // Force it to alternate between 0 & 1
+    groceryListModel.updateItem(glIndex, toUpdate);
+
+  }
 ////////////////////////////////
   ///GROCERY CURRENT LISTING PART
 ////////////////////////////////

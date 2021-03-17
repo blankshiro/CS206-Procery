@@ -1,3 +1,4 @@
+import 'package:Procery/src/data/GroceryListData.dart';
 import 'package:Procery/src/screens/grocerylist/GLCurrentPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLCurrentList.dart';
 // import 'package:Procery/src/screens/grocerylist/GLItemsPage.dart';
@@ -8,8 +9,10 @@ import 'package:Procery/src/screens/grocerylist/GLCollabList.dart';
 
 import '../../models/GroceryList.dart';
 import '../../models/Purchase.dart';
+import '../../models/Inventory.dart';
 
 import '../../services/GroceryListModel.dart';
+import '../../services/InventoryModel.dart';
 
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -28,12 +31,38 @@ class GLItemPage extends StatefulWidget {
 }
 
 class _GLItemPageState extends State<GLItemPage> {
-  bool _checked = false;
+  List<bool> _checked;
 
+  @override
   Widget build(BuildContext context) {
 
     List<GroceryList> groceryListList = context.watch<GroceryListModel>().grocerylistList;
     GroceryListModel groceryListModel = Provider.of<GroceryListModel>(context, listen: false);
+    InventoryModel inventoryModel = Provider.of<InventoryModel>(context, listen: false);
+
+    GroceryList initialiseGroceryList(){
+      GroceryList toInitialise = null;
+      for(int i = 0; i < groceryListList.length; i++){
+        if(groceryListList[i].id == widget.groceryList.id){
+          toInitialise = groceryListList[i];
+        }
+      }
+
+      if(toInitialise != null){
+        _checked = [];
+        for(int i = 0; i < toInitialise.purchases.length; i++){
+          if(toInitialise.purchases[i].quantity == toInitialise.purchases[i].purchased){
+            _checked.add(true);
+          }else{
+            _checked.add(false);
+          }
+        }
+      }
+
+      return toInitialise;
+    }
+
+    GroceryList groceryList = initialiseGroceryList();
 
     return Scaffold(
       //APPBAR
@@ -64,7 +93,7 @@ class _GLItemPageState extends State<GLItemPage> {
           Container(
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.all(10),
-            child: buildTextTitleVariation1('Family Foods List'),
+            child: buildTextTitleVariation1(widget.groceryList.name),
           ),
           Container(
             padding: EdgeInsets.all(10),
@@ -141,7 +170,7 @@ class _GLItemPageState extends State<GLItemPage> {
                   flex: 4,
                   child: Container(
                     child: Text(
-                      'Quantity:',
+                      'Purchased:',
                       style: h5,
                       textAlign: TextAlign.left,
                     ),
@@ -154,7 +183,7 @@ class _GLItemPageState extends State<GLItemPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: buildItemLists(groceryListModel, groceryListList),
+              children: buildItemLists(groceryListModel, inventoryModel, groceryListList),
             ),
           ),
         ],
@@ -211,7 +240,8 @@ class _GLItemPageState extends State<GLItemPage> {
   ////////////////////////////////
   //ITEM LISTING PART
   ////////////////////////////////
-  List<Widget> buildItemLists(groceryListModel, List<GroceryList> groceryListList) {
+  List<Widget> buildItemLists(groceryListModel, inventoryModel,
+      List<GroceryList> groceryListList) {
     List<Widget> itemList = [];
 
     GroceryList currentList = widget.groceryList;
@@ -224,12 +254,15 @@ class _GLItemPageState extends State<GLItemPage> {
 
     for (var i = 0; i < currentList.purchases.length; i++) {
       // show if the grocery not bought yet
-      itemList.add(buildItemList(groceryListModel, currentList, currentList.purchases[i]));
+      itemList.add(buildItemList(groceryListModel, inventoryModel,
+          currentList, currentList.purchases[i]));
     }
     return itemList;
   }
 
-  Widget buildItemList(groceryListModel, groceryList, Purchase _purchase) {
+  // Part 1 of building individual purchase items in list
+  Widget buildItemList(groceryListModel, inventoryModel,
+      groceryList, Purchase _purchase) {
     return GestureDetector(
       onTap: () {},
       child: Column(
@@ -237,7 +270,8 @@ class _GLItemPageState extends State<GLItemPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              child: buildGLItemList(groceryListModel, groceryList, _purchase),
+              child: buildGLItemList(groceryListModel, inventoryModel,
+                  groceryList, _purchase),
             ),
             Divider(
               height: 10,
@@ -250,7 +284,17 @@ class _GLItemPageState extends State<GLItemPage> {
     );
   }
 
-  buildGLItemList(GroceryListModel groceryListModel, GroceryList groceryList, Purchase _purchase) {
+  // Part 2 of building individual purchase items in list
+  buildGLItemList(GroceryListModel groceryListModel, InventoryModel inventoryModel,
+      GroceryList groceryList, Purchase _purchase) {
+
+    int checkIndex;
+    for(int i = 0; i < groceryList.purchases.length; i++){
+      if(_purchase.id == groceryList.purchases[i].id){
+        checkIndex = i;
+      }
+    }
+
     return Padding(
       padding: EdgeInsets.only(bottom: 0),
       child: Row(
@@ -260,11 +304,18 @@ class _GLItemPageState extends State<GLItemPage> {
             child: Container(
               alignment: Alignment.center,
               child: Checkbox(
-                value: _checked,
+                value: _checked[checkIndex],
                 onChanged: (bool value) {
-                  setState(() {
-                    _checked = value;
-                  });
+                  print("state change 1" + _checked[checkIndex].toString());
+                  if(value != false){
+                    if(_checked[checkIndex] == false){
+                      incrementQuantityPurchased(groceryListModel,
+                          inventoryModel, groceryList, _purchase, _purchase.quantity-_purchase.purchased);
+                    }
+                    setState(() {
+                      _checked[checkIndex] = true;
+                    });}
+                  print("state change 2" + _checked[checkIndex].toString());
                 },
               ),
             ),
@@ -285,7 +336,7 @@ class _GLItemPageState extends State<GLItemPage> {
           Expanded(
             flex: 6,
             child: Text(
-              _purchase.quantity.toString(),
+              _purchase.purchased.toString()  + "\/" +_purchase.quantity.toString(),
               style: priceText,
               textAlign: TextAlign.center,
             ),
@@ -297,7 +348,8 @@ class _GLItemPageState extends State<GLItemPage> {
               child: IconButton(
                 icon: Icon(Icons.remove),
                 iconSize: 30,
-                onPressed: () {incrementPurchaseQuantity(groceryListModel, groceryList, _purchase, -1);},
+                onPressed: () {incrementQuantityPurchased(groceryListModel,
+                    inventoryModel, groceryList, _purchase, -1);},
               ),
             ),
           ),
@@ -308,7 +360,8 @@ class _GLItemPageState extends State<GLItemPage> {
               child: IconButton(
                 icon: Icon(Icons.add_rounded),
                 iconSize: 30,
-                onPressed: () {incrementPurchaseQuantity(groceryListModel, groceryList, _purchase, 1);},
+                onPressed: () {incrementQuantityPurchased(groceryListModel,
+                    inventoryModel, groceryList, _purchase, 1);},
               ),
             ),
           ),
@@ -317,7 +370,73 @@ class _GLItemPageState extends State<GLItemPage> {
     );
   }
 
-  void incrementPurchaseQuantity(GroceryListModel groceryListModel, GroceryList groceryList, Purchase _purchase, int change){
+  void incrementQuantityPurchased(GroceryListModel groceryListModel,
+      InventoryModel inventoryModel, GroceryList groceryList,
+      Purchase _purchase, int change){
+
+    // Prevent negatives / overflow
+    if( (_purchase.purchased == 0 && change == -1) ||
+     (_purchase.purchased == _purchase.quantity && change == 1) ){
+      return;
+    }
+
+    int glIndex = 0;
+    var groceryListList = groceryListModel.grocerylistList;
+
+    for(int i = 0; i < groceryListList.length; i++){
+      if(groceryListList[i].id == groceryList.id){
+        glIndex = i;
+        break;
+      }
+    }
+
+    int purchaseIndex = 0;
+    for(int i = 0; i < groceryListList[glIndex].purchases.length; i++){
+      if(groceryListList[glIndex].purchases[i].id == _purchase.id){
+        purchaseIndex = i;
+        break;
+      }
+    }
+
+    GroceryList toUpdate = groceryListList[glIndex];
+    toUpdate.purchases[purchaseIndex].purchased += change;
+    groceryListModel.updateItem(glIndex, toUpdate);
+
+    int invIndex = -1;
+    DateTime today = DateTime.now();
+    var inventoryList = inventoryModel.inventoryList;
+
+    // If same date, can use the same inventory record since expiry is similar
+    // Else create a new inventory record for the different expiry
+    for(int i = 0; i < inventoryList.length; i++){
+      if(inventoryList[i].ingredient.name == _purchase.ingredient.name
+      && today.isSameDate(inventoryList[i].datePurchased)){
+        invIndex = i;
+        break;
+      }
+    }
+
+    if(invIndex >= 0){
+      Inventory toUpdate = inventoryList[invIndex];
+      toUpdate.quantity += change;
+
+      inventoryModel.updateItem(invIndex, toUpdate);
+
+    }else if(invIndex == -1){
+      Inventory toUpdate = new Inventory()
+        ..ingredient = _purchase.ingredient
+        ..quantity = change
+        ..datePurchased = today
+        ..id = inventoryList.length;
+
+      inventoryModel.addItem(toUpdate);
+    }
+
+
+    return;
+  }
+
+  void incrementQuantityToPurchase(GroceryListModel groceryListModel, GroceryList groceryList, Purchase _purchase, int change){
     int GLIndex = 0;
     var groceryListList = groceryListModel.grocerylistList;
 
@@ -345,5 +464,11 @@ class _GLItemPageState extends State<GLItemPage> {
     return;
   }
 
+}
 
+extension DateOnlyCompare on DateTime {
+  bool isSameDate(DateTime other) {
+    return this.year == other.year && this.month == other.month
+        && this.day == other.day;
+  }
 }
