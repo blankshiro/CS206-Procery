@@ -3,6 +3,10 @@ import 'package:Procery/src/screens/dashboard/MealData.dart';
 import 'package:Procery/src/screens/recipe/RecipeExplore.dart';
 import 'package:Procery/src/screens/recipe/RecipeSearch.dart';
 import 'package:Procery/src/services/PlannerRecordModel.dart';
+import 'package:Procery/src/services/GroceryListModel.dart';
+import 'package:Procery/src/models/GroceryList.dart';
+import 'package:Procery/src/services/PurchaseModel.dart';
+import 'package:Procery/src/models/Purchase.dart';
 
 
 import '../../models/Recipe.dart';
@@ -37,12 +41,16 @@ class MealPlannerSelect extends StatefulWidget {
 class MealPlannerSelectState extends State<MealPlannerSelect> {
 
   List<bool> optionSelected = [false, false, false];
+  GroceryListModel groceryListModel;
+  PurchaseModel purchaseModel;
 
   @override
   Widget build(BuildContext context) {
 
     context.watch<RecipeModel>().recipeList;
-    final plannerRecordModel = context.read<PlannerRecordModel>();
+    final plannerRecordModel = Provider.of<PlannerRecordModel>(context, listen: false);
+    groceryListModel = Provider.of<GroceryListModel>(context, listen: false);
+    purchaseModel = Provider.of<PurchaseModel>(context, listen: false);
     return Consumer<RecipeModel>(builder: (context, recipeModel, child) {
       print("Meal Planner state refresh");
 
@@ -356,12 +364,48 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
   }
 
   void addRecipeToMealPlan(Recipe recipe, PlannerRecordModel plannerRecordModel) {
+    DateTime today = DateTime.now();
     PlannerRecord toAdd = new PlannerRecord()
       ..recipe = recipe
       ..date = widget.day
       ..meal = widget.meal;
 
     plannerRecordModel.addItem(toAdd);
+
+    GroceryList masterList = groceryListModel.grocerylistList[0];
+    print("Meal Plan adding groceries to " + masterList.name);
+
+    List<Purchase> toPurchaseList = [];
+    for(int i = 0; i < recipe.ingredients.length; i++){
+      Purchase toPurchase = new Purchase()
+          ..ingredient = recipe.ingredients[i]
+          ..quantity = recipe.ingredientsQ[i]
+          ..dateAdded = today
+          ..purchased = 0
+          ..listName = masterList.name
+          ..id = purchaseModel.purchaseList.length;
+
+      purchaseModel.addItem(toPurchase);
+      toPurchaseList.add(toPurchase);
+    }
+
+    for(int i = 0; i < toPurchaseList.length; i++){
+      bool found = false;
+      for(int j = 0; j < masterList.purchases.length ; j++){
+        if(masterList.purchases[j].ingredient.name == toPurchaseList[i].ingredient.name){
+          masterList.purchases[j].quantity += toPurchaseList[i].quantity;
+          masterList.purchases[j].dateAdded = toPurchaseList[i].dateAdded;
+          found = true;
+          continue;
+        }
+      }
+
+      if(found == false){
+        masterList.purchases.add(toPurchaseList[i]);
+      }
+    }
+
+    groceryListModel.updateItem(0, masterList);
 
   }
 }

@@ -25,7 +25,12 @@ var mealPlan3 = PlannerRecord()
   ..date = today.add(Duration(days: 2))
   ..meal = 'D';
 
+var mealPlan4 = PlannerRecord()
+  ..recipe = recipes[4]
+  ..date = today
+  ..meal = 'B';
+
 List<PlannerRecord> getPlannerRecords() {
-  return <PlannerRecord>[mealPlan1, mealPlan2, mealPlan3];
+  return <PlannerRecord>[mealPlan1, mealPlan2, mealPlan3, mealPlan4];
 }
 
