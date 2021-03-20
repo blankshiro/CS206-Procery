@@ -3,6 +3,7 @@ import 'package:Procery/src/screens/mealplanner/MealPlannerInitial.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 import '../../shared/styles.dart';
 import '../../shared/colors.dart';
@@ -59,7 +60,7 @@ class _DashboardExploreState extends State<DashboardExplore> {
   );
 
   // Grocery Checkbox
-  var _checkedGroceryList = [];
+  // var _checkedGroceryList = [];
 
   @override
   void initState() {
@@ -113,19 +114,27 @@ class _DashboardExploreState extends State<DashboardExplore> {
 
   Widget getChildWidget() => childWidgets[sharedValue];
 
+  InventoryModel inventoryModel;
+  PurchaseModel purchaseModel;
+  RecipeModel recipeModel;
+  PlannerRecordModel plannerRecordModel;
+  GroceryListModel groceryListModel;
+
   @override
   Widget build(BuildContext context) {
-    InventoryModel inventoryModel =
-        Provider.of<InventoryModel>(context, listen: false);
-    PurchaseModel purchaseModel =
-        Provider.of<PurchaseModel>(context, listen: false);
-    RecipeModel recipeModel = Provider.of<RecipeModel>(context, listen: false);
-    PlannerRecordModel plannerRecordModel =
-        Provider.of<PlannerRecordModel>(context, listen: false);
-    GroceryListModel groceryListModel =
-        Provider.of<GroceryListModel>(context, listen: false);
 
+    inventoryModel = Provider.of<InventoryModel>(context, listen: false);
+    purchaseModel = Provider.of<PurchaseModel>(context, listen: false);
+    recipeModel = Provider.of<RecipeModel>(context, listen: false);
+    plannerRecordModel = Provider.of<PlannerRecordModel>(context, listen: false);
+    groceryListModel = Provider.of<GroceryListModel>(context, listen: false);
+
+    // context.watch reloads screen
     var inventoryList = context.watch<InventoryModel>().inventoryList;
+    var grocerylistList = context.watch<GroceryListModel>().grocerylistList;
+
+    // sort the grocery list according to deadline
+    grocerylistList.sort((a,b) => a.deadLine.compareTo(b.deadLine));
 
     if (DashboardExplore.initialise == true) {
       loadAllInventory(inventoryModel);
@@ -349,7 +358,15 @@ class _DashboardExploreState extends State<DashboardExplore> {
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 children: [
-                  buildTextTitleVariation1("Grocery List"),
+                  buildTextTitleVariation3("Grocery List"),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: [
+                  buildTextSubTitleVariation1("Deadline: " + DateFormat('MM - dd').format(grocerylistList[0].deadLine)),
                   SizedBox(
                     width: 8,
                   ),
@@ -378,7 +395,7 @@ class _DashboardExploreState extends State<DashboardExplore> {
               ],
             ),
             Column(
-              children: buildGroceries(),
+              children: buildGroceries(grocerylistList[0]),
             ),
           ],
         ),
@@ -469,57 +486,70 @@ class _DashboardExploreState extends State<DashboardExplore> {
   /// GROCERY PART
   ////////////////////////////////////
 
-  List<Widget> buildGroceries() {
-    List<Widget> groceryList = [];
-    for (var i = 0; i < getGrocery().length; i++) {
-      // show if the grocery not bought yet
-      if (!getGrocery()[i].checked) _checkedGroceryList.add(false);
-      groceryList.add(buildGrocery(getGrocery()[i], i));
+  List<Widget> buildGroceries(lastestGroceryList) {
+    List<Widget> purchaseList = List<Widget>();
+
+    for (var i = 0; i < lastestGroceryList.purchases.length; i++) {
+    Purchase purchase = lastestGroceryList.purchases[i];
+      purchaseList.add(buildGrocery(purchase));
     }
-    return groceryList;
+    return purchaseList;
   }
 
-  Widget buildGrocery(Grocery grocery, int i) {
-    return Table(
-      columnWidths: {
-        0: IntrinsicColumnWidth(),
-        1: FixedColumnWidth(200),
-        2: FlexColumnWidth(),
-      },
-      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-      children: [
-        TableRow(
+  Widget buildGrocery(Purchase purchase) {
+
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: GestureDetector(
+        // onTap: () {
+        //   Navigator.push(
+        //     context,
+        //     MaterialPageRoute(builder: (context) => GLItemPage(groceryList: currentList)),
+        //   );
+        // },
+        child: Table(
+          columnWidths: {
+            0: FixedColumnWidth(256),
+            1: FlexColumnWidth(),
+          },
+          defaultVerticalAlignment: TableCellVerticalAlignment.middle,
           children: [
-            TableCell(
-              child: Container(
-                padding: EdgeInsets.only(left: 20),
-                alignment: Alignment.center,
-                child: Checkbox(
-                  value: _checkedGroceryList[i],
-                  activeColor: primaryColor,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _checkedGroceryList[i] = value;
-                      grocery.checked = true;
-                    });
-                  },
+            TableRow(
+              children: [
+                // FlatButton(
+                //   onPressed: () {
+                //     Navigator.push(
+                //       context,
+                //       MaterialPageRoute(builder: (context) => ExpiringPage()),
+                //     );
+                //   },
+                // ),
+                TableCell(
+                    child: Container(
+                      padding: EdgeInsets.only(left: 75),
+                      child: buildGroceryTitle(purchase.ingredient.name.toString()),
+                    )
                 ),
-              ),
+                TableCell(
+                    child: Container(
+                        child: buildGrocerySubtitle(purchase.purchased.toString() + "/" + purchase.quantity.toString())
+                    )
+                ),
+
+              ],
             ),
-            TableCell(
-                child: Container(
-              padding: EdgeInsets.only(left: 15),
-              child: buildGroceryTitle(grocery.name),
-              width: 128,
-            )),
-            TableCell(
-                child:
-                    Container(child: buildGrocerySubtitle(grocery.quantity))),
+
+
           ],
-        ),
-      ],
+        )
+      ),
+
+
     );
   }
+
+
+
 
   /////////////////////////////////////
   /// Loading of Models for initialisation

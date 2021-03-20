@@ -121,6 +121,7 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
                 rightChevronMargin: EdgeInsets.only(right: 70),
               ),
               calendarStyle: CalendarStyle(
+                  selectedColor: Colors.green,
                   weekendStyle: GoogleFonts.poppins(
                       fontSize: 14,
                       fontWeight: FontWeight.normal,
@@ -293,10 +294,9 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
               children: [
                 buildCalories(recipe.prepMins.toString() + " mins"),
                 IconButton(
-                  icon:  Icon(Fryo.trash),
+                  icon: Icon(Fryo.trash),
                   iconSize: 20,
-                  onPressed: () {
-                  },
+                  onPressed: () {},
                 ),
               ],
             ),
@@ -327,7 +327,7 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
           borderRadius: BorderRadius.all(
             Radius.circular(20),
           ),
-          boxShadow: [kBoxShadow],
+          // boxShadow: [kBoxShadow],
         ),
         child: Column(
           children: [
