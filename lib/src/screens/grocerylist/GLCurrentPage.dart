@@ -1,3 +1,4 @@
+import 'package:Procery/src/screens/BaseWidgets.dart';
 import 'package:Procery/src/screens/grocerylist/GLItemPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLPastPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLCurrentList.dart';
@@ -80,6 +81,8 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
     loadChildWidgets(groceryListList);
 
     return Scaffold(
+      appBar: getBaseAppBar(),
+      bottomNavigationBar: getBaseBottomNavBar(context, 2),
       backgroundColor: Colors.green[200],
       resizeToAvoidBottomInset: false,
       body: Column(

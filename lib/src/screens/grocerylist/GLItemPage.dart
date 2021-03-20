@@ -96,6 +96,7 @@ class _GLItemPageState extends State<GLItemPage> {
         children: [
           //HEADER
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 alignment: Alignment.centerLeft,
@@ -103,11 +104,14 @@ class _GLItemPageState extends State<GLItemPage> {
                 child: buildTextTitleVariation1(widget.groceryList.name),
               ),
               Container(
+                padding: EdgeInsets.fromLTRB(0, 3, 0, 0),
                 child: IconButton(
-                  alignment: Alignment.topLeft,
+                  // alignment: Alignment.topLeft,
                   icon: Icon(Fryo.trash),
                   iconSize: 20,
-                  onPressed: () {},
+                  onPressed: () {
+                    _showMyDialog();
+                  },
                 ),
               ),
             ],
@@ -222,6 +226,37 @@ class _GLItemPageState extends State<GLItemPage> {
         child: Text('edit'),
         backgroundColor: Colors.greenAccent[700],
       ),
+    );
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'Would you like to Delete this List?',
+            style: h5,
+          ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Fryo.cross),
+              iconSize: 30,
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.check),
+              iconSize: 30,
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
