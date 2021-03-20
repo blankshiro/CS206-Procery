@@ -5,6 +5,7 @@ import 'package:Procery/src/screens/grocerylist/GLItemPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLItemList.dart';
 import 'package:Procery/src/screens/grocerylist/GLPastList.dart';
 import 'package:Procery/src/screens/grocerylist/GLPastPage.dart';
+import 'package:intl/intl.dart';
 
 import '../../models/GroceryList.dart';
 import '../../models/Purchase.dart';
@@ -532,7 +533,8 @@ class _GLEditPageState extends State<GLEditPage> {
               height: 35,
               child: TextField(
                 decoration: InputDecoration(
-                  hintText: 'Type here',
+                  hintText: DateFormat('yyyy - mm - dd')
+                      .format(widget.groceryList.deadLine),
                   hintStyle: TextStyle(fontSize: 12),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15),

@@ -7,6 +7,7 @@ import 'package:Procery/src/screens/grocerylist/GLPastList.dart';
 import 'package:Procery/src/screens/grocerylist/GLPastPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLCollabList.dart';
 import 'package:Procery/src/screens/grocerylist/GLEditPage.dart';
+import 'package:intl/intl.dart';
 
 import '../../models/GroceryList.dart';
 import '../../models/Purchase.dart';
@@ -104,7 +105,10 @@ class _GLItemPageState extends State<GLItemPage> {
             color: Colors.grey[50],
             alignment: Alignment.center,
             child: Text(
-              'TBC: 22/2/21',
+              'To be completed by ' +
+                  DateFormat('yyyy - MM - dd')
+                      .format(widget.groceryList.deadLine), //intl package
+              textAlign: TextAlign.center,
               style: h5,
             ),
           ),
