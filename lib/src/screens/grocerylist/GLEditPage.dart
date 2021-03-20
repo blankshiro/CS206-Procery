@@ -186,6 +186,7 @@ class _GLEditPageState extends State<GLEditPage> {
             flex: 1,
             child: IconButton(
               onPressed: () {},
+              iconSize: 20,
               icon: Icon(Fryo.trash_1),
             ),
           ),
@@ -478,7 +479,7 @@ class _GLEditPageState extends State<GLEditPage> {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0))),
             label: Text(
-              'Add to List',
+              'Add from Recipe',
               style: TextStyle(),
             ),
             icon: Icon(
