@@ -95,10 +95,22 @@ class _GLItemPageState extends State<GLItemPage> {
       body: Column(
         children: [
           //HEADER
-          Container(
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.all(10),
-            child: buildTextTitleVariation1(widget.groceryList.name),
+          Row(
+            children: [
+              Container(
+                alignment: Alignment.centerLeft,
+                padding: EdgeInsets.all(10),
+                child: buildTextTitleVariation1(widget.groceryList.name),
+              ),
+              Container(
+                child: IconButton(
+                  alignment: Alignment.topLeft,
+                  icon: Icon(Fryo.trash),
+                  iconSize: 20,
+                  onPressed: () {},
+                ),
+              ),
+            ],
           ),
           Container(
             padding: EdgeInsets.all(10),
