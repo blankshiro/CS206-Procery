@@ -126,12 +126,12 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
           ]),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => GLEditPage()),
-          );
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => GLEditPage()),
+          // );
         },
-        child: Text('edit'),
+        child: Text('create'),
         backgroundColor: Colors.greenAccent[700],
       ),
     );
