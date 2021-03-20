@@ -244,10 +244,10 @@ var recipe12 = Recipe(
       "(To ramp it up, add 100g chopped white or milk chocolate chunks OR 100g toasted, roughly chopped hazelnuts or pecans OR 2 handfuls of baby marshmallows.)",
       "Bake for 25-30 minutes or until the top is cracked but the middle just set. Cool completely, then lift out of the tin and cut."
     ],
-    prepMins: 15,
-    calories: 200,
-    ingredients: [flour, egg],
-    ingredientsQ: [20, 1],
+    prepMins: 30,
+    calories: 300,
+    ingredients: [flour, egg, butter, chocolate, milk],
+    ingredientsQ: [500, 6, 140, 200, 1300],
     likes: 0);
 
 var recipe13 = Recipe(
@@ -261,10 +261,10 @@ var recipe13 = Recipe(
       "Put the caramel ingredients in a small pan over a medium low heat and cook, continually whisking for 2-3 minutes until the sugar has melted. Cook whisking for a further 6 minutes until thickened. Pour over the cooled shortbread, smooth over, cool to room temperature, and chill until set (about 2 hours). You can freeze to speed this up if you like.",
       "Melt the chocolate in the microwave or in a heatproof bowl over a pan of simmering water until smooth and glossy. Leave to cool slightly, then pour over the set caramel. Cool again until set. Sprinkle with a pinch more salt and cut into squares with a hot knife to easily go through the chocolate. Best stored in fridge for up to 3 days.",
     ],
-    prepMins: 15,
+    prepMins: 40,
     calories: 200,
-    ingredients: [flour, egg],
-    ingredientsQ: [20, 1],
+    ingredients: [flour, egg, butter, chocolate, milk],
+    ingredientsQ: [400, 8, 240, 0, 2000],
     likes: 0);
 
 var recipe14 = Recipe(
@@ -278,10 +278,10 @@ var recipe14 = Recipe(
       "Line a baking sheet with baking paper, scoop out the cookie dough in tablespoons and roll each into a ball. Sit these about 8cm apart as they will spread out as they cook. Press a fork onto each ball to flatten it out slightly. Bake for 10 minutes, or until the cookies are golden but not brown, rest them for a couple of minutes before lifting them off the tray onto a rack to cool. Repeat with the remaining mixture.",
       "Melt the remaining chocolate and drizzle it back and forth over the cookies.",
     ],
-    prepMins: 15,
-    calories: 200,
-    ingredients: [flour, egg],
-    ingredientsQ: [20, 1],
+    prepMins: 32,
+    calories: 520,
+    ingredients: [flour, egg, butter, chocolate, milk],
+    ingredientsQ: [450, 10, 100, 240, 2500],
     likes: 0);
 
 var recipe15 = Recipe(
@@ -295,10 +295,10 @@ var recipe15 = Recipe(
       "Sift the icing sugar into a bowl and add the vanilla and milk, mixing well – it should be a thick, drizzle-able consistency.",
       "Once the buns are warm but no longer hot, drizzle with the icing, then eat straightaway."
     ],
-    prepMins: 15,
-    calories: 200,
-    ingredients: [flour, egg],
-    ingredientsQ: [20, 1],
+    prepMins: 20,
+    calories: 150,
+    ingredients: [flour, egg, butter, chocolate, milk],
+    ingredientsQ: [100, 2, 50, 0, 500],
     likes: 0);
 
 var recipe16 = Recipe(
@@ -314,10 +314,10 @@ var recipe16 = Recipe(
       "To make the glaze, melt the butter in a small pan, remove from the heat and stir in the honey and icing sugar using a balloon whisk.",
       "Dip the tops of the honey cakes into the warm glaze or drizzle over thickly with a spoon. If the glaze gets too solid, warm it through very gently to melt. Put the glazed cakes back on the wire racks to set, iced-sides up."
     ],
-    prepMins: 15,
-    calories: 200,
-    ingredients: [flour, egg],
-    ingredientsQ: [20, 1],
+    prepMins: 50,
+    calories: 100,
+    ingredients: [flour, egg, butter, chocolate, milk],
+    ingredientsQ: [200, 6, 100, 0, 300],
     likes: 0);
 
 var recipe17 = Recipe(
@@ -331,10 +331,10 @@ var recipe17 = Recipe(
       "Melt the butter and chocolate in a microwave or in a bowl set over a pan of simmering water, then cool to room temperature. Whisk the eggs and sugar until the mixture is pale and thick. Fold the chocolate mixture into the eggs then sift over the flour, baking powder and cocoa. Fold this in to make a thick batter and pour it onto the base. Drizzle over the maple syrup and sprinkle on some salt flakes.",
       "Bake for 15-20 minutes, or until the top is cracked but the middle just set. Cool completely in the tin then lift it out and cut it into squares."
     ],
-    prepMins: 15,
-    calories: 200,
-    ingredients: [flour, egg],
-    ingredientsQ: [20, 1],
+    prepMins: 30,
+    calories: 400,
+    ingredients: [flour, egg, butter, chocolate, milk],
+    ingredientsQ: [450, 8, 150, 200, 1500],
     likes: 0);
 
 var recipe18 = Recipe(
@@ -349,10 +349,10 @@ var recipe18 = Recipe(
       "For the icing, put the butter in a big mixing bowl and beat for about 5 minutes until very pale and creamy. Sift in the icing sugar and cocoa then add the coffee and vanilla and beat for another 3-5 minutes until very fluffy.",
       "To decorate, put the icing into a large piping bag fitted with a star nozzle – for our ruffle icing, we used a Wilton 2D nozzle (from lakeland.co.uk). Pipe swirls of icing on top of each cake, then leave to set for 20 minutes before eating."
     ],
-    prepMins: 15,
-    calories: 200,
-    ingredients: [flour, egg],
-    ingredientsQ: [20, 1],
+    prepMins: 30,
+    calories: 180,
+    ingredients: [flour, egg, butter, chocolate, milk],
+    ingredientsQ: [200, 4, 120, 0, 600],
     likes: 0);
 
 var recipe19 = Recipe(
@@ -370,10 +370,10 @@ var recipe19 = Recipe(
       "Spoon into greased or paper-lined muffin tins.",
       "Bake in the preheated oven for about 15 to 20 minutes. A dark pan will take less time than a light colored pan. The muffins are done when a toothpick or cake tester comes out clean when inserted in the middle of a muffin. Remove the muffins from the tin and let cool on a cooling rack. Serve and enjoy!"
     ],
-    prepMins: 15,
-    calories: 200,
-    ingredients: [flour, egg],
-    ingredientsQ: [20, 1],
+    prepMins: 35,
+    calories: 300,
+    ingredients: [flour, egg, butter, chocolate, milk],
+    ingredientsQ: [200, 4, 120, 0, 900],
     likes: 0);
 
 var recipe20 = Recipe(
@@ -387,10 +387,10 @@ var recipe20 = Recipe(
       "In another large bowl, whisk together melted butter and sugars. Add egg and vanilla and whisk until combined. Stir in mashed bananas and yogurt. Add banana mixture to dry ingredients and stir just until combined, then fold in walnuts. ",
       "Divide batter between 18 liners, filling ¾ full. Bake until a toothpick inserted in middle comes out clean, 18 to 20 minutes.",
     ],
-    prepMins: 15,
-    calories: 200,
-    ingredients: [flour, egg],
-    ingredientsQ: [20, 1],
+    prepMins: 50,
+    calories: 120,
+    ingredients: [flour, egg, butter, chocolate, milk],
+    ingredientsQ: [400, 8, 200, 0, 1000],
     likes: 0);
 
 List<Recipe> getRecipes() {
