@@ -4,37 +4,9 @@ import 'package:Procery/src/shared/styles.dart';
 import 'package:Procery/src/shared/colors.dart';
 import 'package:Procery/src/shared/fryo_icons.dart';
 
+getBaseAppBar(String title) {}
 
-AppBar getBaseAppBar(){
-  return AppBar(
-    centerTitle: true,
-    elevation: 0,
-    // leading: IconButton(
-    //   onPressed: () {},
-    //   iconSize: 21,
-    //   icon: Icon(Fryo.funnel),
-    // ),
-    backgroundColor: primaryColor,
-    title:
-    Text('Procery', style: logoWhiteStyle, textAlign: TextAlign.center),
-    actions: <Widget>[
-      IconButton(
-        padding: EdgeInsets.all(0),
-        onPressed: () {},
-        iconSize: 21,
-        icon: Icon(Fryo.magnifier),
-      ),
-      IconButton(
-        padding: EdgeInsets.all(0),
-        onPressed: () {},
-        iconSize: 21,
-        icon: Icon(Fryo.alarm),
-      )
-    ],
-  );
-}
-
-BottomNavigationBar getBaseBottomNavBar(BuildContext context, int index){
+BottomNavigationBar getBaseBottomNavBar(BuildContext context, int index) {
   return BottomNavigationBar(
     items: <BottomNavigationBarItem>[
       BottomNavigationBarItem(
@@ -67,8 +39,8 @@ BottomNavigationBar getBaseBottomNavBar(BuildContext context, int index){
     type: BottomNavigationBarType.fixed,
     currentIndex: index,
     fixedColor: Colors.green[600],
-    onTap: (index){
-      switch(index){
+    onTap: (index) {
+      switch (index) {
         case 0:
           Navigator.pushNamed(context, "/");
           break;
@@ -81,7 +53,6 @@ BottomNavigationBar getBaseBottomNavBar(BuildContext context, int index){
         case 3:
           Navigator.pushNamed(context, "/meal-planner-initial");
           break;
-
       }
     },
   );

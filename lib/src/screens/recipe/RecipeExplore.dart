@@ -16,7 +16,6 @@ import 'package:provider/provider.dart';
 class RecipeExplore extends StatefulWidget {
   @override
   RecipeExploreState createState() => RecipeExploreState();
-
 }
 
 class RecipeExploreState extends State<RecipeExplore> {
@@ -24,20 +23,37 @@ class RecipeExploreState extends State<RecipeExplore> {
 
   @override
   Widget build(BuildContext context) {
-
     context.watch<RecipeModel>().recipeList;
     return Consumer<RecipeModel>(builder: (context, recipeModel, child) {
       print("RecipeExplore state refresh");
 
-
       return Scaffold(
         // Top part of the app
-        backgroundColor: Colors.green[200],
-        appBar: getBaseAppBar(),
+        backgroundColor: Colors.white,
         bottomNavigationBar: getBaseBottomNavBar(context, 1),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.fromLTRB(20, 45, 0, 0),
+              child: Text(
+                "My",
+                style: TextStyle(
+                  fontSize: 27,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+              child: Text(
+                "Recipes",
+                style: TextStyle(
+                  fontSize: 27,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
             // Search bar
             Container(
               padding: EdgeInsets.only(bottom: 10),
@@ -134,8 +150,7 @@ class RecipeExploreState extends State<RecipeExplore> {
                         height: 350,
                         child: ListView.builder(
                           itemCount: recipeModel.recipeList.length,
-                          itemBuilder: (context, index){
-
+                          itemBuilder: (context, index) {
                             Recipe rec = recipeModel.recipeList[index];
                             return buildRecipe(rec, index, recipeModel);
                           },
@@ -187,6 +202,7 @@ class RecipeExploreState extends State<RecipeExplore> {
       );
     });
   }
+
   Widget option(String text, String image, int index) {
     return GestureDetector(
       onTap: () {
@@ -232,16 +248,15 @@ class RecipeExploreState extends State<RecipeExplore> {
   }
 
   // Helper function to load recipe data into hive database
-  void loadAllRecipe(RecipeModel recipeModel){
+  void loadAllRecipe(RecipeModel recipeModel) {
     deleteAllRecipe(recipeModel);
     List toAdd = getRecipes();
-    for(var i = 0; i < toAdd.length; i++){
+    for (var i = 0; i < toAdd.length; i++) {
       recipeModel.addItem(toAdd[i]);
     }
-
   }
 
-  void deleteAllRecipe(RecipeModel recipeModel){
+  void deleteAllRecipe(RecipeModel recipeModel) {
     recipeModel.deleteAll();
   }
 
@@ -302,10 +317,11 @@ class RecipeExploreState extends State<RecipeExplore> {
               children: [
                 buildCalories(recipe.prepMins.toString() + " mins"),
                 LikeButton(
-                  size: 20,
-                  isLiked: recipe.likes > 0,
-                    onTap: (isLiked) { return likeRecipe(isLiked, recipe, recipeModel);}
-                ),
+                    size: 20,
+                    isLiked: recipe.likes > 0,
+                    onTap: (isLiked) {
+                      return likeRecipe(isLiked, recipe, recipeModel);
+                    }),
               ],
             ),
           ],
@@ -319,7 +335,7 @@ class RecipeExploreState extends State<RecipeExplore> {
     List<Widget> list = [];
 
     List recipes = List.from(recipeModel.recipeList);
-    recipes.sort((b,a) => a.likes.compareTo(b.likes));
+    recipes.sort((b, a) => a.likes.compareTo(b.likes));
 
     for (var i = 0; i < recipes.length; i++) {
       list.add(buildPopular(recipes[i], recipeModel));
@@ -365,9 +381,11 @@ class RecipeExploreState extends State<RecipeExplore> {
                     children: [
                       buildCalories(recipe.prepMins.toString() + " min"),
                       LikeButton(
-                          size: 20,
-                          isLiked: recipe.likes > 0,
-                          onTap: (isLiked) { return likeRecipe(isLiked, recipe, recipeModel);},
+                        size: 20,
+                        isLiked: recipe.likes > 0,
+                        onTap: (isLiked) {
+                          return likeRecipe(isLiked, recipe, recipeModel);
+                        },
                       )
                     ],
                   ),
@@ -380,11 +398,12 @@ class RecipeExploreState extends State<RecipeExplore> {
     );
   }
 
-  Future<bool> likeRecipe(status, Recipe recipe, RecipeModel recipeModel) async{
+  Future<bool> likeRecipe(
+      status, Recipe recipe, RecipeModel recipeModel) async {
     var allrecipes = recipeModel.recipeList;
     int index = 0;
-    for(int i = 0; i < allrecipes.length; i++){
-      if(allrecipes[i].name == recipe.name){
+    for (int i = 0; i < allrecipes.length; i++) {
+      if (allrecipes[i].name == recipe.name) {
         index = i;
         break;
       }

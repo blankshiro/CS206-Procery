@@ -24,40 +24,40 @@ class _MealPlannerState extends State<MealPlanner> {
     super.initState();
     _calendarController = CalendarController();
   }
+
   @override
   void dispose() {
     // TODO: implement dispose
     _calendarController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-        appBar: AppBar(
-          centerTitle: true,
-          elevation: 0,
-          backgroundColor: primaryColor,
-          title:
-          Text('Procery', style: logoWhiteStyle, textAlign: TextAlign.center),
-          actions: <Widget>[
-            IconButton(
-              padding: EdgeInsets.all(0),
-              onPressed: () {},
-              iconSize: 21,
-              icon: Icon(Fryo.magnifier),
-            ),
-            IconButton(
-              padding: EdgeInsets.all(0),
-              onPressed: () {},
-              iconSize: 21,
-              icon: Icon(Fryo.alarm),
-            )
-          ],
-        ),
       body: Column(
         children: [
-          buildTextTitleVariation('Meal Planner'),
+          Padding(
+            padding: EdgeInsets.fromLTRB(20, 45, 0, 0),
+            child: Text(
+              "Meal",
+              style: TextStyle(
+                fontSize: 27,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(20, 0, 0, 10),
+            child: Text(
+              "Planner",
+              style: TextStyle(
+                fontSize: 27,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
           TableCalendar(
             calendarController: _calendarController,
             initialCalendarFormat: CalendarFormat.week,
@@ -67,86 +67,107 @@ class _MealPlannerState extends State<MealPlanner> {
               centerHeaderTitle: true,
               formatButtonVisible: false,
               titleTextStyle: GoogleFonts.poppins(
-                  fontSize: 16, fontWeight: FontWeight.normal, color:Colors.green),
-              leftChevronIcon: Icon(Icons.arrow_back_ios, color: Colors.green, size: 15,),
-              rightChevronIcon: Icon(Icons.arrow_forward_ios, color: Colors.green, size: 15,),
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.green),
+              leftChevronIcon: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.green,
+                size: 15,
+              ),
+              rightChevronIcon: Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.green,
+                size: 15,
+              ),
               leftChevronMargin: EdgeInsets.only(left: 70),
               rightChevronMargin: EdgeInsets.only(right: 70),
             ),
             calendarStyle: CalendarStyle(
                 weekendStyle: GoogleFonts.poppins(
-                    fontSize: 14, fontWeight: FontWeight.normal, color:Colors.grey),
-                weekdayStyle:  GoogleFonts.poppins(
-                    fontSize: 14, fontWeight: FontWeight.normal, color:Colors.grey)
-            ),
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.grey),
+                weekdayStyle: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.grey)),
             daysOfWeekStyle: DaysOfWeekStyle(
-                weekendStyle:  GoogleFonts.poppins(
-                    fontSize: 14, fontWeight: FontWeight.normal, color:Colors.grey),
-                weekdayStyle:  GoogleFonts.poppins(
-                    fontSize: 14, fontWeight: FontWeight.normal, color:Colors.grey)
-            ),
+                weekendStyle: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.grey),
+                weekdayStyle: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.grey)),
           ),
-          Text('Breakfast', style: GoogleFonts.poppins(
-              fontSize: 18, fontWeight: FontWeight.bold, color:Colors.black)),
-              Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20),
+          Text('Breakfast',
+              style: GoogleFonts.poppins(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black)),
+          Column(children: [
+            Container(
+              margin: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20),
+                ),
+                boxShadow: [kBoxShadow],
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    height: 160,
+                    width: 160,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/images/coconut_cake.jpg"),
+                        fit: BoxFit.fitHeight,
+                      ),
                     ),
-                    boxShadow: [kBoxShadow],
                   ),
-                  child: Row(
-                    children: [
-                      Container(
-                        height: 160,
-                        width: 160,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage("assets/images/coconut_cake.jpg"),
-                            fit: BoxFit.fitHeight,
-                          ),
-                        ),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          buildRecipeTitle('Coconut Cake'),
+                          buildTextSubTitleVariation2("200 cals"),
+                          buildCalories('15 mins'),
+                        ],
                       ),
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              buildRecipeTitle('Coconut Cake'),
-                              buildTextSubTitleVariation2("200 cals"),
-                              buildCalories('15 mins'),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-                Align(
-                alignment: Alignment.centerLeft,
-                child: Row(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.all(10.0),
-                      child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.add_circle),
-                      color: Colors.green
-                      )
-                      ),
-                      Text('Feel free to add more dishes!', style: GoogleFonts.poppins(
-                      fontSize: 14, fontWeight: FontWeight.normal, color:Colors.grey)),]
-                  ),
-                ),
+                ],
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Row(children: [
+                Container(
+                    margin: EdgeInsets.all(10.0),
+                    child: IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.add_circle),
+                        color: Colors.green)),
+                Text('Feel free to add more dishes!',
+                    style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.grey)),
+              ]),
+            ),
           ]),
-          Text('Lunch', style: GoogleFonts.poppins(
-              fontSize: 18, fontWeight: FontWeight.bold, color:Colors.black)),
+          Text('Lunch',
+              style: GoogleFonts.poppins(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black)),
           Align(
               alignment: Alignment.centerLeft,
               child: Row(
@@ -156,19 +177,23 @@ class _MealPlannerState extends State<MealPlanner> {
                       child: IconButton(
                           onPressed: () {},
                           icon: Icon(Icons.add_circle),
-                          color: Colors.green
-                      )
+                          color: Colors.green)
 
-                    // Text('Breakfast', style: GoogleFonts.poppins(
-                    //     fontSize: 22, fontWeight: FontWeight.bold, color:Colors.black))
-                  ),
-                  Text('Add a meal plan now!', style: GoogleFonts.poppins(
-                      fontSize: 14, fontWeight: FontWeight.normal, color:Colors.grey)),
+                      // Text('Breakfast', style: GoogleFonts.poppins(
+                      //     fontSize: 22, fontWeight: FontWeight.bold, color:Colors.black))
+                      ),
+                  Text('Add a meal plan now!',
+                      style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.grey)),
                 ],
-              )
-          ),
-          Text('Dinner', style: GoogleFonts.poppins(
-              fontSize: 18, fontWeight: FontWeight.bold, color:Colors.black)),
+              )),
+          Text('Dinner',
+              style: GoogleFonts.poppins(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black)),
           Align(
               alignment: Alignment.centerLeft,
               child: Row(
@@ -178,31 +203,32 @@ class _MealPlannerState extends State<MealPlanner> {
                       child: IconButton(
                           onPressed: () {},
                           icon: Icon(Icons.add_circle),
-                          color: Colors.green
-                      )
+                          color: Colors.green)
 
-                    // Text('Breakfast', style: GoogleFonts.poppins(
-                    //     fontSize: 22, fontWeight: FontWeight.bold, color:Colors.black))
-                  ),
-                  Text('Add a meal plan now!', style: GoogleFonts.poppins(
-                      fontSize: 14, fontWeight: FontWeight.normal, color:Colors.grey)),
+                      // Text('Breakfast', style: GoogleFonts.poppins(
+                      //     fontSize: 22, fontWeight: FontWeight.bold, color:Colors.black))
+                      ),
+                  Text('Add a meal plan now!',
+                      style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.grey)),
                 ],
               )
-            // child: Row(Container(
-            //     padding: EdgeInsets.all(20.0),
-            //     child: Text('Breakfast', style: TextStyle(
-            //         fontFamily: 'Poppins',
-            //         fontSize: 18,
-            //         fontWeight: FontWeight.bold,
-            //         color: Colors.black),
-            //         textAlign: TextAlign.left)),
-            // ))
-            //
+              // child: Row(Container(
+              //     padding: EdgeInsets.all(20.0),
+              //     child: Text('Breakfast', style: TextStyle(
+              //         fontFamily: 'Poppins',
+              //         fontSize: 18,
+              //         fontWeight: FontWeight.bold,
+              //         color: Colors.black),
+              //         textAlign: TextAlign.left)),
+              // ))
+              //
 
-          ),
+              ),
         ],
       ),
     );
   }
 }
-

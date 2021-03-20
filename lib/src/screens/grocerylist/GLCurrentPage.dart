@@ -80,18 +80,32 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
     loadChildWidgets(groceryListList);
 
     return Scaffold(
-      appBar: getBaseAppBar(),
       bottomNavigationBar: getBaseBottomNavBar(context, 2),
-      backgroundColor: Colors.green[200],
+      backgroundColor: white,
       resizeToAvoidBottomInset: false,
       body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            //1. Header
-            Container(
-              padding: EdgeInsets.all(10),
-              child: buildTextTitleVariation1('My Grocery Lists'),
+            Padding(
+              padding: EdgeInsets.fromLTRB(20, 45, 0, 0),
+              child: Text(
+                "My",
+                style: TextStyle(
+                  fontSize: 27,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(20, 0, 0, 10),
+              child: Text(
+                "Grocery List",
+                style: TextStyle(
+                  fontSize: 27,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ),
             //3. Search Bar
             buildSearchBar(),
