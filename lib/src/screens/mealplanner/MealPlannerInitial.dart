@@ -21,7 +21,6 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-
 // class mealplanner extends StatelessWidget {
 //   @override
 //   Widget build(BuildContext context) {
@@ -47,25 +46,27 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
   void initState() {
     super.initState();
     _calendarController = CalendarController();
-
   }
+
   @override
   void dispose() {
     _calendarController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-
     context.watch<PlannerRecordModel>().getItem();
-    return Consumer<PlannerRecordModel>(builder: (context, plannerRecordModel, child) {
+    return Consumer<PlannerRecordModel>(
+        builder: (context, plannerRecordModel, child) {
       DateTime today = _calendarController.selectedDay;
       // if(MealPlannerInitial.initialise == true){
       //   loadSampleMealPlan(plannerRecordModel);
       //   MealPlannerInitial.initialise = false;
       //   print("Initialised Meal Planner Sample Data");
       // }
-      List<List<PlannerRecord>> planForDay = retrievePlan(plannerRecordModel, today);
+      List<List<PlannerRecord>> planForDay =
+          retrievePlan(plannerRecordModel, today);
 
       return Scaffold(
         backgroundColor: Colors.white,
@@ -84,40 +85,57 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
                 centerHeaderTitle: true,
                 formatButtonVisible: false,
                 titleTextStyle: GoogleFonts.poppins(
-                    fontSize: 16, fontWeight: FontWeight.normal, color:Colors.green),
-                leftChevronIcon: Icon(Icons.arrow_back_ios, color: Colors.green, size: 15,),
-                rightChevronIcon: Icon(Icons.arrow_forward_ios, color: Colors.green, size: 15,),
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.green),
+                leftChevronIcon: Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.green,
+                  size: 15,
+                ),
+                rightChevronIcon: Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.green,
+                  size: 15,
+                ),
                 leftChevronMargin: EdgeInsets.only(left: 70),
                 rightChevronMargin: EdgeInsets.only(right: 70),
               ),
               calendarStyle: CalendarStyle(
+                  selectedColor: Colors.green,
                   weekendStyle: GoogleFonts.poppins(
-                      fontSize: 14, fontWeight: FontWeight.normal, color:Colors.grey),
-                  weekdayStyle:  GoogleFonts.poppins(
-                      fontSize: 14, fontWeight: FontWeight.normal, color:Colors.grey)
-              ),
+                      fontSize: 14,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.grey),
+                  weekdayStyle: GoogleFonts.poppins(
+                      fontSize: 14,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.grey)),
               daysOfWeekStyle: DaysOfWeekStyle(
-                  weekendStyle:  GoogleFonts.poppins(
-                      fontSize: 14, fontWeight: FontWeight.normal, color:Colors.grey),
-                  weekdayStyle:  GoogleFonts.poppins(
-                      fontSize: 14, fontWeight: FontWeight.normal, color:Colors.grey)
-              ),
+                  weekendStyle: GoogleFonts.poppins(
+                      fontSize: 14,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.grey),
+                  weekdayStyle: GoogleFonts.poppins(
+                      fontSize: 14,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.grey)),
             ),
             Expanded(
               child: ListView.builder(
                 itemCount: 3,
-                itemBuilder: (context, index){
+                itemBuilder: (context, index) {
                   List<PlannerRecord> pRecord = planForDay[index];
-                  if(pRecord.length > 0){
+                  if (pRecord.length > 0) {
                     return buildPlanner(index, pRecord);
-                  }else{
+                  } else {
                     return buildAddNewPlanView(index, today);
                   }
                 },
                 physics: BouncingScrollPhysics(),
                 scrollDirection: Axis.vertical,
-                ),
-              )
+              ),
+            )
           ],
         ),
       );
@@ -125,25 +143,24 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
   }
 
   // Helper function to extract current day's meal plan records from database
-  retrievePlan(PlannerRecordModel plannerRecordModel, DateTime day){
-
+  retrievePlan(PlannerRecordModel plannerRecordModel, DateTime day) {
     List<PlannerRecord> allRecords = plannerRecordModel.plannerRecordList;
     List<List<PlannerRecord>> dayPlan = [[], [], []];
 
-    if(day == null){
+    if (day == null) {
       return dayPlan;
     }
-    for(int i = 0; i < allRecords.length; i++){
-      if(day.year == allRecords[i].date.year
-          && day.month == allRecords[i].date.month
-          && day.day == allRecords[i].date.day){
-        if(allRecords[i].meal == 'B'){
+    for (int i = 0; i < allRecords.length; i++) {
+      if (day.year == allRecords[i].date.year &&
+          day.month == allRecords[i].date.month &&
+          day.day == allRecords[i].date.day) {
+        if (allRecords[i].meal == 'B') {
           dayPlan[0].add(allRecords[i]);
         }
-        if(allRecords[i].meal == 'L'){
+        if (allRecords[i].meal == 'L') {
           dayPlan[1].add(allRecords[i]);
         }
-        if(allRecords[i].meal == 'D'){
+        if (allRecords[i].meal == 'D') {
           dayPlan[2].add(allRecords[i]);
         }
       }
@@ -155,13 +172,13 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
   // Helper function to build the widget for each individual meal of the day
   Widget buildPlanner(int index, List<PlannerRecord> plan) {
     String meal;
-    if(index == 0){
+    if (index == 0) {
       meal = "Breakfast";
     }
-    if(index == 1){
+    if (index == 1) {
       meal = "Lunch";
     }
-    if(index == 2){
+    if (index == 2) {
       meal = "Dinner";
     }
 
@@ -176,40 +193,44 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
         // boxShadow: [kBoxShadow],
       ),
       child: Column(
-        children:[
+        children: [
           Row(
             children: [
-              Text(meal, style: GoogleFonts.poppins(
-                  fontSize: 18, fontWeight: FontWeight.bold, color:Colors.black)),
+              Text(meal,
+                  style: GoogleFonts.poppins(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black)),
               IconButton(
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => MealPlannerSelect(day: today, meal: meal[0])),
-                    );},
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              MealPlannerSelect(day: today, meal: meal[0])),
+                    );
+                  },
                   icon: Icon(Icons.add_circle),
-                  color: Colors.green
-              )
+                  color: Colors.green)
             ],
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: plan.length,
-              itemBuilder: (context, index){
-                Recipe rec = plan[index].recipe;
-                return buildIndividualRecipeCard(rec);
-              },
-              physics: ClampingScrollPhysics(),
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-            )
-          )
+              child: ListView.builder(
+            itemCount: plan.length,
+            itemBuilder: (context, index) {
+              Recipe rec = plan[index].recipe;
+              return buildIndividualRecipeCard(rec);
+            },
+            physics: ClampingScrollPhysics(),
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+          ))
         ],
       ),
     );
   }
 
-  Widget buildIndividualRecipeCard(Recipe recipe){
+  Widget buildIndividualRecipeCard(Recipe recipe) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -225,8 +246,7 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
           ),
           boxShadow: [kBoxShadow],
         ),
-        margin: EdgeInsets.only(
-            right: 16, left: 0, bottom: 16, top: 8),
+        margin: EdgeInsets.only(right: 16, left: 0, bottom: 16, top: 8),
         padding: EdgeInsets.all(20),
         width: 220,
         child: Column(
@@ -255,10 +275,9 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
               children: [
                 buildCalories(recipe.prepMins.toString() + " mins"),
                 IconButton(
-                  icon:  Icon(Fryo.trash),
+                  icon: Icon(Fryo.trash),
                   iconSize: 20,
-                  onPressed: () {
-                  },
+                  onPressed: () {},
                 ),
               ],
             ),
@@ -266,63 +285,66 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
         ),
       ),
     );
-
   }
 
   // Helper function to build the overall day's meal plan
-  Widget buildAddNewPlanView(int index, DateTime today){
+  Widget buildAddNewPlanView(int index, DateTime today) {
     String meal;
-    if(index == 0){
+    if (index == 0) {
       meal = "Breakfast";
     }
-    if(index == 1){
+    if (index == 1) {
       meal = "Lunch";
     }
-    if(index == 2){
+    if (index == 2) {
       meal = "Dinner";
     }
 
     return Container(
-      height: 100,
-      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(
-          Radius.circular(20),
+        height: 100,
+        margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(
+            Radius.circular(20),
+          ),
+          // boxShadow: [kBoxShadow],
         ),
-        // boxShadow: [kBoxShadow],
-      ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Text(meal, style: GoogleFonts.poppins(
-                  fontSize: 18, fontWeight: FontWeight.bold, color:Colors.black)),
-              IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => MealPlannerSelect(day: today, meal: meal[0])),
-                    );},
-                  icon: Icon(Icons.add_circle),
-                  color: Colors.green
-              )
-            ],
-          ),
-          Align(
-              alignment: Alignment.centerLeft,
-              child: Row(
-                children: [
-                  Text('Add a meal plan now!', style: GoogleFonts.poppins(
-                      fontSize: 14, fontWeight: FontWeight.normal, color:Colors.grey)),
-                ],
-              )
-          ),
-        ],
-      )
-    );
-
-
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Text(meal,
+                    style: GoogleFonts.poppins(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black)),
+                IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                MealPlannerSelect(day: today, meal: meal[0])),
+                      );
+                    },
+                    icon: Icon(Icons.add_circle),
+                    color: Colors.green)
+              ],
+            ),
+            Align(
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  children: [
+                    Text('Add a meal plan now!',
+                        style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.grey)),
+                  ],
+                )),
+          ],
+        ));
   }
 
   // void loadSampleMealPlan(PlannerRecordModel plannerRecordModel){
@@ -338,6 +360,4 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
   //   plannerRecordModel.deleteAll();
   // }
 
-
 }
-
