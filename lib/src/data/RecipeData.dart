@@ -28,12 +28,11 @@ var recipe1 = Recipe(
       "With the mixer on low speed, slowly add the wet ingredients to the dry. With mixer still on low, add the coffee and stir just to combine, scraping the bottom of the bowl with a rubber spatula. Pour the batter into two 8-inch round prepared pans and bake for 30 to 40 minutes at 350°F, until a cake tester or toothpick comes out mostly clean (not wet).",
       "Cool in the pans for 30 minutes, then turn them out onto a cooling rack and cool completely."
     ],
-    prepMins: 15,
+    prepMins: 40,
     calories: 200,
-    ingredients: [flour, egg],
-    ingredientsQ: [20, 1],
-    likes: 0
-);
+    ingredients: [flour, egg, butter, chocolate, milk],
+    ingredientsQ: [210, 2, 200, 90, 240],
+    likes: 0);
 
 var recipe2 = Recipe(
     // https://iambaker.net/chocolate-craving-cake/
@@ -48,10 +47,10 @@ var recipe2 = Recipe(
       "Pour batter into prepared dish. Bake for 35-40 minutes, or until an inserted toothpick is removed.",
       "Cool for 10 minutes in the pan, then continue cooling on a rack until room temperature."
     ],
-    prepMins: 15,
-    calories: 200,
-    ingredients: [flour, egg],
-    ingredientsQ: [20, 1],
+    prepMins: 24,
+    calories: 440,
+    ingredients: [flour, egg, butter, chocolate, milk],
+    ingredientsQ: [200, 12, 100, 250, 2000],
     likes: 0);
 
 var recipe3 = Recipe(
@@ -73,9 +72,10 @@ var recipe3 = Recipe(
       "Turn out cakes onto baking rack and level if necessary. Now drizzle each layer with 2-3 tablespoons of simple syrup.",
       "You can decorate immediately or chill cakes until ready to assemble."
     ],
-    prepMins: 15,
-    ingredients: [flour, egg],
-    ingredientsQ: [20, 1],
+    prepMins: 52,
+    calories: 400,
+    ingredients: [flour, egg, butter, chocolate, milk],
+    ingredientsQ: [300, 12, 200, 0, 2000],
     likes: 0);
 
 var recipe4 = Recipe(
@@ -90,10 +90,10 @@ var recipe4 = Recipe(
       "Place one layer on a cake plate and frost top with 1 cup Coconut Buttercream. Repeat two more times. Frost sides with remaining Coconut Buttercream.",
       "Stir together food coloring and 2 drops water in a bowl. Dip the tip of a wide, stiff paintbrush into the mixture. Holding the brush 6 to 8 inches from the cake, gently fling the mixture onto iced cake. Repeat for desired effect."
     ],
-    prepMins: 15,
-    calories: 200,
-    ingredients: [flour, egg],
-    ingredientsQ: [20, 1],
+    prepMins: 24,
+    calories: 340,
+    ingredients: [flour, egg, butter, chocolate, milk],
+    ingredientsQ: [300, 5, 100, 0, 2500],
     likes: 0);
 
 var recipe5 = Recipe(
@@ -109,10 +109,10 @@ var recipe5 = Recipe(
       "Toss together preserves and remaining 3 cups raspberries in a bowl. Place one layer on a cake plate and top with 1/2 of the preserve mixture; repeat one more time. Top with remaining cake layer. Frost top and sides of cake with frosting. Decorate with meringue kisses, edible flowers, and raspberries.",
       "To make the frosting, beat butter and cream cheese on medium speed with an electric mixer until creamy, 1 to 2 minutes. Beat in raspberries, vanilla, and salt, until raspberries are broken down, 15 to 20 seconds. Reduce mixer speed to low and gradually add confectioners’ sugar until blended and smooth after each addition, 45 seconds to 1 minute."
     ],
-    prepMins: 15,
-    calories: 200,
-    ingredients: [flour, egg],
-    ingredientsQ: [20, 1],
+    prepMins: 34,
+    calories: 240,
+    ingredients: [flour, egg, butter, chocolate, milk],
+    ingredientsQ: [600, 10, 200, 0, 300],
     likes: 0);
 
 var recipe6 = Recipe(
@@ -130,10 +130,10 @@ var recipe6 = Recipe(
       "Transfer batter to prepared pan; smooth top. Add 2 tsp. granulated sugar to reserved spice mixture and mix to combine. Sprinkle spiced sugar evenly over top of batter.",
       "Bake cake until deep golden brown and a tester inserted into the center comes out clean, 60–70 minutes. Let cake cool in pan. Run a butter knife or offset spatula along edge of cake to loosen and invert onto a platter."
     ],
-    prepMins: 15,
-    calories: 200,
-    ingredients: [flour, egg],
-    ingredientsQ: [20, 1],
+    prepMins: 54,
+    calories: 560,
+    ingredients: [flour, egg, butter, chocolate, milk],
+    ingredientsQ: [100, 6, 100, 0, 1500],
     likes: 1);
 
 var recipe7 = Recipe(
@@ -147,10 +147,10 @@ var recipe7 = Recipe(
       "Mash bananas and brown sugar in a large bowl until virtually no lumps of banana remain and brown sugar is dissolved. Mix in eggs, oil, and sour cream. Add dry ingredients and mix in with a rubber spatula. Scrape batter into prepared pan and smooth top.",
       "Bake cake until the top springs back when gently pressed and a tester inserted into the center comes out clean, 55–65 minutes. Transfer pan to a wire rack and let cake cool in pan 30 minutes. Turn out cake onto rack and let cool completely.",
     ],
-    prepMins: 15,
-    calories: 200,
-    ingredients: [flour, egg],
-    ingredientsQ: [20, 1],
+    prepMins: 40,
+    calories: 350,
+    ingredients: [flour, egg, butter, chocolate, milk],
+    ingredientsQ: [100, 8, 70, 0, 700],
     likes: 0);
 
 var recipe8 = Recipe(
@@ -165,10 +165,10 @@ var recipe8 = Recipe(
       "Bake for 1 hour and 5 to 10 minutes, until a cake tester comes out dry.",
       "Let cake stand in the pan for about 5 minutes and then cover with a rack and invert. Place over a large piece of aluminum foil or wax paper.",
     ],
-    prepMins: 15,
-    calories: 200,
-    ingredients: [flour, egg],
-    ingredientsQ: [20, 1],
+    prepMins: 80,
+    calories: 340,
+    ingredients: [flour, egg, butter, chocolate, milk],
+    ingredientsQ: [600, 10, 100, 0, 800],
     likes: 0);
 
 var recipe9 = Recipe(
@@ -178,12 +178,17 @@ var recipe9 = Recipe(
         "This über-trendy cake is actually a vintage recipe from the Deep South.",
     image: "assets/images/red_velvet_mug.jpg",
     instructions: [
-      "In a large mug, whisk together the egg and oil with a fork. Stir in the food coloring, buttermilk, vanilla, and sugar. Add the cocoa, flour, salt, and vinegar. Beat the batter until smooth. Divide the batter between two mugs. Microwave separately for 1 1/2 to 2 1/2 minutes each until risen and firm."
+      "In a large mug, whisk together the egg and oil with a fork."
+          "Stir in the food coloring, buttermilk, vanilla, and sugar."
+          "Add the cocoa, flour, salt, and vinegar."
+          "Beat the batter until smooth."
+          "Divide the batter between two mugs."
+          "Microwave separately for 1 1/2 to 2 1/2 minutes each until risen and firm."
     ],
-    prepMins: 15,
-    calories: 200,
-    ingredients: [flour, egg],
-    ingredientsQ: [20, 1],
+    prepMins: 32,
+    calories: 520,
+    ingredients: [flour, egg, butter, chocolate, milk],
+    ingredientsQ: [300, 4, 80, 90, 2000],
     likes: 0);
 
 var recipe10 = Recipe(
@@ -199,10 +204,10 @@ var recipe10 = Recipe(
       "Bake for 18-21 minutes, or until a toothpick inserted in the center comes out clean. Allow to cool completely before frosting. I usually let them cool in the pan.",
       "Frost cooled cupcakes however you’d like. I used chocolate buttercream and Wilton 1M piping tip for these pictured cupcakes. Top with sprinkles, if desired. Store leftovers in the refrigerator for up to 5 days."
     ],
-    prepMins: 15,
-    calories: 200,
-    ingredients: [flour, egg],
-    ingredientsQ: [20, 1],
+    prepMins: 40,
+    calories: 600,
+    ingredients: [flour, egg, butter, chocolate, milk],
+    ingredientsQ: [400, 12, 100, 300, 3000],
     likes: 0);
 
 var recipe11 = Recipe(
@@ -218,10 +223,10 @@ var recipe11 = Recipe(
       "Divide batter evenly between the cups, filling them about 3/4 full. Bake for 15-20 minutes (or 8-10 minutes if making mini cupcakes) until a toothpick inserted into the center comes out clean or with just a few moist crumbs. Allow cupcakes to sit for 10 minutes, then remove from pan and allow to cool completely on a wire rack.",
       "Unfrosted cupcakes can be kept tightly covered at room temperature for up to 3 days, or in the freezer for up to 2 months. Thaw, still covered, on the counter or overnight in the fridge."
     ],
-    prepMins: 15,
-    calories: 200,
-    ingredients: [flour, egg],
-    ingredientsQ: [20, 1],
+    prepMins: 42,
+    calories: 420,
+    ingredients: [flour, egg, butter, chocolate, milk],
+    ingredientsQ: [600, 14, 180, 0, 1500],
     likes: 0);
 
 var recipe12 = Recipe(

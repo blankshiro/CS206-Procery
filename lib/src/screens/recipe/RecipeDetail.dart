@@ -83,7 +83,9 @@ class RecipeDetail extends StatelessWidget {
                             ),
                             //Spacer(),
                             LikeButton(
-                              onTap: (isLiked) { return likeRecipe(isLiked, recipe, recipeModel);},
+                              onTap: (isLiked) {
+                                return likeRecipe(isLiked, recipe, recipeModel);
+                              },
                             ),
                           ],
                         ),
@@ -142,7 +144,7 @@ class RecipeDetail extends StatelessWidget {
                                       const EdgeInsets.symmetric(vertical: 16),
                                   child: Column(
                                     children: <Widget>[
-                                      Text("Preparation", style: foodNameText),
+                                      Text("Cook Time", style: foodNameText),
                                       Text(recipe.prepMins.toString() + " mins",
                                           style: foodNameSubText),
                                     ],
@@ -269,11 +271,12 @@ class RecipeDetail extends StatelessWidget {
     return found;
   }
 
-  Future<bool> likeRecipe(status, Recipe recipe, RecipeModel recipeModel) async{
+  Future<bool> likeRecipe(
+      status, Recipe recipe, RecipeModel recipeModel) async {
     var allrecipes = recipeModel.recipeList;
     int index = 0;
-    for(int i = 0; i < allrecipes.length; i++){
-      if(allrecipes[i].name == recipe.name){
+    for (int i = 0; i < allrecipes.length; i++) {
+      if (allrecipes[i].name == recipe.name) {
         index = i;
         break;
       }

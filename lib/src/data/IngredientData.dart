@@ -7,7 +7,7 @@ Ingredient flour = Ingredient()
   ..standardQ = 250
   ..expiryDays = 100
   ..price = 10.0
-  ..image = "assets/images/oil.jpg"; //TODO: to replace with correct image
+  ..image = "assets/images/flour1.png";
 
 Ingredient egg = Ingredient()
   ..name = "Egg"
@@ -16,7 +16,7 @@ Ingredient egg = Ingredient()
   ..standardQ = 6
   ..expiryDays = 12
   ..price = 5.0
-  ..image = "assets/images/bakingpowder.jpeg"; //TODO: to replace with correct image
+  ..image = "assets/images/egg1.jpg";
 
 Ingredient butter = Ingredient()
   ..name = "Butter"
