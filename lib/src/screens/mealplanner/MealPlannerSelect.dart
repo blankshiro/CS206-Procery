@@ -281,8 +281,9 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
               children: [
                 buildCalories(recipe.prepMins.toString() + " mins"),
                 IconButton(
-                  icon: Icon(Icons.add_rounded),
-                  iconSize: 30,
+                  icon: Icon(Icons.add_circle),
+                  color: Colors.green,
+                  // iconSize: 20,
                   onPressed: () {
                     addRecipeToMealPlan(recipe, plannerRecordModel);
                     showDialog(context: context,
@@ -349,8 +350,9 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
                     children: [
                       buildCalories(recipe.prepMins.toString() + " mins"),
                       IconButton(
-                        icon: Icon(Icons.add_rounded),
-                        iconSize: 30,
+                        icon: Icon(Icons.add_circle),
+                        color: Colors.green,
+                        // iconSize: 20,
                         onPressed: () {
                           addRecipeToMealPlan(recipe, plannerRecordModel);
                           showDialog(context: context,
