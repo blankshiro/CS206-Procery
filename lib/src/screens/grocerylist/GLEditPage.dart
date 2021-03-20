@@ -87,6 +87,7 @@ class _GLEditPageState extends State<GLEditPage> {
           buildDateEntryBar(),
           buildListOptions(context),
           buildNameAndQuantityHeaders(),
+
           Expanded(
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
@@ -553,17 +554,31 @@ class _GLEditPageState extends State<GLEditPage> {
             ),
           ),
           Expanded(
-            flex: 1,
+            flex: 2,
             child: Container(
-              child: Icon(
-                Icons.calendar_today_outlined,
-                size: 30,
+              child: IconButton(
+                onPressed: () => _selectDate(context),
+                icon: Icon(Fryo.calendar),
+                iconSize: 30,
               ),
             ),
           ),
         ],
       ),
     );
+  }
+
+  DateTime selectedDate = DateTime.now();
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+      });
   }
 
   Container buildNameEntryBar() {
