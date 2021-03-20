@@ -1,5 +1,6 @@
 import 'package:Procery/src/models/PlannerRecord.dart';
 import 'package:Procery/src/screens/dashboard/MealData.dart';
+import 'package:Procery/src/screens/mealplanner/MealPlannerInitial.dart';
 import 'package:Procery/src/screens/recipe/RecipeExplore.dart';
 import 'package:Procery/src/screens/recipe/RecipeSearch.dart';
 import 'package:Procery/src/services/PlannerRecordModel.dart';
@@ -284,6 +285,8 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
                   iconSize: 30,
                   onPressed: () {
                     addRecipeToMealPlan(recipe, plannerRecordModel);
+                    showDialog(context: context,
+                      builder: (BuildContext context) => buildPopupDialog(context),);
                   },
 
                 ),
@@ -344,12 +347,14 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      buildCalories(recipe.prepMins.toString() + " min"),
+                      buildCalories(recipe.prepMins.toString() + " mins"),
                       IconButton(
                         icon: Icon(Icons.add_rounded),
                         iconSize: 30,
                         onPressed: () {
                           addRecipeToMealPlan(recipe, plannerRecordModel);
+                          showDialog(context: context,
+                            builder: (BuildContext context) => buildPopupDialog(context),);
                         },
                       )
                     ],
@@ -408,4 +413,28 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
     groceryListModel.updateItem(0, masterList);
 
   }
+}
+
+Widget buildPopupDialog(BuildContext context) {
+  return new AlertDialog(
+    title: const Text('Add Recipe'),
+    content: new Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text("Do you want to add this recipe to your meal plan?"),
+      ],
+    ),
+    actions: <Widget>[
+      new FlatButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => MealPlannerInitial()),);
+        },
+        textColor: Theme.of(context).primaryColor,
+        child: const Text('Confirm'),
+      ),
+    ],
+  );
 }
