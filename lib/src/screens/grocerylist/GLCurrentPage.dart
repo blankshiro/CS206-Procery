@@ -126,14 +126,48 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
           ]),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => GLEditPage()),
-          // );
+          _showMyDialog();
         },
         child: Text('create'),
         backgroundColor: Colors.greenAccent[700],
       ),
+    );
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'Create a Grocery List',
+            style: h5,
+          ),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(
+                  'Name: ',
+                  style: priceText,
+                ),
+                Text(
+                  'Deadline:',
+                  style: priceText,
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Approve'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
