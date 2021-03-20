@@ -145,22 +145,94 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
             style: h5,
           ),
           content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text(
-                  'Name: ',
-                  style: priceText,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(2),
+                  child: Text(
+                    'List Name: ',
+                    style: priceText,
+                  ),
                 ),
-                Text(
-                  'Deadline:',
-                  style: priceText,
+                Container(
+                  padding: EdgeInsets.all(2),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Type Here',
+                      hintStyle: TextStyle(fontSize: 12),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide(
+                          width: 0,
+                          style: BorderStyle.none,
+                        ),
+                      ),
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      contentPadding: EdgeInsets.only(
+                        left: 30,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  child: SizedBox(
+                    height: 10,
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(2),
+                  child: Text(
+                    'Deadline:',
+                    style: priceText,
+                  ),
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: Container(
+                        padding: EdgeInsets.all(2),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            hintText: 'Type Here',
+                            hintStyle: TextStyle(fontSize: 12),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                              borderSide: BorderSide(
+                                width: 0,
+                                style: BorderStyle.none,
+                              ),
+                            ),
+                            filled: true,
+                            fillColor: Colors.grey[200],
+                            contentPadding: EdgeInsets.only(
+                              left: 30,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        child: IconButton(
+                          onPressed: () => _selectDate(context),
+                          icon: Icon(Fryo.calendar),
+                          iconSize: 30,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('Approve'),
+              child: Text('Create'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -169,6 +241,19 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
         );
       },
     );
+  }
+
+  DateTime selectedDate = DateTime.now();
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+      });
   }
 
   Container buildCupertinoTab() {
