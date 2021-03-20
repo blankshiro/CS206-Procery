@@ -11,6 +11,7 @@ import '../../shared/colors.dart';
 
 import './DashboardConstants.dart';
 import './ExpiringPage.dart';
+import '../../screens/BaseWidgets.dart';
 
 import 'package:Procery/src/data/MealPlannerData.dart';
 import 'package:Procery/src/data/InventoryData.dart';
@@ -240,6 +241,8 @@ class _DashboardExploreState extends State<DashboardExplore> {
 
 
     return Scaffold(
+      appBar: getBaseAppBar(),
+      bottomNavigationBar: getBaseBottomNavBar(context, 0),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(

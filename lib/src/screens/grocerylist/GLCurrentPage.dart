@@ -13,6 +13,8 @@ import '../../services/GroceryListModel.dart';
 import '../../models/Purchase.dart';
 import '../../services/PurchaseModel.dart';
 
+import '../../screens/BaseWidgets.dart';
+
 import '../../shared/styles.dart';
 import 'package:Procery/src/shared/styles.dart';
 import 'package:Procery/src/shared/colors.dart';
@@ -80,6 +82,8 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
     loadChildWidgets(groceryListList);
 
     return Scaffold(
+      appBar: getBaseAppBar(),
+      bottomNavigationBar: getBaseBottomNavBar(context, 2),
       backgroundColor: Colors.green[200],
       resizeToAvoidBottomInset: false,
       body: Column(

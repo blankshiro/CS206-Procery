@@ -11,6 +11,7 @@ import 'package:Procery/src/data/MealPlannerData.dart';
 // Styles
 import 'package:Procery/src/shared/styles.dart';
 import 'MealPlannerConstants.dart';
+import '../../screens/BaseWidgets.dart';
 
 // External Library Dependencies
 import 'package:flutter/material.dart';
@@ -67,6 +68,8 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
 
       return Scaffold(
         backgroundColor: Colors.white,
+        appBar: getBaseAppBar(),
+        bottomNavigationBar: getBaseBottomNavBar(context, 3),
         body: Column(
           children: [
             buildTextTitleVariation('Meal Planner'),

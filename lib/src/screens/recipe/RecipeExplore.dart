@@ -10,6 +10,7 @@ import '../../shared/styles.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:like_button/like_button.dart';
 import '../../services/RecipeModel.dart';
+import '../../screens/BaseWidgets.dart';
 import 'package:provider/provider.dart';
 
 class RecipeExplore extends StatefulWidget {
@@ -32,23 +33,8 @@ class RecipeExploreState extends State<RecipeExplore> {
       return Scaffold(
         // Top part of the app
         backgroundColor: Colors.green[200],
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          brightness: Brightness.light,
-          elevation: 0,
-          title: Text("Recipes", style: logoStyle),
-          centerTitle: false,
-          actions: [
-            Padding(
-              padding: EdgeInsets.only(right: 16),
-              child: Icon(
-                Icons.menu,
-                color: Colors.black,
-                size: 28,
-              ),
-            ),
-          ],
-        ),
+        appBar: getBaseAppBar(),
+        bottomNavigationBar: getBaseBottomNavBar(context, 1),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
