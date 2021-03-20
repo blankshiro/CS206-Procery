@@ -145,7 +145,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
         return AlertDialog(
           title: Text(
             'Create a Grocery List',
-            style: h5,
+            style: h4,
           ),
           content: SingleChildScrollView(
             child: Column(

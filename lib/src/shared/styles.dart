@@ -26,6 +26,12 @@ const h3 = TextStyle(
     fontWeight: FontWeight.w700,
     fontFamily: 'Poppins');
 
+const h4 = TextStyle(
+    color: Colors.black,
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'Poppins');
+
 const h5 = TextStyle(
     color: Colors.black,
     fontSize: 14,
