@@ -7,6 +7,7 @@ import 'package:Procery/src/services/PlannerRecordModel.dart';
 import 'package:Procery/src/models/PlannerRecord.dart';
 import 'package:Procery/src/models/Recipe.dart';
 import 'package:Procery/src/data/MealPlannerData.dart';
+import 'package:Procery/src/shared/fryo_icons.dart';
 
 // Styles
 import 'package:Procery/src/shared/styles.dart';
@@ -172,7 +173,7 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
         borderRadius: BorderRadius.all(
           Radius.circular(20),
         ),
-        boxShadow: [kBoxShadow],
+        // boxShadow: [kBoxShadow],
       ),
       child: Column(
         children:[
@@ -253,6 +254,12 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 buildCalories(recipe.prepMins.toString() + " mins"),
+                IconButton(
+                  icon:  Icon(Fryo.trash),
+                  iconSize: 20,
+                  onPressed: () {
+                  },
+                ),
               ],
             ),
           ],
@@ -283,7 +290,7 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
         borderRadius: BorderRadius.all(
           Radius.circular(20),
         ),
-        boxShadow: [kBoxShadow],
+        // boxShadow: [kBoxShadow],
       ),
       child: Column(
         children: [

@@ -6,7 +6,7 @@ Color kPrimaryColor = Color(0x27A358);
 Color kSecondaryColor = Color(0x7D7D7D);
 
 BoxShadow kBoxShadow = BoxShadow(
-  color: Color(0x7D7D7D),
+  color: Colors.grey.withOpacity(0.2),
   spreadRadius: 2,
   blurRadius: 8,
   offset: Offset(0, 0),
