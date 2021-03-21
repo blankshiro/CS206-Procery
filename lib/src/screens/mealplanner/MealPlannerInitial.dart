@@ -106,22 +106,22 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
                 titleTextStyle: GoogleFonts.poppins(
                     fontSize: 16,
                     fontWeight: FontWeight.normal,
-                    color: Colors.green),
+                    color: Colors.greenAccent[700]),
                 leftChevronIcon: Icon(
                   Icons.arrow_back_ios,
-                  color: Colors.green,
+                  color: Colors.greenAccent[700],
                   size: 15,
                 ),
                 rightChevronIcon: Icon(
                   Icons.arrow_forward_ios,
-                  color: Colors.green,
+                  color: Colors.greenAccent[700],
                   size: 15,
                 ),
                 leftChevronMargin: EdgeInsets.only(left: 70),
                 rightChevronMargin: EdgeInsets.only(right: 70),
               ),
               calendarStyle: CalendarStyle(
-                  selectedColor: Colors.green,
+                  selectedColor: Colors.greenAccent[700],
                   weekendStyle: GoogleFonts.poppins(
                       fontSize: 14,
                       fontWeight: FontWeight.normal,
@@ -212,6 +212,7 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
         // boxShadow: [kBoxShadow],
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
@@ -230,11 +231,12 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
                     );
                   },
                   icon: Icon(Icons.add_circle),
-                  color: Colors.green)
+                  color: Colors.greenAccent[700])
             ],
           ),
           Expanded(
               child: ListView.builder(
+            padding: EdgeInsets.only(left: 5),
             itemCount: plan.length,
             itemBuilder: (context, index) {
               Recipe rec = plan[index].recipe;
@@ -265,25 +267,17 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
           ),
           boxShadow: [kBoxShadow],
         ),
-        margin: EdgeInsets.only(right: 16, left: 0, bottom: 16, top: 8),
-        padding: EdgeInsets.all(20),
+        margin: EdgeInsets.only(right: 10, left: 0, bottom: 10, top: 8),
+        padding: EdgeInsets.all(10),
         width: 220,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Expanded(
-              child: Hero(
-                tag: recipe.image,
-                child: Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(recipe.image),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image(
+                        image: AssetImage(recipe.image), fit: BoxFit.cover))),
             SizedBox(
               height: 8,
             ),
@@ -294,7 +288,7 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
               children: [
                 buildCalories(recipe.prepMins.toString() + " mins"),
                 IconButton(
-                  icon: Icon(Fryo.trash),
+                  icon: Icon(Icons.delete_outline),
                   iconSize: 20,
                   onPressed: () {},
                 ),
@@ -320,8 +314,8 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
     }
 
     return Container(
-        height: 100,
-        margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        height: 80,
+        margin: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(
@@ -348,7 +342,7 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
                       );
                     },
                     icon: Icon(Icons.add_circle),
-                    color: Colors.green)
+                    color: Colors.greenAccent[700])
               ],
             ),
             Align(

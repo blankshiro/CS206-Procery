@@ -107,62 +107,62 @@ class _MealPlannerState extends State<MealPlanner> {
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Colors.black)),
-          Column(children: [
-            Container(
-              margin: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(20),
-                ),
-                boxShadow: [kBoxShadow],
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    height: 160,
-                    width: 160,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/images/coconut_cake.jpg"),
-                        fit: BoxFit.fitHeight,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          buildRecipeTitle('Coconut Cake'),
-                          buildTextSubTitleVariation2("200 cals"),
-                          buildCalories('15 mins'),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Row(children: [
-                Container(
-                    margin: EdgeInsets.all(10.0),
-                    child: IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.add_circle),
-                        color: Colors.green)),
-                Text('Feel free to add more dishes!',
-                    style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.grey)),
-              ]),
-            ),
-          ]),
+          // Column(children: [
+          // Container(
+          //   margin: EdgeInsets.all(16),
+          //   decoration: BoxDecoration(
+          //     color: Colors.white,
+          //     borderRadius: BorderRadius.all(
+          //       Radius.circular(20),
+          //     ),
+          //     boxShadow: [kBoxShadow],
+          //   ),
+          //   child: Row(
+          //     children: [
+          //       Container(
+          //         height: 160,
+          //         width: 160,
+          //         decoration: BoxDecoration(
+          //           image: DecorationImage(
+          //             image: AssetImage("assets/images/coconut_cake.jpg"),
+          //             fit: BoxFit.fitHeight,
+          //           ),
+          //         ),
+          //       ),
+          //       Expanded(
+          //         child: Padding(
+          //           padding: EdgeInsets.symmetric(horizontal: 16),
+          //           child: Column(
+          //             crossAxisAlignment: CrossAxisAlignment.start,
+          //             mainAxisAlignment: MainAxisAlignment.center,
+          //             children: [
+          //               buildRecipeTitle('Coconut Cake'),
+          //               buildTextSubTitleVariation2("200 cals"),
+          //               buildCalories('15 mins'),
+          //             ],
+          //           ),
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          // Align(
+          //   alignment: Alignment.centerLeft,
+          //   child: Row(children: [
+          //     Container(
+          //         margin: EdgeInsets.all(10.0),
+          //         child: IconButton(
+          //             onPressed: () {},
+          //             icon: Icon(Icons.add_circle),
+          //             color: Colors.green)),
+          //     Text('Feel free to add more dishes!',
+          //         style: GoogleFonts.poppins(
+          //             fontSize: 14,
+          //             fontWeight: FontWeight.normal,
+          //             color: Colors.grey)),
+          //   ]),
+          // ),
+          // ]),
           Text('Lunch',
               style: GoogleFonts.poppins(
                   fontSize: 18,

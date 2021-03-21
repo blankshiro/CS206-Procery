@@ -122,11 +122,11 @@ class _DashboardExploreState extends State<DashboardExplore> {
 
   @override
   Widget build(BuildContext context) {
-
     inventoryModel = Provider.of<InventoryModel>(context, listen: false);
     purchaseModel = Provider.of<PurchaseModel>(context, listen: false);
     recipeModel = Provider.of<RecipeModel>(context, listen: false);
-    plannerRecordModel = Provider.of<PlannerRecordModel>(context, listen: false);
+    plannerRecordModel =
+        Provider.of<PlannerRecordModel>(context, listen: false);
     groceryListModel = Provider.of<GroceryListModel>(context, listen: false);
 
     // context.watch reloads screen
@@ -134,7 +134,7 @@ class _DashboardExploreState extends State<DashboardExplore> {
     var grocerylistList = context.watch<GroceryListModel>().grocerylistList;
 
     // sort the grocery list according to deadline
-    grocerylistList.sort((a,b) => a.deadLine.compareTo(b.deadLine));
+    grocerylistList.sort((a, b) => a.deadLine.compareTo(b.deadLine));
 
     if (DashboardExplore.initialise == true) {
       loadAllInventory(inventoryModel);
@@ -366,7 +366,9 @@ class _DashboardExploreState extends State<DashboardExplore> {
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 children: [
-                  buildTextSubTitleVariation1("Deadline: " + DateFormat('MM - dd').format(grocerylistList[0].deadLine)),
+                  buildTextSubTitleVariation1("Deadline: " +
+                      DateFormat('MM - dd')
+                          .format(grocerylistList[0].deadLine)),
                   SizedBox(
                     width: 8,
                   ),
@@ -490,66 +492,56 @@ class _DashboardExploreState extends State<DashboardExplore> {
     List<Widget> purchaseList = List<Widget>();
 
     for (var i = 0; i < lastestGroceryList.purchases.length; i++) {
-    Purchase purchase = lastestGroceryList.purchases[i];
+      Purchase purchase = lastestGroceryList.purchases[i];
       purchaseList.add(buildGrocery(purchase));
     }
     return purchaseList;
   }
 
   Widget buildGrocery(Purchase purchase) {
-
     return Padding(
       padding: EdgeInsets.all(10),
       child: GestureDetector(
-        // onTap: () {
-        //   Navigator.push(
-        //     context,
-        //     MaterialPageRoute(builder: (context) => GLItemPage(groceryList: currentList)),
-        //   );
-        // },
-        child: Table(
-          columnWidths: {
-            0: FixedColumnWidth(256),
-            1: FlexColumnWidth(),
-          },
-          defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-          children: [
-            TableRow(
-              children: [
-                // FlatButton(
-                //   onPressed: () {
-                //     Navigator.push(
-                //       context,
-                //       MaterialPageRoute(builder: (context) => ExpiringPage()),
-                //     );
-                //   },
-                // ),
-                TableCell(
-                    child: Container(
-                      padding: EdgeInsets.only(left: 75),
-                      child: buildGroceryTitle(purchase.ingredient.name.toString()),
-                    )
-                ),
-                TableCell(
-                    child: Container(
-                        child: buildGrocerySubtitle(purchase.purchased.toString() + "/" + purchase.quantity.toString())
-                    )
-                ),
-
-              ],
-            ),
-
-
-          ],
-        )
-      ),
-
-
+          // onTap: () {
+          //   Navigator.push(
+          //     context,
+          //     MaterialPageRoute(builder: (context) => GLItemPage(groceryList: currentList)),
+          //   );
+          // },
+          child: Table(
+        columnWidths: {
+          0: FixedColumnWidth(256),
+          1: FlexColumnWidth(),
+        },
+        defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+        children: [
+          TableRow(
+            children: [
+              // FlatButton(
+              //   onPressed: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(builder: (context) => ExpiringPage()),
+              //     );
+              //   },
+              // ),
+              TableCell(
+                  child: Container(
+                padding: EdgeInsets.only(left: 75),
+                child: buildGroceryTitle(purchase.ingredient.name.toString()),
+              )),
+              TableCell(
+                  child: Container(
+                      child: buildGrocerySubtitle(
+                          purchase.purchased.toString() +
+                              "/" +
+                              purchase.quantity.toString()))),
+            ],
+          ),
+        ],
+      )),
     );
   }
-
-
-
 
   /////////////////////////////////////
   /// Loading of Models for initialisation

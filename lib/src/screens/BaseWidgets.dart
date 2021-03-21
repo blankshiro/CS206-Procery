@@ -10,27 +10,27 @@ BottomNavigationBar getBaseBottomNavBar(BuildContext context, int index) {
   return BottomNavigationBar(
     items: <BottomNavigationBarItem>[
       BottomNavigationBarItem(
-          icon: Icon(Fryo.shop),
+          icon: Icon(Icons.home_outlined),
           // ignore: deprecated_member_use
           title: Text(
             'Home',
             style: tabLinkStyle,
           )),
       BottomNavigationBarItem(
-          icon: Icon(Fryo.note),
+          icon: Icon(Icons.list_alt),
           // ignore: deprecated_member_use
           title: Text(
             'Recipe',
             style: tabLinkStyle,
           )),
       BottomNavigationBarItem(
-          icon: Icon(Fryo.list),
+          icon: Icon(Icons.format_list_bulleted),
           title: Text(
             'Grocery List',
             style: tabLinkStyle,
           )),
       BottomNavigationBarItem(
-          icon: Icon(Fryo.user_1),
+          icon: Icon(Icons.person_outlined),
           title: Text(
             'Meal Planner',
             style: tabLinkStyle,
@@ -38,7 +38,7 @@ BottomNavigationBar getBaseBottomNavBar(BuildContext context, int index) {
     ],
     type: BottomNavigationBarType.fixed,
     currentIndex: index,
-    fixedColor: Colors.green[600],
+    fixedColor: Colors.greenAccent[700],
     onTap: (index) {
       switch (index) {
         case 0:

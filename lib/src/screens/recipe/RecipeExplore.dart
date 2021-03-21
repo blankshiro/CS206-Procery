@@ -172,20 +172,20 @@ class RecipeExploreState extends State<RecipeExplore> {
                               width: 8,
                             ),
                             // buildTextTitleVariation2('Recent', true),
-                            IconButton(
-                              icon: Icon(Icons.search),
-                              iconSize: 25,
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) {
-                                      return RecipeSearch();
-                                    },
-                                  ),
-                                );
-                              },
-                            )
+                            // IconButton(
+                            //   icon: Icon(Icons.search),
+                            //   iconSize: 25,
+                            //   onPressed: () {
+                            //     Navigator.push(
+                            //       context,
+                            //       MaterialPageRoute(
+                            //         builder: (BuildContext context) {
+                            //           return RecipeSearch();
+                            //         },
+                            //       ),
+                            //     );
+                            //   },
+                            // )
                           ],
                         ),
                       ),
@@ -213,7 +213,7 @@ class RecipeExploreState extends State<RecipeExplore> {
       child: Container(
         height: 40,
         decoration: BoxDecoration(
-          color: optionSelected[index] ? Colors.green[200] : Colors.white,
+          color: optionSelected[index] ? Colors.greenAccent[700] : Colors.white,
           borderRadius: BorderRadius.all(
             Radius.circular(20),
           ),
@@ -289,24 +289,16 @@ class RecipeExploreState extends State<RecipeExplore> {
         ),
         margin: EdgeInsets.only(
             right: 16, left: index == 0 ? 16 : 0, bottom: 16, top: 8),
-        padding: EdgeInsets.all(20),
-        width: 220,
+        padding: EdgeInsets.all(10),
+        width: 230,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Expanded(
-              child: Hero(
-                tag: recipe.image,
-                child: Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(recipe.image),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image(
+                        image: AssetImage(recipe.image), fit: BoxFit.cover))),
             SizedBox(
               height: 8,
             ),
@@ -332,12 +324,13 @@ class RecipeExploreState extends State<RecipeExplore> {
 
   // Helper function to build popular recipes widget
   List<Widget> buildPopulars(RecipeModel recipeModel) {
+    int maxSize = 10;
     List<Widget> list = [];
 
     List recipes = List.from(recipeModel.recipeList);
     recipes.sort((b, a) => a.likes.compareTo(b.likes));
 
-    for (var i = 0; i < recipes.length; i++) {
+    for (var i = 0; i < maxSize; i++) {
       list.add(buildPopular(recipes[i], recipeModel));
     }
     return list;
@@ -357,16 +350,13 @@ class RecipeExploreState extends State<RecipeExplore> {
       child: Row(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-            height: 160,
-            width: 160,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(recipe.image),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
+              padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+              height: 150,
+              width: 150,
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image(
+                      image: AssetImage(recipe.image), fit: BoxFit.cover))),
           Flexible(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),

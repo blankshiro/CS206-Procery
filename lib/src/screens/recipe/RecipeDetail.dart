@@ -100,29 +100,29 @@ class RecipeDetail extends StatelessWidget {
                               starCount: 5,
                               rating: 5,
                               color: Colors.orange,
-                              borderColor: Colors.orange,
+                              borderColor: Colors.orangeAccent[700],
                             ),
                             Spacer(),
 
-                            RaisedButton.icon(
-                              onPressed: () {
-                                print('Added to List.');
-                              },
-                              shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0))),
-                              label: Text(
-                                'Add to List',
-                                style: TextStyle(),
-                              ),
-                              icon: Icon(
-                                Icons.add_circle,
-                                color: Colors.white,
-                              ),
-                              textColor: Colors.white,
-                              splashColor: Colors.white,
-                              color: Colors.green,
-                            ),
+                            // RaisedButton.icon(
+                            //   onPressed: () {
+                            //     print('Added to List.');
+                            //   },
+                            //   shape: RoundedRectangleBorder(
+                            //       borderRadius:
+                            //           BorderRadius.all(Radius.circular(10.0))),
+                            //   label: Text(
+                            //     'Add to List',
+                            //     style: TextStyle(),
+                            //   ),
+                            //   icon: Icon(
+                            //     Icons.add_circle,
+                            //     color: Colors.white,
+                            //   ),
+                            //   textColor: Colors.white,
+                            //   splashColor: Colors.white,
+                            //   color: Colors.green,
+                            // ),
                           ],
                         ),
 

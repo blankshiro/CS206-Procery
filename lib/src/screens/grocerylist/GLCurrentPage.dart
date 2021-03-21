@@ -140,12 +140,19 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
               ),
             ),
           ]),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _showMyDialog();
-        },
-        child: Text('create'),
-        backgroundColor: Colors.greenAccent[700],
+      floatingActionButton: Container(
+        width: 45.0,
+        height: 45.0,
+        child: FittedBox(
+          child: FloatingActionButton(
+            onPressed: () {},
+            child: Icon(
+              Icons.add,
+              size: 35,
+            ),
+            backgroundColor: Colors.greenAccent[700],
+          ),
+        ),
       ),
     );
   }
