@@ -308,9 +308,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
         },
         groupValue: selectedIndex, //The current selected Index or key
         selectedColor: Colors
-            .greenAccent[700], //Color that applies to selecte key or index
-        pressedColor: Colors
-            .red, //The color that applies when the user clicks or taps on a tab
+            .greenAccent[700], //Color that applies to select key or index
         unselectedColor: Colors
             .grey, // The color that applies to the unselected tabs or inactive tabs
         children: map, //The tabs which are assigned in the form of map

@@ -111,19 +111,6 @@ class RecipeExploreState extends State<RecipeExplore> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text("Categories", style: h3),
-                            Row(
-                              children: [
-                                Text("View All", style: h5),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                Icon(
-                                  Icons.arrow_forward_ios,
-                                  size: 12,
-                                  color: Colors.black,
-                                ),
-                              ],
-                            ),
                           ],
                         ),
                       ),

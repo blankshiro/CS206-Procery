@@ -104,9 +104,10 @@ class _DashboardExploreState extends State<DashboardExplore> {
       map.putIfAbsent(
           i,
           () => Container(
-              width: 100,
+              width: 200,
               child: Text(
                 text,
+                style: TextStyle(color: Colors.white),
                 textAlign: TextAlign.center,
               )));
     }
@@ -329,10 +330,14 @@ class _DashboardExploreState extends State<DashboardExplore> {
                             sharedValue = value;
                           });
                         },
-                        groupValue: sharedValue,
-                        //The current selected Index or key
-                        children:
-                            map, //The tabs which are assigned in the form of map
+                        groupValue: sharedValue, //The current selected Index or key
+                        selectedColor: Colors
+                            .greenAccent[700], //Color that applies to select key or index
+                        unselectedColor: Colors
+                            .grey, // The color that applies to the unselected tabs or inactive tabs
+                        children: map, //The tabs which are assigned in the form of map
+                        padding: EdgeInsets.all(10),
+                        borderColor: Colors.white,
                       ),
                     ],
                   ),
@@ -355,15 +360,27 @@ class _DashboardExploreState extends State<DashboardExplore> {
               height: 16,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                children: [
-                  buildTextTitleVariation3("Grocery List"),
-                ],
+              padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+              child: Text(
+                "My",
+                style: TextStyle(
+                  fontSize: 27,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: EdgeInsets.fromLTRB(20, 0, 0, 10),
+              child: Text(
+                "Grocery List",
+                style: TextStyle(
+                  fontSize: 27,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 children: [
                   buildTextSubTitleVariation1("Deadline: " +
