@@ -53,111 +53,108 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
     super.dispose();
   }
 
+  PlannerRecordModel plannerRecordModel;
   @override
   Widget build(BuildContext context) {
-    context.watch<PlannerRecordModel>().getItem();
-    return Consumer<PlannerRecordModel>(
-        builder: (context, plannerRecordModel, child) {
-      DateTime today = _calendarController.selectedDay;
-      // if(MealPlannerInitial.initialise == true){
-      //   loadSampleMealPlan(plannerRecordModel);
-      //   MealPlannerInitial.initialise = false;
-      //   print("Initialised Meal Planner Sample Data");
-      // }
-      List<List<PlannerRecord>> planForDay =
-          retrievePlan(plannerRecordModel, today);
+    print('Refereshing Meal Planner State');
+    context.watch<PlannerRecordModel>().plannerRecordList;
+    DateTime today = _calendarController.selectedDay;
+    if(today == null){
+      today = DateTime.now();
+    }
+    plannerRecordModel = Provider.of<PlannerRecordModel>(context, listen: true);
+    List<List<PlannerRecord>> planForDay = retrievePlan(plannerRecordModel, today);
 
-      return Scaffold(
-        backgroundColor: Colors.white,
-        bottomNavigationBar: getBaseBottomNavBar(context, 3),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.fromLTRB(20, 45, 0, 0),
-              child: Text(
-                "Meal",
-                style: TextStyle(
-                  fontSize: 27,
-                  fontWeight: FontWeight.w400,
-                ),
+    return Scaffold(
+      backgroundColor: Colors.grey[100],
+      bottomNavigationBar: getBaseBottomNavBar(context, 3),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.fromLTRB(20, 45, 0, 0),
+            child: Text(
+              "Meal",
+              style: TextStyle(
+                fontSize: 27,
+                fontWeight: FontWeight.w400,
               ),
             ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(20, 0, 0, 10),
-              child: Text(
-                "Planner",
-                style: TextStyle(
-                  fontSize: 27,
-                  fontWeight: FontWeight.w700,
-                ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(20, 0, 0, 10),
+            child: Text(
+              "Planner",
+              style: TextStyle(
+                fontSize: 27,
+                fontWeight: FontWeight.w700,
               ),
             ),
-            TableCalendar(
-              calendarController: _calendarController,
-              initialSelectedDay: DateTime.now(),
-              initialCalendarFormat: CalendarFormat.week,
-              startingDayOfWeek: StartingDayOfWeek.monday,
-              formatAnimation: FormatAnimation.slide,
-              headerStyle: HeaderStyle(
-                centerHeaderTitle: true,
-                formatButtonVisible: false,
-                titleTextStyle: GoogleFonts.poppins(
-                    fontSize: 16,
+          ),
+          TableCalendar(
+            calendarController: _calendarController,
+            initialSelectedDay: DateTime.now(),
+            initialCalendarFormat: CalendarFormat.week,
+            startingDayOfWeek: StartingDayOfWeek.monday,
+            formatAnimation: FormatAnimation.slide,
+            headerStyle: HeaderStyle(
+              centerHeaderTitle: true,
+              formatButtonVisible: false,
+              titleTextStyle: GoogleFonts.poppins(
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.greenAccent[700]),
+              leftChevronIcon: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.greenAccent[700],
+                size: 15,
+              ),
+              rightChevronIcon: Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.greenAccent[700],
+                size: 15,
+              ),
+              leftChevronMargin: EdgeInsets.only(left: 70),
+              rightChevronMargin: EdgeInsets.only(right: 70),
+            ),
+            calendarStyle: CalendarStyle(
+                selectedColor: Colors.greenAccent[700],
+                weekendStyle: GoogleFonts.poppins(
+                    fontSize: 14,
                     fontWeight: FontWeight.normal,
-                    color: Colors.greenAccent[700]),
-                leftChevronIcon: Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.greenAccent[700],
-                  size: 15,
-                ),
-                rightChevronIcon: Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.greenAccent[700],
-                  size: 15,
-                ),
-                leftChevronMargin: EdgeInsets.only(left: 70),
-                rightChevronMargin: EdgeInsets.only(right: 70),
-              ),
-              calendarStyle: CalendarStyle(
-                  selectedColor: Colors.greenAccent[700],
-                  weekendStyle: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.grey),
-                  weekdayStyle: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.grey)),
-              daysOfWeekStyle: DaysOfWeekStyle(
-                  weekendStyle: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.grey),
-                  weekdayStyle: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.grey)),
+                    color: Colors.grey),
+                weekdayStyle: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.grey)),
+            daysOfWeekStyle: DaysOfWeekStyle(
+                weekendStyle: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.grey),
+                weekdayStyle: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.grey)),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: 3,
+              itemBuilder: (context, index) {
+                List<PlannerRecord> pRecord = planForDay[index];
+                if (pRecord.length > 0) {
+                  return buildPlanner(index, pRecord);
+                } else {
+                  return buildAddNewPlanView(index, today);
+                }
+              },
+              physics: BouncingScrollPhysics(),
+              scrollDirection: Axis.vertical,
             ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: 3,
-                itemBuilder: (context, index) {
-                  List<PlannerRecord> pRecord = planForDay[index];
-                  if (pRecord.length > 0) {
-                    return buildPlanner(index, pRecord);
-                  } else {
-                    return buildAddNewPlanView(index, today);
-                  }
-                },
-                physics: BouncingScrollPhysics(),
-                scrollDirection: Axis.vertical,
-              ),
-            )
-          ],
-        ),
-      );
-    });
+          )
+        ],
+      ),
+    );
   }
 
   // Helper function to extract current day's meal plan records from database
@@ -168,6 +165,7 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
     if (day == null) {
       return dayPlan;
     }
+
     for (int i = 0; i < allRecords.length; i++) {
       if (day.year == allRecords[i].date.year &&
           day.month == allRecords[i].date.month &&
@@ -201,8 +199,9 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
     }
 
     return Container(
-      height: 350,
-      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      height: 400,
+      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+      padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(
@@ -313,8 +312,9 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
     }
 
     return Container(
-        height: 80,
-        margin: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+        height: 110,
+        margin: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+        padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(

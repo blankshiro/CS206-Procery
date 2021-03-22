@@ -1,27 +1,29 @@
-import 'package:Procery/src/models/PlannerRecord.dart';
-import 'package:Procery/src/screens/dashboard/MealData.dart';
+// Linked Screens
 import 'package:Procery/src/screens/mealplanner/MealPlannerInitial.dart';
-import 'package:Procery/src/screens/recipe/RecipeExplore.dart';
 import 'package:Procery/src/screens/recipe/RecipeSearch.dart';
+import '../../screens/recipe/RecipeDetail.dart';
+
+// Data Models
+import 'package:Procery/src/models/PlannerRecord.dart';
 import 'package:Procery/src/services/PlannerRecordModel.dart';
 import 'package:Procery/src/services/GroceryListModel.dart';
 import 'package:Procery/src/models/GroceryList.dart';
 import 'package:Procery/src/services/PurchaseModel.dart';
 import 'package:Procery/src/models/Purchase.dart';
-
 import '../../models/Recipe.dart';
-import '../../models/Ingredient.dart';
-
-import '../../screens/recipe/RecipeDetail.dart';
 import '../../services/RecipeModel.dart';
-import '../../data/RecipeData.dart';
+import 'package:Procery/src/models/Ingredient.dart';
+import 'package:Procery/src/services/IngredientModel.dart';
 
+// Styles
 import '../../shared/styles.dart';
 import './MealPlannerConstants.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:like_button/like_button.dart';
-import 'package:flutter/material.dart';
 
+// Internal Dependencies
+import '../../algo/recommendAlgo.dart';
+
+// External Dependencies
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class MealPlannerSelect extends StatefulWidget {
@@ -38,191 +40,164 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
   List<bool> optionSelected = [false, false, false];
   GroceryListModel groceryListModel;
   PurchaseModel purchaseModel;
+  IngredientModel ingredientModel;
+  PlannerRecordModel plannerRecordModel;
+
 
   @override
   Widget build(BuildContext context) {
+    print("Meal Planner Select state refresh");
     context.watch<RecipeModel>().recipeList;
-    final plannerRecordModel =
-        Provider.of<PlannerRecordModel>(context, listen: false);
-    groceryListModel = Provider.of<GroceryListModel>(context, listen: false);
-    purchaseModel = Provider.of<PurchaseModel>(context, listen: false);
-    return Consumer<RecipeModel>(builder: (context, recipeModel, child) {
-      print("Meal Planner state refresh");
 
-      return Scaffold(
-        // Top part of the app
-        backgroundColor: Colors.white,
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[100],
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
+    final recipeModel = Provider.of<RecipeModel>(context, listen:false);
+    plannerRecordModel = Provider.of<PlannerRecordModel>(context, listen: false);
+    groceryListModel = Provider.of<GroceryListModel>(context, listen: true);
+    purchaseModel = Provider.of<PurchaseModel>(context, listen: true);
+    ingredientModel = Provider.of<IngredientModel>(context, listen: false);
+
+    Map<Recipe, int> recommendedRecipes = getRecommend(groceryListModel.grocerylistList,
+        ingredientModel.ingredientList, recipeModel.recipeList);
+
+    return Scaffold(
+      // Top part of the app
+      backgroundColor: Colors.white,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[100],
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
+                ),
+                // Categories bar
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(10, 45, 0, 0),
+                      child: IconButton(
+                        icon: Icon(Icons.arrow_back),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        alignment: Alignment.topLeft,
+                      ),
                     ),
-                  ),
-                  // Categories bar
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(20, 45, 0, 0),
-                        child: Text(
-                          "Fill up",
-                          style: TextStyle(
-                            fontSize: 27,
-                            fontWeight: FontWeight.w400,
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                      child: Text(
+                        "Fill up",
+                        style: TextStyle(
+                          fontSize: 27,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                      child: Text(
+                        "Your groceries",
+                        style: TextStyle(
+                          fontSize: 27,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    // Different categories
+                    SizedBox(
+                      height: 24,
+                    ),
+                    // Recipe Pictures
+                    Container(
+                      child: buildRecommend(recommendedRecipes)
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    // What's Popular column
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          buildTextTitleVariation2("What's Popular", false),
+                          SizedBox(
+                            width: 8,
                           ),
-                        ),
+                          // buildTextTitleVariation2('Recent', true),
+                          IconButton(
+                            icon: Icon(Icons.search),
+                            iconSize: 25,
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                    return RecipeSearch();
+                                  },
+                                ),
+                              );
+                            },
+                          )
+                        ],
                       ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                        child: Text(
-                          "Your groceries",
-                          style: TextStyle(
-                            fontSize: 27,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                      // Different categories
-                      SizedBox(
-                        height: 24,
-                      ),
-                      // Recipe Pictures
-                      Container(
-                        height: 350,
-                        child: ListView.builder(
-                          itemCount: recipeModel.recipeList.length,
-                          itemBuilder: (context, index) {
-                            Recipe rec = recipeModel.recipeList[index];
-                            return buildRecipe(
-                                rec, index, recipeModel, plannerRecordModel);
-                          },
-                          physics: BouncingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      // What's Popular column
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            buildTextTitleVariation2("What's Popular", false),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            // buildTextTitleVariation2('Recent', true),
-                            IconButton(
-                              icon: Icon(Icons.search),
-                              iconSize: 25,
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) {
-                                      return RecipeSearch();
-                                    },
-                                  ),
-                                );
-                              },
-                            )
-                          ],
-                        ),
-                      ),
-                      Column(
-                        children:
-                            buildPopulars(recipeModel, plannerRecordModel),
-                      )
-                    ],
-                  ),
+                    ),
+                    Column(
+                      children:
+                      buildPopulars(recipeModel, plannerRecordModel),
+                    )
+                  ],
                 ),
               ),
             ),
-          ],
-        ),
-      );
-    });
+          ),
+        ],
+      ),
+    );
+
   }
 
-  Widget option(String text, String image, int index) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          optionSelected[index] = !optionSelected[index];
-        });
-      },
-      child: Container(
-        height: 40,
-        decoration: BoxDecoration(
-          color: optionSelected[index] ? Colors.green[200] : Colors.white,
-          borderRadius: BorderRadius.all(
-            Radius.circular(20),
-          ),
-          boxShadow: [kBoxShadow],
-        ),
-        padding: EdgeInsets.symmetric(horizontal: 12),
-        child: Row(
-          children: [
-            SizedBox(
-              height: 32,
-              width: 32,
-              child: Image.asset(
-                image,
-                color: optionSelected[index] ? Colors.white : Colors.black,
-              ),
-            ),
-            SizedBox(
-              width: 8,
-            ),
-            Text(
-              text,
-              style: TextStyle(
-                color: optionSelected[index] ? Colors.white : Colors.black,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
+  Widget buildRecommend(Map<Recipe, int> recommendations){
+    if(recommendations.isEmpty){
+      return buildEmptyRecommendation();
+    }
+
+    List<Recipe> recommendedRecipes = [];
+    List<int> recommendedQ = [];
+
+    recommendations.forEach((key, value) {
+      recommendedRecipes.add(key);
+      recommendedQ.add(value);
+    });
+
+    return Container(
+      height: 350,
+      child: ListView.builder(
+        itemCount: recommendedRecipes.length,
+        itemBuilder: (context, index) {
+          Recipe rec = recommendedRecipes[index];
+          return buildRecipe(rec, index, plannerRecordModel);
+        },
+        physics: BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+      )
     );
   }
 
-  // Helper function to load recipe data into hive database
-  void loadAllRecipe(RecipeModel recipeModel) {
-    deleteAllRecipe(recipeModel);
-    List toAdd = getRecipes();
-    for (var i = 0; i < toAdd.length; i++) {
-      recipeModel.addItem(toAdd[i]);
-    }
+  Widget buildEmptyRecommendation(){
+    return Container(
+        height: 350,
+        child: Text("You are currently maximising your use of groceries!")
+    );
   }
 
-  void deleteAllRecipe(RecipeModel recipeModel) {
-    recipeModel.deleteAll();
-  }
-
-  // Can be removed, recipes can now be pulled directly from Hive Database
-  // List<Widget> buildRecipes(var recipeList) {
-  //   List<Widget> list = [];
-  //   for (var i = 0; i < recipeList.length; i++) {
-  //     list.add(buildRecipe(recipeList[i], i));
-  //   }
-  //
-  //   return list;
-  // }
-
-  //
-  Widget buildRecipe(Recipe recipe, int index, RecipeModel recipeModel,
+  Widget buildRecipe(Recipe recipe, int index,
       PlannerRecordModel plannerRecordModel) {
     return GestureDetector(
       onTap: () {

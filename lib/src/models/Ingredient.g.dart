@@ -24,13 +24,14 @@ class IngredientAdapter extends TypeAdapter<Ingredient> {
       standardQ: fields[5] as int,
       measurementType: fields[6] as String,
       image: fields[7] as String,
+      divide: fields[8] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, Ingredient obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -44,7 +45,9 @@ class IngredientAdapter extends TypeAdapter<Ingredient> {
       ..writeByte(6)
       ..write(obj.measurementType)
       ..writeByte(7)
-      ..write(obj.image);
+      ..write(obj.image)
+      ..writeByte(8)
+      ..write(obj.divide);
   }
 
   @override
