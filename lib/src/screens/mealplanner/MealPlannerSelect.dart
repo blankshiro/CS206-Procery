@@ -18,7 +18,6 @@ import '../../data/RecipeData.dart';
 
 import '../../shared/styles.dart';
 import './MealPlannerConstants.dart';
-import 'package:Procery/src/shared/fryo_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:like_button/like_button.dart';
 import 'package:flutter/material.dart';

@@ -16,7 +16,6 @@ import '../../services/PurchaseModel.dart';
 import '../../shared/styles.dart';
 import 'package:Procery/src/shared/styles.dart';
 import 'package:Procery/src/shared/colors.dart';
-import 'package:Procery/src/shared/fryo_icons.dart';
 import 'package:flutter/cupertino.dart';
 
 class GLCurrentPage extends StatefulWidget {
@@ -243,7 +242,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
                       child: Container(
                         child: IconButton(
                           onPressed: () => _selectDate(context),
-                          icon: Icon(Fryo.calendar),
+                          icon: Icon(Icons.calendar_today),
                           iconSize: 30,
                         ),
                       ),
@@ -255,7 +254,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
           ),
           actions: <Widget>[
             IconButton(
-              icon: Icon(Fryo.cross),
+              icon: Icon(Icons.close),
               iconSize: 30,
               onPressed: () {
                 Navigator.of(context).pop();
@@ -307,8 +306,8 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
           });
         },
         groupValue: selectedIndex, //The current selected Index or key
-        selectedColor: Colors
-            .greenAccent[700], //Color that applies to select key or index
+        selectedColor:
+            Colors.greenAccent[700], //Color that applies to select key or index
         unselectedColor: Colors
             .grey, // The color that applies to the unselected tabs or inactive tabs
         children: map, //The tabs which are assigned in the form of map

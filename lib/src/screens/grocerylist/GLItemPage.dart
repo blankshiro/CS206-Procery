@@ -20,7 +20,6 @@ import 'package:flutter/material.dart';
 import '../../shared/styles.dart';
 import 'package:Procery/src/shared/styles.dart';
 import 'package:Procery/src/shared/colors.dart';
-import 'package:Procery/src/shared/fryo_icons.dart';
 
 class GLItemPage extends StatefulWidget {
   final GroceryList groceryList;
@@ -70,27 +69,6 @@ class _GLItemPageState extends State<GLItemPage> {
 
     return Scaffold(
       //APPBAR
-      appBar: AppBar(
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: primaryColor,
-        title:
-            Text('Procery', style: logoWhiteStyle, textAlign: TextAlign.center),
-        actions: <Widget>[
-          IconButton(
-            padding: EdgeInsets.all(0),
-            onPressed: () {},
-            iconSize: 21,
-            icon: Icon(Fryo.magnifier),
-          ),
-          IconButton(
-            padding: EdgeInsets.all(0),
-            onPressed: () {},
-            iconSize: 21,
-            icon: Icon(Fryo.alarm),
-          )
-        ],
-      ),
       body: Column(
         children: [
           //HEADER
@@ -106,7 +84,7 @@ class _GLItemPageState extends State<GLItemPage> {
                 padding: EdgeInsets.fromLTRB(0, 3, 0, 0),
                 child: IconButton(
                   // alignment: Alignment.topLeft,
-                  icon: Icon(Fryo.trash),
+                  icon: Icon(Icons.delete_outline),
                   iconSize: 20,
                   onPressed: () {
                     _showMyDialog();
@@ -237,7 +215,7 @@ class _GLItemPageState extends State<GLItemPage> {
           ),
           actions: <Widget>[
             IconButton(
-              icon: Icon(Fryo.cross),
+              icon: Icon(Icons.close),
               iconSize: 30,
               onPressed: () {
                 Navigator.of(context).pop();

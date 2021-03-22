@@ -5,7 +5,6 @@ import 'package:Procery/src/screens/recipe/RecipeConstants.dart';
 import 'package:Procery/src/screens/recipe/RecipeDetail.dart';
 import 'package:Procery/src/screens/recipe/RecipeSearch.dart';
 import 'package:Procery/src/shared/colors.dart';
-import 'package:Procery/src/shared/fryo_icons.dart';
 import 'package:Procery/src/shared/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -288,12 +287,13 @@ class MealPlannerSelectRecipeState extends State<MealPlannerSelectRecipe> {
                 IconButton(
                     onPressed: () {
                       showDialog(
-                          context: context,
-                          builder: (BuildContext context) => buildPopupDialog(context),);
+                        context: context,
+                        builder: (BuildContext context) =>
+                            buildPopupDialog(context),
+                      );
                     },
                     icon: Icon(Icons.add_circle),
-                    color: Colors.green
-                ),
+                    color: Colors.green),
               ],
             ),
           ],
@@ -350,11 +350,12 @@ class MealPlannerSelectRecipeState extends State<MealPlannerSelectRecipe> {
                           onPressed: () {
                             showDialog(
                               context: context,
-                              builder: (BuildContext context) => buildPopupDialog(context),);
+                              builder: (BuildContext context) =>
+                                  buildPopupDialog(context),
+                            );
                           },
                           icon: Icon(Icons.add_circle),
-                          color: Colors.green
-                      )
+                          color: Colors.green)
                     ],
                   ),
                 ],
@@ -379,9 +380,10 @@ class MealPlannerSelectRecipeState extends State<MealPlannerSelectRecipe> {
       actions: <Widget>[
         new FlatButton(
           onPressed: () {
-              Navigator.push(
+            Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => MealPlanner()),);
+              MaterialPageRoute(builder: (context) => MealPlanner()),
+            );
           },
           textColor: Theme.of(context).primaryColor,
           child: const Text('Confirm'),
@@ -390,4 +392,3 @@ class MealPlannerSelectRecipeState extends State<MealPlannerSelectRecipe> {
     );
   }
 }
-

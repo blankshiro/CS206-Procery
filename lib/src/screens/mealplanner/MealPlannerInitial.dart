@@ -7,7 +7,6 @@ import 'package:Procery/src/services/PlannerRecordModel.dart';
 import 'package:Procery/src/models/PlannerRecord.dart';
 import 'package:Procery/src/models/Recipe.dart';
 import 'package:Procery/src/data/MealPlannerData.dart';
-import 'package:Procery/src/shared/fryo_icons.dart';
 
 // Styles
 import 'package:Procery/src/shared/styles.dart';

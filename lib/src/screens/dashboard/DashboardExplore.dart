@@ -330,12 +330,14 @@ class _DashboardExploreState extends State<DashboardExplore> {
                             sharedValue = value;
                           });
                         },
-                        groupValue: sharedValue, //The current selected Index or key
-                        selectedColor: Colors
-                            .greenAccent[700], //Color that applies to select key or index
+                        groupValue:
+                            sharedValue, //The current selected Index or key
+                        selectedColor: Colors.greenAccent[
+                            700], //Color that applies to select key or index
                         unselectedColor: Colors
                             .grey, // The color that applies to the unselected tabs or inactive tabs
-                        children: map, //The tabs which are assigned in the form of map
+                        children:
+                            map, //The tabs which are assigned in the form of map
                         padding: EdgeInsets.all(10),
                         borderColor: Colors.white,
                       ),
@@ -405,10 +407,10 @@ class _DashboardExploreState extends State<DashboardExplore> {
                     // Container(),
                     Container(
                       padding: EdgeInsets.only(left: 20),
-                      child: Text("Name: "),
+                      child: Text("Name: ", style: priceTextBold),
                     ),
                     Container(
-                      child: Text("Purchased: "),
+                      child: Text("Purchased: ", style: priceTextBold),
                     ),
                   ],
                 ),
@@ -518,34 +520,30 @@ class _DashboardExploreState extends State<DashboardExplore> {
 
   Widget buildGrocery(Purchase purchase) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 5),
-      child: Table(
-        columnWidths: {
-          0: FixedColumnWidth(256),
-          1: FlexColumnWidth(),
-        },
-        children: [
-          TableRow(
-            children: [
-              TableCell(
-                  child: Container(
-                padding: EdgeInsets.only(left: 20),
-                child: buildGroceryTitle(purchase.ingredient.name.toString()),
-              )),
-              TableCell(
-                child: Container(
-                  child: buildGrocerySubtitle(
-                      purchase.purchased.toString() +
-                          "/" +
-                          purchase.quantity.toString()
-                  )
-                )
-              ),
-            ],
-          ),
-        ],
-      )
-    );
+        padding: EdgeInsets.symmetric(vertical: 5),
+        child: Table(
+          columnWidths: {
+            0: FixedColumnWidth(256),
+            1: FlexColumnWidth(),
+          },
+          children: [
+            TableRow(
+              children: [
+                TableCell(
+                    child: Container(
+                  padding: EdgeInsets.only(left: 20),
+                  child: buildGroceryTitle(purchase.ingredient.name.toString()),
+                )),
+                TableCell(
+                    child: Container(
+                        child: buildGrocerySubtitle(
+                            purchase.purchased.toString() +
+                                "/" +
+                                purchase.quantity.toString()))),
+              ],
+            ),
+          ],
+        ));
   }
 
   /////////////////////////////////////

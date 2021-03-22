@@ -1,5 +1,4 @@
 import 'package:Procery/src/screens/recipe/RecipeSearch.dart';
-import 'package:Procery/src/shared/fryo_icons.dart';
 import 'package:flutter/material.dart';
 import './RecipeConstants.dart';
 import '../../data/RecipeData.dart';
@@ -76,9 +75,9 @@ class RecipeExploreState extends State<RecipeExplore> {
                       left: 30,
                     ),
                     suffixIcon: Padding(
-                      padding: EdgeInsets.only(right: 24.0, left: 16.0),
+                      padding: EdgeInsets.only(right: 10.0, left: 16.0),
                       child: IconButton(
-                        icon: Icon(Fryo.magnifier),
+                        icon: Icon(Icons.search),
                         color: Colors.black,
                         iconSize: 24,
                         onPressed: () {
@@ -110,7 +109,7 @@ class RecipeExploreState extends State<RecipeExplore> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Categories", style: h3),
+                            buildTextTitleVariation2("Categories", false),
                           ],
                         ),
                       ),

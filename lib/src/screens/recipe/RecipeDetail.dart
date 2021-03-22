@@ -237,14 +237,20 @@ class RecipeDetail extends StatelessWidget {
   String getIngredients() {
     List<Ingredient> ingredients = recipe.ingredients;
     List<int> ingredientsQ = recipe.ingredientsQ;
+    var widgetList = <Widget>[];
+
     String found = "";
 
     for (int i = 0; i < ingredients.length - 1; i++) {
-      found +=
-          ingredientsQ[i].toString() + " " + ingredients[i].getName() + ", ";
+      found += "\u2022 " +
+          ingredientsQ[i].toString() +
+          " " +
+          ingredients[i].getName() +
+          "\n";
     }
 
-    found += ingredientsQ[ingredients.length - 1].toString() +
+    found += "\u2022 " +
+        ingredientsQ[ingredients.length - 1].toString() +
         " " +
         ingredients[ingredients.length - 1].getName();
     return found;
