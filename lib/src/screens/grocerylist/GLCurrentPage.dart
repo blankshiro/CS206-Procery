@@ -143,7 +143,9 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
         height: 45.0,
         child: FittedBox(
           child: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              _showMyDialog();
+            },
             child: Icon(
               Icons.add,
               size: 35,
@@ -177,26 +179,13 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
                     style: priceText,
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.all(2),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Type Here',
-                      hintStyle: TextStyle(fontSize: 12),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: BorderSide(
-                          width: 0,
-                          style: BorderStyle.none,
-                        ),
-                      ),
-                      filled: true,
-                      fillColor: Colors.grey[200],
-                      contentPadding: EdgeInsets.only(
-                        left: 30,
-                      ),
-                    ),
-                  ),
+                TextFormField(
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
                 ),
                 Container(
                   child: SizedBox(
@@ -216,23 +205,13 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
                       flex: 3,
                       child: Container(
                         padding: EdgeInsets.all(2),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: 'Type Here',
-                            hintStyle: TextStyle(fontSize: 12),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                              borderSide: BorderSide(
-                                width: 0,
-                                style: BorderStyle.none,
-                              ),
-                            ),
-                            filled: true,
-                            fillColor: Colors.grey[200],
-                            contentPadding: EdgeInsets.only(
-                              left: 30,
-                            ),
-                          ),
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter some text';
+                            }
+                            return null;
+                          },
                         ),
                       ),
                     ),
