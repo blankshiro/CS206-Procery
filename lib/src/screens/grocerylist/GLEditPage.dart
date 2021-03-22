@@ -71,9 +71,34 @@ class _GLEditPageState extends State<GLEditPage> {
         children: [
           Container(
             alignment: Alignment.centerLeft,
-            padding: EdgeInsets.all(10),
-            child: buildTextTitleVariation1(widget.groceryList.name),
+            padding: EdgeInsets.fromLTRB(20, 45, 0, 0),
+            child: Text(
+              "My",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 27,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
           ),
+          Container(
+            padding: EdgeInsets.fromLTRB(20, 0, 0, 10),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              groceryList.name,
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 27,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+
+          // Container(
+          //   alignment: Alignment.centerLeft,
+          //   padding: EdgeInsets.all(10),
+          //   child: buildTextTitleVariation1(widget.groceryList.name),
+          // ),
           // Container(
           //   padding: EdgeInsets.all(10),
           //   child: buildTextTitleVariation1('Edit Lists'),

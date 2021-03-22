@@ -67,51 +67,45 @@ class _GLItemPageState extends State<GLItemPage> {
 
     return Scaffold(
       //APPBAR
-<<<<<<< HEAD
-      appBar: AppBar(
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: primaryColor,
-        title:
-            Text('Procery', style: logoWhiteStyle, textAlign: TextAlign.center),
-        actions: <Widget>[
-          IconButton(
-            padding: EdgeInsets.all(0),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => GLPastPage()),
-              );
-            },
-            iconSize: 21,
-            icon: Icon(Fryo.magnifier),
-          ),
-          IconButton(
-            padding: EdgeInsets.all(0),
-            onPressed: () {},
-            iconSize: 21,
-            icon: Icon(Fryo.alarm),
-          )
-        ],
-      ),
-=======
->>>>>>> 6a8a11c9d99e1a4a4fc597a7a56bc7a223951178
       body: Column(
         children: [
           //HEADER
+          Container(
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.fromLTRB(20, 45, 0, 0),
+            child: Text(
+              "My",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 27,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
+                padding: EdgeInsets.fromLTRB(20, 0, 0, 10),
                 alignment: Alignment.centerLeft,
-                padding: EdgeInsets.all(10),
-                child: buildTextTitleVariation1(widget.groceryList.name),
+                child: Text(
+                  groceryList.name,
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontSize: 27,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
               ),
+              // Container(
+              //   alignment: Alignment.centerLeft,
+              //   padding: EdgeInsets.all(10),
+              //   child: buildTextTitleVariation1(widget.groceryList.name),
+              // ),
               Container(
-                padding: EdgeInsets.fromLTRB(0, 3, 0, 0),
                 child: IconButton(
-                  // alignment: Alignment.topLeft,
-                  icon: Icon(Icons.delete_outline),
+                  alignment: Alignment.topLeft,
+                  icon: Icon(Icons.delete),
                   iconSize: 20,
                   onPressed: () {
                     _showMyDialog();
@@ -308,7 +302,7 @@ class _GLItemPageState extends State<GLItemPage> {
           ),
           actions: <Widget>[
             IconButton(
-              icon: Icon(Icons.close),
+              icon: Icon(Icons.cancel),
               iconSize: 30,
               onPressed: () {
                 Navigator.of(context).pop();
