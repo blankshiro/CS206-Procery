@@ -57,3 +57,4 @@ Purchase purchase5 = new Purchase()
 List<Purchase> getSampleListPurchase(){
   return [purchase1, purchase2, purchase3, purchase4, purchase5];
 }
+

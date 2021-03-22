@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import '../../TimeCompare.dart';
 
 import '../../shared/styles.dart';
 import '../../shared/colors.dart';
@@ -611,10 +612,10 @@ class _DashboardExploreState extends State<DashboardExplore> {
   }
 }
 
-extension DateOnlyCompare on DateTime {
-  bool isSameDate(DateTime other) {
-    return this.year == other.year &&
-        this.month == other.month &&
-        this.day == other.day;
-  }
-}
+// extension DateOnlyCompare on DateTime {
+//   bool isSameDate(DateTime other) {
+//     return this.year == other.year &&
+//         this.month == other.month &&
+//         this.day == other.day;
+//   }
+// }

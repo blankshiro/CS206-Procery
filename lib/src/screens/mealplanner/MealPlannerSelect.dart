@@ -21,6 +21,7 @@ import './MealPlannerConstants.dart';
 
 // Internal Dependencies
 import '../../algo/recommendAlgo.dart';
+import '../BaseWidgets.dart';
 
 // External Dependencies
 import 'package:flutter/material.dart';
@@ -47,12 +48,12 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
   @override
   Widget build(BuildContext context) {
     print("Meal Planner Select state refresh");
-    context.watch<RecipeModel>().recipeList;
+    // context.watch<RecipeModel>().recipeList;
 
     final recipeModel = Provider.of<RecipeModel>(context, listen:false);
     plannerRecordModel = Provider.of<PlannerRecordModel>(context, listen: false);
-    groceryListModel = Provider.of<GroceryListModel>(context, listen: true);
-    purchaseModel = Provider.of<PurchaseModel>(context, listen: true);
+    groceryListModel = Provider.of<GroceryListModel>(context, listen: false);
+    purchaseModel = Provider.of<PurchaseModel>(context, listen: false);
     ingredientModel = Provider.of<IngredientModel>(context, listen: false);
 
     Map<Recipe, int> recommendedRecipes = getRecommend(groceryListModel.grocerylistList,
@@ -79,16 +80,7 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(10, 45, 0, 0),
-                      child: IconButton(
-                        icon: Icon(Icons.arrow_back),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        alignment: Alignment.topLeft,
-                      ),
-                    ),
+                    getBackButton(context),
                     Padding(
                       padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                       child: Text(
@@ -346,13 +338,12 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
     PlannerRecord toAdd = new PlannerRecord()
       ..recipe = recipe
       ..date = widget.day
-      ..meal = widget.meal;
-
-    plannerRecordModel.addItem(toAdd);
+      ..meal = widget.meal
+      ..purchaseId = [];
 
     GroceryList masterList = groceryListModel.grocerylistList[0];
     print("Meal Plan adding groceries to " + masterList.name);
-
+    int id = purchaseModel.purchaseList.length;
     List<Purchase> toPurchaseList = [];
     for (int i = 0; i < recipe.ingredients.length; i++) {
       Purchase toPurchase = new Purchase()
@@ -361,11 +352,16 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
         ..dateAdded = today
         ..purchased = 0
         ..listName = masterList.name
-        ..id = purchaseModel.purchaseList.length;
+        ..id = id;
 
+      toAdd.purchaseId.add(id);
+      id++;
+      print("Purchase created:" + toPurchase.id.toString());
       purchaseModel.addItem(toPurchase);
       toPurchaseList.add(toPurchase);
     }
+
+    plannerRecordModel.addItem(toAdd);
 
     for (int i = 0; i < toPurchaseList.length; i++) {
       bool found = false;

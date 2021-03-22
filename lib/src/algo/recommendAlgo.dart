@@ -105,7 +105,6 @@ Map<Recipe, int> getRecommend(List<GroceryList> groceryListList,
 }
 
 List<double> recommend(List<int> constraints, List<Recipe>recipeList){
-  print("AAA");
   var tracker = new List.generate(constraints[0] + 1, (_) =>
   new List.generate(constraints[1] + 1, (_) =>
   new List.generate(constraints[2] + 1, (_) =>
@@ -118,8 +117,8 @@ List<double> recommend(List<int> constraints, List<Recipe>recipeList){
       growable: false),
       growable: false);
 
-  print("tracker");
-  print(tracker[0][0][0][0][0][0]);
+  // print("tracker");
+  // print(tracker[0][0][0][0][0][0]);
   var store = new List.generate(constraints[0] + 1, (_) =>
   new List.generate(constraints[1] + 1, (_) =>
   new List.generate(constraints[2] + 1, (_) =>
@@ -132,8 +131,8 @@ List<double> recommend(List<int> constraints, List<Recipe>recipeList){
       growable: false),
       growable: false);
 
-  print("store");
-  print(store[0][0][0][0][0][0]);
+  // print("store");
+  // print(store[0][0][0][0][0][0]);
 
   for(var a = 0 ; a <= constraints[0]; a++){
     for(var b = 0; b <= constraints[1]; b++){

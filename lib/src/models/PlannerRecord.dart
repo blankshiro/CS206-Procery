@@ -15,10 +15,14 @@ class PlannerRecord {
   @HiveField(2) // B/L/D
   String meal;
 
+  @HiveField(3)
+  List<int> purchaseId;
+
   PlannerRecord(
       {this.recipe,
         this.date,
         this.meal,
+        this.purchaseId,
       });
 
 }

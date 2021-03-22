@@ -5,6 +5,7 @@ import 'package:Procery/src/screens/grocerylist/GLPastPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLCollabList.dart';
 import 'package:Procery/src/screens/grocerylist/GLEditPage.dart';
 import 'package:intl/intl.dart';
+import '../../screens/BaseWidgets.dart';
 
 import '../../models/GroceryList.dart';
 import '../../models/Purchase.dart';
@@ -68,11 +69,13 @@ class _GLItemPageState extends State<GLItemPage> {
     return Scaffold(
       //APPBAR
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          getBackButton(context),
           //HEADER
           Container(
             alignment: Alignment.centerLeft,
-            padding: EdgeInsets.fromLTRB(20, 45, 0, 0),
+            padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
             child: Text(
               "My",
               textAlign: TextAlign.left,
@@ -414,6 +417,11 @@ class _GLItemPageState extends State<GLItemPage> {
       InventoryModel inventoryModel,
       GroceryList groceryList,
       Purchase _purchase) {
+
+    if(_purchase.quantity == 0){
+      return;
+    }
+
     int checkIndex;
     for (int i = 0; i < groceryList.purchases.length; i++) {
       if (_purchase.id == groceryList.purchases[i].id) {

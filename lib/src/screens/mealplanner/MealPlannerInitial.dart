@@ -7,6 +7,10 @@ import 'package:Procery/src/services/PlannerRecordModel.dart';
 import 'package:Procery/src/models/PlannerRecord.dart';
 import 'package:Procery/src/models/Recipe.dart';
 import 'package:Procery/src/data/MealPlannerData.dart';
+import 'package:Procery/src/models/GroceryList.dart';
+import 'package:Procery/src/services/GroceryListModel.dart';
+import 'package:Procery/src/models/Purchase.dart';
+import 'package:Procery/src/services/PurchaseModel.dart';
 
 // Styles
 import 'package:Procery/src/shared/styles.dart';
@@ -19,6 +23,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+import '../../TimeCompare.dart';
 
 // class mealplanner extends StatelessWidget {
 //   @override
@@ -54,15 +59,22 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
   }
 
   PlannerRecordModel plannerRecordModel;
+  GroceryListModel groceryListModel;
+  PurchaseModel purchaseModel;
+
+
   @override
   Widget build(BuildContext context) {
     print('Refereshing Meal Planner State');
     context.watch<PlannerRecordModel>().plannerRecordList;
     DateTime today = _calendarController.selectedDay;
+
     if(today == null){
       today = DateTime.now();
     }
-    plannerRecordModel = Provider.of<PlannerRecordModel>(context, listen: true);
+    plannerRecordModel = Provider.of<PlannerRecordModel>(context, listen: false);
+    groceryListModel = Provider.of<GroceryListModel>(context, listen: false);
+    purchaseModel = Provider.of<PurchaseModel>(context, listen: false);
     List<List<PlannerRecord>> planForDay = retrievePlan(plannerRecordModel, today);
 
     return Scaffold(
@@ -97,6 +109,7 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
             initialCalendarFormat: CalendarFormat.week,
             startingDayOfWeek: StartingDayOfWeek.monday,
             formatAnimation: FormatAnimation.slide,
+            onDaySelected: (day, event, holidays){setState(() {});},
             headerStyle: HeaderStyle(
               centerHeaderTitle: true,
               formatButtonVisible: false,
@@ -143,7 +156,7 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
               itemBuilder: (context, index) {
                 List<PlannerRecord> pRecord = planForDay[index];
                 if (pRecord.length > 0) {
-                  return buildPlanner(index, pRecord);
+                  return buildPlanner(index, pRecord, today);
                 } else {
                   return buildAddNewPlanView(index, today);
                 }
@@ -186,7 +199,7 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
   }
 
   // Helper function to build the widget for each individual meal of the day
-  Widget buildPlanner(int index, List<PlannerRecord> plan) {
+  Widget buildPlanner(int index, List<PlannerRecord> plan, DateTime today) {
     String meal;
     if (index == 0) {
       meal = "Breakfast";
@@ -236,9 +249,9 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
               child: ListView.builder(
             padding: EdgeInsets.only(left: 5),
             itemCount: plan.length,
-            itemBuilder: (context, index) {
-              Recipe rec = plan[index].recipe;
-              return buildIndividualRecipeCard(rec);
+            itemBuilder: (context, recInd) {
+              Recipe rec = plan[recInd].recipe;
+              return buildIndividualRecipeCard(rec, recInd, meal, today);
             },
             physics: ClampingScrollPhysics(),
             shrinkWrap: true,
@@ -249,51 +262,53 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
     );
   }
 
-  Widget buildIndividualRecipeCard(Recipe recipe) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => RecipeDetail(recipe: recipe)),
-        );
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(
-            Radius.circular(20),
-          ),
-          boxShadow: [kBoxShadow],
+  Widget buildIndividualRecipeCard(Recipe recipe, recInd, meal, DateTime today) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(
+          Radius.circular(20),
         ),
-        margin: EdgeInsets.only(right: 10, left: 0, bottom: 10, top: 8),
-        padding: EdgeInsets.all(10),
-        width: 220,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Expanded(
+        boxShadow: [kBoxShadow],
+      ),
+      margin: EdgeInsets.only(right: 10, left: 0, bottom: 10, top: 8),
+      padding: EdgeInsets.all(10),
+      width: 220,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => RecipeDetail(recipe: recipe)),
+              );
+            },
+            child:Expanded(
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: Image(
                         image: AssetImage(recipe.image), fit: BoxFit.cover))),
-            SizedBox(
-              height: 8,
-            ),
-            buildRecipeTitle(recipe.name),
-            buildTextSubTitleVariation2(recipe.description),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                buildCalories(recipe.prepMins.toString() + " mins"),
-                IconButton(
-                  icon: Icon(Icons.delete_outline),
-                  iconSize: 20,
-                  onPressed: () {},
-                ),
-              ],
-            ),
-          ],
-        ),
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          buildRecipeTitle(recipe.name),
+          buildTextSubTitleVariation2(recipe.description),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              buildCalories(recipe.prepMins.toString() + " mins"),
+              IconButton(
+                icon: Icon(Icons.delete_outline),
+                iconSize: 20,
+                onPressed: () {
+                  deleteRecipeInMealPlan(recipe, recInd, meal, today);
+                },
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -359,17 +374,59 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
         ));
   }
 
-  // void loadSampleMealPlan(PlannerRecordModel plannerRecordModel){
-  //   deleteAllMealPlan(plannerRecordModel);
-  //   List<PlannerRecord> toAdd = getPlannerRecords();
-  //   for(int i = 0; i < toAdd.length; i++){
-  //     plannerRecordModel.addItem(toAdd[i]);
-  //
-  //   }
-  // }
-  //
-  // void deleteAllMealPlan(PlannerRecordModel plannerRecordModel){
-  //   plannerRecordModel.deleteAll();
-  // }
+  deleteRecipeInMealPlan(Recipe recipe, recInd, meal, DateTime today){
+    print(recInd.toString() + " " + meal + " " + today.toString());
+
+    List<PlannerRecord> allPlans = plannerRecordModel.plannerRecordList;
+    String mealkey = meal[0];
+    int counter = 0;
+    
+    int toRemove;
+    
+    for(int i = 0; i < allPlans.length; i++){
+      if(allPlans[i].date.isSameDate(today)){
+        if(mealkey == allPlans[i].meal){
+          if(counter == recInd){
+            toRemove = i;
+            break;
+          }
+          else{
+            counter++;
+          }
+        }
+      }
+    }
+
+    print('toRemove - ' + toRemove.toString());
+
+    PlannerRecord removeRecord = allPlans[toRemove];
+    List<Purchase> allPurchase = purchaseModel.purchaseList;
+    GroceryList masterGL = groceryListModel.grocerylistList[0];
+    print("remove purchase " + removeRecord.purchaseId.length.toString());
+    for(int i = 0; i < removeRecord.purchaseId.length; i++){
+      print("III " + i.toString());
+      for(int j = 0; j < allPurchase.length; j++){
+        if(allPurchase[j].id == removeRecord.purchaseId[i]){
+          allPurchase.removeAt(j);
+          purchaseModel.deleteItem(j);
+          print("AAA " + j.toString());
+          break;
+        }
+      }
+
+
+      for(int k = 0; k < masterGL.purchases.length; k++){
+        if(masterGL.purchases[k].id == removeRecord.purchaseId[i]){
+          masterGL.purchases.removeAt(k);
+          print("BBB " + k.toString());
+          break;
+        }
+      }
+    }
+
+    groceryListModel.updateItem(0, masterGL);
+    plannerRecordModel.deleteItem(toRemove);
+  }
 
 }
+
