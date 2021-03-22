@@ -394,21 +394,22 @@ class _DashboardExploreState extends State<DashboardExplore> {
             ),
             Table(
               columnWidths: {
-                0: FixedColumnWidth(20),
-                1: FixedColumnWidth(180),
-                2: FixedColumnWidth(60),
+                // 0: FixedColumnWidth(20),
+                0: FixedColumnWidth(256),
+                1: FixedColumnWidth(100),
               },
               defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
               children: [
                 TableRow(
                   children: [
-                    Container(),
+                    // Container(),
                     Container(
-                      // padding: EdgeInsets.only(left: 0),
+                      padding: EdgeInsets.only(left: 20),
                       child: Text("Name: "),
-                      width: 128,
                     ),
-                    Container(child: Text("Quantity: ")),
+                    Container(
+                      child: Text("Purchased: "),
+                    ),
                   ],
                 ),
               ],
@@ -517,46 +518,33 @@ class _DashboardExploreState extends State<DashboardExplore> {
 
   Widget buildGrocery(Purchase purchase) {
     return Padding(
-      padding: EdgeInsets.all(10),
-      child: GestureDetector(
-          // onTap: () {
-          //   Navigator.push(
-          //     context,
-          //     MaterialPageRoute(builder: (context) => GLItemPage(groceryList: currentList)),
-          //   );
-          // },
-          child: Table(
+      padding: EdgeInsets.symmetric(vertical: 5),
+      child: Table(
         columnWidths: {
           0: FixedColumnWidth(256),
           1: FlexColumnWidth(),
         },
-        defaultVerticalAlignment: TableCellVerticalAlignment.middle,
         children: [
           TableRow(
             children: [
-              // FlatButton(
-              //   onPressed: () {
-              //     Navigator.push(
-              //       context,
-              //       MaterialPageRoute(builder: (context) => ExpiringPage()),
-              //     );
-              //   },
-              // ),
               TableCell(
                   child: Container(
-                padding: EdgeInsets.only(left: 75),
+                padding: EdgeInsets.only(left: 20),
                 child: buildGroceryTitle(purchase.ingredient.name.toString()),
               )),
               TableCell(
-                  child: Container(
-                      child: buildGrocerySubtitle(
-                          purchase.purchased.toString() +
-                              "/" +
-                              purchase.quantity.toString()))),
+                child: Container(
+                  child: buildGrocerySubtitle(
+                      purchase.purchased.toString() +
+                          "/" +
+                          purchase.quantity.toString()
+                  )
+                )
+              ),
             ],
           ),
         ],
-      )),
+      )
     );
   }
 
