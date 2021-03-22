@@ -18,8 +18,8 @@ class Purchase {
   @HiveField(3)
   String listName;
 
-  @HiveField(4) // Should be false by default
-  int purchased = 0;  // 0-false, 1-true
+  @HiveField(4) // Should be 0 by default
+  int purchased = 0;  // amt purchased
 
   @HiveField(5)
   int id;

@@ -1,10 +1,9 @@
-
 import 'package:Procery/src/router.gr.dart';
 import 'package:Procery/src/screens/mealplanner/MealPlannerInitial.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-
+import 'package:intl/intl.dart';
 
 import '../../shared/styles.dart';
 import '../../shared/colors.dart';
@@ -35,7 +34,6 @@ import 'package:Procery/src/models/PlannerRecord.dart';
 import 'package:Procery/src/models/Purchase.dart';
 import 'package:Procery/src/models/GroceryList.dart';
 
-
 import '../recipe/RecipeDetail.dart';
 
 class DashboardExplore extends StatefulWidget {
@@ -62,8 +60,7 @@ class _DashboardExploreState extends State<DashboardExplore> {
   );
 
   // Grocery Checkbox
-  var _checkedGroceryList = [];
-
+  // var _checkedGroceryList = [];
 
   @override
   void initState() {
@@ -104,33 +101,43 @@ class _DashboardExploreState extends State<DashboardExplore> {
         text = "Dinner";
       }
 
-      map.putIfAbsent(i,
-        () =>
-        Container(
-            width: 100,
-            child: Text(
-              text,
-              textAlign: TextAlign.center,
-            )
-        )
-      );
+      map.putIfAbsent(
+          i,
+          () => Container(
+              width: 200,
+              child: Text(
+                text,
+                style: TextStyle(color: Colors.white),
+                textAlign: TextAlign.center,
+              )));
     }
   }
 
   Widget getChildWidget() => childWidgets[sharedValue];
 
+  InventoryModel inventoryModel;
+  PurchaseModel purchaseModel;
+  RecipeModel recipeModel;
+  PlannerRecordModel plannerRecordModel;
+  GroceryListModel groceryListModel;
+
   @override
   Widget build(BuildContext context) {
+    inventoryModel = Provider.of<InventoryModel>(context, listen: false);
+    purchaseModel = Provider.of<PurchaseModel>(context, listen: false);
+    recipeModel = Provider.of<RecipeModel>(context, listen: false);
+    plannerRecordModel =
+        Provider.of<PlannerRecordModel>(context, listen: false);
+    groceryListModel = Provider.of<GroceryListModel>(context, listen: false);
 
-    InventoryModel inventoryModel = Provider.of<InventoryModel>(context, listen: false);
-    PurchaseModel purchaseModel = Provider.of<PurchaseModel>(context, listen: false);
-    RecipeModel recipeModel = Provider.of<RecipeModel>(context, listen: false);
-    PlannerRecordModel plannerRecordModel = Provider.of<PlannerRecordModel>(context, listen: false);
-    GroceryListModel groceryListModel = Provider.of<GroceryListModel>(context, listen: false);
-
+    // context.watch reloads screen
     var inventoryList = context.watch<InventoryModel>().inventoryList;
+    var grocerylistList = context.watch<GroceryListModel>().grocerylistList;
 
-    if(DashboardExplore.initialise == true){
+    // sort the grocery list according to deadline
+    grocerylistList.sort((a, b) => a.deadLine.compareTo(b.deadLine));
+
+    if (DashboardExplore.initialise == true) {
       loadAllInventory(inventoryModel);
       loadAllPurchase(purchaseModel);
       loadAllGroceryList(groceryListModel);
@@ -145,13 +152,13 @@ class _DashboardExploreState extends State<DashboardExplore> {
       List<PlannerRecord> allMealPlan = plannerRecordModel.plannerRecordList;
       DateTime today = DateTime.now();
 
-      for(int i = 0; i < allMealPlan.length; i++){
-        if(allMealPlan[i].date.isSameDate(today)){
-          if(allMealPlan[i].meal == "B"){
+      for (int i = 0; i < allMealPlan.length; i++) {
+        if (allMealPlan[i].date.isSameDate(today)) {
+          if (allMealPlan[i].meal == "B") {
             mealPlan[0] = allMealPlan[i];
-          }else if(allMealPlan[i].meal == "L"){
+          } else if (allMealPlan[i].meal == "L") {
             mealPlan[1] = allMealPlan[i];
-          }else if(allMealPlan[i].meal == "D"){
+          } else if (allMealPlan[i].meal == "D") {
             mealPlan[2] = allMealPlan[i];
           }
         }
@@ -159,112 +166,128 @@ class _DashboardExploreState extends State<DashboardExplore> {
 
       for (var i = 0; i < mealPlan.length; i++) {
         PlannerRecord meal = mealPlan[i];
-        if(meal != null){
-          childWidgets.add(
-              GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => RecipeDetail(recipe: meal.recipe)),
-                    );
-                  },
-                  child: Column(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(20),
-                          ),
-                          boxShadow: [kBoxShadow],
-                        ),
-                        child: Row(
-                          children: [
-                            Container(
-                              height: 160,
-                              width: 160,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(meal.recipe.image),
-                                  fit: BoxFit.fitHeight,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 16),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    buildRecipeTitle(meal.recipe.name),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  )
-              )
-          );}
-          else {
-            childWidgets.add(
-              GestureDetector(
-                onTap:() {
-                  Navigator.push( // TODO there is some problem doing navigation this way
-                    context,
-                    MaterialPageRoute(builder: (context) =>
-                        MealPlannerInitial()),
-                  );
-                },
-
-                child: Container(
-                  padding: const EdgeInsets.all(24),
-                  decoration: BoxDecoration(
+        if (meal != null) {
+          childWidgets.add(GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => RecipeDetail(recipe: meal.recipe)),
+                );
+              },
+              child: Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(16),
+                    decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(40),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20),
+                      ),
+                      boxShadow: [kBoxShadow],
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          height: 160,
+                          width: 160,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(meal.recipe.image),
+                              fit: BoxFit.fitHeight,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                buildRecipeTitle(meal.recipe.name),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              )));
+        } else {
+          childWidgets.add(GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  // TODO there is some problem doing navigation this way
+                  context,
+                  MaterialPageRoute(builder: (context) => MealPlannerInitial()),
+                );
+              },
+              child: Container(
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(40),
                         topRight: Radius.circular(40))),
-                  child: Text("Please Add a Meal Plan"),
-                )
-
-              )
-            );
+                child: Text("Please Add a Meal Plan"),
+              )));
         }
       }
     }
 
     loadChildWidgets();
 
-
     return Scaffold(
-      appBar: getBaseAppBar(),
       bottomNavigationBar: getBaseBottomNavBar(context, 0),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
-          children: [
-            // Spacing
-            SizedBox(
-              height: 16,
-            ),
-            // Words
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
             Padding(
+              padding: EdgeInsets.fromLTRB(20, 45, 0, 0),
+              child: Text(
+                "My",
+                style: TextStyle(
+                  fontSize: 27,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+              child: Text(
+                "Inventory",
+                style: TextStyle(
+                  fontSize: 27,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+            Container(
+              height: 190,
+              child: PageView(
+                controller: _pageController,
+                physics: BouncingScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                children: buildExpirings(inventoryList),
+              ),
+            ),
+            Container(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  buildTextTitleVariation1('Inventory'),
                   Row(
                     children: [
                       TextButton(
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => ExpiringPage()),
+                            MaterialPageRoute(
+                                builder: (context) => ExpiringPage()),
                           );
                         },
                         child: Text("View All > ", style: h5),
@@ -274,27 +297,25 @@ class _DashboardExploreState extends State<DashboardExplore> {
                 ],
               ),
             ),
-            Container(
-              height: 190,
-              child: PageView(
-                  controller: _pageController,
-                  physics: BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  children: buildExpirings(inventoryList),
+
+            Padding(
+              padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+              child: Text(
+                "Today's",
+                style: TextStyle(
+                  fontSize: 27,
+                  fontWeight: FontWeight.w400,
                 ),
               ),
-            SizedBox(
-              height: 16,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                children: [
-                  buildTextTitleVariation1("Today's Meal"),
-                  SizedBox(
-                    width: 8,
-                  ),
-                ],
+              padding: EdgeInsets.fromLTRB(20, 0, 0, 10),
+              child: Text(
+                "Meal",
+                style: TextStyle(
+                  fontSize: 27,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
             Padding(
@@ -309,14 +330,20 @@ class _DashboardExploreState extends State<DashboardExplore> {
                             sharedValue = value;
                           });
                         },
-                        groupValue: sharedValue,
-                        //The current selected Index or key
-                        children: map, //The tabs which are assigned in the form of map
+                        groupValue:
+                            sharedValue, //The current selected Index or key
+                        selectedColor: Colors.greenAccent[
+                            700], //Color that applies to select key or index
+                        unselectedColor: Colors
+                            .grey, // The color that applies to the unselected tabs or inactive tabs
+                        children:
+                            map, //The tabs which are assigned in the form of map
+                        padding: EdgeInsets.all(10),
+                        borderColor: Colors.white,
                       ),
                     ],
                   ),
-                )
-            ),
+                )),
             SizedBox(
               width: 8,
             ),
@@ -335,10 +362,32 @@ class _DashboardExploreState extends State<DashboardExplore> {
               height: 16,
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+              child: Text(
+                "My",
+                style: TextStyle(
+                  fontSize: 27,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(20, 0, 0, 10),
+              child: Text(
+                "Grocery List",
+                style: TextStyle(
+                  fontSize: 27,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 children: [
-                  buildTextTitleVariation1("Grocery List"),
+                  buildTextSubTitleVariation1("Deadline: " +
+                      DateFormat('MM - dd')
+                          .format(grocerylistList[0].deadLine)),
                   SizedBox(
                     width: 8,
                   ),
@@ -347,36 +396,29 @@ class _DashboardExploreState extends State<DashboardExplore> {
             ),
             Table(
               columnWidths: {
-                0: FixedColumnWidth(20),
-                1: FixedColumnWidth(180),
-                2: FixedColumnWidth(60),
+                // 0: FixedColumnWidth(20),
+                0: FixedColumnWidth(256),
+                1: FixedColumnWidth(100),
               },
               defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
               children: [
-                TableRow (
+                TableRow(
                   children: [
-                    Container (
+                    // Container(),
+                    Container(
+                      padding: EdgeInsets.only(left: 20),
+                      child: Text("Name: ", style: priceTextBold),
                     ),
                     Container(
-                      // padding: EdgeInsets.only(left: 0),
-                      child: Text (
-                          "Name: "
-                      ),
-                      width: 128,
-                    ),
-                    Container(
-                        child: Text (
-                            "Quantity: "
-                        )
+                      child: Text("Purchased: ", style: priceTextBold),
                     ),
                   ],
                 ),
               ],
             ),
             Column(
-              children: buildGroceries(),
+              children: buildGroceries(grocerylistList[0]),
             ),
-
           ],
         ),
       ),
@@ -390,20 +432,21 @@ class _DashboardExploreState extends State<DashboardExplore> {
   List<Widget> buildExpirings(List<Inventory> inventoryList) {
     List<Widget> expiringList = [];
     int displayLength = inventoryList.length;
-    if(displayLength > 3){
+    if (displayLength > 3) {
       displayLength = 3;
     }
 
     DateTime today = DateTime.now();
     List<Inventory> expirySorted = List.from(inventoryList);
-    for(var i = 0; i < expirySorted.length; i++){
-      expirySorted[i].daysToExpiry = expirySorted[i].ingredient.expiryDays - today.difference(expirySorted[i].datePurchased).inDays;
+    for (var i = 0; i < expirySorted.length; i++) {
+      expirySorted[i].daysToExpiry = expirySorted[i].ingredient.expiryDays -
+          today.difference(expirySorted[i].datePurchased).inDays;
     }
 
-    expirySorted.sort((a,b) => a.daysToExpiry.compareTo(b.daysToExpiry));
+    expirySorted.sort((a, b) => a.daysToExpiry.compareTo(b.daysToExpiry));
 
     for (var i = 0; i < displayLength; i++) {
-    // just return the closest to expiry date item
+      // just return the closest to expiry date item
       expiringList.add(buildExpiring(expirySorted[i]));
     }
     return expiringList;
@@ -446,9 +489,11 @@ class _DashboardExploreState extends State<DashboardExplore> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     buildRecipeTitle(inv.ingredient.name),
-                    buildRecipeSubTitle("Amount left: " + inv.quantity.toString()),
-                    buildExpiryDays(
-                        "Expiring in: " + inv.daysToExpiry.toString() + " Days"),
+                    buildRecipeSubTitle(
+                        "Amount left: " + inv.quantity.toString()),
+                    buildExpiryDays("Expiring in: " +
+                        inv.daysToExpiry.toString() +
+                        " Days"),
                   ],
                 ),
               ),
@@ -456,7 +501,6 @@ class _DashboardExploreState extends State<DashboardExplore> {
           ],
         ),
       ),
-
     );
   }
 
@@ -464,62 +508,42 @@ class _DashboardExploreState extends State<DashboardExplore> {
   /// GROCERY PART
   ////////////////////////////////////
 
-  List<Widget> buildGroceries() {
-    List<Widget> groceryList = [];
-    for (var i = 0; i < getGrocery().length; i++) {
-      // show if the grocery not bought yet
-      if (!getGrocery()[i].checked)
-        _checkedGroceryList.add(false);
-        groceryList.add(buildGrocery(getGrocery()[i], i));
+  List<Widget> buildGroceries(lastestGroceryList) {
+    List<Widget> purchaseList = List<Widget>();
+
+    for (var i = 0; i < lastestGroceryList.purchases.length; i++) {
+      Purchase purchase = lastestGroceryList.purchases[i];
+      purchaseList.add(buildGrocery(purchase));
     }
-    return groceryList;
+    return purchaseList;
   }
 
-  Widget buildGrocery(Grocery grocery, int i) {
-    return Table(
-      columnWidths: {
-        0: IntrinsicColumnWidth(),
-        1: FixedColumnWidth(200),
-        2: FlexColumnWidth(),
-      },
-      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-      children: [
-        TableRow(
+  Widget buildGrocery(Purchase purchase) {
+    return Padding(
+        padding: EdgeInsets.symmetric(vertical: 5),
+        child: Table(
+          columnWidths: {
+            0: FixedColumnWidth(256),
+            1: FlexColumnWidth(),
+          },
           children: [
-            TableCell(
-              child: Container(
-                padding: EdgeInsets.only(left: 20),
-                alignment: Alignment.center,
-                child: Checkbox(
-                  value: _checkedGroceryList[i],
-                  activeColor: primaryColor,
-                  onChanged: (bool value) {
-                    setState(() {
-                      _checkedGroceryList[i] = value;
-                      grocery.checked = true;
-                    });
-                  },
-                ),
-              ),
+            TableRow(
+              children: [
+                TableCell(
+                    child: Container(
+                  padding: EdgeInsets.only(left: 20),
+                  child: buildGroceryTitle(purchase.ingredient.name.toString()),
+                )),
+                TableCell(
+                    child: Container(
+                        child: buildGrocerySubtitle(
+                            purchase.purchased.toString() +
+                                "/" +
+                                purchase.quantity.toString()))),
+              ],
             ),
-            TableCell(
-                child: Container(
-                  padding: EdgeInsets.only(left: 15),
-                  child: buildGroceryTitle(grocery.name),
-                  width: 128,
-                )
-            ),
-            TableCell(
-                child: Container(
-                    child: buildGrocerySubtitle(grocery.quantity)
-                )
-            ),
-
           ],
-        ),
-      ],
-    );
-
+        ));
   }
 
   /////////////////////////////////////
@@ -530,7 +554,7 @@ class _DashboardExploreState extends State<DashboardExplore> {
     inventoryModel.deleteAll();
 
     List<Inventory> toAdd = getInventory();
-    for(int i = 0; i < toAdd.length; i++){
+    for (int i = 0; i < toAdd.length; i++) {
       inventoryModel.addItem(toAdd[i]);
     }
   }
@@ -539,7 +563,7 @@ class _DashboardExploreState extends State<DashboardExplore> {
     purchaseModel.deleteAll();
 
     List<Purchase> toAdd = getSampleListPurchase();
-    for(int i = 0; i < toAdd.length; i++){
+    for (int i = 0; i < toAdd.length; i++) {
       purchaseModel.addItem(toAdd[i]);
     }
   }
@@ -548,7 +572,7 @@ class _DashboardExploreState extends State<DashboardExplore> {
     groceryListModel.deleteAll();
 
     List<GroceryList> toAdd = getGroceryList();
-    for(int i = 0; i < toAdd.length; i++){
+    for (int i = 0; i < toAdd.length; i++) {
       groceryListModel.addItem(toAdd[i]);
     }
   }
@@ -557,7 +581,7 @@ class _DashboardExploreState extends State<DashboardExplore> {
     recipeModel.deleteAll();
 
     List<Recipe> toAdd = getRecipes();
-    for(int i = 0; i < toAdd.length; i++){
+    for (int i = 0; i < toAdd.length; i++) {
       recipeModel.addItem(toAdd[i]);
     }
   }
@@ -566,16 +590,16 @@ class _DashboardExploreState extends State<DashboardExplore> {
     plannerRecordModel.deleteAll();
 
     List<PlannerRecord> toAdd = getPlannerRecords();
-    for(int i = 0; i < toAdd.length; i++){
+    for (int i = 0; i < toAdd.length; i++) {
       plannerRecordModel.addItem(toAdd[i]);
     }
   }
-
 }
 
 extension DateOnlyCompare on DateTime {
   bool isSameDate(DateTime other) {
-    return this.year == other.year && this.month == other.month
-        && this.day == other.day;
+    return this.year == other.year &&
+        this.month == other.month &&
+        this.day == other.day;
   }
 }

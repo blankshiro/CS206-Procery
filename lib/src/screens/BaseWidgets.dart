@@ -2,63 +2,34 @@ import 'package:auto_route/auto_route_annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:Procery/src/shared/styles.dart';
 import 'package:Procery/src/shared/colors.dart';
-import 'package:Procery/src/shared/fryo_icons.dart';
 
+getBaseAppBar(String title) {}
 
-AppBar getBaseAppBar(){
-  return AppBar(
-    centerTitle: true,
-    elevation: 0,
-    // leading: IconButton(
-    //   onPressed: () {},
-    //   iconSize: 21,
-    //   icon: Icon(Fryo.funnel),
-    // ),
-    backgroundColor: primaryColor,
-    title:
-    Text('Procery', style: logoWhiteStyle, textAlign: TextAlign.center),
-    actions: <Widget>[
-      IconButton(
-        padding: EdgeInsets.all(0),
-        onPressed: () {},
-        iconSize: 21,
-        icon: Icon(Fryo.magnifier),
-      ),
-      IconButton(
-        padding: EdgeInsets.all(0),
-        onPressed: () {},
-        iconSize: 21,
-        icon: Icon(Fryo.alarm),
-      )
-    ],
-  );
-}
-
-BottomNavigationBar getBaseBottomNavBar(BuildContext context, int index){
+BottomNavigationBar getBaseBottomNavBar(BuildContext context, int index) {
   return BottomNavigationBar(
     items: <BottomNavigationBarItem>[
       BottomNavigationBarItem(
-          icon: Icon(Fryo.shop),
+          icon: Icon(Icons.home_outlined),
           // ignore: deprecated_member_use
           title: Text(
             'Home',
             style: tabLinkStyle,
           )),
       BottomNavigationBarItem(
-          icon: Icon(Fryo.note),
+          icon: Icon(Icons.list_alt),
           // ignore: deprecated_member_use
           title: Text(
             'Recipe',
             style: tabLinkStyle,
           )),
       BottomNavigationBarItem(
-          icon: Icon(Fryo.list),
+          icon: Icon(Icons.format_list_bulleted),
           title: Text(
             'Grocery List',
             style: tabLinkStyle,
           )),
       BottomNavigationBarItem(
-          icon: Icon(Fryo.user_1),
+          icon: Icon(Icons.person_outlined),
           title: Text(
             'Meal Planner',
             style: tabLinkStyle,
@@ -66,9 +37,9 @@ BottomNavigationBar getBaseBottomNavBar(BuildContext context, int index){
     ],
     type: BottomNavigationBarType.fixed,
     currentIndex: index,
-    fixedColor: Colors.green[600],
-    onTap: (index){
-      switch(index){
+    fixedColor: Colors.greenAccent[700],
+    onTap: (index) {
+      switch (index) {
         case 0:
           Navigator.pushNamed(context, "/");
           break;
@@ -81,7 +52,6 @@ BottomNavigationBar getBaseBottomNavBar(BuildContext context, int index){
         case 3:
           Navigator.pushNamed(context, "/meal-planner-initial");
           break;
-
       }
     },
   );

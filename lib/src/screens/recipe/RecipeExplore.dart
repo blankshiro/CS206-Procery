@@ -1,5 +1,4 @@
 import 'package:Procery/src/screens/recipe/RecipeSearch.dart';
-import 'package:Procery/src/shared/fryo_icons.dart';
 import 'package:flutter/material.dart';
 import './RecipeConstants.dart';
 import '../../data/RecipeData.dart';
@@ -16,7 +15,6 @@ import 'package:provider/provider.dart';
 class RecipeExplore extends StatefulWidget {
   @override
   RecipeExploreState createState() => RecipeExploreState();
-
 }
 
 class RecipeExploreState extends State<RecipeExplore> {
@@ -24,20 +22,37 @@ class RecipeExploreState extends State<RecipeExplore> {
 
   @override
   Widget build(BuildContext context) {
-
     context.watch<RecipeModel>().recipeList;
     return Consumer<RecipeModel>(builder: (context, recipeModel, child) {
       print("RecipeExplore state refresh");
 
-
       return Scaffold(
         // Top part of the app
-        backgroundColor: Colors.green[200],
-        appBar: getBaseAppBar(),
+        backgroundColor: Colors.white,
         bottomNavigationBar: getBaseBottomNavBar(context, 1),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.fromLTRB(20, 45, 0, 0),
+              child: Text(
+                "My",
+                style: TextStyle(
+                  fontSize: 27,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+              child: Text(
+                "Recipes",
+                style: TextStyle(
+                  fontSize: 27,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
             // Search bar
             Container(
               padding: EdgeInsets.only(bottom: 10),
@@ -60,9 +75,9 @@ class RecipeExploreState extends State<RecipeExplore> {
                       left: 30,
                     ),
                     suffixIcon: Padding(
-                      padding: EdgeInsets.only(right: 24.0, left: 16.0),
+                      padding: EdgeInsets.only(right: 10.0, left: 16.0),
                       child: IconButton(
-                        icon: Icon(Fryo.magnifier),
+                        icon: Icon(Icons.search),
                         color: Colors.black,
                         iconSize: 24,
                         onPressed: () {
@@ -94,20 +109,7 @@ class RecipeExploreState extends State<RecipeExplore> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Categories", style: h3),
-                            Row(
-                              children: [
-                                Text("View All", style: h5),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                Icon(
-                                  Icons.arrow_forward_ios,
-                                  size: 12,
-                                  color: Colors.black,
-                                ),
-                              ],
-                            ),
+                            buildTextTitleVariation2("Categories", false),
                           ],
                         ),
                       ),
@@ -134,8 +136,7 @@ class RecipeExploreState extends State<RecipeExplore> {
                         height: 350,
                         child: ListView.builder(
                           itemCount: recipeModel.recipeList.length,
-                          itemBuilder: (context, index){
-
+                          itemBuilder: (context, index) {
                             Recipe rec = recipeModel.recipeList[index];
                             return buildRecipe(rec, index, recipeModel);
                           },
@@ -157,20 +158,20 @@ class RecipeExploreState extends State<RecipeExplore> {
                               width: 8,
                             ),
                             // buildTextTitleVariation2('Recent', true),
-                            IconButton(
-                              icon: Icon(Icons.search),
-                              iconSize: 25,
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) {
-                                      return RecipeSearch();
-                                    },
-                                  ),
-                                );
-                              },
-                            )
+                            // IconButton(
+                            //   icon: Icon(Icons.search),
+                            //   iconSize: 25,
+                            //   onPressed: () {
+                            //     Navigator.push(
+                            //       context,
+                            //       MaterialPageRoute(
+                            //         builder: (BuildContext context) {
+                            //           return RecipeSearch();
+                            //         },
+                            //       ),
+                            //     );
+                            //   },
+                            // )
                           ],
                         ),
                       ),
@@ -187,6 +188,7 @@ class RecipeExploreState extends State<RecipeExplore> {
       );
     });
   }
+
   Widget option(String text, String image, int index) {
     return GestureDetector(
       onTap: () {
@@ -197,7 +199,7 @@ class RecipeExploreState extends State<RecipeExplore> {
       child: Container(
         height: 40,
         decoration: BoxDecoration(
-          color: optionSelected[index] ? Colors.green[200] : Colors.white,
+          color: optionSelected[index] ? Colors.greenAccent[700] : Colors.white,
           borderRadius: BorderRadius.all(
             Radius.circular(20),
           ),
@@ -232,16 +234,15 @@ class RecipeExploreState extends State<RecipeExplore> {
   }
 
   // Helper function to load recipe data into hive database
-  void loadAllRecipe(RecipeModel recipeModel){
+  void loadAllRecipe(RecipeModel recipeModel) {
     deleteAllRecipe(recipeModel);
     List toAdd = getRecipes();
-    for(var i = 0; i < toAdd.length; i++){
+    for (var i = 0; i < toAdd.length; i++) {
       recipeModel.addItem(toAdd[i]);
     }
-
   }
 
-  void deleteAllRecipe(RecipeModel recipeModel){
+  void deleteAllRecipe(RecipeModel recipeModel) {
     recipeModel.deleteAll();
   }
 
@@ -274,24 +275,16 @@ class RecipeExploreState extends State<RecipeExplore> {
         ),
         margin: EdgeInsets.only(
             right: 16, left: index == 0 ? 16 : 0, bottom: 16, top: 8),
-        padding: EdgeInsets.all(20),
-        width: 220,
+        padding: EdgeInsets.all(10),
+        width: 230,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Expanded(
-              child: Hero(
-                tag: recipe.image,
-                child: Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(recipe.image),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image(
+                        image: AssetImage(recipe.image), fit: BoxFit.cover))),
             SizedBox(
               height: 8,
             ),
@@ -302,10 +295,11 @@ class RecipeExploreState extends State<RecipeExplore> {
               children: [
                 buildCalories(recipe.prepMins.toString() + " mins"),
                 LikeButton(
-                  size: 20,
-                  isLiked: recipe.likes > 0,
-                    onTap: (isLiked) { return likeRecipe(isLiked, recipe, recipeModel);}
-                ),
+                    size: 20,
+                    isLiked: recipe.likes > 0,
+                    onTap: (isLiked) {
+                      return likeRecipe(isLiked, recipe, recipeModel);
+                    }),
               ],
             ),
           ],
@@ -316,12 +310,13 @@ class RecipeExploreState extends State<RecipeExplore> {
 
   // Helper function to build popular recipes widget
   List<Widget> buildPopulars(RecipeModel recipeModel) {
+    int maxSize = 10;
     List<Widget> list = [];
 
     List recipes = List.from(recipeModel.recipeList);
-    recipes.sort((b,a) => a.likes.compareTo(b.likes));
+    recipes.sort((b, a) => a.likes.compareTo(b.likes));
 
-    for (var i = 0; i < recipes.length; i++) {
+    for (var i = 0; i < maxSize; i++) {
       list.add(buildPopular(recipes[i], recipeModel));
     }
     return list;
@@ -341,16 +336,13 @@ class RecipeExploreState extends State<RecipeExplore> {
       child: Row(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-            height: 160,
-            width: 160,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(recipe.image),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
+              padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+              height: 150,
+              width: 150,
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image(
+                      image: AssetImage(recipe.image), fit: BoxFit.cover))),
           Flexible(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
@@ -365,9 +357,11 @@ class RecipeExploreState extends State<RecipeExplore> {
                     children: [
                       buildCalories(recipe.prepMins.toString() + " min"),
                       LikeButton(
-                          size: 20,
-                          isLiked: recipe.likes > 0,
-                          onTap: (isLiked) { return likeRecipe(isLiked, recipe, recipeModel);},
+                        size: 20,
+                        isLiked: recipe.likes > 0,
+                        onTap: (isLiked) {
+                          return likeRecipe(isLiked, recipe, recipeModel);
+                        },
                       )
                     ],
                   ),
@@ -380,11 +374,12 @@ class RecipeExploreState extends State<RecipeExplore> {
     );
   }
 
-  Future<bool> likeRecipe(status, Recipe recipe, RecipeModel recipeModel) async{
+  Future<bool> likeRecipe(
+      status, Recipe recipe, RecipeModel recipeModel) async {
     var allrecipes = recipeModel.recipeList;
     int index = 0;
-    for(int i = 0; i < allrecipes.length; i++){
-      if(allrecipes[i].name == recipe.name){
+    for (int i = 0; i < allrecipes.length; i++) {
+      if (allrecipes[i].name == recipe.name) {
         index = i;
         break;
       }

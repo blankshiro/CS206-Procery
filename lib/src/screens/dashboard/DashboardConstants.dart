@@ -8,3 +8,19 @@ BoxShadow kBoxShadow = BoxShadow(
   blurRadius: 8,
   offset: Offset(0, 0),
 );
+
+// same as buildTextTitleVariation1 (without the bottom padding)
+buildTextTitleVariation3(String text) {
+  return Padding(
+    padding: EdgeInsets.only(bottom: 0),
+    child: Text(
+      text,
+      style: TextStyle(
+        fontFamily: 'Poppins',
+        fontWeight: FontWeight.bold,
+        fontSize: 24,
+        color: Colors.black,
+      ),
+    ),
+  );
+}

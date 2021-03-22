@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import '../../shared/styles.dart';
 import 'package:Procery/src/shared/styles.dart';
 import 'package:Procery/src/shared/colors.dart';
-import 'package:Procery/src/shared/fryo_icons.dart';
 
 class GLPastPage extends StatefulWidget {
   @override
@@ -20,27 +19,6 @@ class _GLPastPageState extends State<GLPastPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: primaryColor,
-        title:
-            Text('Procery', style: logoWhiteStyle, textAlign: TextAlign.center),
-        actions: <Widget>[
-          IconButton(
-            padding: EdgeInsets.all(0),
-            onPressed: () {},
-            iconSize: 21,
-            icon: Icon(Fryo.magnifier),
-          ),
-          IconButton(
-            padding: EdgeInsets.all(0),
-            onPressed: () {},
-            iconSize: 21,
-            icon: Icon(Fryo.alarm),
-          )
-        ],
-      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

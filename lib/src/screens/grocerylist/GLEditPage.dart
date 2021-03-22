@@ -16,7 +16,6 @@ import 'package:flutter/material.dart';
 import '../../shared/styles.dart';
 import 'package:Procery/src/shared/styles.dart';
 import 'package:Procery/src/shared/colors.dart';
-import 'package:Procery/src/shared/fryo_icons.dart';
 
 class GLEditPage extends StatefulWidget {
   final GroceryList groceryList;
@@ -66,7 +65,6 @@ class _GLEditPageState extends State<GLEditPage> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: buildAppBar(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -184,7 +182,7 @@ class _GLEditPageState extends State<GLEditPage> {
             child: IconButton(
               onPressed: () {},
               iconSize: 20,
-              icon: Icon(Fryo.trash_1),
+              icon: Icon(Icons.delete_outline),
             ),
           ),
           Expanded(
@@ -556,7 +554,7 @@ class _GLEditPageState extends State<GLEditPage> {
             child: Container(
               child: IconButton(
                 onPressed: () => _selectDate(context),
-                icon: Icon(Fryo.calendar),
+                icon: Icon(Icons.calendar_today),
                 iconSize: 30,
               ),
             ),
@@ -621,30 +619,6 @@ class _GLEditPageState extends State<GLEditPage> {
           ),
         ],
       ),
-    );
-  }
-
-  AppBar buildAppBar() {
-    return AppBar(
-      centerTitle: true,
-      elevation: 0,
-      backgroundColor: primaryColor,
-      title:
-          Text('Procery', style: logoWhiteStyle, textAlign: TextAlign.center),
-      actions: <Widget>[
-        IconButton(
-          padding: EdgeInsets.all(0),
-          onPressed: () {},
-          iconSize: 21,
-          icon: Icon(Fryo.magnifier),
-        ),
-        IconButton(
-          padding: EdgeInsets.all(0),
-          onPressed: () {},
-          iconSize: 21,
-          icon: Icon(Fryo.alarm),
-        )
-      ],
     );
   }
 }

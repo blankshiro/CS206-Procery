@@ -100,29 +100,29 @@ class RecipeDetail extends StatelessWidget {
                               starCount: 5,
                               rating: 5,
                               color: Colors.orange,
-                              borderColor: Colors.orange,
+                              borderColor: Colors.orangeAccent[700],
                             ),
                             Spacer(),
 
-                            RaisedButton.icon(
-                              onPressed: () {
-                                print('Added to List.');
-                              },
-                              shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0))),
-                              label: Text(
-                                'Add to List',
-                                style: TextStyle(),
-                              ),
-                              icon: Icon(
-                                Icons.add_circle,
-                                color: Colors.white,
-                              ),
-                              textColor: Colors.white,
-                              splashColor: Colors.white,
-                              color: Colors.green,
-                            ),
+                            // RaisedButton.icon(
+                            //   onPressed: () {
+                            //     print('Added to List.');
+                            //   },
+                            //   shape: RoundedRectangleBorder(
+                            //       borderRadius:
+                            //           BorderRadius.all(Radius.circular(10.0))),
+                            //   label: Text(
+                            //     'Add to List',
+                            //     style: TextStyle(),
+                            //   ),
+                            //   icon: Icon(
+                            //     Icons.add_circle,
+                            //     color: Colors.white,
+                            //   ),
+                            //   textColor: Colors.white,
+                            //   splashColor: Colors.white,
+                            //   color: Colors.green,
+                            // ),
                           ],
                         ),
 
@@ -237,14 +237,20 @@ class RecipeDetail extends StatelessWidget {
   String getIngredients() {
     List<Ingredient> ingredients = recipe.ingredients;
     List<int> ingredientsQ = recipe.ingredientsQ;
+    var widgetList = <Widget>[];
+
     String found = "";
 
     for (int i = 0; i < ingredients.length - 1; i++) {
-      found +=
-          ingredientsQ[i].toString() + " " + ingredients[i].getName() + ", ";
+      found += "\u2022 " +
+          ingredientsQ[i].toString() +
+          " " +
+          ingredients[i].getName() +
+          "\n";
     }
 
-    found += ingredientsQ[ingredients.length - 1].toString() +
+    found += "\u2022 " +
+        ingredientsQ[ingredients.length - 1].toString() +
         " " +
         ingredients[ingredients.length - 1].getName();
     return found;

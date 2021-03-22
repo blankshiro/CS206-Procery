@@ -56,6 +56,12 @@ const priceText = TextStyle(
     fontWeight: FontWeight.normal,
     fontFamily: 'Poppins');
 
+const priceTextBold = TextStyle(
+    color: Colors.black,
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'Poppins');
+
 const foodNameText = TextStyle(
     color: Colors.black,
     fontSize: 14,
