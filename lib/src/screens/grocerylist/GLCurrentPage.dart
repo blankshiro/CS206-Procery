@@ -2,7 +2,6 @@ import 'package:Procery/src/screens/BaseWidgets.dart';
 import 'package:Procery/src/screens/grocerylist/GLItemPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLPastPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLEditPage.dart';
-import 'package:Procery/src/screens/grocerylist/GLPastList.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

@@ -1,8 +1,6 @@
 import 'package:Procery/src/data/GroceryListData.dart';
 import 'package:Procery/src/screens/grocerylist/GLCurrentPage.dart';
 // import 'package:Procery/src/screens/grocerylist/GLItemsPage.dart';
-import 'package:Procery/src/screens/grocerylist/GLItemList.dart';
-import 'package:Procery/src/screens/grocerylist/GLPastList.dart';
 import 'package:Procery/src/screens/grocerylist/GLPastPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLCollabList.dart';
 import 'package:Procery/src/screens/grocerylist/GLEditPage.dart';
@@ -79,7 +77,12 @@ class _GLItemPageState extends State<GLItemPage> {
         actions: <Widget>[
           IconButton(
             padding: EdgeInsets.all(0),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => GLPastPage()),
+              );
+            },
             iconSize: 21,
             icon: Icon(Fryo.magnifier),
           ),
@@ -115,7 +118,8 @@ class _GLItemPageState extends State<GLItemPage> {
               ),
             ],
           ),
-          buildDatelineRow(widget: widget),
+          buildDatelineRow(),
+          buildLocationRow(),
           buildCollaboratorRow(),
           Container(
             padding: EdgeInsets.all(10),
@@ -179,6 +183,71 @@ class _GLItemPageState extends State<GLItemPage> {
         child: Text('edit'),
         backgroundColor: Colors.greenAccent[700],
       ),
+    );
+  }
+
+  Row buildDatelineRow() {
+    return Row(
+      children: [
+        Container(
+          child: SizedBox(
+            width: 10,
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+          decoration: BoxDecoration(
+              color: Colors.green,
+              borderRadius: BorderRadius.all(Radius.circular(10.0))),
+          child: Text(
+            'Dateline:',
+            style: h6,
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.all(10),
+          color: Colors.grey[50],
+          alignment: Alignment.centerLeft,
+          child: Text(
+            DateFormat('yyyy - MM - dd')
+                .format(widget.groceryList.deadLine), //intl package
+            textAlign: TextAlign.left,
+            style: priceText,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row buildLocationRow() {
+    return Row(
+      children: [
+        Container(
+          child: SizedBox(
+            width: 10,
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+          decoration: BoxDecoration(
+              color: Colors.green,
+              borderRadius: BorderRadius.all(Radius.circular(10.0))),
+          child: Text(
+            'Best Location:',
+            style: h6,
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.all(10),
+          color: Colors.grey[50],
+          alignment: Alignment.centerLeft,
+          child: Text(
+            'Cold Storage, Bugis Junction',
+            textAlign: TextAlign.left,
+            style: priceText,
+          ),
+        ),
+      ],
     );
   }
 
@@ -535,49 +604,6 @@ class _GLItemPageState extends State<GLItemPage> {
     }
     groceryListModel.updateItem(GLIndex, toUpdate);
     return;
-  }
-}
-
-class buildDatelineRow extends StatelessWidget {
-  const buildDatelineRow({
-    Key key,
-    @required this.widget,
-  }) : super(key: key);
-
-  final GLItemPage widget;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          child: SizedBox(
-            width: 10,
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-          decoration: BoxDecoration(
-              color: Colors.green,
-              borderRadius: BorderRadius.all(Radius.circular(10.0))),
-          child: Text(
-            'Dateline:',
-            style: h6,
-          ),
-        ),
-        Container(
-          padding: EdgeInsets.all(10),
-          color: Colors.grey[50],
-          alignment: Alignment.centerLeft,
-          child: Text(
-            DateFormat('yyyy - MM - dd')
-                .format(widget.groceryList.deadLine), //intl package
-            textAlign: TextAlign.left,
-            style: h5,
-          ),
-        ),
-      ],
-    );
   }
 }
 

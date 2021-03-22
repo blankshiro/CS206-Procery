@@ -1,8 +1,6 @@
 import 'package:Procery/src/data/GroceryListData.dart';
 import 'package:Procery/src/screens/grocerylist/GLCurrentPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLItemPage.dart';
-import 'package:Procery/src/screens/grocerylist/GLItemList.dart';
-import 'package:Procery/src/screens/grocerylist/GLPastList.dart';
 import 'package:Procery/src/screens/grocerylist/GLPastPage.dart';
 import 'package:intl/intl.dart';
 

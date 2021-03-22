@@ -44,6 +44,12 @@ const h6 = TextStyle(
     fontWeight: FontWeight.bold,
     fontFamily: 'Poppins');
 
+const h7 = TextStyle(
+    color: Colors.white,
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'Poppins');
+
 const priceText = TextStyle(
     color: Colors.black,
     fontSize: 14,
