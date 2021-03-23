@@ -127,7 +127,7 @@ class _GLPastPageState extends State<GLPastPage> {
                   child: Container(
                     width: 110,
                     child: Text(
-                      'Bread, Peanut Butter, Apple',
+                      'Chocolate Cupcake x10',
                       style: h6,
                     ),
                   ),
