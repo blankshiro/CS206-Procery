@@ -22,15 +22,15 @@ import 'package:Procery/src/models/PlannerRecord.dart';
  */
 
 
-getRecommend(List<GroceryList> groceryListList,
-    List<Inventory> inventoryList, List<Ingredient> ingredientList,
+Map<Recipe, int> getRecommend(List<GroceryList> groceryListList,
+    List<Ingredient> ingredientList,
     List<Recipe> recipeList){
 
-    int flourA;
-    int eggA;
-    int butterA;
-    int chocoA;
-    int milkA;
+    int flourA = 0;
+    int eggA = 0;
+    int butterA = 0;
+    int chocoA = 0;
+    int milkA = 0;
 
     List<GroceryList> activeGL = groceryListList.where((gl) => gl.active == 1).toList();
     for(int i = 0; i < activeGL.length; i++){
@@ -63,20 +63,38 @@ getRecommend(List<GroceryList> groceryListList,
         " chocoA: " + chocoA.toString() +
         " milkA: " + milkA.toString());
 
+    print("Ingredient List - " + ingredientList.length.toString());
     int flourC = ingredientList[0].standardQ - (flourA % ingredientList[0].standardQ);
     int eggC = ingredientList[1].standardQ - (eggA % ingredientList[1].standardQ);
     int butterC = ingredientList[2].standardQ - (butterA % ingredientList[2].standardQ);
     int chocoC = ingredientList[3].standardQ - (chocoA % ingredientList[3].standardQ);
     int milkC = ingredientList[4].standardQ - (milkA % ingredientList[4].standardQ);
 
-    List constraints = [flourC, eggC, butterC, chocoC, milkC];
+    print(" flourC: " + flourC.toString() +
+        " eggC: " + eggC.toString() +
+        " butterC: " + butterC.toString() +
+        " chocoC: " + chocoC.toString() +
+        " milkC: " + milkC.toString());
 
-    List<int> results = recommend(constraints, recipeList);
+    flourC = flourC ~/ ingredientList[0].divide;
+    eggC = eggC ~/ ingredientList[1].divide;
+    butterC = butterC ~/ ingredientList[2].divide;
+    chocoC = chocoC ~/ ingredientList[3].divide;
+    milkC = milkC ~/ ingredientList[4].divide;
+
+    print(flourC.toString() + " " + eggC.toString() + " " + butterC.toString() + " " + chocoC.toString() + " " + milkC.toString());
+
+    List<int> constraints = [flourC, eggC, butterC, chocoC, milkC];
+
+    List<double> results = recommend(constraints, recipeList);
 
     Map<Recipe, int> map = Map();
+    if(results == null){
+      return map;
+    }
     for(int i = 0; i < results.length; i++){
       if(results[i] > 0){
-        map.putIfAbsent(recipeList[i], () => results[i]);
+        map.putIfAbsent(recipeList[i], () => results[i].floor());
       }
     }
 
@@ -86,8 +104,7 @@ getRecommend(List<GroceryList> groceryListList,
 
 }
 
-List<int> recommend(List<int> constraints, List<Recipe>recipeList){
-
+List<double> recommend(List<int> constraints, List<Recipe>recipeList){
   var tracker = new List.generate(constraints[0] + 1, (_) =>
   new List.generate(constraints[1] + 1, (_) =>
   new List.generate(constraints[2] + 1, (_) =>
@@ -100,22 +117,22 @@ List<int> recommend(List<int> constraints, List<Recipe>recipeList){
       growable: false),
       growable: false);
 
-  print("tracker");
-  print(tracker[0][0][0]);
+  // print("tracker");
+  // print(tracker[0][0][0][0][0][0]);
   var store = new List.generate(constraints[0] + 1, (_) =>
   new List.generate(constraints[1] + 1, (_) =>
   new List.generate(constraints[2] + 1, (_) =>
   new List.generate(constraints[3] + 1, (_) =>
   new List.generate(constraints[4] + 1, (_) =>
-  new List.filled(constraints.length, 0.0),
+  new List.filled(recipeList.length, 0.0),
       growable: false),
       growable: false),
       growable: false),
       growable: false),
       growable: false);
 
-  print("store");
-  print(store[0][0][0]);
+  // print("store");
+  // print(store[0][0][0][0][0][0]);
 
   for(var a = 0 ; a <= constraints[0]; a++){
     for(var b = 0; b <= constraints[1]; b++){
@@ -125,19 +142,19 @@ List<int> recommend(List<int> constraints, List<Recipe>recipeList){
             for(var i = 0; i < recipeList.length; i++){
               var current = recipeList[i];
 
-              if (current.ingredientsQ[0] > a){
+              if (current.ingredientsQ[0] ~/ current.ingredients[0].divide > a){
                 continue;
               }
-              if (current.ingredientsQ[1] > b){
+              if (current.ingredientsQ[1] ~/ current.ingredients[1].divide > b){
                 continue;
               }
-              if (current.ingredientsQ[2] > c){
+              if (current.ingredientsQ[2] ~/ current.ingredients[2].divide> c){
                 continue;
               }
-              if (current.ingredientsQ[3] > d){
+              if (current.ingredientsQ[3] ~/ current.ingredients[3].divide > d){
                 continue;
               }
-              if (current.ingredientsQ[4] > e){
+              if (current.ingredientsQ[4] ~/ current.ingredients[4].divide> e){
                 continue;
               }
 
@@ -145,12 +162,20 @@ List<int> recommend(List<int> constraints, List<Recipe>recipeList){
 
               tracker[a][b][c][d][e]
               = findMax(tracker[a][b][c][d][e]
-                  , findValue(tracker[a-current.ingredientsQ[0]][b-current.ingredientsQ[1]][c-current.ingredientsQ[2]][d-current.ingredientsQ[3]][e-current.ingredientsQ[4]]
+                  , findValue(tracker[a-(current.ingredientsQ[0]~/current.ingredients[0].divide)]
+                  [b-(current.ingredientsQ[1]~/ current.ingredients[1].divide)]
+                  [c-(current.ingredientsQ[2]~/ current.ingredients[2].divide)]
+                  [d-(current.ingredientsQ[3]~/ current.ingredients[3].divide)]
+                  [e-(current.ingredientsQ[4]~/ current.ingredients[4].divide)]
                       , current, constraints));
 
               if(toCompare <  calcListAvg(tracker[a][b][c][d][e])){
 
-                store[a][b][c][d][e] = List.from(store[a-current.ingredientsQ[0]][b-current.ingredientsQ[1]][c-current.ingredientsQ[2]][d-current.ingredientsQ[3]][e-current.ingredientsQ[4]]);
+                store[a][b][c][d][e] = List.from(store[a-(current.ingredientsQ[0]~/current.ingredients[0].divide)]
+                  [b-(current.ingredientsQ[1]~/current.ingredients[1].divide)]
+                  [c-(current.ingredientsQ[2]~/current.ingredients[2].divide)]
+                  [d-(current.ingredientsQ[3]~/current.ingredients[3].divide)]
+                  [e-(current.ingredientsQ[4]~/current.ingredients[4].divide)]);
                 store[a][b][c][d][e][i] = store[a][b][c][d][e][i] + 1;
 
               }
@@ -219,7 +244,7 @@ List findMax(List usage1, List usage2){
 List findValue(List usage1, Recipe current, List constraints){
   List<double> currentUsage = [];
   for(var i = 0; i < current.ingredientsQ.length; i++){
-    currentUsage.add(usage1[i] + (current.ingredientsQ[i] / constraints[i]));
+    currentUsage.add(usage1[i] + ((current.ingredientsQ[i]~/current.ingredients[i].divide) / constraints[i]));
   }
 
   return currentUsage;

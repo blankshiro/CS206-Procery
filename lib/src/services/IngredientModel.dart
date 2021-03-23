@@ -16,6 +16,8 @@ class IngredientModel with ChangeNotifier {
 
     print('added ' + ingredient.name);
 
+    getItem();
+
     notifyListeners();
   }
 
@@ -34,6 +36,8 @@ class IngredientModel with ChangeNotifier {
 
     print('updated ' + ingredient.name);
 
+    getItem();
+
     notifyListeners();
   }
 
@@ -47,5 +51,17 @@ class IngredientModel with ChangeNotifier {
     getItem();
 
     notifyListeners();
+  }
+
+  deleteAll() async{
+    var box = await Hive.openBox<Ingredient>(_ingredientBox);
+    while(box.isNotEmpty){
+      box.delete(box.keyAt(0));
+    }
+    print('delete all -');
+    print(box.length);
+
+    getItem();
+
   }
 }

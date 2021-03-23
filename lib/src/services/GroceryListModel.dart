@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 import '../models/GroceryList.dart';
 
 class GroceryListModel with ChangeNotifier {
-  String _grocerylistBox = 'ingredient';
+  String _grocerylistBox = 'groceryList';
 
   List _grocerylistList = <GroceryList>[];
 

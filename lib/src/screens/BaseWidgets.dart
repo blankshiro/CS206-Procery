@@ -56,3 +56,16 @@ BottomNavigationBar getBaseBottomNavBar(BuildContext context, int index) {
     },
   );
 }
+
+getBackButton(context) {
+  return Padding(
+    padding: EdgeInsets.fromLTRB(10, 45, 0, 0),
+    child: IconButton(
+      icon: Icon(Icons.arrow_back),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+      alignment: Alignment.topLeft,
+    ),
+  );
+}

@@ -26,6 +26,9 @@ class Ingredient {
   @HiveField(7)
   String image;
 
+  @HiveField(8)
+  int divide;  //measuring in quantities of 10/20 etc
+
   Ingredient(
       {this.name,
       this.description,
@@ -33,7 +36,8 @@ class Ingredient {
       this.price,
       this.standardQ,
       this.measurementType,
-      this.image});
+      this.image,
+      this.divide});
 
   String getName() {
     return name;

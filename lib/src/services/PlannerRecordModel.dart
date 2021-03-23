@@ -38,6 +38,8 @@ class PlannerRecordModel with ChangeNotifier {
 
     print('updated ' + plannerRecord.recipe.name);
 
+    getItem();
+
     notifyListeners();
   }
 
@@ -60,6 +62,8 @@ class PlannerRecordModel with ChangeNotifier {
     }
     print('delete all -');
     print(box.length);
+
+    getItem();
 
   }
 }

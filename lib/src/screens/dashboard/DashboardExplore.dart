@@ -1,9 +1,11 @@
+import 'package:Procery/src/data/IngredientData.dart';
 import 'package:Procery/src/router.gr.dart';
 import 'package:Procery/src/screens/mealplanner/MealPlannerInitial.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import '../../TimeCompare.dart';
 
 import '../../shared/styles.dart';
 import '../../shared/colors.dart';
@@ -21,6 +23,7 @@ import 'package:Procery/src/data/GroceryListData.dart';
 import './GroceryData.dart';
 import './MealData.dart';
 
+import 'package:Procery/src/services/IngredientModel.dart';
 import 'package:Procery/src/services/InventoryModel.dart';
 import 'package:Procery/src/services/PlannerRecordModel.dart';
 import 'package:Procery/src/services/PurchaseModel.dart';
@@ -120,6 +123,7 @@ class _DashboardExploreState extends State<DashboardExplore> {
   RecipeModel recipeModel;
   PlannerRecordModel plannerRecordModel;
   GroceryListModel groceryListModel;
+  IngredientModel ingredientModel;
 
   @override
   Widget build(BuildContext context) {
@@ -129,6 +133,7 @@ class _DashboardExploreState extends State<DashboardExplore> {
     plannerRecordModel =
         Provider.of<PlannerRecordModel>(context, listen: false);
     groceryListModel = Provider.of<GroceryListModel>(context, listen: false);
+    ingredientModel = Provider.of<IngredientModel>(context, listen: false);
 
     // context.watch reloads screen
     var inventoryList = context.watch<InventoryModel>().inventoryList;
@@ -138,6 +143,7 @@ class _DashboardExploreState extends State<DashboardExplore> {
     grocerylistList.sort((a, b) => a.deadLine.compareTo(b.deadLine));
 
     if (DashboardExplore.initialise == true) {
+      loadAllIngredient(ingredientModel);
       loadAllInventory(inventoryModel);
       loadAllPurchase(purchaseModel);
       loadAllGroceryList(groceryListModel);
@@ -241,6 +247,7 @@ class _DashboardExploreState extends State<DashboardExplore> {
 
     return Scaffold(
       bottomNavigationBar: getBaseBottomNavBar(context, 0),
+      backgroundColor: Colors.grey[100],
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
@@ -550,6 +557,15 @@ class _DashboardExploreState extends State<DashboardExplore> {
   /// Loading of Models for initialisation
   ////////////////////////////////////
 
+  void loadAllIngredient(IngredientModel ingredientModel) {
+    ingredientModel.deleteAll();
+
+    List<Ingredient> toAdd = getIngredients();
+    for (int i = 0; i < toAdd.length; i++) {
+      ingredientModel.addItem(toAdd[i]);
+    }
+  }
+
   void loadAllInventory(InventoryModel inventoryModel) {
     inventoryModel.deleteAll();
 
@@ -596,10 +612,10 @@ class _DashboardExploreState extends State<DashboardExplore> {
   }
 }
 
-extension DateOnlyCompare on DateTime {
-  bool isSameDate(DateTime other) {
-    return this.year == other.year &&
-        this.month == other.month &&
-        this.day == other.day;
-  }
-}
+// extension DateOnlyCompare on DateTime {
+//   bool isSameDate(DateTime other) {
+//     return this.year == other.year &&
+//         this.month == other.month &&
+//         this.day == other.day;
+//   }
+// }
