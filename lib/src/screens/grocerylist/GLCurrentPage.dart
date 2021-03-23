@@ -24,6 +24,11 @@ class GLCurrentPage extends StatefulWidget {
 
 class _GLCurrentPageState extends State<GLCurrentPage> {
   int _value = 1;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  DateTime selectedDate = DateTime.now();
+  TextEditingController textController1 = TextEditingController();
+  TextEditingController textController2 = TextEditingController();
+
 
   Widget getChildWidget() => childWidgets[selectedIndex];
 
@@ -34,11 +39,19 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
   int selectedIndex = 0;
 
   GroceryListModel groceryListModel;
+
   @override
   void initState() {
     super.initState();
     loadCupertinoTabs(); //Method to add Tabs to the Segmented Control.
     // loadChildWidgets(); //Method to add the Children as user selected.
+  }
+
+  @override
+  void dispose() {
+    textController1.dispose();
+    textController2.dispose();
+    super.dispose();
   }
 
   void loadCupertinoTabs() {
@@ -67,15 +80,16 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
   @override
   Widget build(BuildContext context) {
     print("Refreshing Grocery List Main - State");
-    List<GroceryList> groceryListList =
-        context.watch<GroceryListModel>().grocerylistList;
+    Provider.of<GroceryListModel>(context, listen: true).grocerylistList;
     List<Purchase> purchaseList = context.watch<PurchaseModel>().purchaseList;
-    print("GroceryListList length: " + groceryListList.length.toString());
     groceryListModel = Provider.of<GroceryListModel>(context, listen: false);
+    List<GroceryList> groceryListList = groceryListModel.grocerylistList;
+    print("GroceryListList length: " + groceryListList.length.toString());
     PurchaseModel purchaseModel =
         Provider.of<PurchaseModel>(context, listen: false);
 
     loadChildWidgets(groceryListList);
+
 
     return Scaffold(
       bottomNavigationBar: getBaseBottomNavBar(context, 2),
@@ -167,92 +181,111 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
             'Create a Grocery List',
             style: h4,
           ),
-          content: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: EdgeInsets.all(2),
-                  child: Text(
-                    'List Name: ',
-                    style: priceText,
-                  ),
-                ),
-                TextFormField(
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Please enter some text';
-                    }
-                    return null;
-                  },
-                ),
-                Container(
-                  child: SizedBox(
-                    height: 10,
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(2),
-                  child: Text(
-                    'Deadline:',
-                    style: priceText,
-                  ),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: Container(
-                        padding: EdgeInsets.all(2),
-                        child: TextFormField(
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            return null;
-                          },
-                        ),
+          content: Container(
+            height: 240,
+              child: Column(
+                  children:[
+                    SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(2),
+                            child: Text(
+                              'List Name: ',
+                              style: priceText,
+                            ),
+                          ),
+                          TextFormField(
+                            controller: textController1,
+                            autovalidateMode: AutovalidateMode.always,
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Please provide a list name';
+                              }
+                              return null;
+                            },
+                          ),
+                          Container(
+                            child: SizedBox(
+                              height: 10,
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(2),
+                            child: Text(
+                              'Deadline:',
+                              style: priceText,
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 3,
+                                child: Container(
+                                  padding: EdgeInsets.all(2),
+                                  child: TextFormField(
+                                    controller: textController2,
+                                    autovalidateMode: AutovalidateMode.always,
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Please enter a date YYYY-MM-DD';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Container(
+                                  margin: EdgeInsets.all(15),
+                                  child: IconButton(
+                                    onPressed: () => _selectDate(context),
+                                    icon: Icon(Icons.calendar_today),
+                                    iconSize: 30,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                     Expanded(
-                      flex: 1,
-                      child: Container(
-                        child: IconButton(
-                          onPressed: () => _selectDate(context),
-                          icon: Icon(Icons.calendar_today),
-                          iconSize: 30,
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.close),
+                            iconSize: 30,
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.check),
+                            iconSize: 30,
+                            onPressed: () {
+                              createNewGroceryList(textController1.text, textController2.text);
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.close),
-              iconSize: 30,
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            IconButton(
-              icon: Icon(Icons.check),
-              iconSize: 30,
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
+                    )
+                  ]
+              )
+          )
         );
       },
     );
   }
 
-  DateTime selectedDate = DateTime.now();
+
   Future<void> _selectDate(BuildContext context) async {
+    var formatter = new DateFormat('yyyy-MM-dd');
     final DateTime picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
@@ -261,7 +294,20 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;
+        textController2.value = TextEditingValue(text: formatter.format(selectedDate).toString());
       });
+  }
+
+  createNewGroceryList(String name, String deadline){
+    int id = groceryListModel.grocerylistList.length;
+    GroceryList toCreate = new GroceryList()
+      ..name = name
+      ..deadLine = DateTime.parse(deadline)
+      ..purchases = []
+      ..type = 1
+      ..id = id;
+
+    groceryListModel.addItem(toCreate);
   }
 
   Container buildCupertinoTab() {
@@ -503,6 +549,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
 
     computeCompletionPercentage(activeLists);
     computeCompletionPercentage(inactiveLists);
+    
 
     childWidgets.add(buildCurrentListTab(activeLists));
     childWidgets.add(buildCurrentListTab(inactiveLists));
@@ -658,7 +705,9 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
   }
 
   void flipListActiveState(GroceryList currentList) {
+    groceryListModel.getItem();
     List<GroceryList> groceryListList = groceryListModel.grocerylistList;
+
     int glIndex = -1;
     for (int i = 0; i < groceryListList.length; i++) {
       if (groceryListList[i].id == currentList.id) {
@@ -666,11 +715,11 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
         break;
       }
     }
-
     GroceryList toUpdate = groceryListList[glIndex];
     toUpdate.active =
         (toUpdate.active + 1) % 2; // Force it to alternate between 0 & 1
-    groceryListModel.updateItem(glIndex, toUpdate);
+    groceryListModel.updateItemByKey(currentList.id, toUpdate);
+    groceryListModel.getItem();
   }
 ////////////////////////////////
   ///GROCERY CURRENT LISTING PART

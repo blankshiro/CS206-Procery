@@ -232,11 +232,12 @@ class _DashboardExploreState extends State<DashboardExplore> {
               },
               child: Container(
                 padding: const EdgeInsets.all(24),
+                margin: EdgeInsets.all(16),
                 decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(40),
-                        topRight: Radius.circular(40))),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
+                    )),
                 child: Text("Please Add a Meal Plan"),
               )));
         }
@@ -359,9 +360,7 @@ class _DashboardExploreState extends State<DashboardExplore> {
               height: 192,
               child: PageView(
                 children: <Widget>[
-                  Expanded(
-                    child: getChildWidget(),
-                  ),
+                    getChildWidget(),
                 ],
               ),
             ),

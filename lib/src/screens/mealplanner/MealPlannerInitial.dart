@@ -284,11 +284,10 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
                 MaterialPageRoute(builder: (context) => RecipeDetail(recipe: recipe)),
               );
             },
-            child:Expanded(
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: Image(
-                        image: AssetImage(recipe.image), fit: BoxFit.cover))),
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: Image(
+                    image: AssetImage(recipe.image), fit: BoxFit.cover))
           ),
           SizedBox(
             height: 8,

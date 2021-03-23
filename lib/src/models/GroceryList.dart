@@ -34,4 +34,9 @@ class GroceryList {
         this.id
       });
 
+  @override
+  String toString() {
+    return name + " active - " + active.toString();
+  }
+
 }

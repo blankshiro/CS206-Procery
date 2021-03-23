@@ -24,17 +24,22 @@ class GroceryListModel with ChangeNotifier {
 
     _grocerylistList = box.values.toList();
 
+    print("in getItem - " + grocerylistList.toString());
+
     notifyListeners();
   }
 
   updateItem(int index, GroceryList groceryList) {
     final box = Hive.box<GroceryList>(_grocerylistBox);
 
+    print("updating" + box.getAt(index).name);
+
     box.putAt(index, groceryList);
 
     print('updated ' + groceryList.name);
 
     getItem();
+
     notifyListeners();
   }
 
@@ -49,6 +54,24 @@ class GroceryListModel with ChangeNotifier {
 
     notifyListeners();
   }
+  
+  updateItemByKey(int key, GroceryList toUpdate){
+    final box = Hive.box<GroceryList>(_grocerylistBox);
+    List keys = box.keys.toList();
+    for(int i = 0; i < keys.length; i++){
+      GroceryList item = box.get(keys[i]);
+      if(item.id == key){
+        print("updating at " + item.toString() + " to " + toUpdate.toString());
+        box.put(keys[i], toUpdate);
+        break;
+      }
+    }
+
+    getItem();
+
+    notifyListeners();
+
+  }
 
   deleteAll() async{
     var box = await Hive.openBox<GroceryList>(_grocerylistBox);
@@ -57,6 +80,7 @@ class GroceryListModel with ChangeNotifier {
     }
     print('delete all -');
     print(box.length);
+    getItem();
 
   }
 }
