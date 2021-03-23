@@ -93,12 +93,6 @@ class _GLEditPageState extends State<GLEditPage> {
               ),
             ),
           ),
-
-          // Container(
-          //   alignment: Alignment.centerLeft,
-          //   padding: EdgeInsets.all(10),
-          //   child: buildTextTitleVariation1(widget.groceryList.name),
-          // ),
           // Container(
           //   padding: EdgeInsets.all(10),
           //   child: buildTextTitleVariation1('Edit Lists'),

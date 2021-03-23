@@ -97,11 +97,6 @@ class _GLItemPageState extends State<GLItemPage> {
                   ),
                 ),
               ),
-              // Container(
-              //   alignment: Alignment.centerLeft,
-              //   padding: EdgeInsets.all(10),
-              //   child: buildTextTitleVariation1(widget.groceryList.name),
-              // ),
               Container(
                 child: IconButton(
                   alignment: Alignment.topLeft,
@@ -273,7 +268,8 @@ class _GLItemPageState extends State<GLItemPage> {
           Container(
             padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
             decoration: BoxDecoration(
-              color: Colors.grey[200],
+              // color: Colors.grey[200],
+              color: Colors.red,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(16.0),
                 topRight: Radius.circular(16.0),
@@ -281,8 +277,13 @@ class _GLItemPageState extends State<GLItemPage> {
                 bottomRight: Radius.circular(16.0),
               ),
             ),
-            child: Icon(
-              Icons.add,
+            child: IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => GLPastPage()));
+              },
+              icon: Icon(Icons.add),
+              iconSize: 20,
             ),
           ),
         ],

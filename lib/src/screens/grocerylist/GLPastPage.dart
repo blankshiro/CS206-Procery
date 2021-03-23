@@ -14,8 +14,6 @@ class GLPastPage extends StatefulWidget {
 }
 
 class _GLPastPageState extends State<GLPastPage> {
-  bool _checked = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +25,7 @@ class _GLPastPageState extends State<GLPastPage> {
             padding: EdgeInsets.all(10),
             color: Colors.grey[50],
             child: Text(
-              'MY GROCERY LIST',
+              'MY GOCERY LIST',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 20,
@@ -37,150 +35,312 @@ class _GLPastPageState extends State<GLPastPage> {
               textAlign: TextAlign.left,
             ),
           ),
-          //NUMBER 2
           Container(
-            color: Colors.grey[50],
-            child: Row(
+            width: 60,
+            height: 60,
+            alignment: Alignment.topLeft,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                alignment: Alignment.topLeft,
+                image: AssetImage('assets/images/choc_cupcake.png'),
+              ),
+            ),
+          ),
+          Container(
+            width: 600,
+            height: 600,
+            color: Colors.grey[100],
+            child: Stack(
               children: [
-                Container(
-                  width: 100.0,
-                  height: 30.0,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(16.0),
-                      topRight: Radius.circular(16.0),
-                      bottomLeft: Radius.circular(16.0),
-                      bottomRight: Radius.circular(16.0),
+                Positioned(
+                  top: 80,
+                  left: 20,
+                  child: Container(
+                    width: 150.0,
+                    height: 200.0,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Colors.redAccent[200],
+                          Colors.yellow[50],
+                        ],
+                      ),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(16.0),
+                        topRight: Radius.circular(80.0),
+                        bottomLeft: Radius.circular(16.0),
+                        bottomRight: Radius.circular(16.0),
+                      ),
                     ),
                   ),
-                  child: FlatButton(
-                    onPressed: () {},
+                ),
+                Positioned(
+                  top: 30,
+                  child: Container(
+                    alignment: Alignment.topLeft,
+                    height: 200,
+                    width: 200,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: ClipRect(
+                      clipBehavior: Clip.hardEdge,
+                      child: OverflowBox(
+                        maxHeight: 120,
+                        maxWidth: 120,
+                        alignment: Alignment.topLeft,
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Container(
+                            alignment: Alignment.topLeft,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                alignment: Alignment.topLeft,
+                                image: AssetImage(
+                                    'assets/images/choc_cupcake.png'),
+                              ),
+                              color: Colors.white.withOpacity(0.4),
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 160,
+                  left: 40,
+                  child: Container(
+                    alignment: Alignment.centerLeft,
                     child: Text(
-                      'Current',
-                      style: priceText,
-                      textAlign: TextAlign.center,
+                      'Breakfast',
+                      style: h7,
                     ),
                   ),
                 ),
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/egg1.jpg'),
+                Positioned(
+                  top: 200,
+                  left: 40,
+                  child: Container(
+                    width: 110,
+                    child: Text(
+                      'Bread, Peanut Butter, Apple',
+                      style: h6,
                     ),
-                    shape: BoxShape.circle,
                   ),
                 ),
-                buildWidget(),
+                Positioned(
+                  left: 20,
+                  child: Text(
+                    'Meals Plan',
+                    style: h3,
+                  ),
+                ),
               ],
             ),
           ),
-          //NUMBER 4
+          // Container(
+          //   child: ListView.builder(
+          //     itemCount: 4,
+          //     itemBuilder: (context, index) {
+          //       return buildSpacing();
+          //     },
+          //     physics: BouncingScrollPhysics(),
+          //     scrollDirection: Axis.horizontal,
+          //   ),
+          // ),
 
-          //NUMBER 5
-          // buildPastListTab(),
-          buildWidget(),
+          // buildWidget(),
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => GLEditPage()),
-          );
-        },
+        onPressed: () {},
         child: Text('edit'),
         backgroundColor: Colors.greenAccent[700],
       ),
     );
   }
 
-  Container buildWidget() {
-    return Container(
-      width: 150.0,
-      height: 200.0,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Colors.redAccent[200],
-            Colors.yellow[50],
-          ],
-        ),
-        // color: Colors.greenAccent[700],
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16.0),
-          topRight: Radius.circular(80.0),
-          bottomLeft: Radius.circular(16.0),
-          bottomRight: Radius.circular(16.0),
-        ),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            alignment: Alignment.topLeft,
-            height: 50,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: ClipRect(
-              clipBehavior: Clip.hardEdge,
-              child: OverflowBox(
-                maxHeight: 50,
-                maxWidth: 50,
-                alignment: Alignment.topLeft,
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Container(
-                    alignment: Alignment.topLeft,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        alignment: Alignment.topLeft,
-                        image: AssetImage('assets/images/egg1.jpg'),
-                      ),
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          // Container(
-          //   width: 50,
-          //   height: 50,
-          //   alignment: Alignment.centerLeft,
-          //   decoration: BoxDecoration(
-          //     image: DecorationImage(
-          //       image: AssetImage('assets/images/egg1.jpg'),
-          //     ),
-          //     shape: BoxShape.circle,
-          //   ),
-          // ),
-          Container(
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.fromLTRB(20, 0, 20, 5),
-            child: Text(
-              'Breakfast',
-              style: h7,
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.fromLTRB(20, 5, 20, 20),
-            child: Text(
-              'Bread, Peanut Butter, Apple',
-              style: h6,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Container buildSpacing() {
+  //   return Container(
+  //     padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+  //     child: buildWidget(),
+  //   );
+  // }
+
+  // Container buildWidget() {
+  //   return Container(
+  //     child: Stack(
+  //       children: [
+  //         Container(
+  //           width: 150.0,
+  //           height: 200.0,
+  //           decoration: BoxDecoration(
+  //             gradient: LinearGradient(
+  //               begin: Alignment.topLeft,
+  //               end: Alignment.bottomRight,
+  //               colors: [
+  //                 Colors.redAccent[200],
+  //                 Colors.yellow[50],
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // // Container(
+  // //   width: 150.0,
+  // //   height: 200.0,
+  // //   decoration: BoxDecoration(
+  // //     gradient: LinearGradient(
+  // //       begin: Alignment.topLeft,
+  // //       end: Alignment.bottomRight,
+  // //       colors: [
+  // //         Colors.redAccent[200],
+  // //         Colors.yellow[50],
+  // //       ],
+  // //     ),
+  // //     // color: Colors.greenAccent[700],
+  // //     borderRadius: BorderRadius.only(
+  // //       topLeft: Radius.circular(16.0),
+  // //       topRight: Radius.circular(80.0),
+  // //       bottomLeft: Radius.circular(16.0),
+  // //       bottomRight: Radius.circular(16.0),
+  // //     ),
+  // //   ),
+  // //   child: Column(
+  // //     mainAxisAlignment: MainAxisAlignment.start,
+  // //     crossAxisAlignment: CrossAxisAlignment.start,
+  // //     children: [
+  // //       Container(
+  // //         padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
+  // //         alignment: Alignment.topLeft,
+  // //         height: 70,
+  // //         decoration: BoxDecoration(
+  // //           borderRadius: BorderRadius.circular(10),
+  // //         ),
+  // //         child: ClipRect(
+  // //           clipBehavior: Clip.hardEdge,
+  // //           child: OverflowBox(
+  // //             maxHeight: 60,
+  // //             maxWidth: 60,
+  // //             alignment: Alignment.topLeft,
+  // //             child: Align(
+  // //               alignment: Alignment.topLeft,
+  // //               child: Container(
+  // //                 alignment: Alignment.topLeft,
+  // //                 decoration: BoxDecoration(
+  // //                   image: DecorationImage(
+  // //                     alignment: Alignment.topLeft,
+  // //                     image: AssetImage('assets/images/choc_cupcake.png'),
+  // //                   ),
+  // //                   color: Colors.white.withOpacity(0.5),
+  // //                   shape: BoxShape.circle,
+  // //                 ),
+  // //               ),
+  // //             ),
+  // //           ),
+  // //         ),
+  // //       ),
+  // //       Container(
+  // //         alignment: Alignment.centerLeft,
+  // //         padding: EdgeInsets.fromLTRB(20, 10, 20, 5),
+  // //         child: Text(
+  // //           'Breakfast',
+  // //           style: h7,
+  // //         ),
+  // //       ),
+  // //       Container(
+  // //         padding: EdgeInsets.fromLTRB(20, 5, 20, 20),
+  // //         child: Text(
+  // //           'Bread, Peanut Butter, Apple',
+  // //           style: h6,
+  // //         ),
+  // //       ),
+  // //     ],
+  // //   ),
+  // );
+  // }
+
+//ver1
+  // Container buildWidget() {
+  //   return Container(
+  //     width: 150.0,
+  //     height: 200.0,
+  //     decoration: BoxDecoration(
+  //       gradient: LinearGradient(
+  //         begin: Alignment.topLeft,
+  //         end: Alignment.bottomRight,
+  //         colors: [
+  //           Colors.redAccent[200],
+  //           Colors.yellow[50],
+  //         ],
+  //       ),
+  //       // color: Colors.greenAccent[700],
+  //       borderRadius: BorderRadius.only(
+  //         topLeft: Radius.circular(16.0),
+  //         topRight: Radius.circular(80.0),
+  //         bottomLeft: Radius.circular(16.0),
+  //         bottomRight: Radius.circular(16.0),
+  //       ),
+  //     ),
+  //     child: Column(
+  //       mainAxisAlignment: MainAxisAlignment.start,
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Container(
+  //           padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
+  //           alignment: Alignment.topLeft,
+  //           height: 70,
+  //           decoration: BoxDecoration(
+  //             borderRadius: BorderRadius.circular(10),
+  //           ),
+  //           child: ClipRect(
+  //             clipBehavior: Clip.hardEdge,
+  //             child: OverflowBox(
+  //               maxHeight: 60,
+  //               maxWidth: 60,
+  //               alignment: Alignment.topLeft,
+  //               child: Align(
+  //                 alignment: Alignment.topLeft,
+  //                 child: Container(
+  //                   alignment: Alignment.topLeft,
+  //                   decoration: BoxDecoration(
+  //                     image: DecorationImage(
+  //                       alignment: Alignment.topLeft,
+  //                       image: AssetImage('assets/images/choc_cupcake.png'),
+  //                     ),
+  //                     color: Colors.white.withOpacity(0.5),
+  //                     shape: BoxShape.circle,
+  //                   ),
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //         Container(
+  //           alignment: Alignment.centerLeft,
+  //           padding: EdgeInsets.fromLTRB(20, 10, 20, 5),
+  //           child: Text(
+  //             'Breakfast',
+  //             style: h7,
+  //           ),
+  //         ),
+  //         Container(
+  //           padding: EdgeInsets.fromLTRB(20, 5, 20, 20),
+  //           child: Text(
+  //             'Bread, Peanut Butter, Apple',
+  //             style: h6,
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   ////////////////////////////////
   //GROCERY PAST LISTING PART
