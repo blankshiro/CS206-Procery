@@ -155,12 +155,14 @@ class _GLItemPageState extends State<GLItemPage> {
             ),
           ),
           Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: buildItemLists(
-                  groceryListModel, inventoryModel, groceryListList),
-            ),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: buildItemLists(
+                    groceryListModel, inventoryModel, groceryListList),
+              ),
+            )
           ),
         ],
       ),
