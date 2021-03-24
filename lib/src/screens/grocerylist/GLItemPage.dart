@@ -155,15 +155,14 @@ class _GLItemPageState extends State<GLItemPage> {
             ),
           ),
           Container(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: buildItemLists(
-                    groceryListModel, inventoryModel, groceryListList),
-              ),
-            )
-          ),
+              child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: buildItemLists(
+                  groceryListModel, inventoryModel, groceryListList),
+            ),
+          )),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -273,7 +272,7 @@ class _GLItemPageState extends State<GLItemPage> {
           Container(
             padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
             decoration: BoxDecoration(
-              // color: Colors.grey[200],
+              color: Colors.grey[200],
               // color: Colors.red,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(16.0),
