@@ -183,42 +183,43 @@ class _DashboardExploreState extends State<DashboardExplore> {
               },
               child: Column(
                 children: [
-                  Container(
-                    margin: EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20),
-                      ),
-                      boxShadow: [kBoxShadow],
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                          height: 160,
-                          width: 160,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(meal.recipe.image),
-                              fit: BoxFit.fitHeight,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                buildRecipeTitle(meal.recipe.name),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
+
+                  // Container(
+                  //   margin: EdgeInsets.all(16),
+                  //   decoration: BoxDecoration(
+                  //     color: Colors.white,
+                  //     borderRadius: BorderRadius.all(
+                  //       Radius.circular(20),
+                  //     ),
+                  //     boxShadow: [kBoxShadow],
+                  //   ),
+                  //   child: Row(
+                  //     children: [
+                  //       Container(
+                  //         height: 160,
+                  //         width: 160,
+                  //         decoration: BoxDecoration(
+                  //           image: DecorationImage(
+                  //             image: AssetImage(meal.recipe.image),
+                  //             fit: BoxFit.fitHeight,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //       Expanded(
+                  //         child: Padding(
+                  //           padding: EdgeInsets.symmetric(horizontal: 16),
+                  //           child: Column(
+                  //             crossAxisAlignment: CrossAxisAlignment.start,
+                  //             mainAxisAlignment: MainAxisAlignment.center,
+                  //             children: [
+                  //               buildRecipeTitle(meal.recipe.name),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // )
                 ],
               )));
         } else {
@@ -356,102 +357,13 @@ class _DashboardExploreState extends State<DashboardExplore> {
             //   width: 8,
             // ),
             Container(
-              width: 300,
               height: 300,
-              color: Colors.grey[100],
-              child: Stack(
-                children: [
-                  Positioned(
-                    top: 80,
-                    left: 20,
-                    child: Container(
-                      width: 150.0,
-                      height: 200.0,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            Colors.redAccent[200],
-                            Colors.yellow[50],
-                          ],
-                        ),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(16.0),
-                          topRight: Radius.circular(80.0),
-                          bottomLeft: Radius.circular(16.0),
-                          bottomRight: Radius.circular(16.0),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 30,
-                    child: Container(
-                      alignment: Alignment.topLeft,
-                      height: 200,
-                      width: 200,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: ClipRect(
-                        clipBehavior: Clip.hardEdge,
-                        child: OverflowBox(
-                          maxHeight: 120,
-                          maxWidth: 120,
-                          alignment: Alignment.topLeft,
-                          child: Align(
-                            alignment: Alignment.topLeft,
-                            child: Container(
-                              alignment: Alignment.topLeft,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  alignment: Alignment.topLeft,
-                                  image: AssetImage(
-                                      'assets/images/choc_cupcake.png'),
-                                ),
-                                color: Colors.white.withOpacity(0.4),
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 160,
-                    left: 40,
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Breakfast',
-                        style: h7,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 200,
-                    left: 40,
-                    child: Container(
-                      width: 110,
-                      child: Text(
-                        'Chocolate Cupcake x10',
-                        style: h6,
-                      ),
-                    ),
-                  ),
+              child: PageView(
+                children: <Widget>[
+                  getChildWidget(),
                 ],
               ),
             ),
-            // Container(
-            //   height: 192,
-            //   child: PageView(
-            //     children: <Widget>[
-            //       getChildWidget(),
-            //     ],
-            //   ),
-            // ),
             SizedBox(
               height: 16,
             ),

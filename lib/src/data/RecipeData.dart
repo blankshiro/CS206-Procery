@@ -31,7 +31,7 @@ var recipe1 = Recipe(
     prepMins: 40,
     calories: 200,
     ingredients: [flour, egg, butter, chocolate, milk],
-    ingredientsQ: [210, 2, 200, 90, 240],
+    ingredientsQ: [150, 7, 200, 80, 1000],
     likes: 0);
 
 var recipe2 = Recipe(
@@ -50,7 +50,7 @@ var recipe2 = Recipe(
     prepMins: 24,
     calories: 440,
     ingredients: [flour, egg, butter, chocolate, milk],
-    ingredientsQ: [200, 12, 100, 250, 2000],
+    ingredientsQ: [150, 8, 100, 140, 1000],
     likes: 0);
 
 var recipe3 = Recipe(
@@ -75,7 +75,7 @@ var recipe3 = Recipe(
     prepMins: 52,
     calories: 400,
     ingredients: [flour, egg, butter, chocolate, milk],
-    ingredientsQ: [300, 12, 200, 0, 2000],
+    ingredientsQ: [125, 10, 200, 0, 1000],
     likes: 0);
 
 var recipe4 = Recipe(
@@ -93,7 +93,7 @@ var recipe4 = Recipe(
     prepMins: 24,
     calories: 340,
     ingredients: [flour, egg, butter, chocolate, milk],
-    ingredientsQ: [300, 5, 100, 0, 2500],
+    ingredientsQ: [100, 2, 100, 0, 2500],
     likes: 0);
 
 var recipe5 = Recipe(
@@ -112,7 +112,7 @@ var recipe5 = Recipe(
     prepMins: 34,
     calories: 240,
     ingredients: [flour, egg, butter, chocolate, milk],
-    ingredientsQ: [600, 10, 200, 0, 300],
+    ingredientsQ: [100, 1, 200, 0, 300],
     likes: 0);
 
 var recipe6 = Recipe(
@@ -133,7 +133,7 @@ var recipe6 = Recipe(
     prepMins: 54,
     calories: 560,
     ingredients: [flour, egg, butter, chocolate, milk],
-    ingredientsQ: [100, 6, 100, 0, 1500],
+    ingredientsQ: [100, 3, 100, 0, 1500],
     likes: 1);
 
 var recipe7 = Recipe(
@@ -150,7 +150,7 @@ var recipe7 = Recipe(
     prepMins: 40,
     calories: 350,
     ingredients: [flour, egg, butter, chocolate, milk],
-    ingredientsQ: [100, 8, 70, 0, 700],
+    ingredientsQ: [100, 2, 50, 0, 700],
     likes: 0);
 
 var recipe8 = Recipe(
@@ -168,7 +168,7 @@ var recipe8 = Recipe(
     prepMins: 80,
     calories: 340,
     ingredients: [flour, egg, butter, chocolate, milk],
-    ingredientsQ: [600, 10, 100, 0, 800],
+    ingredientsQ: [125, 1, 100, 0, 800],
     likes: 0);
 
 var recipe9 = Recipe(
@@ -188,7 +188,7 @@ var recipe9 = Recipe(
     prepMins: 32,
     calories: 520,
     ingredients: [flour, egg, butter, chocolate, milk],
-    ingredientsQ: [300, 4, 80, 90, 2000],
+    ingredientsQ: [150, 4, 50, 100, 2000],
     likes: 0);
 
 var recipe10 = Recipe(
@@ -207,7 +207,7 @@ var recipe10 = Recipe(
     prepMins: 40,
     calories: 600,
     ingredients: [flour, egg, butter, chocolate, milk],
-    ingredientsQ: [400, 12, 100, 300, 3000],
+    ingredientsQ: [150, 2, 100, 300, 3000],
     likes: 0);
 
 var recipe11 = Recipe(
@@ -226,7 +226,7 @@ var recipe11 = Recipe(
     prepMins: 42,
     calories: 420,
     ingredients: [flour, egg, butter, chocolate, milk],
-    ingredientsQ: [600, 14, 180, 0, 1500],
+    ingredientsQ: [175, 1, 150, 0, 1500],
     likes: 0);
 
 var recipe12 = Recipe(
@@ -247,7 +247,7 @@ var recipe12 = Recipe(
     prepMins: 30,
     calories: 300,
     ingredients: [flour, egg, butter, chocolate, milk],
-    ingredientsQ: [500, 6, 140, 200, 1300],
+    ingredientsQ: [175, 3, 150, 200, 1300],
     likes: 0);
 
 var recipe13 = Recipe(
@@ -264,7 +264,7 @@ var recipe13 = Recipe(
     prepMins: 40,
     calories: 200,
     ingredients: [flour, egg, butter, chocolate, milk],
-    ingredientsQ: [400, 8, 240, 0, 2000],
+    ingredientsQ: [175, 1, 200, 0, 2000],
     likes: 0);
 
 var recipe14 = Recipe(
@@ -281,7 +281,7 @@ var recipe14 = Recipe(
     prepMins: 32,
     calories: 520,
     ingredients: [flour, egg, butter, chocolate, milk],
-    ingredientsQ: [450, 10, 100, 240, 2500],
+    ingredientsQ: [150, 1, 100, 200, 2500],
     likes: 0);
 
 var recipe15 = Recipe(
@@ -317,7 +317,7 @@ var recipe16 = Recipe(
     prepMins: 50,
     calories: 100,
     ingredients: [flour, egg, butter, chocolate, milk],
-    ingredientsQ: [200, 6, 100, 0, 300],
+    ingredientsQ: [200, 2, 100, 0, 300],
     likes: 0);
 
 var recipe17 = Recipe(
@@ -334,7 +334,7 @@ var recipe17 = Recipe(
     prepMins: 30,
     calories: 400,
     ingredients: [flour, egg, butter, chocolate, milk],
-    ingredientsQ: [450, 8, 150, 200, 1500],
+    ingredientsQ: [150, 3, 150, 200, 1500],
     likes: 0);
 
 var recipe18 = Recipe(
@@ -352,7 +352,7 @@ var recipe18 = Recipe(
     prepMins: 30,
     calories: 180,
     ingredients: [flour, egg, butter, chocolate, milk],
-    ingredientsQ: [200, 4, 120, 0, 600],
+    ingredientsQ: [200, 1, 100, 0, 600],
     likes: 0);
 
 var recipe19 = Recipe(
@@ -373,7 +373,7 @@ var recipe19 = Recipe(
     prepMins: 35,
     calories: 300,
     ingredients: [flour, egg, butter, chocolate, milk],
-    ingredientsQ: [200, 4, 120, 0, 900],
+    ingredientsQ: [200, 2, 100, 0, 900],
     likes: 0);
 
 var recipe20 = Recipe(
@@ -390,7 +390,7 @@ var recipe20 = Recipe(
     prepMins: 50,
     calories: 120,
     ingredients: [flour, egg, butter, chocolate, milk],
-    ingredientsQ: [400, 8, 200, 0, 1000],
+    ingredientsQ: [200, 2, 200, 0, 1000],
     likes: 0);
 
 List<Recipe> getRecipes() {
