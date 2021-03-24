@@ -549,7 +549,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
 
     computeCompletionPercentage(activeLists);
     computeCompletionPercentage(inactiveLists);
-    
+
 
     childWidgets.add(buildCurrentListTab(activeLists));
     childWidgets.add(buildCurrentListTab(inactiveLists));

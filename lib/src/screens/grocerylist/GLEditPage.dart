@@ -2,14 +2,18 @@ import 'package:Procery/src/data/GroceryListData.dart';
 import 'package:Procery/src/screens/grocerylist/GLCurrentPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLItemPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLPastPage.dart';
+import 'package:Procery/src/services/PurchaseModel.dart';
 import 'package:intl/intl.dart';
+import '../../screens/BaseWidgets.dart';
 
 import '../../models/GroceryList.dart';
 import '../../models/Purchase.dart';
 import '../../models/Inventory.dart';
+import '../../models/Ingredient.dart';
 
 import '../../services/GroceryListModel.dart';
 import '../../services/InventoryModel.dart';
+import '../../services/IngredientModel.dart';
 
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +32,10 @@ class GLEditPage extends StatefulWidget {
 
 class _GLEditPageState extends State<GLEditPage> {
   List<bool> _checked;
+  TextEditingController textController1 = TextEditingController();
+  TextEditingController textController2 = TextEditingController();
+  IngredientModel ingredientModel;
+  PurchaseModel purchaseModel;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +45,10 @@ class _GLEditPageState extends State<GLEditPage> {
         Provider.of<GroceryListModel>(context, listen: false);
     InventoryModel inventoryModel =
         Provider.of<InventoryModel>(context, listen: false);
+    ingredientModel =
+      Provider.of<IngredientModel>(context, listen: false);
+    purchaseModel =
+        Provider.of<PurchaseModel>(context, listen: false);
 
     GroceryList initialiseGroceryList() {
       GroceryList toInitialise = null;
@@ -69,9 +81,10 @@ class _GLEditPageState extends State<GLEditPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          getBackButton(context),
           Container(
             alignment: Alignment.centerLeft,
-            padding: EdgeInsets.fromLTRB(20, 45, 0, 0),
+            padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
             child: Text(
               "My",
               textAlign: TextAlign.left,
@@ -108,7 +121,7 @@ class _GLEditPageState extends State<GLEditPage> {
               child: Container(
                 child: Column(
                   children: [
-                    buildRowNewEntry(),
+                    buildRowNewEntry(groceryListModel),
                     Divider(
                       height: 10,
                       thickness: 1,
@@ -199,7 +212,7 @@ class _GLEditPageState extends State<GLEditPage> {
           Expanded(
             flex: 1,
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {deleteItemToPurchase(groceryListModel, _purchase);},
               iconSize: 20,
               icon: Icon(Icons.delete_outline),
             ),
@@ -268,7 +281,7 @@ class _GLEditPageState extends State<GLEditPage> {
                 icon: Icon(Icons.remove),
                 iconSize: 30,
                 onPressed: () {
-                  incrementQuantityPurchased(groceryListModel, inventoryModel,
+                  incrementQuantityToPurchase(groceryListModel, inventoryModel,
                       groceryList, _purchase, -1);
                 },
               ),
@@ -282,7 +295,7 @@ class _GLEditPageState extends State<GLEditPage> {
                 icon: Icon(Icons.add_rounded),
                 iconSize: 30,
                 onPressed: () {
-                  incrementQuantityPurchased(groceryListModel, inventoryModel,
+                  incrementQuantityToPurchase(groceryListModel, inventoryModel,
                       groceryList, _purchase, 1);
                 },
               ),
@@ -293,15 +306,14 @@ class _GLEditPageState extends State<GLEditPage> {
     );
   }
 
-  void incrementQuantityPurchased(
+  void incrementQuantityToPurchase(
       GroceryListModel groceryListModel,
       InventoryModel inventoryModel,
       GroceryList groceryList,
       Purchase _purchase,
       int change) {
-    // Prevent negatives / overflow
-    if ((_purchase.purchased == 0 && change == -1) ||
-        (_purchase.purchased == _purchase.quantity && change == 1)) {
+    // Prevent negatives / there is no overflow
+    if (_purchase.quantity == 0 && change == -1) {
       return;
     }
 
@@ -324,46 +336,67 @@ class _GLEditPageState extends State<GLEditPage> {
     }
 
     GroceryList toUpdate = groceryListList[glIndex];
-    toUpdate.purchases[purchaseIndex].purchased += change;
+    toUpdate.purchases[purchaseIndex].quantity += change;
     groceryListModel.updateItem(glIndex, toUpdate);
 
-    int invIndex = -1;
-    DateTime today = DateTime.now();
-    var inventoryList = inventoryModel.inventoryList;
+    return;
+  }
 
-    // If same date, can use the same inventory record since expiry is similar
-    // Else create a new inventory record for the different expiry
-    for (int i = 0; i < inventoryList.length; i++) {
-      if (inventoryList[i].ingredient.name == _purchase.ingredient.name &&
-          today.isSameDate(inventoryList[i].datePurchased)) {
-        invIndex = i;
+  void createNewItemToPurchase(GroceryListModel groceryListModel,
+      String itemName, String itemQ){
+
+    GroceryList toUpdateList = widget.groceryList;
+    Purchase toUpdatePurchase;
+    for(int i = 0; i < toUpdateList.purchases.length; i++){
+      if(toUpdateList.purchases[i].ingredient.name == itemName){
+        toUpdateList.purchases[i].quantity += int.parse(itemQ);
+      }
+    }
+
+    if(toUpdatePurchase == null){
+      List<Ingredient> ingredientList = ingredientModel.ingredientList;
+      Ingredient toBuy;
+      for(int i = 0; i < ingredientList.length; i++){
+        if(ingredientList[i].name == itemName){
+          toBuy = ingredientList[i];
+        }
+      }
+
+      Purchase toCreate = new Purchase()
+        ..ingredient = toBuy
+        ..quantity = int.parse(itemQ)
+        ..purchased = 0
+        ..id = purchaseModel.purchaseList.length
+        ..listName = widget.groceryList.name;
+
+      purchaseModel.addItem(toCreate);
+      toUpdateList.purchases.add(toCreate);
+    }
+
+    groceryListModel.updateItemByKey(widget.groceryList.id, toUpdateList);
+
+
+
+
+  }
+
+  void deleteItemToPurchase(GroceryListModel groceryListModel, _purchase){
+    GroceryList groceryList = widget.groceryList;
+    for(int i = 0; i < groceryList.purchases.length; i++){
+      if(groceryList.purchases[i].id == _purchase.id){
+        groceryList.purchases.removeAt(i);
         break;
       }
     }
 
-    if (invIndex >= 0) {
-      Inventory toUpdate = inventoryList[invIndex];
-      toUpdate.quantity += change;
-
-      inventoryModel.updateItem(invIndex, toUpdate);
-    } else if (invIndex == -1) {
-      Inventory toUpdate = new Inventory()
-        ..ingredient = _purchase.ingredient
-        ..quantity = change
-        ..datePurchased = today
-        ..id = inventoryList.length;
-
-      inventoryModel.addItem(toUpdate);
-    }
-
-    return;
+    groceryListModel.updateItemByKey(groceryList.id, groceryList);
   }
 
   ////////////////////////////
   ///OTHER CONTAINERS
   ////////////////////////////
 
-  Container buildRowNewEntry() {
+  Container buildRowNewEntry(GroceryListModel groceryListModel) {
     return Container(
       padding: EdgeInsets.all(10),
       child: Row(
@@ -379,7 +412,15 @@ class _GLEditPageState extends State<GLEditPage> {
             child: Container(
               width: 10,
               height: 35,
-              child: TextField(
+              child: TextFormField(
+                controller: textController1,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter an ingredient name';
+                  }
+                  return null;
+                },
                 decoration: InputDecoration(
                   hintText: 'Ingredient',
                   hintStyle: TextStyle(fontSize: 12),
@@ -410,7 +451,17 @@ class _GLEditPageState extends State<GLEditPage> {
             child: Container(
               width: 10,
               height: 35,
-              child: TextField(
+              child: TextFormField(
+                controller: textController2,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter an initial quantity to purchase';
+                  } else if(int.tryParse(value) == null || int.tryParse(value) < 0){
+                    return 'Please enter a valid quantity';
+                  }
+                  return null;
+                },
                 decoration: InputDecoration(
                   hintText: '0',
                   hintStyle: TextStyle(fontSize: 12),
@@ -440,9 +491,11 @@ class _GLEditPageState extends State<GLEditPage> {
             flex: 1,
             child: Container(
               color: Colors.grey[50],
-              child: Icon(
-                Icons.check_circle_outline,
-                size: 30,
+              child: IconButton(
+                icon: Icon(Icons.check_circle_outline),
+                iconSize: 30,
+                onPressed: () {createNewItemToPurchase(groceryListModel,
+                    textController1.text, textController2.text);},
               ),
             ),
           ),
