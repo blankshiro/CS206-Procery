@@ -29,7 +29,6 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
   TextEditingController textController1 = TextEditingController();
   TextEditingController textController2 = TextEditingController();
 
-
   Widget getChildWidget() => childWidgets[selectedIndex];
 
   Map<int, Widget> map =
@@ -90,7 +89,6 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
 
     loadChildWidgets(groceryListList);
 
-
     return Scaffold(
       bottomNavigationBar: getBaseBottomNavBar(context, 2),
       backgroundColor: white,
@@ -137,14 +135,14 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
                       buildNameAndQuantityHeader(),
                       //NUMBER 5
                       Container(
-                        color: Colors.grey[50],
+                        color: Colors.grey[100],
                         child: getChildWidget(),
                       ),
                       //6. end white screen
                       Container(
                         width: 500,
                         height: 400,
-                        color: Colors.grey[50],
+                        color: Colors.grey[100],
                       ),
                     ],
                   ),
@@ -177,112 +175,108 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(
-            'Create a Grocery List',
-            style: h4,
-          ),
-          content: Container(
-            height: 240,
-              child: Column(
-                  children:[
-                    SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(2),
-                            child: Text(
-                              'List Name: ',
-                              style: priceText,
-                            ),
+            title: Text(
+              'Create a Grocery List',
+              style: h4,
+            ),
+            content: Container(
+                height: 240,
+                child: Column(children: [
+                  SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(2),
+                          child: Text(
+                            'List Name: ',
+                            style: priceText,
                           ),
-                          TextFormField(
-                            controller: textController1,
-                            autovalidateMode: AutovalidateMode.always,
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Please provide a list name';
-                              }
-                              return null;
-                            },
+                        ),
+                        TextFormField(
+                          controller: textController1,
+                          autovalidateMode: AutovalidateMode.always,
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please provide a list name';
+                            }
+                            return null;
+                          },
+                        ),
+                        Container(
+                          child: SizedBox(
+                            height: 10,
                           ),
-                          Container(
-                            child: SizedBox(
-                              height: 10,
-                            ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(2),
+                          child: Text(
+                            'Deadline:',
+                            style: priceText,
                           ),
-                          Container(
-                            padding: EdgeInsets.all(2),
-                            child: Text(
-                              'Deadline:',
-                              style: priceText,
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                flex: 3,
-                                child: Container(
-                                  padding: EdgeInsets.all(2),
-                                  child: TextFormField(
-                                    controller: textController2,
-                                    autovalidateMode: AutovalidateMode.always,
-                                    validator: (value) {
-                                      if (value.isEmpty) {
-                                        return 'Please enter a date YYYY-MM-DD';
-                                      }
-                                      return null;
-                                    },
-                                  ),
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 3,
+                              child: Container(
+                                padding: EdgeInsets.all(2),
+                                child: TextFormField(
+                                  controller: textController2,
+                                  autovalidateMode: AutovalidateMode.always,
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'Please enter a date YYYY-MM-DD';
+                                    }
+                                    return null;
+                                  },
                                 ),
                               ),
-                              Expanded(
-                                flex: 1,
-                                child: Container(
-                                  margin: EdgeInsets.all(15),
-                                  child: IconButton(
-                                    onPressed: () => _selectDate(context),
-                                    icon: Icon(Icons.calendar_today),
-                                    iconSize: 30,
-                                  ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Container(
+                                margin: EdgeInsets.all(15),
+                                child: IconButton(
+                                  onPressed: () => _selectDate(context),
+                                  icon: Icon(Icons.calendar_today),
+                                  iconSize: 30,
                                 ),
                               ),
-                            ],
-                          ),
-                        ],
-                      ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          IconButton(
-                            icon: Icon(Icons.close),
-                            iconSize: 30,
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.check),
-                            iconSize: 30,
-                            onPressed: () {
-                              createNewGroceryList(textController1.text, textController2.text);
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ],
-                      ),
-                    )
-                  ]
-              )
-          )
-        );
+                  ),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.close),
+                          iconSize: 30,
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.check),
+                          iconSize: 30,
+                          onPressed: () {
+                            createNewGroceryList(
+                                textController1.text, textController2.text);
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    ),
+                  )
+                ])));
       },
     );
   }
-
 
   Future<void> _selectDate(BuildContext context) async {
     var formatter = new DateFormat('yyyy-MM-dd');
@@ -294,11 +288,12 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
     if (picked != null && picked != selectedDate)
       setState(() {
         selectedDate = picked;
-        textController2.value = TextEditingValue(text: formatter.format(selectedDate).toString());
+        textController2.value =
+            TextEditingValue(text: formatter.format(selectedDate).toString());
       });
   }
 
-  createNewGroceryList(String name, String deadline){
+  createNewGroceryList(String name, String deadline) {
     int id = groceryListModel.grocerylistList.length;
     GroceryList toCreate = new GroceryList()
       ..name = name
@@ -312,12 +307,12 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
 
   Container buildCupertinoTab() {
     return Container(
-      padding: EdgeInsets.fromLTRB(10, 10, 10, 5),
+      padding: EdgeInsets.fromLTRB(10, 15, 10, 5),
       decoration: BoxDecoration(
-        color: Colors.grey[50],
+        color: Colors.grey[100],
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16.0),
-          topRight: Radius.circular(16.0),
+          topLeft: Radius.circular(30.0),
+          topRight: Radius.circular(30.0),
           bottomLeft: Radius.circular(0),
           bottomRight: Radius.circular(0),
         ),
@@ -347,7 +342,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
 
   Container buildNameAndQuantityHeader() {
     return Container(
-      color: Colors.grey[50],
+      color: Colors.grey[100],
       child: Row(
         children: [
           Expanded(
@@ -391,18 +386,18 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
 
   Container buildFilter() {
     return Container(
-      padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
-      color: Colors.grey[50],
+      padding: EdgeInsets.fromLTRB(10, 0, 0, 15),
+      color: Colors.grey[100],
       child: Row(children: [
         Container(
-          color: Colors.grey[50],
+          color: Colors.grey[100],
           child: Text(
             'Sort by: ',
             style: h5,
           ),
         ),
         Container(
-          color: Colors.grey[50],
+          color: Colors.grey[100],
           padding: EdgeInsets.only(left: 10),
           child: DropdownButton(
             value: _value,
@@ -433,11 +428,11 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
 
   Container buildSearchBar() {
     return Container(
-      padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+      padding: EdgeInsets.fromLTRB(15, 8, 15, 25),
       child: TextField(
         decoration: InputDecoration(
           hintText: 'Search',
-          hintStyle: TextStyle(fontSize: 12),
+          hintStyle: TextStyle(fontSize: 16),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
             borderSide: BorderSide(
@@ -446,7 +441,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
             ),
           ),
           filled: true,
-          fillColor: Colors.grey[200],
+          fillColor: Colors.grey[100],
           contentPadding: EdgeInsets.only(
             left: 30,
           ),
@@ -459,78 +454,6 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  // Seems like this functiom is not used, can delete? - WJ
-  Container buildCurrentAndPastButton() {
-    return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.grey[50],
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16.0),
-          topRight: Radius.circular(16.0),
-          bottomLeft: Radius.circular(0),
-          bottomRight: Radius.circular(0),
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Container(
-            width: 100.0,
-            height: 30.0,
-            decoration: BoxDecoration(
-              color: Colors.greenAccent[700],
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16.0),
-                topRight: Radius.circular(16.0),
-                bottomLeft: Radius.circular(16.0),
-                bottomRight: Radius.circular(16.0),
-              ),
-            ),
-            child: FlatButton(
-              onPressed: () {},
-              child: Text(
-                'Current',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal,
-                  fontFamily: 'Poppins',
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-          Container(
-              width: 100.0,
-              height: 30.0,
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(16.0),
-                  topRight: Radius.circular(16.0),
-                  bottomLeft: Radius.circular(16.0),
-                  bottomRight: Radius.circular(16.0),
-                ),
-              ),
-              child: FlatButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => GLPastPage()),
-                  );
-                },
-                child: Text(
-                  'Past',
-                  style: priceText,
-                  textAlign: TextAlign.center,
-                ),
-              )),
-        ],
       ),
     );
   }
@@ -549,7 +472,6 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
 
     computeCompletionPercentage(activeLists);
     computeCompletionPercentage(inactiveLists);
-
 
     childWidgets.add(buildCurrentListTab(activeLists));
     childWidgets.add(buildCurrentListTab(inactiveLists));
@@ -576,7 +498,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
 
   Container buildCurrentListTab(List<GroceryList> groceryListList) {
     return Container(
-      color: Colors.grey[50],
+      color: Colors.grey[100],
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
