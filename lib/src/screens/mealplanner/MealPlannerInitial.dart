@@ -271,14 +271,14 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
     Color secondaryColor;
 
     if (meal == "Breakfast") {
-      primaryColor = Colors.red[300];
-      secondaryColor = Colors.yellow[50];
+      primaryColor = hexToColor("#FA7D82");
+      secondaryColor = hexToColor("#FFB295");
     } else if (meal == "Lunch") {
-      primaryColor = Colors.blueAccent[200];
-      secondaryColor = Colors.yellow[50];
+      primaryColor = hexToColor("#738AE6");
+      secondaryColor = hexToColor("#5C5EDD");
     } else if (meal == "Dinner") {
-      primaryColor = Colors.greenAccent[200];
-      secondaryColor = Colors.yellow[50];
+      primaryColor = hexToColor("#7DFAB7");
+      secondaryColor = hexToColor("#82FA7D");
     }
     return Container(
       width: 170,
@@ -296,14 +296,14 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: [
+                  colors: <Color>[
                     primaryColor,
                     secondaryColor,
                   ],
                 ),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(16.0),
-                  topRight: Radius.circular(80.0),
+                  topRight: Radius.circular(70.0),
                   bottomLeft: Radius.circular(16.0),
                   bottomRight: Radius.circular(16.0),
                 ),
@@ -333,8 +333,11 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
                         image: DecorationImage(
                             alignment: Alignment.topLeft,
                             image: AssetImage(recipe.image),
-                            fit: BoxFit.cover),
-                        color: Colors.white.withOpacity(0.4),
+                            fit: BoxFit.cover,
+                            colorFilter: new ColorFilter.mode(
+                                Colors.black.withOpacity(0.85),
+                                BlendMode.dstATop)),
+                        //color: Colors.white.withOpacity(0.6),
                         shape: BoxShape.circle,
                       ),
                     ),
@@ -344,24 +347,66 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
             ),
           ),
           Positioned(
-            top: 160,
+            top: 130,
             left: 50,
             child: Container(
               alignment: Alignment.center,
               child: Text(
-                "Test",
-                style: foodNameSubText,
+                meal,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  letterSpacing: 0.2,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
           Positioned(
-            top: 200,
+            top: 160,
+            left: 50,
+            child: Container(
+              width: 100,
+              child: Text(
+                recipe.name,
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 12,
+                  letterSpacing: 0.2,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 240,
             left: 50,
             child: Container(
               width: 150,
               child: Text(
-                "Cake x10",
-                style: foodNameSubText,
+                recipe.calories.toString(),
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 24,
+                  letterSpacing: 0.2,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 250,
+            left: 100,
+            child: Container(
+              width: 150,
+              child: Text(
+                'kcal',
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 10,
+                  letterSpacing: 0.2,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
@@ -529,5 +574,9 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
 
     groceryListModel.updateItem(0, masterGL);
     plannerRecordModel.deleteItem(toRemove);
+  }
+
+  Color hexToColor(String code) {
+    return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
   }
 }
