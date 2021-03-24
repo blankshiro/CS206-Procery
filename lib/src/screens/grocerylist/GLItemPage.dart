@@ -272,7 +272,7 @@ class _GLItemPageState extends State<GLItemPage> {
             padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
             decoration: BoxDecoration(
               // color: Colors.grey[200],
-              color: Colors.red,
+              // color: Colors.red,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(16.0),
                 topRight: Radius.circular(16.0),
@@ -280,13 +280,15 @@ class _GLItemPageState extends State<GLItemPage> {
                 bottomRight: Radius.circular(16.0),
               ),
             ),
-            child: IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => GLPastPage()));
-              },
-              icon: Icon(Icons.add),
-              iconSize: 20,
+            child: Icon(
+              Icons.add,
+              // IconButton(
+              //   onPressed: () {
+              //     Navigator.push(context,
+              //         MaterialPageRoute(builder: (context) => GLPastPage()));
+              //   },
+              //   icon: Icon(Icons.add),
+              //   iconSize: 20,
             ),
           ),
         ],
@@ -418,8 +420,7 @@ class _GLItemPageState extends State<GLItemPage> {
       InventoryModel inventoryModel,
       GroceryList groceryList,
       Purchase _purchase) {
-
-    if(_purchase.quantity == 0){
+    if (_purchase.quantity == 0) {
       return;
     }
 

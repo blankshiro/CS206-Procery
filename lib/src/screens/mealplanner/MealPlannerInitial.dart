@@ -271,14 +271,21 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
     Color secondaryColor;
 
     if (meal == "Breakfast") {
+      // primaryColor = hexToColor("#FA897B");
+      // secondaryColor = hexToColor("#FFDD94");
+      secondaryColor = hexToColor("#fbc78d");
       primaryColor = hexToColor("#FA7D82");
-      secondaryColor = hexToColor("#FFB295");
+      // secondaryColor = hexToColor("#FFB295");
     } else if (meal == "Lunch") {
       primaryColor = hexToColor("#738AE6");
-      secondaryColor = hexToColor("#5C5EDD");
+      // secondaryColor = hexToColor("#758eb7");
+      secondaryColor = hexToColor("#A5CAD2");
+      // secondaryColor = hexToColor("#5C5EDD");
     } else if (meal == "Dinner") {
-      primaryColor = hexToColor("#7DFAB7");
-      secondaryColor = hexToColor("#82FA7D");
+      primaryColor = hexToColor("#bac94a");
+      secondaryColor = hexToColor("#e2d36b");
+      // primaryColor = hexToColor("#7DFAB7");
+      // secondaryColor = hexToColor("#82FA7D");
     }
     return Container(
       width: 170,
@@ -294,8 +301,10 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
               height: 200.0,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
+                  begin: Alignment.centerLeft,
+                  end:
+                      // Alignment(0.0, 0.0),
+                      Alignment.bottomRight,
                   colors: <Color>[
                     primaryColor,
                     secondaryColor,
