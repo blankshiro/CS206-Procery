@@ -44,20 +44,22 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
   IngredientModel ingredientModel;
   PlannerRecordModel plannerRecordModel;
 
-
   @override
   Widget build(BuildContext context) {
     print("Meal Planner Select state refresh");
     // context.watch<RecipeModel>().recipeList;
 
-    final recipeModel = Provider.of<RecipeModel>(context, listen:false);
-    plannerRecordModel = Provider.of<PlannerRecordModel>(context, listen: false);
+    final recipeModel = Provider.of<RecipeModel>(context, listen: false);
+    plannerRecordModel =
+        Provider.of<PlannerRecordModel>(context, listen: false);
     groceryListModel = Provider.of<GroceryListModel>(context, listen: false);
     purchaseModel = Provider.of<PurchaseModel>(context, listen: false);
     ingredientModel = Provider.of<IngredientModel>(context, listen: false);
 
-    Map<Recipe, int> recommendedRecipes = getRecommend(groceryListModel.grocerylistList,
-        ingredientModel.ingredientList, recipeModel.recipeList);
+    Map<Recipe, int> recommendedRecipes = getRecommend(
+        groceryListModel.grocerylistList,
+        ingredientModel.ingredientList,
+        recipeModel.recipeList);
 
     return Scaffold(
       // Top part of the app
@@ -106,9 +108,7 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
                       height: 24,
                     ),
                     // Recipe Pictures
-                    Container(
-                      child: buildRecommend(recommendedRecipes)
-                    ),
+                    Container(child: buildRecommend(recommendedRecipes)),
                     SizedBox(
                       height: 16,
                     ),
@@ -141,8 +141,7 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
                       ),
                     ),
                     Column(
-                      children:
-                      buildPopulars(recipeModel, plannerRecordModel),
+                      children: buildPopulars(recipeModel, plannerRecordModel),
                     )
                   ],
                 ),
@@ -152,11 +151,10 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
         ],
       ),
     );
-
   }
 
-  Widget buildRecommend(Map<Recipe, int> recommendations){
-    if(recommendations.isEmpty){
+  Widget buildRecommend(Map<Recipe, int> recommendations) {
+    if (recommendations.isEmpty) {
       return buildEmptyRecommendation();
     }
 
@@ -169,28 +167,27 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
     });
 
     return Container(
-      height: 350,
-      child: ListView.builder(
-        itemCount: recommendedRecipes.length,
-        itemBuilder: (context, index) {
-          Recipe rec = recommendedRecipes[index];
-          return buildRecipe(rec, index, plannerRecordModel);
-        },
-        physics: BouncingScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-      )
-    );
-  }
-
-  Widget buildEmptyRecommendation(){
-    return Container(
         height: 350,
-        child: Text("You are currently maximising your use of groceries!")
-    );
+        child: ListView.builder(
+          itemCount: recommendedRecipes.length,
+          itemBuilder: (context, index) {
+            Recipe rec = recommendedRecipes[index];
+            return buildRecipe(rec, index, plannerRecordModel);
+          },
+          physics: BouncingScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+        ));
   }
 
-  Widget buildRecipe(Recipe recipe, int index,
-      PlannerRecordModel plannerRecordModel) {
+  Widget buildEmptyRecommendation() {
+    return Container(
+        padding: EdgeInsets.all(20),
+        height: 350,
+        child: Text("You are currently maximising your use of groceries!"));
+  }
+
+  Widget buildRecipe(
+      Recipe recipe, int index, PlannerRecordModel plannerRecordModel) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
