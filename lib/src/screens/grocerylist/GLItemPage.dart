@@ -550,7 +550,7 @@ class _GLItemPageState extends State<GLItemPage> {
 
     GroceryList toUpdate = groceryListList[glIndex];
     toUpdate.purchases[purchaseIndex].purchased += change;
-    groceryListModel.updateItem(glIndex, toUpdate);
+    groceryListModel.updateItemByKey(groceryList.id, toUpdate);
 
     int invIndex = -1;
     DateTime today = DateTime.now();
@@ -584,6 +584,7 @@ class _GLItemPageState extends State<GLItemPage> {
     return;
   }
 
+  // Unused function - to delete
   void incrementQuantityToPurchase(GroceryListModel groceryListModel,
       GroceryList groceryList, Purchase _purchase, int change) {
     int GLIndex = 0;

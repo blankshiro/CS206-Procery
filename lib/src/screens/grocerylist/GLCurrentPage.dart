@@ -486,12 +486,16 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
       }
       double purchasedCount = 0.0;
       for (int j = 0; j < currentList.purchases.length; j++) {
-        if (currentList.purchases[j].purchased == 1) {
+        print(currentList.purchases[j].ingredient.name + " AAA");
+        if (currentList.purchases[j].purchased == currentList.purchases[j].quantity) {
           purchasedCount += 1;
+          print("BBB");
         }
       }
       currentList.completionPercent =
           purchasedCount / currentList.purchases.length;
+
+      print("complete% : " + (purchasedCount / currentList.purchases.length).toString());
       if (currentList.completionPercent < 1.0) {}
     }
   }

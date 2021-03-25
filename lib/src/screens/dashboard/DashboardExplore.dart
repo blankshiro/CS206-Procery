@@ -135,13 +135,6 @@ class _DashboardExploreState extends State<DashboardExplore> {
     groceryListModel = Provider.of<GroceryListModel>(context, listen: false);
     ingredientModel = Provider.of<IngredientModel>(context, listen: false);
 
-    // context.watch reloads screen
-    var inventoryList = context.watch<InventoryModel>().inventoryList;
-    var grocerylistList = context.watch<GroceryListModel>().grocerylistList;
-
-    // sort the grocery list according to deadline
-    grocerylistList.sort((a, b) => a.deadLine.compareTo(b.deadLine));
-
     if (DashboardExplore.initialise == true) {
       loadAllIngredient(ingredientModel);
       loadAllInventory(inventoryModel);
@@ -152,7 +145,12 @@ class _DashboardExploreState extends State<DashboardExplore> {
       DashboardExplore.initialise = false;
     }
 
+    // context.watch reloads screen
+    var inventoryList = context.watch<InventoryModel>().inventoryList;
+    var grocerylistList = context.watch<GroceryListModel>().grocerylistList;
 
+    // sort the grocery list according to deadline
+    grocerylistList.sort((a, b) => a.deadLine.compareTo(b.deadLine));
 
     void loadChildWidgets() {
       childWidgets = [];
