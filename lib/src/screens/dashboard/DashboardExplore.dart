@@ -158,7 +158,6 @@ class _DashboardExploreState extends State<DashboardExplore> {
       List<PlannerRecord> allMealPlan = plannerRecordModel.plannerRecordList;
       DateTime today = DateTime.now();
 
-
       for (int i = 0; i < allMealPlan.length; i++) {
         if (allMealPlan[i].date.isSameDate(today)) {
           if (allMealPlan[i].meal == "B") {
@@ -174,9 +173,7 @@ class _DashboardExploreState extends State<DashboardExplore> {
       for (var i = 0; i < mealPlan.length; i++) {
         List<PlannerRecord> meal = mealPlan[i];
         if (meal.length > 0) {
-          childWidgets.add(
-            buildPlannerCards(meal)
-          );
+          childWidgets.add(buildPlannerCards(meal));
         } else {
           childWidgets.add(GestureDetector(
               onTap: () {
@@ -191,10 +188,20 @@ class _DashboardExploreState extends State<DashboardExplore> {
                 margin: EdgeInsets.all(16),
                 decoration: BoxDecoration(
                     color: Colors.white,
+                    image: DecorationImage(
+                      scale: 3.5,
+                      image: AssetImage(
+                        "assets/icons/strawberry.png",
+                      ),
+                    ),
                     borderRadius: BorderRadius.all(
                       Radius.circular(20),
                     )),
-                child: Text("Please Add a Meal Plan"),
+                alignment: Alignment.topCenter,
+                child: Text("No meal plans yet.",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    )),
               )));
         }
       }
@@ -387,191 +394,184 @@ class _DashboardExploreState extends State<DashboardExplore> {
     return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
   }
 
-  buildPlannerCards(currentMeal){
+  buildPlannerCards(currentMeal) {
     List<Widget> plannerCards = [];
     String mealName = "";
     Color primaryColor;
     Color secondaryColor;
 
-    if(currentMeal[0].meal == 'B'){
+    if (currentMeal[0].meal == 'B') {
       mealName = "Breakfast";
       secondaryColor = hexToColor("#fbc78d");
       primaryColor = hexToColor("#FA7D82");
-    } else if(currentMeal[0].meal == 'L'){
+    } else if (currentMeal[0].meal == 'L') {
       mealName = "Lunch";
       primaryColor = hexToColor("#738AE6");
       secondaryColor = hexToColor("#A5CAD2");
-    } else if(currentMeal[0].meal == 'D'){
+    } else if (currentMeal[0].meal == 'D') {
       mealName = "Dinner";
       primaryColor = hexToColor("#bac94a");
       secondaryColor = hexToColor("#e2d36b");
     }
 
-
-    for(int i = 0; i < currentMeal.length; i++){
+    for (int i = 0; i < currentMeal.length; i++) {
       PlannerRecord meal = currentMeal[i];
-      plannerCards.add(
-          GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => RecipeDetail(recipe: meal.recipe)),
-                );
-              },
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    width: 180,
-                    height: 270,
-                    color: Colors.transparent,
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          top: 60,
-                          left: 20,
-                          child: Container(
-                            width: 150.0,
-                            height: 200.0,
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.centerLeft,
-                                end:
+      plannerCards.add(GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => RecipeDetail(recipe: meal.recipe)),
+            );
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                width: 180,
+                height: 270,
+                color: Colors.transparent,
+                child: Stack(
+                  children: [
+                    Positioned(
+                      top: 60,
+                      left: 20,
+                      child: Container(
+                        width: 150.0,
+                        height: 200.0,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end:
                                 // Alignment(0.0, 0.0),
                                 Alignment.bottomRight,
-                                colors: <Color>[
-                                  primaryColor,
-                                  secondaryColor,
-                                ],
-                              ),
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(16.0),
-                                topRight: Radius.circular(70.0),
-                                bottomLeft: Radius.circular(16.0),
-                                bottomRight: Radius.circular(16.0),
-                              ),
-                            ),
+                            colors: <Color>[
+                              primaryColor,
+                              secondaryColor,
+                            ],
+                          ),
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(16.0),
+                            topRight: Radius.circular(70.0),
+                            bottomLeft: Radius.circular(16.0),
+                            bottomRight: Radius.circular(16.0),
                           ),
                         ),
-                        Positioned(
-                          top: 10,
-                          child: Container(
+                      ),
+                    ),
+                    Positioned(
+                      top: 10,
+                      child: Container(
+                        alignment: Alignment.topLeft,
+                        height: 300,
+                        width: 170,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: ClipRect(
+                          clipBehavior: Clip.hardEdge,
+                          child: OverflowBox(
+                            maxHeight: 90,
+                            maxWidth: 90,
                             alignment: Alignment.topLeft,
-                            height: 300,
-                            width: 170,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: ClipRect(
-                              clipBehavior: Clip.hardEdge,
-                              child: OverflowBox(
-                                maxHeight: 90,
-                                maxWidth: 90,
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: Container(
                                 alignment: Alignment.topLeft,
-                                child: Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Container(
-                                    alignment: Alignment.topLeft,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          alignment: Alignment.topLeft,
-                                          image: AssetImage(meal.recipe.image),
-                                          fit: BoxFit.cover,
-                                          colorFilter: new ColorFilter.mode(
-                                              Colors.black.withOpacity(0.95),
-                                              BlendMode.dstATop)),
-                                      //color: Colors.white.withOpacity(0.6),
-                                      shape: BoxShape.circle,
-                                    ),
-                                  ),
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      alignment: Alignment.topLeft,
+                                      image: AssetImage(meal.recipe.image),
+                                      fit: BoxFit.cover,
+                                      colorFilter: new ColorFilter.mode(
+                                          Colors.black.withOpacity(0.95),
+                                          BlendMode.dstATop)),
+                                  //color: Colors.white.withOpacity(0.6),
+                                  shape: BoxShape.circle,
                                 ),
                               ),
                             ),
                           ),
                         ),
-                        Positioned(
-                          top: 110,
-                          left: 50,
-                          child: Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              mealName,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                letterSpacing: 0.2,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top: 140,
-                          left: 50,
-                          child: Container(
-                            width: 100,
-                            child: Text(
-                              meal.recipe.name,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 12,
-                                letterSpacing: 0.2,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top: 220,
-                          left: 50,
-                          child: Container(
-                            width: 150,
-                            child: Text(
-                              meal.recipe.calories.toString(),
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 24,
-                                letterSpacing: 0.2,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top: 230,
-                          left: 100,
-                          child: Container(
-                            width: 150,
-                            child: Text(
-                              'kcal',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 10,
-                                letterSpacing: 0.2,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                  )
-                ],
-              ))
-      );
+                    Positioned(
+                      top: 110,
+                      left: 50,
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          mealName,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            letterSpacing: 0.2,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 140,
+                      left: 50,
+                      child: Container(
+                        width: 100,
+                        child: Text(
+                          meal.recipe.name,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12,
+                            letterSpacing: 0.2,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 220,
+                      left: 50,
+                      child: Container(
+                        width: 150,
+                        child: Text(
+                          meal.recipe.calories.toString(),
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 24,
+                            letterSpacing: 0.2,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 230,
+                      left: 100,
+                      child: Container(
+                        width: 150,
+                        child: Text(
+                          'kcal',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 10,
+                            letterSpacing: 0.2,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          )));
     }
 
     return Container(
-      height: 280,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: plannerCards
-        )
-      )
-    );
+        height: 280,
+        child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(children: plannerCards)));
   }
 
   /////////////////////////////////////
