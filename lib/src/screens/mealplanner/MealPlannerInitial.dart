@@ -287,189 +287,193 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
       // primaryColor = hexToColor("#7DFAB7");
       // secondaryColor = hexToColor("#82FA7D");
     }
-    return Container(
-      width: 170,
-      height: 300,
-      color: Colors.white,
-      child: Stack(
-        children: [
-          Positioned(
-            top: 80,
-            left: 20,
-            child: Container(
-              width: 150.0,
-              height: 200.0,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end:
-                      // Alignment(0.0, 0.0),
-                      Alignment.bottomRight,
-                  colors: <Color>[
-                    primaryColor,
-                    secondaryColor,
-                  ],
-                ),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(16.0),
-                  topRight: Radius.circular(70.0),
-                  bottomLeft: Radius.circular(16.0),
-                  bottomRight: Radius.circular(16.0),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 30,
-            child: Container(
-              alignment: Alignment.topLeft,
-              height: 300,
-              width: 170,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: ClipRect(
-                clipBehavior: Clip.hardEdge,
-                child: OverflowBox(
-                  maxHeight: 90,
-                  maxWidth: 90,
-                  alignment: Alignment.topLeft,
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                      alignment: Alignment.topLeft,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                            alignment: Alignment.topLeft,
-                            image: AssetImage(recipe.image),
-                            fit: BoxFit.cover,
-                            colorFilter: new ColorFilter.mode(
-                                Colors.black.withOpacity(0.85),
-                                BlendMode.dstATop)),
-                        //color: Colors.white.withOpacity(0.6),
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 130,
-            left: 50,
-            child: Container(
-              alignment: Alignment.center,
-              child: Text(
-                meal,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  letterSpacing: 0.2,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 160,
-            left: 50,
-            child: Container(
-              width: 100,
-              child: Text(
-                recipe.name,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 12,
-                  letterSpacing: 0.2,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 240,
-            left: 50,
-            child: Container(
-              width: 150,
-              child: Text(
-                recipe.calories.toString(),
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 24,
-                  letterSpacing: 0.2,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 250,
-            left: 100,
-            child: Container(
-              width: 150,
-              child: Text(
-                'kcal',
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 10,
-                  letterSpacing: 0.2,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
 
+    /**
+     * This code commented is for dashboard UI
+     */
     // return Container(
-    //   decoration: BoxDecoration(
-    //     color: Colors.white,
-    //     borderRadius: BorderRadius.all(
-    //       Radius.circular(20),
-    //     ),
-    //     boxShadow: [kBoxShadow],
-    //   ),
-    //   margin: EdgeInsets.only(right: 10, left: 0, bottom: 10, top: 8),
-    //   padding: EdgeInsets.all(10),
-    //   width: 220,
-    //   child: Column(
-    //     crossAxisAlignment: CrossAxisAlignment.stretch,
-    //     children: <Widget>[
-    //       GestureDetector(
-    //           onTap: () {
-    //             Navigator.push(
-    //               context,
-    //               MaterialPageRoute(
-    //                   builder: (context) => RecipeDetail(recipe: recipe)),
-    //             );
-    //           },
-    //           child: ClipRRect(
-    //               borderRadius: BorderRadius.circular(8.0),
-    //               child: Image(
-    //                   image: AssetImage(recipe.image), fit: BoxFit.cover))),
-    //       SizedBox(
-    //         height: 8,
-    //       ),
-    //       buildRecipeTitle(recipe.name),
-    //       buildTextSubTitleVariation2(recipe.description),
-    //       Row(
-    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //         children: [
-    //           buildCalories(recipe.prepMins.toString() + " mins"),
-    //           IconButton(
-    //             icon: Icon(Icons.delete_outline),
-    //             iconSize: 20,
-    //             onPressed: () {
-    //               deleteRecipeInMealPlan(recipe, recInd, meal, today);
-    //             },
+    //   width: 170,
+    //   height: 300,
+    //   color: Colors.white,
+    //   child: Stack(
+    //     children: [
+    //       Positioned(
+    //         top: 80,
+    //         left: 20,
+    //         child: Container(
+    //           width: 150.0,
+    //           height: 200.0,
+    //           decoration: BoxDecoration(
+    //             gradient: LinearGradient(
+    //               begin: Alignment.centerLeft,
+    //               end:
+    //                   // Alignment(0.0, 0.0),
+    //                   Alignment.bottomRight,
+    //               colors: <Color>[
+    //                 primaryColor,
+    //                 secondaryColor,
+    //               ],
+    //             ),
+    //             borderRadius: BorderRadius.only(
+    //               topLeft: Radius.circular(16.0),
+    //               topRight: Radius.circular(70.0),
+    //               bottomLeft: Radius.circular(16.0),
+    //               bottomRight: Radius.circular(16.0),
+    //             ),
     //           ),
-    //         ],
+    //         ),
+    //       ),
+    //       Positioned(
+    //         top: 30,
+    //         child: Container(
+    //           alignment: Alignment.topLeft,
+    //           height: 300,
+    //           width: 170,
+    //           decoration: BoxDecoration(
+    //             borderRadius: BorderRadius.circular(10),
+    //           ),
+    //           child: ClipRect(
+    //             clipBehavior: Clip.hardEdge,
+    //             child: OverflowBox(
+    //               maxHeight: 90,
+    //               maxWidth: 90,
+    //               alignment: Alignment.topLeft,
+    //               child: Align(
+    //                 alignment: Alignment.topLeft,
+    //                 child: Container(
+    //                   alignment: Alignment.topLeft,
+    //                   decoration: BoxDecoration(
+    //                     image: DecorationImage(
+    //                         alignment: Alignment.topLeft,
+    //                         image: AssetImage(recipe.image),
+    //                         fit: BoxFit.cover,
+    //                         colorFilter: new ColorFilter.mode(
+    //                             Colors.black.withOpacity(0.85),
+    //                             BlendMode.dstATop)),
+    //                     //color: Colors.white.withOpacity(0.6),
+    //                     shape: BoxShape.circle,
+    //                   ),
+    //                 ),
+    //               ),
+    //             ),
+    //           ),
+    //         ),
+    //       ),
+    //       Positioned(
+    //         top: 130,
+    //         left: 50,
+    //         child: Container(
+    //           alignment: Alignment.center,
+    //           child: Text(
+    //             meal,
+    //             style: TextStyle(
+    //               fontWeight: FontWeight.bold,
+    //               fontSize: 16,
+    //               letterSpacing: 0.2,
+    //               color: Colors.white,
+    //             ),
+    //           ),
+    //         ),
+    //       ),
+    //       Positioned(
+    //         top: 160,
+    //         left: 50,
+    //         child: Container(
+    //           width: 100,
+    //           child: Text(
+    //             recipe.name,
+    //             style: TextStyle(
+    //               fontWeight: FontWeight.w500,
+    //               fontSize: 12,
+    //               letterSpacing: 0.2,
+    //               color: Colors.white,
+    //             ),
+    //           ),
+    //         ),
+    //       ),
+    //       Positioned(
+    //         top: 240,
+    //         left: 50,
+    //         child: Container(
+    //           width: 150,
+    //           child: Text(
+    //             recipe.calories.toString(),
+    //             style: TextStyle(
+    //               fontWeight: FontWeight.w500,
+    //               fontSize: 24,
+    //               letterSpacing: 0.2,
+    //               color: Colors.white,
+    //             ),
+    //           ),
+    //         ),
+    //       ),
+    //       Positioned(
+    //         top: 250,
+    //         left: 100,
+    //         child: Container(
+    //           width: 150,
+    //           child: Text(
+    //             'kcal',
+    //             style: TextStyle(
+    //               fontWeight: FontWeight.w500,
+    //               fontSize: 10,
+    //               letterSpacing: 0.2,
+    //               color: Colors.white,
+    //             ),
+    //           ),
+    //         ),
     //       ),
     //     ],
     //   ),
     // );
+
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(
+          Radius.circular(20),
+        ),
+        boxShadow: [kBoxShadow],
+      ),
+      margin: EdgeInsets.only(right: 10, left: 0, bottom: 10, top: 8),
+      padding: EdgeInsets.all(10),
+      width: 220,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => RecipeDetail(recipe: recipe)),
+                );
+              },
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image(
+                      image: AssetImage(recipe.image), fit: BoxFit.cover))),
+          SizedBox(
+            height: 8,
+          ),
+          buildRecipeTitle(recipe.name),
+          buildTextSubTitleVariation2(recipe.description),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              buildCalories(recipe.prepMins.toString() + " mins"),
+              IconButton(
+                icon: Icon(Icons.delete_outline),
+                iconSize: 20,
+                onPressed: () {
+                  deleteRecipeInMealPlan(recipe, recInd, meal, today);
+                },
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 
   // Helper function to build the overall day's meal plan
