@@ -1,5 +1,6 @@
 import 'package:Procery/src/data/GroceryListData.dart';
 import 'package:Procery/src/screens/grocerylist/GLCurrentPage.dart';
+import 'package:Procery/src/screens/grocerylist/GLEditAddRecipePage.dart';
 import 'package:Procery/src/screens/grocerylist/GLItemPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLPastPage.dart';
 import 'package:Procery/src/services/PurchaseModel.dart';
@@ -542,6 +543,12 @@ class _GLEditPageState extends State<GLEditPage> {
           RaisedButton.icon(
             onPressed: () {
               print('Add from Recipe');
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                  builder: (context) => GLEditAddRecipePage(
+                currentList: widget.groceryList,
+              )));
             },
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0))),

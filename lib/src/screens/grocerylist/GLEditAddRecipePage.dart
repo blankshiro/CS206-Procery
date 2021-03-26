@@ -17,7 +17,7 @@ import 'package:Procery/src/services/IngredientModel.dart';
 
 // Styles
 import '../../shared/styles.dart';
-import './MealPlannerConstants.dart';
+import './GroceryListConstants.dart';
 
 // Internal Dependencies
 import '../../algo/recommendAlgo.dart';
@@ -27,17 +27,16 @@ import '../BaseWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class MealPlannerSelect extends StatefulWidget {
-  final DateTime day;
-  final String meal;
+class GLEditAddRecipePage extends StatefulWidget {
+  final GroceryList currentList;
 
-  MealPlannerSelect({@required this.day, @required this.meal});
+  GLEditAddRecipePage({@required this.currentList});
 
   @override
-  MealPlannerSelectState createState() => MealPlannerSelectState();
+  GLEditAddRecipePageState createState() => GLEditAddRecipePageState();
 }
 
-class MealPlannerSelectState extends State<MealPlannerSelect> {
+class GLEditAddRecipePageState extends State<GLEditAddRecipePage> {
   List<bool> optionSelected = [false, false, false];
   GroceryListModel groceryListModel;
   PurchaseModel purchaseModel;
@@ -46,7 +45,7 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
 
   @override
   Widget build(BuildContext context) {
-    print("Meal Planner Select state refresh");
+    print("GLEditAddRecipePage state refresh");
     // context.watch<RecipeModel>().recipeList;
 
     final recipeModel = Provider.of<RecipeModel>(context, listen: false);
@@ -237,7 +236,7 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
                   color: Colors.green,
                   // iconSize: 20,
                   onPressed: () {
-                    addRecipeToMealPlan(recipe, plannerRecordModel);
+                    addRecipeToGroceryList(recipe, plannerRecordModel);
                     showDialog(
                       context: context,
                       builder: (BuildContext context) =>
@@ -310,7 +309,7 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
                         color: Colors.green,
                         // iconSize: 20,
                         onPressed: () {
-                          addRecipeToMealPlan(recipe, plannerRecordModel);
+                          addRecipeToGroceryList(recipe, plannerRecordModel);
                           showDialog(
                             context: context,
                             builder: (BuildContext context) =>
@@ -329,23 +328,12 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
     );
   }
 
-  void addRecipeToMealPlan(
+  void addRecipeToGroceryList(
       Recipe recipe, PlannerRecordModel plannerRecordModel) {
     DateTime today = DateTime.now();
-    PlannerRecord toAdd = new PlannerRecord()
-      ..recipe = recipe
-      ..date = widget.day
-      ..meal = widget.meal
-      ..purchaseId = [];
+    GroceryList currentList = widget.currentList;
 
-    List<GroceryList> allLists = groceryListModel.grocerylistList;
-    GroceryList masterList;
-    for(int i = 0; i < allLists.length; i++){
-      if(allLists[i].id == 0){
-        masterList = allLists[i];
-      }
-    }
-    print("Meal Plan adding groceries to " + masterList.name);
+    print("GLEditAddRecipe adding groceries to " + currentList.name);
     int id = purchaseModel.purchaseList.length;
     List<Purchase> toPurchaseList = [];
     for (int i = 0; i < recipe.ingredients.length; i++) {
@@ -354,36 +342,34 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
         ..quantity = recipe.ingredientsQ[i]
         ..dateAdded = today
         ..purchased = 0
-        ..listName = masterList.name
+        ..listName = currentList.name
         ..id = id;
 
-      toAdd.purchaseId.add(id);
       id++;
       print("Purchase created:" + toPurchase.id.toString());
       purchaseModel.addItem(toPurchase);
       toPurchaseList.add(toPurchase);
     }
 
-    plannerRecordModel.addItem(toAdd);
 
     for (int i = 0; i < toPurchaseList.length; i++) {
       bool found = false;
-      for (int j = 0; j < masterList.purchases.length; j++) {
-        if (masterList.purchases[j].ingredient.name ==
+      for (int j = 0; j < currentList.purchases.length; j++) {
+        if (currentList.purchases[j].ingredient.name ==
             toPurchaseList[i].ingredient.name) {
-          masterList.purchases[j].quantity += toPurchaseList[i].quantity;
-          masterList.purchases[j].dateAdded = toPurchaseList[i].dateAdded;
+          currentList.purchases[j].quantity += toPurchaseList[i].quantity;
+          currentList.purchases[j].dateAdded = toPurchaseList[i].dateAdded;
           found = true;
           continue;
         }
       }
 
       if (found == false) {
-        masterList.purchases.add(toPurchaseList[i]);
+        currentList.purchases.add(toPurchaseList[i]);
       }
     }
 
-    groceryListModel.updateItemByKey(masterList.id, masterList);
+    groceryListModel.updateItemByKey(currentList.id, currentList);
   }
 }
 
@@ -400,10 +386,8 @@ Widget buildPopupDialog(BuildContext context) {
     actions: <Widget>[
       new FlatButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => MealPlannerInitial()),
-          );
+          int count = 0;
+          Navigator.of(context).popUntil((_) => count++ >= 2);
         },
         textColor: Theme.of(context).primaryColor,
         child: const Text('Confirm'),

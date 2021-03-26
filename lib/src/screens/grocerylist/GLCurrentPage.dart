@@ -23,7 +23,7 @@ class GLCurrentPage extends StatefulWidget {
 }
 
 class _GLCurrentPageState extends State<GLCurrentPage> {
-  int _value = 1;
+  int _sortKey = 0; // 0 - Incoming Datelines, 1 - Most Groceries, 2 - Highest Progress
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   DateTime selectedDate = DateTime.now();
   TextEditingController textController1 = TextEditingController();
@@ -82,6 +82,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
     Provider.of<GroceryListModel>(context, listen: true).grocerylistList;
     List<Purchase> purchaseList = context.watch<PurchaseModel>().purchaseList;
     groceryListModel = Provider.of<GroceryListModel>(context, listen: false);
+    sortGroceryList();
     List<GroceryList> groceryListList = groceryListModel.grocerylistList;
     print("GroceryListList length: " + groceryListList.length.toString());
     PurchaseModel purchaseModel =
@@ -400,24 +401,24 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
           color: Colors.grey[100],
           padding: EdgeInsets.only(left: 10),
           child: DropdownButton(
-            value: _value,
+            value: _sortKey,
             items: [
+              DropdownMenuItem(
+                child: Text("Incoming Datelines", style: priceText),
+                value: 0,
+              ),
               DropdownMenuItem(
                 child: Text("Most Groceries", style: priceText),
                 value: 1,
               ),
               DropdownMenuItem(
-                child: Text("Incoming Datelines", style: priceText),
-                value: 2,
-              ),
-              DropdownMenuItem(
                 child: Text("Highest Progress", style: priceText),
-                value: 3,
+                value: 2,
               ),
             ],
             onChanged: (value) {
               setState(() {
-                _value = value;
+                _sortKey = value;
               });
             },
           ),
@@ -458,6 +459,27 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
     );
   }
 
+  void sortGroceryList(){
+    // 0 - Incoming Datelines, 1 - Most Groceries, 2 - Highest Progress
+    if(_sortKey == 0){
+      groceryListModel.grocerylistList.sort((a, b) => a.deadLine.compareTo(b.deadLine));
+    }else if(_sortKey == 1){
+      groceryListModel.grocerylistList.sort((a, b) {
+        int aQ = 0;
+        for(int i = 0; i < a.purchases.length; i++){
+          aQ += a.purchases[i].quantity;
+        }
+        int bQ = 0;
+        for(int i = 0; i < b.purchases.length; i++){
+          bQ += b.purchases[i].quantity;
+        }
+        return bQ.compareTo(aQ);
+      });
+    }else if(_sortKey == 2){
+      groceryListModel.grocerylistList.sort((a, b) => b.completionPercent.compareTo(a.completionPercent));
+    }
+  }
+
   ////////////////////////////////
   ///GROCERY CURRENT LISTING PART
   ////////////////////////////////
@@ -486,10 +508,8 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
       }
       double purchasedCount = 0.0;
       for (int j = 0; j < currentList.purchases.length; j++) {
-        print(currentList.purchases[j].ingredient.name + " AAA");
         if (currentList.purchases[j].purchased == currentList.purchases[j].quantity) {
           purchasedCount += 1;
-          print("BBB");
         }
       }
       currentList.completionPercent =
