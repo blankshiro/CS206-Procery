@@ -270,7 +270,8 @@ class _GLItemPageState extends State<GLItemPage> {
             width: 8,
           ),
           Container(
-            padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+            height: 35,
+            width: 40,
             decoration: BoxDecoration(
               color: Colors.grey[200],
               // color: Colors.red,
@@ -281,19 +282,73 @@ class _GLItemPageState extends State<GLItemPage> {
                 bottomRight: Radius.circular(16.0),
               ),
             ),
-            child: Icon(
-              Icons.add,
-              // IconButton(
-              //   onPressed: () {
-              //     Navigator.push(context,
-              //         MaterialPageRoute(builder: (context) => GLPastPage()));
-              //   },
-              //   icon: Icon(Icons.add),
-              //   iconSize: 20,
+            child: IconButton(
+              alignment: Alignment.topCenter,
+              onPressed: () {
+                _showMyDialogC();
+              },
+              icon: Icon(Icons.add),
+              iconSize: 20,
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Future<void> _showMyDialogC() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'Add Collaborators?',
+            style: h4,
+          ),
+          content: Container(
+            height: 100,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(2),
+                  child: Text(
+                    'Phone Number: ',
+                    style: priceText,
+                  ),
+                ),
+                TextFormField(
+                  autovalidateMode: AutovalidateMode.always,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please provide a number';
+                    }
+                    return null;
+                  },
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.clear),
+              iconSize: 30,
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.check),
+              iconSize: 30,
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -309,7 +364,7 @@ class _GLItemPageState extends State<GLItemPage> {
           ),
           actions: <Widget>[
             IconButton(
-              icon: Icon(Icons.cancel),
+              icon: Icon(Icons.clear),
               iconSize: 30,
               onPressed: () {
                 Navigator.of(context).pop();
