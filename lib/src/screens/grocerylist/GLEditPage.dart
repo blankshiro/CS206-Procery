@@ -46,10 +46,8 @@ class _GLEditPageState extends State<GLEditPage> {
         Provider.of<GroceryListModel>(context, listen: false);
     InventoryModel inventoryModel =
         Provider.of<InventoryModel>(context, listen: false);
-    ingredientModel =
-      Provider.of<IngredientModel>(context, listen: false);
-    purchaseModel =
-        Provider.of<PurchaseModel>(context, listen: false);
+    ingredientModel = Provider.of<IngredientModel>(context, listen: false);
+    purchaseModel = Provider.of<PurchaseModel>(context, listen: false);
 
     GroceryList initialiseGroceryList() {
       GroceryList toInitialise = null;
@@ -107,15 +105,10 @@ class _GLEditPageState extends State<GLEditPage> {
               ),
             ),
           ),
-          // Container(
-          //   padding: EdgeInsets.all(10),
-          //   child: buildTextTitleVariation1('Edit Lists'),
-          // ),
           buildNameEntryBar(),
           buildDateEntryBar(),
           buildListOptions(context),
           buildNameAndQuantityHeaders(),
-
           Expanded(
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
@@ -211,36 +204,20 @@ class _GLEditPageState extends State<GLEditPage> {
       child: Row(
         children: [
           Expanded(
-            flex: 1,
+            flex: 2,
             child: IconButton(
-              onPressed: () {deleteItemToPurchase(groceryListModel, _purchase);},
+              onPressed: () {
+                deleteItemToPurchase(groceryListModel, _purchase);
+              },
               iconSize: 20,
               icon: Icon(Icons.delete_outline),
             ),
           ),
           Expanded(
-            flex: 3,
-            child: Container(
-              width: 10,
-              height: 35,
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: _purchase.ingredient.name,
-                  hintStyle: TextStyle(fontSize: 12),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: BorderSide(
-                      width: 0,
-                      style: BorderStyle.none,
-                    ),
-                  ),
-                  filled: true,
-                  fillColor: Colors.grey[200],
-                  contentPadding: EdgeInsets.only(
-                    left: 30,
-                  ),
-                ),
-              ),
+            flex: 4,
+            child: Text(
+              _purchase.ingredient.name,
+              style: priceText,
             ),
           ),
           Expanded(
@@ -252,25 +229,12 @@ class _GLEditPageState extends State<GLEditPage> {
           Expanded(
             flex: 2,
             child: Container(
+              padding: EdgeInsets.fromLTRB(0, 7, 0, 0),
               width: 10,
               height: 35,
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: _purchase.quantity.toString(),
-                  hintStyle: TextStyle(fontSize: 12),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                    borderSide: BorderSide(
-                      width: 0,
-                      style: BorderStyle.none,
-                    ),
-                  ),
-                  filled: true,
-                  fillColor: Colors.grey[200],
-                  contentPadding: EdgeInsets.only(
-                    left: 30,
-                  ),
-                ),
+              child: Text(
+                _purchase.quantity.toString(),
+                style: priceText,
               ),
             ),
           ),
@@ -300,6 +264,12 @@ class _GLEditPageState extends State<GLEditPage> {
                       groceryList, _purchase, 1);
                 },
               ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: SizedBox(
+              width: 1,
             ),
           ),
         ],
@@ -343,22 +313,21 @@ class _GLEditPageState extends State<GLEditPage> {
     return;
   }
 
-  void createNewItemToPurchase(GroceryListModel groceryListModel,
-      String itemName, String itemQ){
-
+  void createNewItemToPurchase(
+      GroceryListModel groceryListModel, String itemName, String itemQ) {
     GroceryList toUpdateList = widget.groceryList;
     Purchase toUpdatePurchase;
-    for(int i = 0; i < toUpdateList.purchases.length; i++){
-      if(toUpdateList.purchases[i].ingredient.name == itemName){
+    for (int i = 0; i < toUpdateList.purchases.length; i++) {
+      if (toUpdateList.purchases[i].ingredient.name == itemName) {
         toUpdateList.purchases[i].quantity += int.parse(itemQ);
       }
     }
 
-    if(toUpdatePurchase == null){
+    if (toUpdatePurchase == null) {
       List<Ingredient> ingredientList = ingredientModel.ingredientList;
       Ingredient toBuy;
-      for(int i = 0; i < ingredientList.length; i++){
-        if(ingredientList[i].name == itemName){
+      for (int i = 0; i < ingredientList.length; i++) {
+        if (ingredientList[i].name == itemName) {
           toBuy = ingredientList[i];
         }
       }
@@ -375,16 +344,12 @@ class _GLEditPageState extends State<GLEditPage> {
     }
 
     groceryListModel.updateItemByKey(widget.groceryList.id, toUpdateList);
-
-
-
-
   }
 
-  void deleteItemToPurchase(GroceryListModel groceryListModel, _purchase){
+  void deleteItemToPurchase(GroceryListModel groceryListModel, _purchase) {
     GroceryList groceryList = widget.groceryList;
-    for(int i = 0; i < groceryList.purchases.length; i++){
-      if(groceryList.purchases[i].id == _purchase.id){
+    for (int i = 0; i < groceryList.purchases.length; i++) {
+      if (groceryList.purchases[i].id == _purchase.id) {
         groceryList.purchases.removeAt(i);
         break;
       }
@@ -458,7 +423,8 @@ class _GLEditPageState extends State<GLEditPage> {
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'Please enter an initial quantity to purchase';
-                  } else if(int.tryParse(value) == null || int.tryParse(value) < 0){
+                  } else if (int.tryParse(value) == null ||
+                      int.tryParse(value) < 0) {
                     return 'Please enter a valid quantity';
                   }
                   return null;
@@ -495,8 +461,10 @@ class _GLEditPageState extends State<GLEditPage> {
               child: IconButton(
                 icon: Icon(Icons.check_circle_outline),
                 iconSize: 30,
-                onPressed: () {createNewItemToPurchase(groceryListModel,
-                    textController1.text, textController2.text);},
+                onPressed: () {
+                  createNewItemToPurchase(groceryListModel,
+                      textController1.text, textController2.text);
+                },
               ),
             ),
           ),
@@ -511,7 +479,7 @@ class _GLEditPageState extends State<GLEditPage> {
       child: Row(
         children: [
           SizedBox(
-            width: 60,
+            width: 50,
           ),
           Container(
             child: Text(
@@ -543,12 +511,6 @@ class _GLEditPageState extends State<GLEditPage> {
           RaisedButton.icon(
             onPressed: () {
               print('Add from Recipe');
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                  builder: (context) => GLEditAddRecipePage(
-                currentList: widget.groceryList,
-              )));
             },
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0))),
