@@ -26,11 +26,15 @@ class Recipe {
   @HiveField(6)
   List<Ingredient> ingredients;
 
-  @HiveField(7) // Order should match the ingredients ie. ingredients[0] quantity is at ingredientsQ[0]
+  @HiveField(
+      7) // Order should match the ingredients ie. ingredients[0] quantity is at ingredientsQ[0]
   List<int> ingredientsQ;
 
   @HiveField(8)
   int likes = 0;
+
+  @HiveField(9)
+  String category;
 
   Recipe(
       {this.name,
@@ -41,5 +45,6 @@ class Recipe {
       this.calories,
       this.ingredients,
       this.ingredientsQ,
-      this.likes});
+      this.likes,
+      this.category});
 }
