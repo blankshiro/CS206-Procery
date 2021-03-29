@@ -18,7 +18,7 @@ class RecipeExplore extends StatefulWidget {
 }
 
 class RecipeExploreState extends State<RecipeExplore> {
-  List<bool> optionSelected = [false, false, false];
+  List<bool> optionSelected = [false, false, false, false, false];
 
   @override
   Widget build(BuildContext context) {
@@ -114,22 +114,35 @@ class RecipeExploreState extends State<RecipeExplore> {
                         ),
                       ),
                       // Different categories
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          option('Cakes', 'assets/icons/cake.png', 0),
-                          // category = "cake"
-                          SizedBox(
-                            width: 8,
-                          ),
-                          option('Muffins', 'assets/icons/muffin.png', 1),
-                          // category = "muffin"
-                          SizedBox(
-                            width: 8,
-                          ),
-                          option('Bread', 'assets/icons/bread.png', 2),
-                          // category = "bread"
-                        ],
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            option('Cakes', 'assets/icons/cake.png', 0),
+                            // category = "cake"
+                            SizedBox(
+                              width: 8,
+                            ),
+                            option('Muffins', 'assets/icons/muffin.png', 1),
+                            // category = "muffin"
+                            SizedBox(
+                              width: 8,
+                            ),
+                            option('Bread', 'assets/icons/bread.png', 2),
+                            // category = "bread"
+                            SizedBox(
+                              width: 8,
+                            ),
+                            option('Cupcakes', 'assets/icons/cupcake.png', 3),
+                            // category = "cupcake"
+                            SizedBox(
+                              width: 8,
+                            ),
+                            option('Cookies', 'assets/icons/cookies.png', 4),
+                            // category = "cookies"
+                          ],
+                        ),
                       ),
                       SizedBox(
                         height: 24,
