@@ -118,14 +118,17 @@ class RecipeExploreState extends State<RecipeExplore> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           option('Cakes', 'assets/icons/cake.png', 0),
+                          // category = "cake"
                           SizedBox(
                             width: 8,
                           ),
                           option('Muffins', 'assets/icons/muffin.png', 1),
+                          // category = "muffin"
                           SizedBox(
                             width: 8,
                           ),
                           option('Bread', 'assets/icons/bread.png', 2),
+                          // category = "bread"
                         ],
                       ),
                       SizedBox(

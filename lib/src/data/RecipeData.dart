@@ -32,7 +32,8 @@ var recipe1 = Recipe(
     calories: 200,
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [150, 7, 200, 80, 1000],
-    likes: 0);
+    likes: 0,
+    category: "cake");
 
 var recipe2 = Recipe(
     // https://iambaker.net/chocolate-craving-cake/
@@ -51,7 +52,8 @@ var recipe2 = Recipe(
     calories: 440,
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [150, 8, 100, 140, 1000],
-    likes: 0);
+    likes: 0,
+    category: "cake");
 
 var recipe3 = Recipe(
     // https://iambaker.net/homemade-coconut-cake/
@@ -76,7 +78,8 @@ var recipe3 = Recipe(
     calories: 400,
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [125, 10, 200, 0, 1000],
-    likes: 0);
+    likes: 0,
+    category: "cake");
 
 var recipe4 = Recipe(
     //https://www.countryliving.com/food-drinks/recipes/a37729/speckled-malted-coconut-cake-recipe/
@@ -94,7 +97,8 @@ var recipe4 = Recipe(
     calories: 340,
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [100, 2, 100, 0, 2500],
-    likes: 0);
+    likes: 0,
+    category: "cake");
 
 var recipe5 = Recipe(
     // https://www.countryliving.com/food-drinks/recipes/a41986/raspberry-pink-velvet-cake-recipe/?visibilityoverride
@@ -113,7 +117,8 @@ var recipe5 = Recipe(
     calories: 240,
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [100, 1, 200, 0, 300],
-    likes: 0);
+    likes: 0,
+    category: "cake");
 
 var recipe6 = Recipe(
     //https://www.epicurious.com/recipes/food/views/olive-oil-apple-cake-with-spiced-sugar
@@ -134,7 +139,8 @@ var recipe6 = Recipe(
     calories: 560,
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [100, 3, 100, 0, 1500],
-    likes: 1);
+    likes: 1,
+    category: "cake");
 
 var recipe7 = Recipe(
     //https://www.epicurious.com/recipes/food/views/buckwheat-banana-cake-with-yogurt-espresso-frosting
@@ -151,7 +157,8 @@ var recipe7 = Recipe(
     calories: 350,
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [100, 2, 50, 0, 700],
-    likes: 0);
+    likes: 0,
+    category: "cake");
 
 var recipe8 = Recipe(
     //https://www.epicurious.com/recipes/food/views/east-62nd-street-lemon-cake
@@ -169,7 +176,8 @@ var recipe8 = Recipe(
     calories: 340,
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [125, 1, 100, 0, 800],
-    likes: 0);
+    likes: 0,
+    category: "cake");
 
 var recipe9 = Recipe(
     //https://www.epicurious.com/recipes/food/views/red-velvet-mug-cake-51206050
@@ -189,7 +197,8 @@ var recipe9 = Recipe(
     calories: 520,
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [150, 4, 50, 100, 2000],
-    likes: 0);
+    likes: 0,
+    category: "cake");
 
 var recipe10 = Recipe(
     //https://sallysbakingaddiction.com/super-moist-chocolate-cupcakes/
@@ -208,7 +217,8 @@ var recipe10 = Recipe(
     calories: 600,
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [150, 2, 100, 300, 3000],
-    likes: 0);
+    likes: 0,
+    category: "cupcake");
 
 var recipe11 = Recipe(
     //https://prettysimplesweet.com/vanilla-cupcakes/
@@ -227,7 +237,8 @@ var recipe11 = Recipe(
     calories: 420,
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [175, 1, 150, 0, 1500],
-    likes: 0);
+    likes: 0,
+    category: "cupcake");
 
 var recipe12 = Recipe(
     //https://www.olivemagazine.com/recipes/baking-and-desserts/classic-chocolate-brownies/
@@ -248,7 +259,8 @@ var recipe12 = Recipe(
     calories: 300,
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [175, 3, 150, 200, 1300],
-    likes: 0);
+    likes: 0,
+    category: "cake");
 
 var recipe13 = Recipe(
     //https://www.olivemagazine.com/recipes/baking-and-desserts/classic-millionaires-shortbread/
@@ -265,7 +277,8 @@ var recipe13 = Recipe(
     calories: 200,
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [175, 1, 200, 0, 2000],
-    likes: 0);
+    likes: 0,
+    category: "bread");
 
 var recipe14 = Recipe(
     //https://www.olivemagazine.com/recipes/baking-and-desserts/apricot-and-white-chocolate-cookies/
@@ -282,7 +295,8 @@ var recipe14 = Recipe(
     calories: 520,
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [150, 1, 100, 200, 2500],
-    likes: 0);
+    likes: 0,
+    category: "cookies");
 
 var recipe15 = Recipe(
     //https://www.olivemagazine.com/recipes/family/croissant-cinnamon-buns/
@@ -299,7 +313,8 @@ var recipe15 = Recipe(
     calories: 150,
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [100, 2, 50, 0, 500],
-    likes: 0);
+    likes: 0,
+    category: "bread");
 
 var recipe16 = Recipe(
     //https://www.olivemagazine.com/recipes/sticky-honey-cakes/
@@ -318,7 +333,8 @@ var recipe16 = Recipe(
     calories: 100,
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [200, 2, 100, 0, 300],
-    likes: 0);
+    likes: 0,
+    category: "cake");
 
 var recipe17 = Recipe(
     //https://www.olivemagazine.com/recipes/baking-and-desserts/salted-maple-brownies/
@@ -335,7 +351,8 @@ var recipe17 = Recipe(
     calories: 400,
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [150, 3, 150, 200, 1500],
-    likes: 0);
+    likes: 0,
+    category: "cake");
 
 var recipe18 = Recipe(
     //https://www.olivemagazine.com/recipes/coffee-and-walnut-cupcakes/
@@ -353,7 +370,8 @@ var recipe18 = Recipe(
     calories: 180,
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [200, 1, 100, 0, 600],
-    likes: 0);
+    likes: 0,
+    category: "cupcake");
 
 var recipe19 = Recipe(
     //https://www.thespruceeats.com/vanilla-muffins-3058482
@@ -374,7 +392,8 @@ var recipe19 = Recipe(
     calories: 300,
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [200, 2, 100, 0, 900],
-    likes: 0);
+    likes: 0,
+    category: "muffin");
 
 var recipe20 = Recipe(
     //https://www.delish.com/cooking/recipe-ideas/a32936759/banana-nut-muffins-recipe/
@@ -391,7 +410,8 @@ var recipe20 = Recipe(
     calories: 120,
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [200, 2, 200, 0, 1000],
-    likes: 0);
+    likes: 0,
+    category: "muffin");
 
 List<Recipe> getRecipes() {
   return <Recipe>[
