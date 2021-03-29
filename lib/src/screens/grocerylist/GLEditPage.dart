@@ -510,6 +510,12 @@ class _GLEditPageState extends State<GLEditPage> {
         children: [
           RaisedButton.icon(
             onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => GLEditAddRecipePage(
+                            currentList: widget.groceryList,
+                          )));
               print('Add from Recipe');
             },
             shape: RoundedRectangleBorder(
