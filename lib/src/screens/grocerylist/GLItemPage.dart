@@ -195,7 +195,7 @@ class _GLItemPageState extends State<GLItemPage> {
               color: Colors.green,
               borderRadius: BorderRadius.all(Radius.circular(10.0))),
           child: Text(
-            'Dateline:',
+            'Deadline:',
             style: h6,
           ),
         ),
