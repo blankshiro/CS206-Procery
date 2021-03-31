@@ -440,8 +440,10 @@ class _GLItemPageState extends State<GLItemPage> {
 
     for (var i = 0; i < currentList.purchases.length; i++) {
       // show if the grocery not bought yet
-      itemList.add(buildItemList(groceryListModel, inventoryModel, currentList,
-          currentList.purchases[i]));
+      if(currentList.purchases[i].quantity > 0){
+        itemList.add(buildItemList(groceryListModel, inventoryModel, currentList,
+            currentList.purchases[i]));
+      }
     }
     return itemList;
   }

@@ -526,11 +526,19 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
                 alignment: Alignment.centerLeft,
                 child: Row(
                   children: [
-                    Text('Add a meal plan now!',
+                    Image.asset(
+                      "assets/icons/strawberry.png",
+                      height: 25,
+                    ),
+                    Text(' Add a meal plan now! ',
                         style: GoogleFonts.poppins(
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
                             color: Colors.grey)),
+                    Image.asset(
+                      "assets/icons/strawberry.png",
+                      height: 25,
+                    ),
                   ],
                 )),
           ],

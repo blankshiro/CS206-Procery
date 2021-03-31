@@ -181,9 +181,25 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
 
   Widget buildEmptyRecommendation() {
     return Container(
-        padding: EdgeInsets.all(20),
-        height: 350,
-        child: Text("You are currently maximising your use of groceries!"));
+      padding: EdgeInsets.all(20),
+      height: 250,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          image: DecorationImage(
+            scale: 3.5,
+            image: AssetImage(
+              "assets/icons/strawberry.png",
+            ),
+          ),
+          borderRadius: BorderRadius.all(
+            Radius.circular(20),
+          )),
+      alignment: Alignment.topCenter,
+      child: Text("You are currently maximising your use of groceries!",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          )),
+    );
   }
 
   Widget buildRecipe(
@@ -340,8 +356,8 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
 
     List<GroceryList> allLists = groceryListModel.grocerylistList;
     GroceryList masterList;
-    for(int i = 0; i < allLists.length; i++){
-      if(allLists[i].id == 0){
+    for (int i = 0; i < allLists.length; i++) {
+      if (allLists[i].id == 0) {
         masterList = allLists[i];
       }
     }
