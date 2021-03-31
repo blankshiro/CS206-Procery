@@ -288,27 +288,25 @@ class _GLEditPageState extends State<GLEditPage> {
       return;
     }
 
-    int glIndex = 0;
+    GroceryList toUpdateList;
     var groceryListList = groceryListModel.grocerylistList;
 
     for (int i = 0; i < groceryListList.length; i++) {
       if (groceryListList[i].id == groceryList.id) {
-        glIndex = i;
+        toUpdateList = groceryListList[i];
         break;
       }
     }
 
     int purchaseIndex = 0;
-    for (int i = 0; i < groceryListList[glIndex].purchases.length; i++) {
-      if (groceryListList[glIndex].purchases[i].id == _purchase.id) {
-        purchaseIndex = i;
+    for (int i = 0; i < toUpdateList.purchases.length; i++) {
+      if (toUpdateList.purchases[i].id == _purchase.id) {
+        toUpdateList.purchases[i].quantity += change;
         break;
       }
     }
 
-    GroceryList toUpdate = groceryListList[glIndex];
-    toUpdate.purchases[purchaseIndex].quantity += change;
-    groceryListModel.updateItem(glIndex, toUpdate);
+    groceryListModel.updateItemByKey(toUpdateList.id, toUpdateList);
 
     return;
   }
@@ -320,6 +318,8 @@ class _GLEditPageState extends State<GLEditPage> {
     for (int i = 0; i < toUpdateList.purchases.length; i++) {
       if (toUpdateList.purchases[i].ingredient.name == itemName) {
         toUpdateList.purchases[i].quantity += int.parse(itemQ);
+        toUpdatePurchase = toUpdateList.purchases[i];
+        break;
       }
     }
 
@@ -577,7 +577,7 @@ class _GLEditPageState extends State<GLEditPage> {
               height: 35,
               child: TextField(
                 decoration: InputDecoration(
-                  hintText: DateFormat('yyyy - mm - dd')
+                  hintText: DateFormat('yyyy - MM - dd')
                       .format(widget.groceryList.deadLine),
                   hintStyle: TextStyle(fontSize: 12),
                   border: OutlineInputBorder(

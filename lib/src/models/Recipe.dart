@@ -33,7 +33,7 @@ class Recipe {
   @HiveField(8)
   int likes = 0;
 
-  @HiveField(9)
+  @HiveField(9) // cake, muffins, bread, cupcake, cookies
   String category;
 
   Recipe(
