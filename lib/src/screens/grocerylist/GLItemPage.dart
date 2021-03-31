@@ -4,6 +4,7 @@ import 'package:Procery/src/screens/grocerylist/GLCurrentPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLPastPage.dart';
 import 'package:Procery/src/screens/grocerylist/GLCollabList.dart';
 import 'package:Procery/src/screens/grocerylist/GLEditPage.dart';
+import 'package:Procery/src/screens/grocerylist/ComingSoon.dart';
 import 'package:intl/intl.dart';
 import '../../screens/BaseWidgets.dart';
 
@@ -71,7 +72,29 @@ class _GLItemPageState extends State<GLItemPage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          getBackButton(context),
+          Row(
+            children: [
+              getBackButton(context),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(0, 45, 10, 0),
+                  child: Container(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                      icon: Icon(Icons.shopping_cart_rounded),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ComingSoon()));
+                      },
+
+                    ),
+                  ),
+                )
+              )
+            ],
+          ),
           //HEADER
           Container(
             alignment: Alignment.centerLeft,
