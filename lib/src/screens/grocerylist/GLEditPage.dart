@@ -108,7 +108,6 @@ class _GLEditPageState extends State<GLEditPage> {
           buildNameEntryBar(),
           buildDateEntryBar(),
           buildListOptions(context),
-          buildNameAndQuantityHeaders(),
           Expanded(
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
@@ -116,6 +115,7 @@ class _GLEditPageState extends State<GLEditPage> {
                 child: Column(
                   children: [
                     buildRowNewEntry(groceryListModel),
+                    buildNameAndQuantityHeaders(),
                     Divider(
                       height: 10,
                       thickness: 1,
@@ -374,7 +374,7 @@ class _GLEditPageState extends State<GLEditPage> {
             ),
           ),
           Expanded(
-            flex: 3,
+            flex: 6,
             child: Container(
               width: 10,
               height: 35,
@@ -413,7 +413,7 @@ class _GLEditPageState extends State<GLEditPage> {
             ),
           ),
           Expanded(
-            flex: 2,
+            flex: 4,
             child: Container(
               width: 10,
               height: 35,
@@ -455,7 +455,7 @@ class _GLEditPageState extends State<GLEditPage> {
             ),
           ),
           Expanded(
-            flex: 1,
+            flex: 2,
             child: Container(
               color: Colors.grey[50],
               child: IconButton(
@@ -466,6 +466,12 @@ class _GLEditPageState extends State<GLEditPage> {
                       textController1.text, textController2.text);
                 },
               ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: SizedBox(
+              width: 10,
             ),
           ),
         ],
@@ -534,12 +540,12 @@ class _GLEditPageState extends State<GLEditPage> {
           ),
           RaisedButton.icon(
             onPressed: () {
-              print('Combine Lists');
+              print('Add Individual Ingredient');
             },
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0))),
             label: Text(
-              'Combine Lists',
+              'Add Ingredient',
               style: TextStyle(),
             ),
             icon: Icon(
