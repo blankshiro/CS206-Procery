@@ -83,6 +83,7 @@ class RecipeDetail extends StatelessWidget {
                             ),
                             //Spacer(),
                             LikeButton(
+                              isLiked: recipe.likes > 0,
                               onTap: (isLiked) {
                                 return likeRecipe(isLiked, recipe, recipeModel);
                               },
@@ -280,17 +281,10 @@ class RecipeDetail extends StatelessWidget {
   Future<bool> likeRecipe(
       status, Recipe recipe, RecipeModel recipeModel) async {
     var allrecipes = recipeModel.recipeList;
-    int index = 0;
-    for (int i = 0; i < allrecipes.length; i++) {
-      if (allrecipes[i].name == recipe.name) {
-        index = i;
-        break;
-      }
-    }
 
-    recipe.likes += 1;
+    status ? recipe.likes -= 1 : recipe.likes += 1;
 
-    recipeModel.updateItem(index, recipe);
+    recipeModel.updateItemByKey(recipe.name, recipe);
     return Future.value(!status);
   }
 }

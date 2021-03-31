@@ -641,35 +641,6 @@ class _GLItemPageState extends State<GLItemPage> {
     return;
   }
 
-  // Unused function - to delete
-  void incrementQuantityToPurchase(GroceryListModel groceryListModel,
-      GroceryList groceryList, Purchase _purchase, int change) {
-    int GLIndex = 0;
-    var groceryListList = groceryListModel.grocerylistList;
-
-    for (int i = 0; i < groceryListList.length; i++) {
-      if (groceryListList[i].id == groceryList.id) {
-        GLIndex = i;
-        break;
-      }
-    }
-
-    int purchaseIndex = 0;
-    for (int i = 0; i < groceryListList[GLIndex].purchases.length; i++) {
-      if (groceryListList[GLIndex].purchases[i].id == _purchase.id) {
-        purchaseIndex = i;
-        break;
-      }
-    }
-
-    GroceryList toUpdate = groceryListList[GLIndex];
-    toUpdate.purchases[purchaseIndex].quantity += change;
-    if (toUpdate.purchases[purchaseIndex].quantity <= 0) {
-      toUpdate.purchases.removeAt(purchaseIndex);
-    }
-    groceryListModel.updateItem(GLIndex, toUpdate);
-    return;
-  }
 }
 
 extension DateOnlyCompare on DateTime {

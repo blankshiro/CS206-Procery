@@ -33,8 +33,13 @@ class Recipe {
   @HiveField(8)
   int likes = 0;
 
-  @HiveField(9) // cake, muffins, bread, cupcake, cookies
+  @HiveField(9) // cake, muffin, bread, cupcake, cookie
   String category;
+
+  @override
+  String toString(){
+    return name;
+  }
 
   Recipe(
       {this.name,

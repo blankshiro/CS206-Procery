@@ -44,6 +44,26 @@ class RecipeModel with ChangeNotifier {
     notifyListeners();
   }
 
+  updateItemByKey(String key, Recipe toUpdate){
+    final box = Hive.box<Recipe>(_recipeBox);
+    List keys = box.keys.toList();
+    for(int i = 0; i < keys.length; i++){
+      Recipe item = box.get(keys[i]);
+      if(item.name == key){
+        print("updating at " + item.name.toString() + " to " + toUpdate.name.toString());
+        box.put(keys[i], toUpdate);
+        break;
+      }
+    }
+
+    getItem();
+
+    notifyListeners();
+
+  }
+
+
+
   deleteItem(int index) {
     final box = Hive.box<Recipe>(_recipeBox);
 

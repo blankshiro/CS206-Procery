@@ -296,7 +296,7 @@ var recipe14 = Recipe(
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [150, 1, 100, 200, 2500],
     likes: 0,
-    category: "cookies");
+    category: "cookie");
 
 var recipe15 = Recipe(
     //https://www.olivemagazine.com/recipes/family/croissant-cinnamon-buns/
