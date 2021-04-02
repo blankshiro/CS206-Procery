@@ -107,14 +107,14 @@ class _GLEditPageState extends State<GLEditPage> {
           ),
           buildNameEntryBar(),
           buildDateEntryBar(),
-          buildListOptions(context),
+          buildListOptions(context, groceryListModel),
           Expanded(
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               child: Container(
                 child: Column(
                   children: [
-                    buildRowNewEntry(groceryListModel),
+                    // buildRowNewEntry(groceryListModel),
                     buildNameAndQuantityHeaders(),
                     Divider(
                       height: 10,
@@ -508,7 +508,8 @@ class _GLEditPageState extends State<GLEditPage> {
     );
   }
 
-  Container buildListOptions(BuildContext context) {
+  Container buildListOptions(
+      BuildContext context, GroceryListModel groceryListModel) {
     return Container(
       padding: EdgeInsets.all(5),
       child: Row(
@@ -541,11 +542,12 @@ class _GLEditPageState extends State<GLEditPage> {
           RaisedButton.icon(
             onPressed: () {
               print('Add Individual Ingredient');
+              _showMyDialog(groceryListModel);
             },
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10.0))),
             label: Text(
-              'Add Ingredient',
+              'Add Item',
               style: TextStyle(),
             ),
             icon: Icon(
@@ -558,6 +560,85 @@ class _GLEditPageState extends State<GLEditPage> {
           ),
         ],
       ),
+    );
+  }
+
+  Future<void> _showMyDialog(GroceryListModel groceryListModel) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'Add Item',
+            style: h4,
+          ),
+          content: Container(
+            height: 200,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(2),
+                  child: Text(
+                    'Name: ',
+                    style: priceText,
+                  ),
+                ),
+                TextFormField(
+                  controller: textController1,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please enter an ingredient name';
+                    }
+                    return null;
+                  },
+                ),
+                Container(
+                  padding: EdgeInsets.all(2),
+                  child: Text(
+                    'Quantity: ',
+                    style: priceText,
+                  ),
+                ),
+                TextFormField(
+                  controller: textController2,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please enter an initial quantity to purchase';
+                    } else if (int.tryParse(value) == null ||
+                        int.tryParse(value) < 0) {
+                      return 'Please enter a valid quantity';
+                    }
+                    return null;
+                  },
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.clear),
+              iconSize: 30,
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.check),
+              iconSize: 30,
+              onPressed: () {
+                createNewItemToPurchase(groceryListModel, textController1.text,
+                    textController2.text);
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
