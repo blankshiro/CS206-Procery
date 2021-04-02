@@ -647,14 +647,12 @@ class _GLEditPageState extends State<GLEditPage> {
       padding: EdgeInsets.all(5),
       child: Row(
         children: [
-          Expanded(
-            flex: 2,
-            child: Container(
-              child: Text(
-                'Date:',
-                style: priceText,
-                textAlign: TextAlign.center,
-              ),
+          Container(
+            padding: EdgeInsets.fromLTRB(20, 0, 24, 0),
+            child: Text(
+              'Date:',
+              style: priceText,
+              textAlign: TextAlign.center,
             ),
           ),
           Expanded(
@@ -716,14 +714,12 @@ class _GLEditPageState extends State<GLEditPage> {
       padding: EdgeInsets.all(10),
       child: Row(
         children: [
-          Expanded(
-            flex: 2,
-            child: Container(
-              child: Text(
-                'Name:',
-                style: priceText,
-                textAlign: TextAlign.center,
-              ),
+          Container(
+            padding: EdgeInsets.fromLTRB(13, 0, 17, 0),
+            child: Text(
+              'Name:',
+              style: priceText,
+              textAlign: TextAlign.center,
             ),
           ),
           Expanded(
@@ -750,6 +746,9 @@ class _GLEditPageState extends State<GLEditPage> {
                 ),
               ),
             ),
+          ),
+          SizedBox(
+            width: 10,
           ),
         ],
       ),
