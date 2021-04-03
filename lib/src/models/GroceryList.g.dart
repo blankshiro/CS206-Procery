@@ -21,6 +21,7 @@ class GroceryListAdapter extends TypeAdapter<GroceryList> {
       deadLine: fields[1] as DateTime,
       purchases: (fields[2] as List)?.cast<Purchase>(),
       type: fields[5] as int,
+      collabs: (fields[7] as List)?.cast<String>(),
       id: fields[6] as int,
     )
       ..completionPercent = fields[3] as double
@@ -30,7 +31,7 @@ class GroceryListAdapter extends TypeAdapter<GroceryList> {
   @override
   void write(BinaryWriter writer, GroceryList obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -44,7 +45,9 @@ class GroceryListAdapter extends TypeAdapter<GroceryList> {
       ..writeByte(5)
       ..write(obj.type)
       ..writeByte(6)
-      ..write(obj.id);
+      ..write(obj.id)
+      ..writeByte(7)
+      ..write(obj.collabs);
   }
 
   @override

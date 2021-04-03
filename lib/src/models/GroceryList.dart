@@ -26,12 +26,16 @@ class GroceryList {
   @HiveField(6)
   int id;
 
+  @HiveField(7)
+  List<String> collabs;
+
   GroceryList(
       {this.name,
         this.deadLine,
         this.purchases,
         this.type,
-        this.id
+        this.collabs,
+        this.id,
       });
 
   @override
