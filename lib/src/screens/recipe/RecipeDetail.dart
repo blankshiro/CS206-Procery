@@ -228,8 +228,6 @@ class RecipeDetail extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           // Add your onPressed code here!
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => ComingSoon()));
         },
         label: Text('Watch Video'),
         icon: Icon(Icons.video_label_rounded),
