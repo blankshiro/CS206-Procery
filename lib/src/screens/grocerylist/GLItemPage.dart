@@ -76,23 +76,21 @@ class _GLItemPageState extends State<GLItemPage> {
             children: [
               getBackButton(context),
               Expanded(
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(0, 45, 10, 0),
-                  child: Container(
-                    alignment: Alignment.centerRight,
-                    child: IconButton(
-                      icon: Icon(Icons.shopping_cart_rounded),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ComingSoon()));
-                      },
-
-                    ),
+                  child: Padding(
+                padding: EdgeInsets.fromLTRB(0, 45, 10, 0),
+                child: Container(
+                  alignment: Alignment.centerRight,
+                  child: IconButton(
+                    icon: Icon(Icons.shopping_cart_rounded),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ComingSoon()));
+                    },
                   ),
-                )
-              )
+                ),
+              ))
             ],
           ),
           //HEADER
@@ -139,18 +137,15 @@ class _GLItemPageState extends State<GLItemPage> {
           buildLocationRow(),
           buildCollaboratorRow(),
           Container(
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Expanded(
-                  flex: 1,
-                  child: SizedBox(
-                    width: 1,
-                  ),
+                SizedBox(
+                  width: 52,
                 ),
                 Expanded(
-                  flex: 3,
+                  flex: 4,
                   child: Container(
                     child: Text(
                       'Name:',
@@ -165,7 +160,7 @@ class _GLItemPageState extends State<GLItemPage> {
                   ),
                 ),
                 Expanded(
-                  flex: 4,
+                  flex: 6,
                   child: Container(
                     child: Text(
                       'Purchased:',
@@ -176,6 +171,13 @@ class _GLItemPageState extends State<GLItemPage> {
                 ),
               ],
             ),
+          ),
+          Divider(
+            height: 10,
+            thickness: 1,
+            color: Colors.grey[300],
+            indent: 5,
+            endIndent: 5,
           ),
           Container(
               child: SingleChildScrollView(
@@ -330,20 +332,36 @@ class _GLItemPageState extends State<GLItemPage> {
             style: h4,
           ),
           content: Container(
-            height: 100,
+            height: 200,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: EdgeInsets.all(2),
+                  padding: EdgeInsets.all(5),
+                  child: Text(
+                    'Name: ',
+                    style: priceText,
+                  ),
+                ),
+                TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please provide a name';
+                    }
+                    return null;
+                  },
+                ),
+                Container(
+                  padding: EdgeInsets.all(5),
                   child: Text(
                     'Phone Number: ',
                     style: priceText,
                   ),
                 ),
                 TextFormField(
-                  autovalidateMode: AutovalidateMode.always,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (value) {
                     if (value.isEmpty) {
                       return 'Please provide a number';
@@ -463,9 +481,9 @@ class _GLItemPageState extends State<GLItemPage> {
 
     for (var i = 0; i < currentList.purchases.length; i++) {
       // show if the grocery not bought yet
-      if(currentList.purchases[i].quantity > 0){
-        itemList.add(buildItemList(groceryListModel, inventoryModel, currentList,
-            currentList.purchases[i]));
+      if (currentList.purchases[i].quantity > 0) {
+        itemList.add(buildItemList(groceryListModel, inventoryModel,
+            currentList, currentList.purchases[i]));
       }
     }
     return itemList;
@@ -516,6 +534,12 @@ class _GLItemPageState extends State<GLItemPage> {
       padding: EdgeInsets.only(bottom: 0),
       child: Row(
         children: [
+          Expanded(
+            flex: 1,
+            child: SizedBox(
+              width: 1,
+            ),
+          ),
           Expanded(
             flex: 2,
             child: Container(
@@ -593,6 +617,12 @@ class _GLItemPageState extends State<GLItemPage> {
               ),
             ),
           ),
+          Expanded(
+            flex: 1,
+            child: SizedBox(
+              width: 1,
+            ),
+          ),
         ],
       ),
     );
@@ -663,7 +693,6 @@ class _GLItemPageState extends State<GLItemPage> {
 
     return;
   }
-
 }
 
 extension DateOnlyCompare on DateTime {
