@@ -73,6 +73,24 @@ class GroceryListModel with ChangeNotifier {
 
   }
 
+  deleteItemByKey(int key){
+    final box = Hive.box<GroceryList>(_grocerylistBox);
+    List keys = box.keys.toList();
+    for(int i = 0; i < keys.length; i++){
+      GroceryList item = box.get(keys[i]);
+      if(item.id == key){
+        print("deleting at " + item.toString());
+        box.delete(keys[i]);
+        break;
+      }
+    }
+
+    getItem();
+
+    notifyListeners();
+
+  }
+
   deleteAll() async{
     var box = await Hive.openBox<GroceryList>(_grocerylistBox);
     while(box.isNotEmpty){

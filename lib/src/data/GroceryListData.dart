@@ -13,7 +13,8 @@ GroceryList groceryList1 = new GroceryList()
   ..deadLine = today.add(Duration(days: 3))
   ..purchases = []
   ..type = 0
-  ..id = 0;
+  ..id = 0
+  ..collabs = [];
 
 
 GroceryList groceryList2 = new GroceryList()
@@ -21,7 +22,8 @@ GroceryList groceryList2 = new GroceryList()
   ..deadLine = today.add(Duration(days: 5))
   ..purchases = sampleListPurchases
   ..type = 1
-  ..id = 1;
+  ..id = 1
+  ..collabs = ["Carrie", "Mom", "Dad"];
 
 List<GroceryList> getGroceryList() {
   return [groceryList1, groceryList2];

@@ -498,7 +498,7 @@ class _GLEditPageState extends State<GLEditPage> {
           ),
           Container(
             child: Text(
-              'toBuy:',
+              'To Buy:',
               style: h5,
               textAlign: TextAlign.left,
             ),

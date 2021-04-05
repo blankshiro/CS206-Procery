@@ -32,15 +32,16 @@ class GLItemPage extends StatefulWidget {
 
 class _GLItemPageState extends State<GLItemPage> {
   List<bool> _checked;
+  GroceryListModel groceryListModel;
+  InventoryModel inventoryModel;
+  TextEditingController collabNameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     List<GroceryList> groceryListList =
         context.watch<GroceryListModel>().grocerylistList;
-    GroceryListModel groceryListModel =
-        Provider.of<GroceryListModel>(context, listen: false);
-    InventoryModel inventoryModel =
-        Provider.of<InventoryModel>(context, listen: false);
+    groceryListModel = Provider.of<GroceryListModel>(context, listen: false);
+    inventoryModel = Provider.of<InventoryModel>(context, listen: false);
 
     GroceryList initialiseGroceryList() {
       GroceryList toInitialise = null;
@@ -127,7 +128,7 @@ class _GLItemPageState extends State<GLItemPage> {
                   icon: Icon(Icons.delete),
                   iconSize: 20,
                   onPressed: () {
-                    _showMyDialog();
+                    _showMyDialogD();
                   },
                 ),
               ),
@@ -286,35 +287,14 @@ class _GLItemPageState extends State<GLItemPage> {
               style: h6,
             ),
           ),
-          Container(
-            child: Row(
-              children: buildCollabLists(),
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(children: buildCollabLists()),
             ),
           ),
           SizedBox(
             width: 8,
-          ),
-          Container(
-            height: 35,
-            width: 40,
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              // color: Colors.red,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16.0),
-                topRight: Radius.circular(16.0),
-                bottomLeft: Radius.circular(16.0),
-                bottomRight: Radius.circular(16.0),
-              ),
-            ),
-            child: IconButton(
-              alignment: Alignment.topCenter,
-              onPressed: () {
-                _showMyDialogC();
-              },
-              icon: Icon(Icons.add),
-              iconSize: 20,
-            ),
           ),
         ],
       ),
@@ -356,15 +336,16 @@ class _GLItemPageState extends State<GLItemPage> {
                 Container(
                   padding: EdgeInsets.all(5),
                   child: Text(
-                    'Phone Number: ',
+                    'Name: ',
                     style: priceText,
                   ),
                 ),
                 TextFormField(
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  controller: collabNameController,
+                  autovalidateMode: AutovalidateMode.always,
                   validator: (value) {
                     if (value.isEmpty) {
-                      return 'Please provide a number';
+                      return 'Please provide a name';
                     }
                     return null;
                   },
@@ -384,7 +365,9 @@ class _GLItemPageState extends State<GLItemPage> {
               icon: Icon(Icons.check),
               iconSize: 30,
               onPressed: () {
+                addNewCollaborator(collabNameController.text);
                 Navigator.of(context).pop();
+                setState(() {});
               },
             ),
           ],
@@ -393,7 +376,7 @@ class _GLItemPageState extends State<GLItemPage> {
     );
   }
 
-  Future<void> _showMyDialog() async {
+  Future<void> _showMyDialogD() async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -415,7 +398,7 @@ class _GLItemPageState extends State<GLItemPage> {
               icon: Icon(Icons.check),
               iconSize: 30,
               onPressed: () {
-                Navigator.of(context).pop();
+                deleteCurrentList(context);
               },
             ),
           ],
@@ -429,14 +412,48 @@ class _GLItemPageState extends State<GLItemPage> {
   ////////////////////////////////
   List<Widget> buildCollabLists() {
     List<Widget> collabList = [];
-    for (var i = 0; i < getCollabList().length; i++) {
-      // show if the grocery not bought yet
-      collabList.add(buildCollabList(getCollabList()[i]));
+    if (widget.groceryList.collabs != null) {
+      for (var i = 0; i < widget.groceryList.collabs.length; i++) {
+        // show if the grocery not bought yet
+        collabList.add(buildCollabList(widget.groceryList.collabs[i]));
+      }
     }
+
+    collabList.add(addCollabButton());
     return collabList;
   }
 
-  Widget buildCollabList(CollabList collabList) {
+  Widget addCollabButton() {
+    return Row(children: [
+      SizedBox(
+        width: 8,
+      ),
+      Container(
+        height: 35,
+        width: 40,
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          // color: Colors.red,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16.0),
+            topRight: Radius.circular(16.0),
+            bottomLeft: Radius.circular(16.0),
+            bottomRight: Radius.circular(16.0),
+          ),
+        ),
+        child: IconButton(
+          alignment: Alignment.topCenter,
+          onPressed: () {
+            _showMyDialogC();
+          },
+          icon: Icon(Icons.add),
+          iconSize: 20,
+        ),
+      )
+    ]);
+  }
+
+  Widget buildCollabList(String collabName) {
     return GestureDetector(
       onTap: () {},
       child: Row(
@@ -456,7 +473,7 @@ class _GLItemPageState extends State<GLItemPage> {
               ),
             ),
             child: Text(
-              collabList.name,
+              collabName,
               style: priceText,
             ),
           ),
@@ -692,6 +709,28 @@ class _GLItemPageState extends State<GLItemPage> {
     }
 
     return;
+  }
+
+  void addNewCollaborator(String collabName) {
+    print("collab adding - " + collabName);
+    if (collabName == null || collabName.length == 0) {
+      return;
+    }
+    if (widget.groceryList.collabs == null) {
+      widget.groceryList.collabs = [collabName];
+    } else {
+      widget.groceryList.collabs.add(collabName);
+    }
+
+    groceryListModel.updateItemByKey(widget.groceryList.id, widget.groceryList);
+  }
+
+  void deleteCurrentList(BuildContext context) {
+    groceryListModel.deleteItemByKey(widget.groceryList.id);
+    int count = 0;
+    Navigator.popUntil(context, (route) {
+      return count++ == 2;
+    });
   }
 }
 
