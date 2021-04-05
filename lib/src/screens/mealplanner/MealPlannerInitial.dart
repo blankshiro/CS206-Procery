@@ -571,7 +571,13 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
 
     PlannerRecord removeRecord = allPlans[toRemove];
     List<Purchase> allPurchase = purchaseModel.purchaseList;
-    GroceryList masterGL = groceryListModel.grocerylistList[0];
+    GroceryList masterGL;
+    for(int i = 0; i < groceryListModel.grocerylistList.length; i++){
+      if(allPlans[toRemove].groceryList.id == groceryListModel.grocerylistList[i].id){
+        masterGL = groceryListModel.grocerylistList[i];
+      }
+    }
+
     print("remove purchase " + removeRecord.purchaseId.length.toString());
     for (int i = 0; i < removeRecord.purchaseId.length; i++) {
       print("III " + i.toString());
@@ -593,7 +599,7 @@ class _MealPlannerInitialState extends State<MealPlannerInitial> {
       }
     }
 
-    groceryListModel.updateItem(0, masterGL);
+    groceryListModel.updateItemByKey(masterGL.id, masterGL);
     plannerRecordModel.deleteItem(toRemove);
   }
 

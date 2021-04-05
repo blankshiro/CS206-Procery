@@ -7,6 +7,7 @@ import '../../shared/styles.dart';
 import '../../shared/colors.dart';
 import '../../shared/Product.dart';
 import '../../shared/partials.dart';
+import '../../screens/BaseWidgets.dart';
 
 import './DashboardConstants.dart';
 
@@ -47,8 +48,9 @@ class _ExpiringPageState extends State<ExpiringPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            getBackButton(context),
             Padding(
-              padding: EdgeInsets.fromLTRB(20, 45, 0, 0),
+              padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
               child: Text(
                 "Manage",
                 style: TextStyle(
@@ -91,7 +93,7 @@ class _ExpiringPageState extends State<ExpiringPage> {
                         child: Text("Quantity: ")),
                     Container(
                       padding: EdgeInsets.only(right: 0),
-                      child: Text("Expiring In: "),
+                      child: Text("Expiring In (Days): "),
                     ),
                   ],
                 ),
@@ -201,7 +203,7 @@ class _ExpiringPageState extends State<ExpiringPage> {
                 )),
                 TableCell(
                     child: Container(
-                        child: buildGrocerySubtitle(inv.quantity.toString()))),
+                        child: buildGrocerySubtitle(inv.quantity.toString() + inv.ingredient.measurementType.toString()))),
                 TableCell(
                   child: Container(
                     padding: EdgeInsets.only(left: 30),

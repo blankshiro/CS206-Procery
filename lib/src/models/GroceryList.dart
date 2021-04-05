@@ -35,6 +35,7 @@ class GroceryList {
         this.purchases,
         this.type,
         this.collabs,
+        this.active,
         this.id,
       });
 

@@ -306,62 +306,70 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
   // Helper function to build individual recipes in popular recipes widget
   Widget buildPopular(Recipe recipe, RecipeModel recipeModel,
       PlannerRecordModel plannerRecordModel) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(
-          Radius.circular(20),
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => RecipeDetail(recipe: recipe)),
+        );
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(
+            Radius.circular(20),
+          ),
+          boxShadow: [kBoxShadow],
         ),
-        boxShadow: [kBoxShadow],
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-            height: 160,
-            width: 160,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(recipe.image),
-                fit: BoxFit.cover,
+        child: Row(
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+              height: 160,
+              width: 160,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(recipe.image),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
-          Flexible(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  buildRecipeTitle(recipe.name),
-                  buildTextSubTitleVariation2(recipe.description),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      buildCalories(recipe.prepMins.toString() + " mins"),
-                      IconButton(
-                        icon: Icon(Icons.add_circle),
-                        color: Colors.green,
-                        // iconSize: 20,
-                        onPressed: () {
-                          addRecipeToMealPlan(recipe, plannerRecordModel);
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) =>
-                                buildPopupDialog(context),
-                          );
-                        },
-                      )
-                    ],
-                  ),
-                ],
+            Flexible(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    buildRecipeTitle(recipe.name),
+                    buildTextSubTitleVariation2(recipe.description),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        buildCalories(recipe.prepMins.toString() + " mins"),
+                        IconButton(
+                          icon: Icon(Icons.add_circle),
+                          color: Colors.green,
+                          // iconSize: 20,
+                          onPressed: () {
+                            addRecipeToMealPlan(recipe, plannerRecordModel);
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  buildPopupDialog(context),
+                            );
+                          },
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
+      )
     );
   }
 
@@ -377,10 +385,23 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
     List<GroceryList> allLists = groceryListModel.grocerylistList;
     GroceryList masterList;
     for (int i = 0; i < allLists.length; i++) {
-      if (allLists[i].id == 0) {
+      if (allLists[i].type == 0 && allLists[i].active == 1) {
         masterList = allLists[i];
       }
     }
+
+    if(masterList == null){
+      GroceryList newList = new GroceryList()
+        ..name = "Groceries for Meal Plan"
+        ..deadLine = DateTime.now().add(Duration(days: 7))
+        ..purchases = []
+        ..type = 0
+        ..id = groceryListModel.grocerylistList.length;
+
+      groceryListModel.addItem(newList);
+      masterList = newList;
+    }
+
     print("Meal Plan adding groceries to " + masterList.name);
     int id = purchaseModel.purchaseList.length;
     List<Purchase> toPurchaseList = [];
@@ -400,7 +421,6 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
       toPurchaseList.add(toPurchase);
     }
 
-    plannerRecordModel.addItem(toAdd);
 
     for (int i = 0; i < toPurchaseList.length; i++) {
       bool found = false;
@@ -419,6 +439,8 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
       }
     }
 
+    toAdd.groceryList = masterList;
+    plannerRecordModel.addItem(toAdd);
     groceryListModel.updateItemByKey(masterList.id, masterList);
   }
 }

@@ -21,13 +21,13 @@ class PlannerRecordAdapter extends TypeAdapter<PlannerRecord> {
       date: fields[1] as DateTime,
       meal: fields[2] as String,
       purchaseId: (fields[3] as List)?.cast<int>(),
-    );
+    )..groceryList = fields[4] as GroceryList;
   }
 
   @override
   void write(BinaryWriter writer, PlannerRecord obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.recipe)
       ..writeByte(1)
@@ -35,7 +35,9 @@ class PlannerRecordAdapter extends TypeAdapter<PlannerRecord> {
       ..writeByte(2)
       ..write(obj.meal)
       ..writeByte(3)
-      ..write(obj.purchaseId);
+      ..write(obj.purchaseId)
+      ..writeByte(4)
+      ..write(obj.groceryList);
   }
 
   @override

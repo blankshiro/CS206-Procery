@@ -233,7 +233,7 @@ class _GLEditPageState extends State<GLEditPage> {
               width: 10,
               height: 35,
               child: Text(
-                _purchase.quantity.toString(),
+                _purchase.quantity.toString() + _purchase.ingredient.measurementType.toString(),
                 style: priceText,
               ),
             ),

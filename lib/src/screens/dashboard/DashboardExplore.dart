@@ -384,6 +384,45 @@ class _DashboardExploreState extends State<DashboardExplore> {
             Column(
               children: buildGroceries(grocerylistList[0]),
             ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(mainAxisAlignment: MainAxisAlignment.center,
+              children:[
+                GestureDetector(
+                    onTap: (){
+                      DashboardExplore.initialise = true;
+                      setState(() {});
+                    },
+                    child: Container(
+                        width: 250,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.0),
+                          color: Colors.grey[300],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text("Reset Application Data",
+                                      style: priceText,),
+                                    IconButton(
+                                      icon: Icon(Icons.restore),
+                                      iconSize: 30,
+                                    ),
+                                  ],
+                                )
+                            )
+
+                          ],
+                        )
+                    )
+                )
+              ]
+            )
           ],
         ),
       ),

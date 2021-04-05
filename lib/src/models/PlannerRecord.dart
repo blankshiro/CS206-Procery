@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
 import 'Recipe.dart';
+import 'GroceryList.dart';
 import 'Ingredient.dart';
 
 part 'PlannerRecord.g.dart';
@@ -17,6 +18,9 @@ class PlannerRecord {
 
   @HiveField(3)
   List<int> purchaseId;
+
+  @HiveField(4)
+  GroceryList groceryList;
 
   PlannerRecord(
       {this.recipe,

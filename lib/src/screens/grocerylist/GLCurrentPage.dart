@@ -29,6 +29,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
   DateTime selectedDate = DateTime.now();
   TextEditingController textController1 = TextEditingController();
   TextEditingController textController2 = TextEditingController();
+  TextEditingController searchController = TextEditingController();
 
   Widget getChildWidget() => childWidgets[selectedIndex];
 
@@ -432,6 +433,8 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
     return Container(
       padding: EdgeInsets.fromLTRB(15, 8, 15, 25),
       child: TextField(
+        controller: searchController,
+        onEditingComplete: () {setState(() {});},
         decoration: InputDecoration(
           hintText: 'Search',
           hintStyle: TextStyle(fontSize: 16),
@@ -449,10 +452,11 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
           ),
           suffixIcon: Padding(
             padding: EdgeInsets.only(right: 24.0, left: 16.0),
-            child: Icon(
-              Icons.search,
+            child: IconButton(
+              icon: Icon(Icons.search,
               color: Colors.black,
-              size: 24,
+              size: 24,),
+              onPressed: () { setState(() {});},
             ),
           ),
         ),
@@ -483,6 +487,11 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
     }
   }
 
+   searchFilterGroceryList(List<GroceryList> groceryList) {
+    return groceryList.where((e)
+    => e.name.toLowerCase().contains(RegExp(searchController.text.toLowerCase()))).toList();
+  }
+
   ////////////////////////////////
   ///GROCERY CURRENT LISTING PART
   ////////////////////////////////
@@ -492,8 +501,10 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
     List<GroceryList> _toDisplay = List.from(groceryListList);
     List<GroceryList> activeLists =
         _toDisplay.where((i) => i.active == 1).toList();
+    activeLists = searchFilterGroceryList(activeLists);
     List<GroceryList> inactiveLists =
         _toDisplay.where((i) => i.active == 0).toList();
+    inactiveLists = searchFilterGroceryList(inactiveLists);
 
     computeCompletionPercentage(activeLists);
     computeCompletionPercentage(inactiveLists);
@@ -512,12 +523,21 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
       double purchasedCount = 0.0;
       for (int j = 0; j < currentList.purchases.length; j++) {
         if (currentList.purchases[j].purchased ==
-            currentList.purchases[j].quantity) {
+            currentList.purchases[j].quantity &&
+            currentList.purchases[j].quantity != 0) {
           purchasedCount += 1;
         }
       }
+
+      int totalIngre = 0;
+      for(int i = 0; i < currentList.purchases.length; i++){
+        if(currentList.purchases[i].quantity > 0){
+          totalIngre++;
+        }
+      }
+
       currentList.completionPercent =
-          purchasedCount / currentList.purchases.length;
+          purchasedCount / totalIngre;
 
       print("complete% : " +
           (purchasedCount / currentList.purchases.length).toString());

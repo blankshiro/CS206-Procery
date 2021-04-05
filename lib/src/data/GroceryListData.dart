@@ -14,6 +14,7 @@ GroceryList groceryList1 = new GroceryList()
   ..purchases = []
   ..type = 0
   ..id = 0
+  ..active = 1
   ..collabs = [];
 
 
@@ -23,6 +24,7 @@ GroceryList groceryList2 = new GroceryList()
   ..purchases = sampleListPurchases
   ..type = 1
   ..id = 1
+  ..active = 1
   ..collabs = ["Carrie", "Mom", "Dad"];
 
 List<GroceryList> getGroceryList() {

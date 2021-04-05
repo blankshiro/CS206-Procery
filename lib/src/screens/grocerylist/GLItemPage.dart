@@ -325,6 +325,7 @@ class _GLItemPageState extends State<GLItemPage> {
                   ),
                 ),
                 TextFormField(
+                  controller: collabNameController,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (value) {
                     if (value.isEmpty) {
@@ -584,7 +585,7 @@ class _GLItemPageState extends State<GLItemPage> {
             child: Text(
               _purchase.purchased.toString() +
                   "\/" +
-                  _purchase.quantity.toString(),
+                  _purchase.quantity.toString() + "" + _purchase.ingredient.measurementType.toString(),
               style: priceText,
               textAlign: TextAlign.center,
             ),
