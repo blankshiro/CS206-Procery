@@ -84,7 +84,7 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
                   children: [
                     getBackButton(context),
                     Padding(
-                      padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                      padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
                       child: Text(
                         "Fill up",
                         style: TextStyle(
@@ -94,7 +94,7 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                      padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
                       child: Text(
                         "Your groceries",
                         style: TextStyle(
@@ -103,14 +103,27 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
                         ),
                       ),
                     ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        "Based on Inventory",
+                        style: TextStyle(
+                          fontSize: 23,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
                     // Different categories
                     SizedBox(
-                      height: 24,
+                      height: 8,
                     ),
                     // Recipe Pictures
                     Container(child: buildRecommend(recommendedRecipes)),
                     SizedBox(
-                      height: 16,
+                      height: 8,
                     ),
                     // What's Popular column
                     Padding(
@@ -118,25 +131,31 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          buildTextTitleVariation2("What's Popular", false),
+                          Text(
+                            "Your Favourites",
+                            style: TextStyle(
+                              fontSize: 23,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                           SizedBox(
                             width: 8,
                           ),
                           // buildTextTitleVariation2('Recent', true),
-                          IconButton(
-                            icon: Icon(Icons.search),
-                            iconSize: 25,
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) {
-                                    return RecipeSearch();
-                                  },
-                                ),
-                              );
-                            },
-                          )
+                          // IconButton(
+                          //   icon: Icon(Icons.search),
+                          //   iconSize: 25,
+                          //   onPressed: () {
+                          //     Navigator.push(
+                          //       context,
+                          //       MaterialPageRoute(
+                          //         builder: (BuildContext context) {
+                          //           return RecipeSearch();
+                          //         },
+                          //       ),
+                          //     );
+                          //   },
+                          // )
                         ],
                       ),
                     ),

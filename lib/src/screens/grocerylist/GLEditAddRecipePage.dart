@@ -83,7 +83,7 @@ class GLEditAddRecipePageState extends State<GLEditAddRecipePage> {
                   children: [
                     getBackButton(context),
                     Padding(
-                      padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                      padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
                       child: Text(
                         "Fill up",
                         style: TextStyle(
@@ -93,7 +93,7 @@ class GLEditAddRecipePageState extends State<GLEditAddRecipePage> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                      padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
                       child: Text(
                         "Your groceries",
                         style: TextStyle(
@@ -102,40 +102,59 @@ class GLEditAddRecipePageState extends State<GLEditAddRecipePage> {
                         ),
                       ),
                     ),
-                    // Different categories
                     SizedBox(
-                      height: 24,
+                      height: 8,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        "Based on Inventory",
+                        style: TextStyle(
+                          fontSize: 23,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 8,
                     ),
                     // Recipe Pictures
                     Container(child: buildRecommend(recommendedRecipes)),
                     SizedBox(
                       height: 16,
                     ),
+
                     // What's Popular column
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          buildTextTitleVariation2("What's Popular", false),
+                          Text(
+                            "Your Favourites",
+                            style: TextStyle(
+                              fontSize: 23,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                           SizedBox(
                             width: 8,
                           ),
                           // buildTextTitleVariation2('Recent', true),
-                          IconButton(
-                            icon: Icon(Icons.search),
-                            iconSize: 25,
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) {
-                                    return RecipeSearch();
-                                  },
-                                ),
-                              );
-                            },
-                          )
+                          // IconButton(
+                          //   icon: Icon(Icons.search),
+                          //   iconSize: 25,
+                          //   onPressed: () {
+                          //     Navigator.push(
+                          //       context,
+                          //       MaterialPageRoute(
+                          //         builder: (BuildContext context) {
+                          //           return RecipeSearch();
+                          //         },
+                          //       ),
+                          //     );
+                          //   },
+                          // )
                         ],
                       ),
                     ),
@@ -180,9 +199,25 @@ class GLEditAddRecipePageState extends State<GLEditAddRecipePage> {
 
   Widget buildEmptyRecommendation() {
     return Container(
-        padding: EdgeInsets.all(20),
-        height: 350,
-        child: Text("You are currently maximising your use of groceries!"));
+      padding: EdgeInsets.all(20),
+      height: 250,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          image: DecorationImage(
+            scale: 3.5,
+            image: AssetImage(
+              "assets/icons/strawberry.png",
+            ),
+          ),
+          borderRadius: BorderRadius.all(
+            Radius.circular(20),
+          )),
+      alignment: Alignment.topCenter,
+      child: Text("You are currently maximising your use of groceries!",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          )),
+    );
   }
 
   Widget buildRecipe(
@@ -350,7 +385,6 @@ class GLEditAddRecipePageState extends State<GLEditAddRecipePage> {
       purchaseModel.addItem(toPurchase);
       toPurchaseList.add(toPurchase);
     }
-
 
     for (int i = 0; i < toPurchaseList.length; i++) {
       bool found = false;
