@@ -23,7 +23,8 @@ class GLCurrentPage extends StatefulWidget {
 }
 
 class _GLCurrentPageState extends State<GLCurrentPage> {
-  int _sortKey = 0; // 0 - Incoming Datelines, 1 - Most Groceries, 2 - Highest Progress
+  int _sortKey =
+      0; // 0 - Incoming Datelines, 1 - Most Groceries, 2 - Highest Progress
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   DateTime selectedDate = DateTime.now();
   TextEditingController textController1 = TextEditingController();
@@ -404,7 +405,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
             value: _sortKey,
             items: [
               DropdownMenuItem(
-                child: Text("Incoming Datelines", style: priceText),
+                child: Text("Incoming Deadlines", style: priceText),
                 value: 0,
               ),
               DropdownMenuItem(
@@ -459,24 +460,26 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
     );
   }
 
-  void sortGroceryList(){
+  void sortGroceryList() {
     // 0 - Incoming Datelines, 1 - Most Groceries, 2 - Highest Progress
-    if(_sortKey == 0){
-      groceryListModel.grocerylistList.sort((a, b) => a.deadLine.compareTo(b.deadLine));
-    }else if(_sortKey == 1){
+    if (_sortKey == 0) {
+      groceryListModel.grocerylistList
+          .sort((a, b) => a.deadLine.compareTo(b.deadLine));
+    } else if (_sortKey == 1) {
       groceryListModel.grocerylistList.sort((a, b) {
         int aQ = 0;
-        for(int i = 0; i < a.purchases.length; i++){
+        for (int i = 0; i < a.purchases.length; i++) {
           aQ += a.purchases[i].quantity;
         }
         int bQ = 0;
-        for(int i = 0; i < b.purchases.length; i++){
+        for (int i = 0; i < b.purchases.length; i++) {
           bQ += b.purchases[i].quantity;
         }
         return bQ.compareTo(aQ);
       });
-    }else if(_sortKey == 2){
-      groceryListModel.grocerylistList.sort((a, b) => b.completionPercent.compareTo(a.completionPercent));
+    } else if (_sortKey == 2) {
+      groceryListModel.grocerylistList
+          .sort((a, b) => b.completionPercent.compareTo(a.completionPercent));
     }
   }
 
@@ -508,14 +511,16 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
       }
       double purchasedCount = 0.0;
       for (int j = 0; j < currentList.purchases.length; j++) {
-        if (currentList.purchases[j].purchased == currentList.purchases[j].quantity) {
+        if (currentList.purchases[j].purchased ==
+            currentList.purchases[j].quantity) {
           purchasedCount += 1;
         }
       }
       currentList.completionPercent =
           purchasedCount / currentList.purchases.length;
 
-      print("complete% : " + (purchasedCount / currentList.purchases.length).toString());
+      print("complete% : " +
+          (purchasedCount / currentList.purchases.length).toString());
       if (currentList.completionPercent < 1.0) {}
     }
   }
