@@ -312,7 +312,7 @@ class _GLItemPageState extends State<GLItemPage> {
             style: h4,
           ),
           content: Container(
-            height: 200,
+            height: 100,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -326,23 +326,6 @@ class _GLItemPageState extends State<GLItemPage> {
                 ),
                 TextFormField(
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Please provide a name';
-                    }
-                    return null;
-                  },
-                ),
-                Container(
-                  padding: EdgeInsets.all(5),
-                  child: Text(
-                    'Name: ',
-                    style: priceText,
-                  ),
-                ),
-                TextFormField(
-                  controller: collabNameController,
-                  autovalidateMode: AutovalidateMode.always,
                   validator: (value) {
                     if (value.isEmpty) {
                       return 'Please provide a name';
