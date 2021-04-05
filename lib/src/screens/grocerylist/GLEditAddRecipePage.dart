@@ -107,13 +107,7 @@ class GLEditAddRecipePageState extends State<GLEditAddRecipePage> {
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16),
-                      child: Text(
-                        "Based on Inventory",
-                        style: TextStyle(
-                          fontSize: 23,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
+                      child: Text("Based on Inventory", style: priceText),
                     ),
                     SizedBox(
                       height: 8,
@@ -133,7 +127,7 @@ class GLEditAddRecipePageState extends State<GLEditAddRecipePage> {
                           Text(
                             "Your Favourites",
                             style: TextStyle(
-                              fontSize: 23,
+                              fontSize: 27,
                               fontWeight: FontWeight.w700,
                             ),
                           ),

@@ -110,10 +110,11 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
                       padding: EdgeInsets.symmetric(horizontal: 16),
                       child: Text(
                         "Based on Inventory",
-                        style: TextStyle(
-                          fontSize: 23,
-                          fontWeight: FontWeight.w700,
-                        ),
+                        // style: TextStyle(
+                        //   fontSize: 23,
+                        //   fontWeight: FontWeight.w700,
+                        // ),
+                        style: priceText,
                       ),
                     ),
                     // Different categories
@@ -127,19 +128,19 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
                     ),
                     // What's Popular column
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             "Your Favourites",
                             style: TextStyle(
-                              fontSize: 23,
+                              fontSize: 27,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
                           SizedBox(
-                            width: 8,
+                            width: 16,
                           ),
                           // buildTextTitleVariation2('Recent', true),
                           // IconButton(
