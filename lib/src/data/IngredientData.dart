@@ -1,6 +1,6 @@
 import '../models/Ingredient.dart';
 
-Ingredient flour = Ingredient()
+Ingredient Function() flour = () {return Ingredient()
   ..name = "Flour"
   ..description = "Flour"
   ..measurementType = "g"
@@ -8,9 +8,9 @@ Ingredient flour = Ingredient()
   ..expiryDays = 100
   ..price = 10.0
   ..image = "assets/images/flour1.png"
-  ..divide = 25;
+  ..divide = 25;};
 
-Ingredient egg = Ingredient()
+Ingredient Function() egg = () {return Ingredient()
   ..name = "Egg"
   ..description = "Egg"
   ..measurementType = ""
@@ -18,9 +18,9 @@ Ingredient egg = Ingredient()
   ..expiryDays = 12
   ..price = 5.0
   ..image = "assets/images/egg1.jpg"
-  ..divide = 1;
+  ..divide = 1;};
 
-Ingredient butter = Ingredient()
+Ingredient Function() butter = () {return Ingredient()
   ..name = "Butter"
   ..description = "Butter"
   ..measurementType = "g"
@@ -28,9 +28,9 @@ Ingredient butter = Ingredient()
   ..expiryDays = 100
   ..price = 10.0
   ..image = "assets/images/butter.jpg"
-  ..divide = 25;
+  ..divide = 25;};
 
-Ingredient chocolate = Ingredient()
+Ingredient Function() chocolate = () {return Ingredient()
   ..name = "Chocolate"
   ..description = "Chocolate"
   ..measurementType = "g"
@@ -38,9 +38,9 @@ Ingredient chocolate = Ingredient()
   ..expiryDays = 100
   ..price = 10.0
   ..image = "assets/images/chocochip.jpg"
-  ..divide = 20;
+  ..divide = 20;};
 
-Ingredient milk = Ingredient()
+Ingredient Function() milk = () {return Ingredient()
   ..name = "Milk"
   ..description = "Milk"
   ..measurementType = "ml"
@@ -48,8 +48,8 @@ Ingredient milk = Ingredient()
   ..expiryDays = 20
   ..price = 10.0
   ..image = "assets/images/milk.png"
-  ..divide = 50;
+  ..divide = 50;};
 
 List<Ingredient> getIngredients() {
-  return [flour, egg, butter, chocolate, milk];
+  return [flour(), egg(), butter(), chocolate(), milk()];
 }

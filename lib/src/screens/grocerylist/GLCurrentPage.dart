@@ -303,6 +303,7 @@ class _GLCurrentPageState extends State<GLCurrentPage> {
       ..deadLine = DateTime.parse(deadline)
       ..purchases = []
       ..type = 1
+      ..active = 1
       ..id = id;
 
     groceryListModel.addItem(toCreate);

@@ -8,25 +8,25 @@ import '../data/PurchaseData.dart';
 DateTime today = DateTime.now();
 List<Purchase> sampleListPurchases = getSampleListPurchase();
 
-GroceryList groceryList1 = new GroceryList()
+GroceryList Function() groceryList1 = () {return new GroceryList()
   ..name = "Groceries for Meal Plan"
   ..deadLine = today.add(Duration(days: 3))
   ..purchases = []
   ..type = 0
   ..id = 0
   ..active = 1
-  ..collabs = [];
+  ..collabs = [];};
 
 
-GroceryList groceryList2 = new GroceryList()
+GroceryList Function() groceryList2 = () {return new GroceryList()
   ..name = "My Sample List"
   ..deadLine = today.add(Duration(days: 5))
   ..purchases = sampleListPurchases
   ..type = 1
   ..id = 1
   ..active = 1
-  ..collabs = ["Carrie", "Mom", "Dad"];
+  ..collabs = ["Carrie", "Mom", "Dad"];};
 
 List<GroceryList> getGroceryList() {
-  return [groceryList1, groceryList2];
+  return [groceryList1(), groceryList2()];
 }

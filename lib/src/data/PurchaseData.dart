@@ -14,47 +14,47 @@ Ingredient milk = ingredients[4];
 
 DateTime today = DateTime.now();
 
-Purchase purchase1 = new Purchase()
+Purchase Function() purchase1 = () {return new Purchase()
   ..ingredient = flour
   ..quantity = 150
   ..dateAdded = today.subtract(Duration(days: 1))
   ..purchased = 0
   ..listName = "My Sample List"
-  ..id = 0;
+  ..id = 0;};
 
-Purchase purchase2 = new Purchase()
+Purchase Function() purchase2 = () {return new Purchase()
   ..ingredient = egg
   ..quantity = 3
   ..dateAdded = today.subtract(Duration(days: 1))
   ..purchased = 1
   ..listName = "My Sample List"
-  ..id = 1;
+  ..id = 1;};
 
-Purchase purchase3 = new Purchase()
+Purchase Function() purchase3 = () {return new Purchase()
   ..ingredient = butter
   ..quantity = 100
   ..dateAdded = today.subtract(Duration(days: 1))
   ..purchased = 0
   ..listName = "My Sample List"
-  ..id = 2;
+  ..id = 2;};
 
-Purchase purchase4 = new Purchase()
+Purchase Function() purchase4 = () {return new Purchase()
   ..ingredient = chocolate
   ..quantity = 50
   ..dateAdded = today.subtract(Duration(days: 1))
   ..purchased = 0
   ..listName = "My Sample List"
-  ..id = 3;
+  ..id = 3;};
 
-Purchase purchase5 = new Purchase()
+Purchase Function() purchase5 = () {return new Purchase()
   ..ingredient = milk
   ..quantity = 751
   ..dateAdded = today.subtract(Duration(days: 1))
   ..purchased = 0
   ..listName = "My Sample List"
-  ..id = 4;
+  ..id = 4;};
 
 List<Purchase> getSampleListPurchase(){
-  return [purchase1, purchase2, purchase3, purchase4, purchase5];
+  return [purchase1(), purchase2(), purchase3(), purchase4(), purchase5()];
 }
 

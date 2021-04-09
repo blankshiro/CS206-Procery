@@ -22,10 +22,9 @@ class GroceryListAdapter extends TypeAdapter<GroceryList> {
       purchases: (fields[2] as List)?.cast<Purchase>(),
       type: fields[5] as int,
       collabs: (fields[7] as List)?.cast<String>(),
+      active: fields[4] as int,
       id: fields[6] as int,
-    )
-      ..completionPercent = fields[3] as double
-      ..active = fields[4] as int;
+    )..completionPercent = fields[3] as double;
   }
 
   @override

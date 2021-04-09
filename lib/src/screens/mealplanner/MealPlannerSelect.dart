@@ -396,6 +396,7 @@ class MealPlannerSelectState extends State<MealPlannerSelect> {
         ..deadLine = DateTime.now().add(Duration(days: 7))
         ..purchases = []
         ..type = 0
+        ..active = 1
         ..id = groceryListModel.grocerylistList.length;
 
       groceryListModel.addItem(newList);

@@ -69,6 +69,20 @@ class _DashboardExploreState extends State<DashboardExplore> {
   void initState() {
     // Meal Planner Tabs
     super.initState();
+    inventoryModel = Provider.of<InventoryModel>(context, listen: false);
+    purchaseModel = Provider.of<PurchaseModel>(context, listen: false);
+    recipeModel = Provider.of<RecipeModel>(context, listen: false);
+    plannerRecordModel =
+        Provider.of<PlannerRecordModel>(context, listen: false);
+    groceryListModel = Provider.of<GroceryListModel>(context, listen: false);
+    ingredientModel = Provider.of<IngredientModel>(context, listen: false);
+
+    ingredientModel.getItem();
+    inventoryModel.getItem();
+    purchaseModel.getItem();
+    recipeModel.getItem();
+    groceryListModel.getItem();
+    plannerRecordModel.getItem();
     loadCupertinoTabs(); //Method to add Tabs to the Segmented Control.
 
     // Expiring Container Timer
@@ -127,23 +141,13 @@ class _DashboardExploreState extends State<DashboardExplore> {
 
   @override
   Widget build(BuildContext context) {
-    inventoryModel = Provider.of<InventoryModel>(context, listen: false);
-    purchaseModel = Provider.of<PurchaseModel>(context, listen: false);
-    recipeModel = Provider.of<RecipeModel>(context, listen: false);
-    plannerRecordModel =
-        Provider.of<PlannerRecordModel>(context, listen: false);
-    groceryListModel = Provider.of<GroceryListModel>(context, listen: false);
-    ingredientModel = Provider.of<IngredientModel>(context, listen: false);
 
-    if (DashboardExplore.initialise == true) {
-      loadAllIngredient(ingredientModel);
-      loadAllInventory(inventoryModel);
-      loadAllPurchase(purchaseModel);
-      loadAllGroceryList(groceryListModel);
-      loadAllRecipe(recipeModel);
-      loadAllMealPlan(plannerRecordModel);
-      DashboardExplore.initialise = false;
-    }
+    // print("Conditions A - " + (ingredientModel.ingredientList == null).toString()
+    //     + "B - " + (ingredientModel.ingredientList.length == 0).toString());
+    //
+    // if (ingredientModel.ingredientList == null || ingredientModel.ingredientList.length == 0) {
+    //   initialiseModels();
+    // }
 
     // context.watch reloads screen
     var inventoryList = context.watch<InventoryModel>().inventoryList;
@@ -209,6 +213,12 @@ class _DashboardExploreState extends State<DashboardExplore> {
 
     loadChildWidgets();
 
+    DateTime groceryListDeadline = DateTime.now();
+    GroceryList groceryListDisplay = null;
+    if(grocerylistList != null && grocerylistList.length > 0){
+      groceryListDeadline = grocerylistList[0].deadLine;
+      groceryListDisplay = grocerylistList[0];
+    }
     return Scaffold(
       bottomNavigationBar: getBaseBottomNavBar(context, 0),
       backgroundColor: Colors.grey[100],
@@ -352,7 +362,7 @@ class _DashboardExploreState extends State<DashboardExplore> {
                 children: [
                   buildTextSubTitleVariation1("Deadline: " +
                       DateFormat('MM - dd')
-                          .format(grocerylistList[0].deadLine)),
+                          .format(groceryListDeadline)),
                   SizedBox(
                     width: 8,
                   ),
@@ -382,7 +392,7 @@ class _DashboardExploreState extends State<DashboardExplore> {
               ],
             ),
             Column(
-              children: buildGroceries(grocerylistList[0]),
+              children: buildGroceries(groceryListDisplay),
             ),
             SizedBox(
               height: 10,
@@ -391,7 +401,7 @@ class _DashboardExploreState extends State<DashboardExplore> {
               children:[
                 GestureDetector(
                     onTap: (){
-                      DashboardExplore.initialise = true;
+                      initialiseModels();
                       setState(() {});
                     },
                     child: Container(
@@ -697,6 +707,10 @@ class _DashboardExploreState extends State<DashboardExplore> {
   ////////////////////////////////////
 
   List<Widget> buildGroceries(lastestGroceryList) {
+    if(lastestGroceryList == null){
+      return List<Widget>();
+    }
+
     List<Widget> purchaseList = List<Widget>();
 
     for (var i = 0; i < lastestGroceryList.purchases.length; i++) {
@@ -737,6 +751,15 @@ class _DashboardExploreState extends State<DashboardExplore> {
   /////////////////////////////////////
   /// Loading of Models for initialisation
   ////////////////////////////////////
+  void initialiseModels(){
+    print("Initialising Models");
+    loadAllIngredient(ingredientModel);
+    loadAllInventory(inventoryModel);
+    loadAllPurchase(purchaseModel);
+    loadAllRecipe(recipeModel);
+    loadAllGroceryList(groceryListModel);
+    loadAllMealPlan(plannerRecordModel);
+  }
 
   void loadAllIngredient(IngredientModel ingredientModel) {
     ingredientModel.deleteAll();
@@ -786,10 +809,10 @@ class _DashboardExploreState extends State<DashboardExplore> {
   void loadAllMealPlan(PlannerRecordModel plannerRecordModel) {
     plannerRecordModel.deleteAll();
 
-    List<PlannerRecord> toAdd = getPlannerRecords();
-    for (int i = 0; i < toAdd.length; i++) {
-      plannerRecordModel.addItem(toAdd[i]);
-    }
+    // List<PlannerRecord> toAdd = getPlannerRecords();
+    // for (int i = 0; i < toAdd.length; i++) {
+    //   plannerRecordModel.addItem(toAdd[i]);
+    // }
   }
 }
 

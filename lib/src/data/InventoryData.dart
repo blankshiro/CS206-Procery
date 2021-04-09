@@ -14,38 +14,39 @@ Ingredient milk = ingredients[4];
 
 DateTime today = DateTime.now();
 
-Inventory flourInventory = new Inventory()
+Inventory Function() flourInventory = () {return new Inventory()
   ..ingredient = flour
   ..quantity = 250
   ..datePurchased = today.subtract(Duration(days: 0))
-  ..id = 0;
+  ..id = 0;};
 
-Inventory eggInventory = new Inventory()
+Inventory Function() eggInventory = () {return new Inventory()
   ..ingredient = egg
   ..quantity = 8
   ..datePurchased = today.subtract(Duration(days: 2))
-  ..id = 1;
+  ..id = 1;};
 
-Inventory butterInventory = new Inventory()
+Inventory Function() butterInventory = () {return new Inventory()
   ..ingredient = butter
   ..quantity = 200
   ..datePurchased = today.subtract(Duration(days: 3))
-  ..id = 2;
+  ..id = 2;};
 
-Inventory chocolateInventory = new Inventory()
+Inventory Function()  chocolateInventory = () {return new Inventory()
   ..ingredient = chocolate
   ..quantity = 150
   ..datePurchased = today.subtract(Duration(days: 4))
-  ..id = 3;
+  ..id = 3;};
 
-Inventory milkInventory = new Inventory()
+Inventory Function()  milkInventory = () {return new Inventory()
   ..ingredient = milk
   ..quantity = 1000
   ..datePurchased = today.subtract(Duration(days: 5))
-  ..id = 4;
+  ..id = 4;};
 
 List<Inventory> getInventory() {
-  return [flourInventory, eggInventory, butterInventory, chocolateInventory, milkInventory];
+  return [flourInventory(), eggInventory(), butterInventory(),
+    chocolateInventory(), milkInventory()];
 }
 
 

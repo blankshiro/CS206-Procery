@@ -16,7 +16,7 @@ Ingredient butter = ingredients[2];
 Ingredient chocolate = ingredients[3];
 Ingredient milk = ingredients[4];
 
-var recipe1 = Recipe(
+Recipe Function() recipe1 = () {return Recipe(
     //https://iambaker.net/the-perfect-chocolate-cake/
     name: "The Perfect Chocolate Cake",
     description:
@@ -33,9 +33,9 @@ var recipe1 = Recipe(
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [150, 7, 200, 80, 1000],
     likes: 0,
-    category: "cake");
+    category: "cake");};
 
-var recipe2 = Recipe(
+Recipe Function() recipe2 = () {return Recipe(
     // https://iambaker.net/chocolate-craving-cake/
     name: "Chocolate Craving Cake",
     description: "Small in size but not in flavor!",
@@ -53,9 +53,9 @@ var recipe2 = Recipe(
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [150, 8, 100, 140, 1000],
     likes: 0,
-    category: "cake");
+    category: "cake");};
 
-var recipe3 = Recipe(
+Recipe Function() recipe3 = () {return Recipe(
     // https://iambaker.net/homemade-coconut-cake/
     name: "Coconut Cake",
     description: "This Coconut Cake recipe is a family favorite!",
@@ -79,9 +79,9 @@ var recipe3 = Recipe(
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [125, 10, 200, 0, 1000],
     likes: 0,
-    category: "cake");
+    category: "cake");};
 
-var recipe4 = Recipe(
+Recipe Function() recipe4 = () {return Recipe(
     //https://www.countryliving.com/food-drinks/recipes/a37729/speckled-malted-coconut-cake-recipe/
     name: "Speckled Malted Coconut Cake",
     description: "This robin's egg cake tastes just as good as it looks.",
@@ -98,9 +98,9 @@ var recipe4 = Recipe(
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [100, 2, 100, 0, 2500],
     likes: 0,
-    category: "cake");
+    category: "cake");};
 
-var recipe5 = Recipe(
+Recipe Function() recipe5 = () {return Recipe(
     // https://www.countryliving.com/food-drinks/recipes/a41986/raspberry-pink-velvet-cake-recipe/?visibilityoverride
     name: "Raspberry Pink Velvet Cake with Raspberry Cream Cheese Frosting",
     description:
@@ -118,9 +118,9 @@ var recipe5 = Recipe(
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [100, 1, 200, 0, 300],
     likes: 0,
-    category: "cake");
+    category: "cake");};
 
-var recipe6 = Recipe(
+Recipe Function() recipe6 = () {return Recipe(
     //https://www.epicurious.com/recipes/food/views/olive-oil-apple-cake-with-spiced-sugar
     name: "Olive Oil Apple Cake with Spiced Sugar",
     description:
@@ -140,9 +140,9 @@ var recipe6 = Recipe(
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [100, 3, 100, 0, 1500],
     likes: 1,
-    category: "cake");
+    category: "cake");};
 
-var recipe7 = Recipe(
+Recipe Function() recipe7 = () {return Recipe(
     //https://www.epicurious.com/recipes/food/views/buckwheat-banana-cake-with-yogurt-espresso-frosting
     name: "Buckwheat Banana Cake with Yogurt-Espresso Frosting",
     description:
@@ -158,9 +158,9 @@ var recipe7 = Recipe(
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [100, 2, 50, 0, 700],
     likes: 0,
-    category: "cake");
+    category: "cake");};
 
-var recipe8 = Recipe(
+Recipe Function() recipe8 = () {return Recipe(
     //https://www.epicurious.com/recipes/food/views/east-62nd-street-lemon-cake
     name: "Lemon Cake",
     description:
@@ -177,9 +177,9 @@ var recipe8 = Recipe(
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [125, 1, 100, 0, 800],
     likes: 0,
-    category: "cake");
+    category: "cake");};
 
-var recipe9 = Recipe(
+Recipe Function() recipe9 = () {return Recipe(
     //https://www.epicurious.com/recipes/food/views/red-velvet-mug-cake-51206050
     name: "Red Velvet Mug Cake",
     description:
@@ -198,9 +198,9 @@ var recipe9 = Recipe(
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [150, 4, 50, 100, 2000],
     likes: 0,
-    category: "cake");
+    category: "cake");};
 
-var recipe10 = Recipe(
+Recipe Function() recipe10 = () {return Recipe(
     //https://sallysbakingaddiction.com/super-moist-chocolate-cupcakes/
     name: "Super Moist Chocolate Cupcakes",
     description:
@@ -218,9 +218,9 @@ var recipe10 = Recipe(
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [150, 2, 100, 300, 3000],
     likes: 0,
-    category: "cupcake");
+    category: "cupcake");};
 
-var recipe11 = Recipe(
+Recipe Function() recipe11 = () {return Recipe(
     //https://prettysimplesweet.com/vanilla-cupcakes/
     name: "Vanilla Cupcakes",
     description:
@@ -238,9 +238,9 @@ var recipe11 = Recipe(
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [175, 1, 150, 0, 1500],
     likes: 0,
-    category: "cupcake");
+    category: "cupcake");};
 
-var recipe12 = Recipe(
+Recipe Function() recipe12 = () {return Recipe(
     //https://www.olivemagazine.com/recipes/baking-and-desserts/classic-chocolate-brownies/
     name: "Classic Chocolate Brownies",
     description:
@@ -260,9 +260,9 @@ var recipe12 = Recipe(
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [175, 3, 150, 200, 1300],
     likes: 0,
-    category: "cake");
+    category: "cake");};
 
-var recipe13 = Recipe(
+Recipe Function() recipe13 = () {return Recipe(
     //https://www.olivemagazine.com/recipes/baking-and-desserts/classic-millionaires-shortbread/
     name: "Classic Millionaire’s Shortbread",
     description:
@@ -278,9 +278,9 @@ var recipe13 = Recipe(
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [175, 1, 200, 0, 2000],
     likes: 0,
-    category: "bread");
+    category: "bread");};
 
-var recipe14 = Recipe(
+Recipe Function() recipe14 = () {return Recipe(
     //https://www.olivemagazine.com/recipes/baking-and-desserts/apricot-and-white-chocolate-cookies/
     name: "Apricot and White Chocolate Cookies",
     description:
@@ -296,9 +296,9 @@ var recipe14 = Recipe(
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [150, 1, 100, 200, 2500],
     likes: 0,
-    category: "cookie");
+    category: "cookie");};
 
-var recipe15 = Recipe(
+Recipe Function() recipe15 = () {return Recipe(
     //https://www.olivemagazine.com/recipes/family/croissant-cinnamon-buns/
     name: "Croissant Cinnamon Buns",
     description: "Check out these easy-to-make, moreish cinnamon buns.",
@@ -314,9 +314,9 @@ var recipe15 = Recipe(
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [100, 2, 50, 0, 500],
     likes: 0,
-    category: "bread");
+    category: "bread");};
 
-var recipe16 = Recipe(
+Recipe Function() recipe16 = () {return Recipe(
     //https://www.olivemagazine.com/recipes/sticky-honey-cakes/
     name: "Sticky Honey Cakes",
     description:
@@ -334,9 +334,9 @@ var recipe16 = Recipe(
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [200, 2, 100, 0, 300],
     likes: 0,
-    category: "cake");
+    category: "cake");};
 
-var recipe17 = Recipe(
+Recipe Function() recipe17 = () {return Recipe(
     //https://www.olivemagazine.com/recipes/baking-and-desserts/salted-maple-brownies/
     name: "Salted Maple Brownies",
     description:
@@ -352,9 +352,9 @@ var recipe17 = Recipe(
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [150, 3, 150, 200, 1500],
     likes: 0,
-    category: "cake");
+    category: "cake");};
 
-var recipe18 = Recipe(
+Recipe Function() recipe18 = () {return Recipe(
     //https://www.olivemagazine.com/recipes/coffee-and-walnut-cupcakes/
     name: "Coffee and Walnut Cupcakes",
     description: "Coffee and walnut cake is a teatime favourite. ",
@@ -371,9 +371,9 @@ var recipe18 = Recipe(
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [200, 1, 100, 0, 600],
     likes: 0,
-    category: "cupcake");
+    category: "cupcake");};
 
-var recipe19 = Recipe(
+Recipe Function() recipe19 = () {return Recipe(
     //https://www.thespruceeats.com/vanilla-muffins-3058482
     name: "Perfect Vanilla Muffins",
     description:
@@ -393,9 +393,9 @@ var recipe19 = Recipe(
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [200, 2, 100, 0, 900],
     likes: 0,
-    category: "muffin");
+    category: "muffin");};
 
-var recipe20 = Recipe(
+Recipe Function() recipe20 = () {return Recipe(
     //https://www.delish.com/cooking/recipe-ideas/a32936759/banana-nut-muffins-recipe/
     name: "Banana Nut Muffins",
     description:
@@ -411,29 +411,29 @@ var recipe20 = Recipe(
     ingredients: [flour, egg, butter, chocolate, milk],
     ingredientsQ: [200, 2, 200, 0, 1000],
     likes: 0,
-    category: "muffin");
+    category: "muffin");};
 
 List<Recipe> getRecipes() {
   return <Recipe>[
-    recipe1,
-    recipe2,
-    recipe3,
-    recipe4,
-    recipe5,
-    recipe6,
-    recipe7,
-    recipe8,
-    recipe9,
-    recipe10,
-    recipe11,
-    recipe12,
-    recipe13,
-    recipe14,
-    recipe15,
-    recipe16,
-    recipe17,
-    recipe18,
-    recipe19,
-    recipe20
+    recipe1(),
+    recipe2(),
+    recipe3(),
+    recipe4(),
+    recipe5(),
+    recipe6(),
+    recipe7(),
+    recipe8(),
+    recipe9(),
+    recipe10(),
+    recipe11(),
+    recipe12(),
+    recipe13(),
+    recipe14(),
+    recipe15(),
+    recipe16(),
+    recipe17(),
+    recipe18(),
+    recipe19(),
+    recipe20()
   ];
 }
