@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^0.1.2
 
 dev_dependencies:
+  flutter_launcher_icons: "^0.8.0"
   flutter_test:
     sdk: flutter
   like_button: ^1.0.4
@@ -97,3 +98,4 @@ flutter:
         - asset: fonts/Fryo.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.io/custom-fonts/#from-packages
+
